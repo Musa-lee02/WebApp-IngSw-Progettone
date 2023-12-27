@@ -1,1 +1,58 @@
-<p>accedi works!</p>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel = "stylesheet" href = "">
+  <title>Accedi/Registrati</title>
+</head>
+
+<body>
+  <div class="container" id="container">
+      <div class="form-container sign-up">
+          <form>
+              <h1>Crea un account</h1>
+              <div class="social-icons">
+                  <a href="#" class="icon">
+                    <i class="fa-brands fa-google"></i>
+                  </a>
+              </div>
+                <span>o usa la tua email per la registrazione</span>
+                  <input type="text" placeholder="Nome" />
+                  <input type="text" placeholder="Cognome" />
+                  <input type="email" placeholder="Email" />
+                  <input type="password" placeholder="Password" />
+              <button>Registrati</button>
+          </form>
+      </div>
+    <div class="form-container sign-in">
+        <form>
+            <h1>Accedi</h1>
+              <div class="social-icons">
+                  <a href="#" class="icon">
+                    <i class="fa-brands fa-google"></i>
+                  </a>
+              </div>
+                <span>o usa la tua email per la registrazione</span>
+                  <input type="email" placeholder="Email" />
+                  <input type="password" placeholder="Password" />
+              <a href="#">Hai dimenticato la password?</a>
+              <button>Accedi</button>
+        </form>
+    </div>
+    <div class="toggle-container">
+        <div class="toggle">
+          <div class="toggle-panel toggle-left">
+              <h1>Bentornato!</h1>
+              <p>Registrati per poter accedere a tutti i nostri servizi</p>
+              <button class="hidden" id="login">Registrati</button>
+          </div>
+          <div class="toggle-panel toggle-right">
+              <h1>Benvenuto</h1>
+              <p>Registrati per poter accedere a tutti i nostri servizi</p>
+              <button class="hidden" id="register">Registrati</button>
+          </div>
+        </div>
+    </div>
+  </div>
+  <script src="../src/assets/JS/accedi.js"></script>
+<script src="assets/JS/accedi.js"></script>
+</body>
