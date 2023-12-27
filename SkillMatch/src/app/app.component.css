@@ -1,13 +1,40 @@
 
+.home-v4 .primary-content .main-search .main-search-container .main-search-tool .search form .home-search-form-container .btn {
+    -webkit-appearance: unset;
+    -moz-appearance: unset;
+    appearance: unset;
+    border: unset;
+    padding: unset;
+    background-color: unset;
+}
 
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
   
-    background-image: url("../assets/sfondo.jpg");
-    background-size:cover;
+    /*background-image: url("../assets/sfondo.jpg");
     
+    background-repeat: no-repeat;*/
+}
+
+
+.background-image {
+    width: 100%;
+    height:90%;
     
+}
+
+.semicerchio {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    z-index: 1; /* Imposta uno z-index superiore per sovrapporre l'immagine sopra l'altra */
+}
+.centered{
+    position: absolute;
+    top: 50%;
+    left: 30%;
 }
 
 ul {
@@ -42,23 +69,16 @@ li a {
     font-size: 20px;
 }
 
-
-
-.centered{
-    display: inline-flex;
-    height: 60%;
-    width: 100%;
-    justify-content:center;
-    align-items: flex-start;
-    margin-top: 7%;
+.vetrina{
+    display: flex;
+    justify-content: center;
+    
 }
+
+
+
 .container{
-    height: 100%;
-}
-
-.semicerchio{
-
-    float: left;
+    height: 90%;
 }
 mat-form-field {
 
