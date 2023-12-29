@@ -16,6 +16,7 @@ import { ServizioAnnunciService } from './servizio-annunci.service';
 import { HomeComponent } from './component/home/home.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { EsploraComponent } from './component/esplora/esplora.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CardsVetrinaComponent,
     HomeComponent,
     NavBarComponent,
+    EsploraComponent,
   ],
   imports: [
     BrowserModule,
