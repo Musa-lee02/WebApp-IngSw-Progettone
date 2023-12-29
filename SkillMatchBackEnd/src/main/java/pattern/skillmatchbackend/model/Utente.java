@@ -12,75 +12,75 @@ public abstract class Utente {
     private String citta;
     private String cap;
 
-    void setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    void setNome(String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    String getNome() {
+    public String getNome() {
         return nome;
     }
 
-    void setCognome(String cognome) {
+    public void setCognome(String cognome) {
         this.cognome = cognome;
     }
 
-    String getCognome() {
+    public String getCognome() {
         return cognome;
     }
 
-    void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    void setIndirizzo(String indirizzo) {
+    public void setIndirizzo(String indirizzo) {
         this.indirizzo = indirizzo;
     }
 
-    String getIndirizzo() {
+    public String getIndirizzo() {
         return indirizzo;
     }
 
-    void setNumero_civico(String numero_civico) {
+    public void setNumero_civico(String numero_civico) {
         this.numero_civico = numero_civico;
     }
 
-    String getNumero_civico() {
+    public String getNumero_civico() {
         return numero_civico;
     }
 
-    void setCitta(String citta) {
+    public void setCitta(String citta) {
         this.citta = citta;
     }
 
-    String getCitta() {
+    public String getCitta() {
         return citta;
     }
 
-    void setCap(String cap) {
+    public void setCap(String cap) {
         this.cap = cap;
     }
 
-    String getCap() {
+    public String getCap() {
         return cap;
     }
 }

@@ -1,10 +1,6 @@
 package pattern.skillmatchbackend.persistenza;
 
-import pattern.skillmatchbackend.persistenza.dao.AmbitiDao;
-import persistenza.dao.CustomerDao;
-import persistenza.dao.postgres.JobAdvertisementDaoPostgres;
-import persistenza.dao.postgres.CustomerDaoPostgres;
-import persistenza.dao.postgres.TransactionDaoPostgres;
+import pattern.skillmatchbackend.persistenza.dao.ClienteDao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -32,8 +28,8 @@ public class DBManager {
         return con;
     }
 
-    public AmbitiDao
-
-
+    public ClienteDao getUtenteDao(){
+        return new ClienteDao(getConnection());
+    }
 
 }
