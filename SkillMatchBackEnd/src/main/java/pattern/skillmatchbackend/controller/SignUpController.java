@@ -14,18 +14,11 @@ public class SignUpController {
     @PostMapping("/user-signup")
     public String signup(@RequestBody Cliente cliente){
 
-        DBManager.getInstance()
 
-
-        Utente utente = DBManager.getInstance().getUtenteDao().findByPrimaryKey(username);
-
-        Cliente cliente1 = new Cliente();
-
-
-
-
-        ClienteDao clienteDao =
-
+        Utente utente = DBManager.getInstance().getUtenteDao().findByUsername(cliente.getUsername());
+        if(utente != null){
+            return "Username già in uso";
+        }
 
         return "OK";
     }

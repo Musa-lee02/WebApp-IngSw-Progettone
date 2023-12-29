@@ -1,8 +1,8 @@
 package pattern.skillmatchbackend.model.email;
 
-import org.apache.catalina.Authenticator;
-import org.apache.catalina.Session;
-import org.apache.logging.log4j.message.Message;
+//import org.apache.catalina.Authenticator;
+//import org.apache.catalina.Session;
+//import org.apache.logging.log4j.message.Message;
 /*
 import java.net.PasswordAuthentication;
 import java.util.Properties;

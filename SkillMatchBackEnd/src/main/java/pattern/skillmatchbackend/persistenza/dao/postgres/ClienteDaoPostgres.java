@@ -26,22 +26,30 @@ public class ClienteDaoPostgres implements ClienteDao {
     public Cliente findByUsername(String username) {
 
         Cliente cliente = null;
-        String query = "SELECT username FROM cliente where username = ?";
+        String query = "SELECT * FROM cliente where username = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
             ResultSet rs = st.executeQuery();
 
-
-
+            if (rs.next()) {
+                cliente = new Cliente();
+                cliente.setUsername(rs.getString("username"));
+                cliente.setPassword(rs.getString("password"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCognome(rs.getString("cognome"));
+                cliente.setIndirizzo(rs.getString("via"));
+                cliente.setNumero_civico(rs.getString("numero_civico"));
+                cliente.setCap(rs.getString("cap"));
+                cliente.setCitta(rs.getString("citta"));
+            }
         }catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-
-
-        return null;
+        return cliente;
     }
 
     @Override
