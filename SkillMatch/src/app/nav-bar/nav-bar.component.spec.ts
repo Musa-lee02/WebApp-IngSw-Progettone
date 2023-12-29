@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AccediComponent } from './accedi.component';
+import { NavBarComponent } from './nav-bar.component';
 
-describe('AccediComponent', () => {
-  let component: AccediComponent;
-  let fixture: ComponentFixture<AccediComponent>;
+describe('NavBarComponent', () => {
+  let component: NavBarComponent;
+  let fixture: ComponentFixture<NavBarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AccediComponent]
+      declarations: [NavBarComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AccediComponent);
+    fixture = TestBed.createComponent(NavBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
