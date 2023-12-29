@@ -4,7 +4,7 @@ body {
     display: block;
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background-image: url('../assets/sfondo.jpg');
+    background-image: url('../assets/sfondo2.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-color: white;
@@ -12,6 +12,8 @@ body {
 }
 .container{
 
+    display: flex;
+    flex-direction: column;
 }
 .navBar{
     background-color:#5c6bc0 ;
@@ -30,9 +32,11 @@ body {
 .content{
 
     padding-top: 150px;
-    display: block;
+    display: flex;
+    justify-content: center;
 
 }
+
 
 
 ul {
