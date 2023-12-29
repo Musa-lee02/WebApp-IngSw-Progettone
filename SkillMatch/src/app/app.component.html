@@ -1,24 +1,27 @@
 
 <body>
-
   <div class="container">
+    <div class="navBar">
       <ul>
-        <li style="margin-right: 50px;"><a class="active" href="#about" routerLink="Accedi" >Accedi</a></li>
-        <li><a href="#news" routerLink="Info">Info</a></li>
-        <li><a href="#contact" routerLink="Contatti">Contatti</a></li>
-        <li><a href="registrati" [routerLink]="'/Register'"></a> </li>
+        <li style="margin-right: 50px;"><a class="active" href="#" routerLink="Accedi" >Accedi</a></li>
+        <li><a href="#" routerLink="Info">Info  <fa-icon [icon]="arrowIcon"></fa-icon></a>
+          <ul> 
+            <li><a href="#">Tecnologia</a></li>
+            <li><a href="#">Edilizia</a></li>
+            <li><a href="#">Falegnameria</a></li>
+          </ul>
+        </li>
+        <li><a href="#" routerLink="Contatti">Contatti</a></li>
       </ul>
-      <div class="semicerchio">
-        <img src="../assets/semicerchio.png">
-      </div>
 
-
-
-  <div class="centered">
-    <input style="height: 30px; width: 600px;">
-  </div>
+    <img src="../assets/semicerchio.png" style="height: 80%;" >
 
   </div>
-  </body>
+  <div class="content">
+          <router-outlet></router-outlet>
+  </div>
+</div>
+</body> 
 
-  <router-outlet></router-outlet>
+
+ 
