@@ -17,7 +17,7 @@ body{
 .container{
   background-color: #fff;
   border-radius: 30px;
-  box-shadow: 0 5px 15px  rgba(0,0,0,0.35);
+  box-shadow: 0px 30px 60px  rgba(0,0,0,1);
   position: relative;
   overflow: hidden;
   width: 768px;
@@ -89,7 +89,7 @@ body{
 }
 
 .container.active .sign-in{
-  transformj: translateX(100%);
+  transform: translateX(100%);
 }
 
 .sign-up{

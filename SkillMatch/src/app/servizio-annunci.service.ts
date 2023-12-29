@@ -13,8 +13,7 @@ export class ServizioAnnunciService {
   "bred for hunting."},
   {
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
-    descrizione:"cecedccccccccccccccccccccccccccccccc"+
-    "cccccccccccccccccccccccccccccccc"
+    descrizione:"cecedcc"
   }
 ]
   constructor() { }

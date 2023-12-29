@@ -13,6 +13,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { CardsVetrinaComponent } from './cards-vetrina/cards-vetrina.component';
 import { ServizioAnnunciService } from './servizio-annunci.service';
+import { HomeComponent } from './component/home/home.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,8 @@ import { ServizioAnnunciService } from './servizio-annunci.service';
     AccediComponent,
     ContattiComponent,
     CardsVetrinaComponent,
+    HomeComponent,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,8 @@ import { ServizioAnnunciService } from './servizio-annunci.service';
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

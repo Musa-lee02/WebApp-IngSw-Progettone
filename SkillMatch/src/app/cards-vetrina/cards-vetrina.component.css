@@ -4,8 +4,9 @@
     margin: 30px;
   }
 .vetrina{
-    display: flex;
-    justify-content: center;
+  
+  display: flex;
+  justify-content: center;
     
 }
   /*.example-header-image {
