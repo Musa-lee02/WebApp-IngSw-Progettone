@@ -1,6 +1,8 @@
 package pattern.skillmatchbackend.model;
 
-public class Cliente extends Utente{
+import pattern.skillmatchbackend.model.Utente;
+
+public class Cliente extends Utente {
 
 
 
