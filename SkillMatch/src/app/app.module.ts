@@ -17,7 +17,10 @@ import { HomeComponent } from './component/home/home.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EsploraComponent } from './component/esplora/esplora.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,8 +39,12 @@ import { EsploraComponent } from './component/esplora/esplora.component';
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatCardModule,
+    MatInputModule,
     MatButtonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

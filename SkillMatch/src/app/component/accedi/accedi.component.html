@@ -1,50 +1,69 @@
-
-
 <div class="container" #container>
-      <div class="form-container sign-up">
-          <form>
-              <h1>Create Account</h1>
-              <div class="social-icons">
-                  <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-      
-              </div>
-              <span>or use your email for registeration</span>
-              <input type="text" placeholder="Username">
-              <input type="email" placeholder="Email">
-              <input type="password" placeholder="Password">
-              <button>Sign Up</button>
-          </form>
-      </div>
-      <div class="form-container sign-in">
-          <form>
-              <h1>Sign In</h1>
-              <div class="social-icons">
-                  <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                  <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-                  <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
-                  <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
-              </div>
-              <span>or use your email password</span>
-              <input type="email" placeholder="Email">
-              <input type="password" placeholder="Password">
-              <a href="#">Forget Your Password?</a>
-              <button>Sign In</button>
-          </form>
-      </div>
-      <div class="toggle-container">
-          <div class="toggle">
-              <div class="toggle-panel toggle-left">
-                <h1>Benvenuto</h1>
-                <p>Inserisci i tuoi dati personali per registrarti e utilizzare il sito</p>
-                <p>hai gia un account? effettua l'accesso da qui</p>
-                  <button class="hidden" #login (click)="removeActive()">Login</button>
-              </div>
-              <div class="toggle-panel toggle-right">
-                <h1>Benvenuto</h1>
-                <p>Inserisci i tuoi dati personali per usufruire del sito </p>
-                <p>non hai ancora un account? effetua la registrazione da qui</p>
-                  <button class="hidden" #register (click)="addActive()">Registrati</button>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div class="form-container sign-up">
+        <form [formGroup]="credenzialiForm " (ngSubmit)="onSubmit() ">
+            <h1>Crea Account</h1>
+            <div class="social-icons">
+                <fa-icon [icon]="googleIcon" size="2x"></fa-icon>
+            </div>
+            <span>or use your email for registeration</span>
+            <input type="text" placeholder="Username" formControlName="username">
+            <input type="email" placeholder="Email" formControlName="email">
+            <input type="password" placeholder="Password" formControlName="password">
+            <input type="password" placeholder="Conferma Password" formControlName="confermaPassword">
+            <button type="submit" [disabled]="!credenzialiForm.valid">Sign Up</button>
+        </form>
+    </div>
+    
+    <div class="form-container sign-in">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit() ">
+            <h1>Accedi</h1>
+            <div class="social-icons">
+                <fa-icon [icon]="googleIcon" size="2x"></fa-icon>
+            </div>
+            <span>or use your email password</span>
+            <input type="email" placeholder="Email" formControlName="email">
+            <input type="password" placeholder="Password" formControlName="password">
+            <a href="#">Forget Your Password?</a>
+            <button type="submit" [disabled]="!loginForm.valid">Sign In</button>
+        </form>
+    </div>
+
+
+    
+    <div class="form-container generalitaForm">
+        <form [formGroup]="generalitaForm">
+            <fa-icon [icon]="arrowLeft" (click)="clickArrow()"></fa-icon>
+            <h1>Registrati</h1>
+            <input  placeholder="Nome" formControlName="nome">
+            <input placeholder="Cognome" formControlName="cognome">
+            <mat-form-field style="margin:20px">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <button type="submit" [disabled]="!generalitaForm.valid">Sign In</button>
+        </form>
+    </div>
+
+    
+
+
+    <div class="toggle-container">
+        <div class="toggle">
+            <div class="toggle-panel toggle-left">
+              <h1>Benvenuto</h1>
+              <p>Inserisci i tuoi dati personali per registrarti e utilizzare il sito</p>
+              <p>hai gia un account? effettua l'accesso da qui</p>
+                <button class="hidden" #login (click)="removeActive()">Login</button>
+            </div>
+            <div class="toggle-panel toggle-right">
+              <h1>Benvenuto</h1>
+              <p>Inserisci i tuoi dati personali per usufruire del sito </p>
+              <p>non hai ancora un account? effetua la registrazione da qui</p>
+                <button class="hidden" #register (click)="addActive()">Registrati</button>
+            </div>
+        </div>
+    </div>
+</div>
