@@ -3,7 +3,9 @@
   <div class="container">
     <div class="navBar">
       <ul>
+        <li *ngIf="isHome"><a routerLink="Home">Home</a></li>
         <li style="margin-right: 50px;"><a  href="#" routerLink="Accedi" >Accedi</a></li>
+
         <li><a href="#" routerLink="Annuncio">Effettua Annuncio</a></li>
         
         <li><a style="pointer-events: none; cursor: default;">Esplora   <fa-icon [icon]="arrowIcon"></fa-icon></a>

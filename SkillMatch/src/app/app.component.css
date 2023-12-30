@@ -15,6 +15,8 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+
 .navBar{
     background-color:#5c6bc0 ;
     border-bottom-left-radius: 100px;
@@ -27,7 +29,7 @@ body {
 }
 
 .background {
-     /* Percorso dell'immagine di sfondo */
+
     width: 100%;
   }
 .content{

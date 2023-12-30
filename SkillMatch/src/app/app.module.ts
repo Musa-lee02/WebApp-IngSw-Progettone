@@ -21,6 +21,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import { LoginComponentComponent } from './component/accedi/login-component/login-component.component';
+import { CredenzialiComponentComponent } from './component/accedi/credenziali-component/credenziali-component.component';
+import {MatSelectModule} from '@angular/material/select';
+import {FormsModule} from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +35,8 @@ import {MatInputModule} from '@angular/material/input';
     HomeComponent,
     NavBarComponent,
     EsploraComponent,
+    LoginComponentComponent,
+    CredenzialiComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +50,9 @@ import {MatInputModule} from '@angular/material/input';
     FontAwesomeModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

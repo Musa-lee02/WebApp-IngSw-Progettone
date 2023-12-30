@@ -1,18 +1,4 @@
 <div class="container" #container>
-    <div class="form-container sign-up">
-        <form [formGroup]="credenzialiForm " (ngSubmit)="onSubmit() ">
-            <h1>Crea Account</h1>
-            <div class="social-icons">
-                <fa-icon [icon]="googleIcon" size="2x"></fa-icon>
-            </div>
-            <span>or use your email for registeration</span>
-            <input type="text" placeholder="Username" formControlName="username">
-            <input type="email" placeholder="Email" formControlName="email">
-            <input type="password" placeholder="Password" formControlName="password">
-            <input type="password" placeholder="Conferma Password" formControlName="confermaPassword">
-            <button type="submit" [disabled]="!credenzialiForm.valid">Sign Up</button>
-        </form>
-    </div>
     
     <div class="form-container sign-in">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit() ">
@@ -24,29 +10,105 @@
             <input type="email" placeholder="Email" formControlName="email">
             <input type="password" placeholder="Password" formControlName="password">
             <a href="#">Forget Your Password?</a>
-            <button type="submit" [disabled]="!loginForm.valid">Sign In</button>
+            <button type="submit"  [ngStyle]="{'background': loginForm.valid ? '#512da8':'grey'}">Accedi</button>
+        </form>
+    </div>
+
+    <div class="form-container sign-up">
+        <form [formGroup]="credenzialiForm " (ngSubmit)="onSubmit() ">
+            <h1>Crea Account</h1>
+            <div class="social-icons">
+                <fa-icon [icon]="googleIcon" size="2x"></fa-icon>
+            </div>
+            <span>or use your email for registeration</span>
+            <input type="text" placeholder="Username" formControlName="username">
+            <input type="email" placeholder="Email" formControlName="email">
+            <input type="password" placeholder="Password" formControlName="password">
+            <input type="password" placeholder="Conferma Password" formControlName="confermaPassword">
+            <button type="submit"  [ngStyle]="{'background': credenzialiForm.valid ? '#512da8':'grey'}">Registrati</button>
         </form>
     </div>
 
 
-    
     <div class="form-container generalitaForm">
-        <form [formGroup]="generalitaForm">
+        <form [formGroup]="generalitaForm" (ngSubmit)="onSubmit()">
             <fa-icon [icon]="arrowLeft" (click)="clickArrow()"></fa-icon>
             <h1>Registrati</h1>
             <input  placeholder="Nome" formControlName="nome">
             <input placeholder="Cognome" formControlName="cognome">
             <mat-form-field style="margin:20px">
                 <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker">
+                <input matInput [matDatepicker]="picker" formControlName="dataNascita">
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-            <button type="submit" [disabled]="!generalitaForm.valid">Sign In</button>
+            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}">Registrati</button>
         </form>
     </div>
 
+
+    <div class="form-container ambitoClass">
+       
+       
+        <form [formGroup]="ambitoForm">
+           
+            <div class="contenitore">
+                <div class="contenitoreB" style="margin-top: 10px;">
+                    <h1 style="margin-right: 10px;">Registrati   </h1>
+                    <fa-icon [icon]="arrowLeft" (click)="clickArrow()"></fa-icon>
+                </div>
+            <div class="contenitoreA">
+            <div>
+                <h4>Foto Profilo(opzionale)</h4>
+                <img [src]="url" height="50px" width="50px" style="margin-right: 10px;">
+                <input type="file" (change)="onSelectFile($event)" style="width: 250px">
+            </div>
+
+            <div style="margin-right: 90px;">
+            <h4>zona di competenza</h4>
+                <mat-form-field>
+                <mat-label>State</mat-label>
+                    <mat-select>
+                    <mat-option>None</mat-option>
+                        @for (state of states; track state) {
+                            <mat-option [value]="state">{{state}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            </div>
+          
+            <div class="contenitoreA">
+            <div>
+                <h4>ambito di lavoro</h4>
+                <mat-form-field>
+                <mat-label>State</mat-label>
+                <mat-select>
+                <mat-option>None</mat-option>
+                @for (state of states; track state) {
+                    <mat-option [value]="state">{{state}}</mat-option>
+                }
+                </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <h4>Descrizione sulle tue abilita (opzionale) </h4>    
+                <mat-form-field>
+                <mat-label >Textarea</mat-label>
+                <textarea matInput style></textarea>
+                </mat-form-field>
+            </div>
+                
+            </div>
+            <div class="contenitoreB" style="margin-bottom: 5px;">
+                <button type="submit" [ngStyle]="{'background': ambitoForm.valid ? '#512da8':'grey'}"> Registrati</button>
+            </div>
+        
+        </div>
+        </form>
+  
+    </div>
     
 
 
