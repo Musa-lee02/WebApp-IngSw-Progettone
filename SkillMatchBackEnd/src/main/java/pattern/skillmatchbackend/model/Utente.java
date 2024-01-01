@@ -12,6 +12,8 @@ public abstract class Utente {
     private String citta;
     private String cap;
 
+    private String imgUrl;
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -82,5 +84,13 @@ public abstract class Utente {
 
     public String getCap() {
         return cap;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
     }
 }

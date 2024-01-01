@@ -1,30 +1,98 @@
 package pattern.skillmatchbackend.controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.apache.el.util.Validation;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pattern.skillmatchbackend.model.Cliente;
+import pattern.skillmatchbackend.model.Lavoratore;
 import pattern.skillmatchbackend.model.Utente;
+import pattern.skillmatchbackend.model.ValidationService;
 import pattern.skillmatchbackend.persistenza.DBManager;
 import pattern.skillmatchbackend.persistenza.dao.ClienteDao;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 @RestController
+@RequestMapping("/lavoratore/signup")
 public class SignUpController {
 
-    @PostMapping("/Cliente/signup/passo1")
-    public ResponseEntity<?> registerStep1(@RequestBody Cliente cliente, HttpSession session) {
-        ClienteDao clienteDao = DBManager.getInstance().getClienteDao();
-        Cliente cliente1 = clienteDao.findByUsername(cliente.getUsername());
-        System.out.println("cliente1: " + cliente1);
-        if (cliente1 != null) {
+    @PostMapping("/passo1")
+    public ResponseEntity<?> registerStep1(@RequestBody Lavoratore lavoratore, HttpSession session) {
+        if(ValidationService.validateEmail(lavoratore.getEmail())) {
+            return ResponseEntity.badRequest().body("Email non valida");
+        }
+
+        if(isEmailTaken(lavoratore.getEmail())) {
+            return ResponseEntity.badRequest().body("Email già in uso");
+        }
+
+        if(isUsernameTaken(lavoratore.getUsername())) {
             return ResponseEntity.badRequest().body("Username già in uso");
         }
-        //clienteDao.save(cliente);
-        return ResponseEntity.ok().body("Cliente registrato");
+
+        if(ValidationService.validatePasswordUpperLetter(lavoratore.getPassword())) {
+            return ResponseEntity.badRequest().body("Password non valida");
+        }
+
+        if(ValidationService.validatePasswordNumber(lavoratore.getPassword())) {
+            return ResponseEntity.badRequest().body("Password non valida");
+        }
+
+        if(ValidationService.validatePasswordSpecialChar(lavoratore.getPassword())) {
+            return ResponseEntity.badRequest().body("Password non valida");
+        }
+
+        if(ValidationService.validatePasswordLength(lavoratore.getPassword())) {
+            return ResponseEntity.badRequest().body("Password non valida");
+        }
+
+        session.setAttribute("lavoratore1", lavoratore);
+        return ResponseEntity.ok().build();
+    }
+
+     @PostMapping("/passo2")
+    public ResponseEntity<?> registerStep2(@RequestBody Lavoratore lavoratore, HttpSession session) {
+
+        session.setAttribute("lavoratore2", lavoratore);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/passo3")
+    public ResponseEntity<?> registerStep3(HttpSession session) {
+        Lavoratore lavoratore = (Lavoratore) session.getAttribute("lavoratore1");
+
+        String email = lavoratore.getEmail();
+
+        String confirmationToken = tokenService.generateConfirmationToken(email);
+
+        String confirmationUrl = "http://localhost:8080/lavoratore/signup/confirm?token=" + confirmationToken;
+
+
+
+
+
     }
 
 
+
+
+
+    private boolean isEmailTaken(String email) {
+        if (email.equals("abc@gmail.com")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isUsernameTaken(String username) {
+        if (username.equals("abc")){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
+
