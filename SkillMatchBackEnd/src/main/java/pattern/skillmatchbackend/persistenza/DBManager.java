@@ -1,6 +1,7 @@
 package pattern.skillmatchbackend.persistenza;
 
 import pattern.skillmatchbackend.persistenza.dao.ClienteDao;
+import pattern.skillmatchbackend.persistenza.dao.postgres.ClienteDaoPostgres;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,7 +21,7 @@ public class DBManager {
     public Connection getConnection(){
         if (con == null){
             try {
-                con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/SkillMatch", "postgres", "postgres");
+                con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "postgres");
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -28,8 +29,8 @@ public class DBManager {
         return con;
     }
 
-    public ClienteDao getUtenteDao(){
-        return new ClienteDao(getConnection());
+    public ClienteDao getClienteDao(){
+        return new ClienteDaoPostgres(getConnection());
     }
 
 }
