@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ServizioAnnunciService } from './servizio-annunci.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -10,8 +10,11 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './app.component.css'
 
 })
-export class AppComponent{
+export class AppComponent implements AfterViewChecked{
 
+
+  constructor(private router: Router){}
+  
   arrowIcon= faArrowDown
   title = 'SkillMatch';
   sizeAnnunci:number=0;
@@ -20,6 +23,18 @@ export class AppComponent{
   
   getRange(sizeAnnunci: number){
     return this.sizeAnnunci
+  }
+
+    
+  ngAfterViewChecked(): void {
+    
+   
+    if(this.router.url==="/Home"){
+      this.isHome=false
+    }
+    else{
+      this.isHome=true
+    }
   }
 
 }

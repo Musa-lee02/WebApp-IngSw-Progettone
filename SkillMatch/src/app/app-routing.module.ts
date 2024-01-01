@@ -5,12 +5,14 @@ import { ContattiComponent } from './component/contatti/contatti.component';
 import { AppComponent } from './app.component';
 import { AccediComponent } from './component/accedi/accedi.component';
 import { HomeComponent } from './component/home/home.component';
+import { EsploraComponent } from './component/esplora/esplora.component';
 
 const routes: Routes = [
 { path :'', pathMatch:'full', redirectTo:'/Home'},
  {path: 'Home', component: HomeComponent},
- {path: 'Info', component: InfoComponent},
- {path: 'Contatti', component: ContattiComponent},
+ {path: 'Annuncio', component: InfoComponent },
+ {path: 'Esplora', component: EsploraComponent},
+ {path: 'Esplora/:ambito', component: EsploraComponent},
  {path: 'Accedi', component: AccediComponent}
 ];
 
