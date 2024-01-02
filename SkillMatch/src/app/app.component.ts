@@ -13,28 +13,36 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 export class AppComponent implements AfterViewChecked{
 
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private service: ServizioAnnunciService){}
   
   arrowIcon= faArrowDown
   title = 'SkillMatch';
   sizeAnnunci:number=0;
   isHome:boolean=false;
   linkHome:String="http://localhost:4200/Home"
-  
-  getRange(sizeAnnunci: number){
-    return this.sizeAnnunci
-  }
 
-    
+  
   ngAfterViewChecked(): void {
     
    
     if(this.router.url==="/Home"){
-      this.isHome=false
+      this.isHome=true
+      
     }
     else{
-      this.isHome=true
+      this.isHome=false
     }
   }
+
+  getRange(sizeAnnunci: number){
+    return this.sizeAnnunci
+  }
+
+  setLavoratore(bool: boolean){
+   
+    this.service.setlavoratoreBool(bool);
+
+  }
+
 
 }
