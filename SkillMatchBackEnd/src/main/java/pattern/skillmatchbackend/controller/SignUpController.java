@@ -65,14 +65,11 @@ public class SignUpController {
 
         String email = lavoratore.getEmail();
 
-        String confirmationToken = tokenService.generateConfirmationToken(email);
+        //String confirmationToken = tokenService.generateConfirmationToken(email);
 
-        String confirmationUrl = "http://localhost:8080/lavoratore/signup/confirm?token=" + confirmationToken;
+        //String confirmationUrl = "http://localhost:8080/lavoratore/signup/confirm?token=" + confirmationToken;
 
-
-
-
-
+        return null;
     }
 
 
