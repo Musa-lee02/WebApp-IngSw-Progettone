@@ -62,11 +62,11 @@ public abstract class Utente {
         return indirizzo;
     }
 
-    public void setNumero_civico(String numero_civico) {
+    public void setNumeroCivico(String numero_civico) {
         this.numero_civico = numero_civico;
     }
 
-    public String getNumero_civico() {
+    public String getNumeroCivico() {
         return numero_civico;
     }
 

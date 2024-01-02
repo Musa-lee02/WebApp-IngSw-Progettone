@@ -1,18 +1,10 @@
 package pattern.skillmatchbackend.controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.apache.el.util.Validation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pattern.skillmatchbackend.model.Cliente;
 import pattern.skillmatchbackend.model.Lavoratore;
-import pattern.skillmatchbackend.model.Utente;
 import pattern.skillmatchbackend.model.ValidationService;
-import pattern.skillmatchbackend.persistenza.DBManager;
-import pattern.skillmatchbackend.persistenza.dao.ClienteDao;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 @RestController
 @RequestMapping("/lavoratore/signup")
