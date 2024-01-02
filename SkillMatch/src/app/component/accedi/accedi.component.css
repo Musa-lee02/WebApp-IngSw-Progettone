@@ -24,11 +24,12 @@
   letter-spacing: 0.3px;
   margin: 20px 0;
 }
+
 .container span{
   font-size: 12px;
 }
 .container a{
-  color: #333;
+  color: #ffffff;
   font-size: 13px;
   text-decoration: none;
 }
@@ -56,6 +57,10 @@
 .container button.hidden{
   background-color: transparent;
   border-color: #fff;
+}
+input.ng-invalid.ng-touched{
+  background-color: rgb(233, 71, 71) !important;
+
 }
 
 

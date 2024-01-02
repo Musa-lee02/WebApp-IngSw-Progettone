@@ -16,7 +16,11 @@
 
     <div class="form-container sign-up">
         <form [formGroup]="credenzialiForm " (ngSubmit)="onSubmit() ">
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 40946feee1c3ccf743494f88c61f6a2699f633c4
             <h1 *ngIf="isLavoratore()">Crea Account Lavoratore</h1>
             <h1 *ngIf="!isLavoratore()">Crea Account Cliente</h1>
             <div class="social-icons">
@@ -48,10 +52,17 @@
             <a *ngIf="!isLavoratore()" routerLink="/Annuncio">
             <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}">Registrati</button></a>
             <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="isLavoratore()">Registrati</button>
+<<<<<<< HEAD
 
 
         </form>
 
+=======
+            
+
+        </form>
+        
+>>>>>>> 40946feee1c3ccf743494f88c61f6a2699f633c4
     </div>
 
 

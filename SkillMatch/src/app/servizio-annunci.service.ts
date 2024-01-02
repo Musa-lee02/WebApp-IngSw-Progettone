@@ -56,6 +56,7 @@ export class ServizioAnnunciService {
         annunciFiltrati.push(annuncio)
       }
     }
+<<<<<<< HEAD
 
     if(annunciFiltrati.length>0){
       return annunciFiltrati
@@ -76,3 +77,25 @@ export class ServizioAnnunciService {
 
 
 } 
+=======
+    
+    if(annunciFiltrati.length>0){
+      return annunciFiltrati
+    }
+   
+    
+    return []
+  }
+
+  isLavoratore(){
+    return this.lavoratoreBool;
+  }
+  setlavoratoreBool(bool: boolean){
+    
+    this.lavoratoreBool=bool;
+   
+  }
+
+
+}
+>>>>>>> 40946feee1c3ccf743494f88c61f6a2699f633c4
