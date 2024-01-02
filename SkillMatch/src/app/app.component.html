@@ -1,9 +1,10 @@
 
 <body>
+  
   <div class="full-container">
     <div class="navBar">
       <ul>
-        <li *ngIf="isHome"><a routerLink="Home">Home</a></li>
+        <li *ngIf="!isHome"><a routerLink="Home">Home</a></li>
         <li style="margin-right: 50px;" (click)="setLavoratore(true)"><a  href="#" routerLink="Accedi" >Accedi</a></li>
 
         <li><a routerLink="Annuncio" (click)="setLavoratore(false)">Effettua Annuncio</a></li>

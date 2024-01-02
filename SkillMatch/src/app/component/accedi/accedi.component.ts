@@ -79,6 +79,7 @@ export class AccediComponent implements OnInit, AfterViewChecked {
   arrowLeft=faArrowLeft
   googleIcon=faGoogle
   url=""
+  autenticato=false;
   constructor(private service: ServizioAnnunciService) {}
 
   ngAfterViewChecked(): void {
@@ -153,14 +154,17 @@ export class AccediComponent implements OnInit, AfterViewChecked {
   }
   onSubmit(){
 
-    console.log(this.generalitaForm.valid +"+" +this.credenzialiForm.valid)
     if(this.credenzialiForm.valid){
       this.container?.nativeElement.classList.add('generalita')
       
     }
 
-    if(this.generalitaForm.valid){
+    console.log(this.generalitaForm.valid +" ddd "+ this.isLavoratore(),"  cd"+ this.autenticato)
+    if(this.generalitaForm.valid && this.isLavoratore()){
       this.container?.nativeElement.classList.add('ambito')
+    }
+    else{
+        this.autenticato=true;
     }
   }
 
@@ -182,7 +186,7 @@ export class AccediComponent implements OnInit, AfterViewChecked {
 }
 checkPassword(form : FormGroup):boolean {
 
-    console.log(form.get("password")?.value+" "+form.get("confermaPassword")?.value)
+ 
     if(form.get("password")?.value===form.get("confermaPassword")?.value){
       return true;
     }

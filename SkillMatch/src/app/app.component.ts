@@ -26,10 +26,11 @@ export class AppComponent implements AfterViewChecked{
     
    
     if(this.router.url==="/Home"){
-      this.isHome=false
+      this.isHome=true
+      
     }
     else{
-      this.isHome=true
+      this.isHome=false
     }
   }
 

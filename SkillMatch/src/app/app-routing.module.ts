@@ -7,6 +7,7 @@ import { AccediComponent } from './component/accedi/accedi.component';
 import { HomeComponent } from './component/home/home.component';
 import { EsploraComponent } from './component/esplora/esplora.component';
 import { EffettuaAnnuncioComponent } from './component/effettua-annuncio/effettua-annuncio.component';
+import { ProfiloComponent } from './component/profilo/profilo.component';
 
 const routes: Routes = [
 { path :'', pathMatch:'full', redirectTo:'/Home'},
@@ -14,7 +15,8 @@ const routes: Routes = [
  {path: 'Annuncio', component: EffettuaAnnuncioComponent },
  {path: 'Esplora', component: EsploraComponent},
  {path: 'Esplora/:ambito', component: EsploraComponent},
- {path: 'Accedi', component: AccediComponent}
+ {path: 'Accedi', component: AccediComponent},
+ {path:'Profilo', component: ProfiloComponent}
 ];
 
 @NgModule({
