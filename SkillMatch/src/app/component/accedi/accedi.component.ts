@@ -2,6 +2,7 @@ import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@ang
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { ServizioAnnunciService } from '../../servizio-annunci.service';
 
 
 
@@ -78,7 +79,8 @@ export class AccediComponent implements OnInit, AfterViewChecked {
   arrowLeft=faArrowLeft
   googleIcon=faGoogle
   url=""
-  constructor() {}
+  autenticato=false;
+  constructor(private service: ServizioAnnunciService) {}
 
   ngAfterViewChecked(): void {
 
@@ -139,6 +141,11 @@ export class AccediComponent implements OnInit, AfterViewChecked {
     }
 
   }
+
+  isLavoratore(){
+    
+    return this.service.isLavoratore()
+  }
   clickArrow(){
     
     this.container?.nativeElement.classList.remove('generalita')
@@ -147,14 +154,17 @@ export class AccediComponent implements OnInit, AfterViewChecked {
   }
   onSubmit(){
 
-    console.log(this.generalitaForm.valid +"+" +this.credenzialiForm.valid)
     if(this.credenzialiForm.valid){
       this.container?.nativeElement.classList.add('generalita')
       
     }
 
-    if(this.generalitaForm.valid){
+    console.log(this.generalitaForm.valid +" ddd "+ this.isLavoratore(),"  cd"+ this.autenticato)
+    if(this.generalitaForm.valid && this.isLavoratore()){
       this.container?.nativeElement.classList.add('ambito')
+    }
+    else{
+        this.autenticato=true;
     }
   }
 
@@ -173,5 +183,13 @@ export class AccediComponent implements OnInit, AfterViewChecked {
       this.container.nativeElement.classList.add('active');
   
   }
+}
+checkPassword(form : FormGroup):boolean {
+
+ 
+    if(form.get("password")?.value===form.get("confermaPassword")?.value){
+      return true;
+    }
+    else return false;
 }
 }

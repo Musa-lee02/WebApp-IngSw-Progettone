@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 
 type Annunci ={
-  
+
   img: string
   descrizione: string
   ambito: string
@@ -14,10 +14,12 @@ type Annunci ={
 
 export class ServizioAnnunciService {
 
+
+  private lavoratoreBool :boolean;
   url='https://material.angular.io/assets/img/examples/shiba2.jpg';
 
  
-  
+
   annunci : Annunci[]=[{
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     descrizione:"cecedcc",
@@ -32,6 +34,7 @@ export class ServizioAnnunciService {
   }
   ]
 
+ 
   constructor() { }
 
   annunciGetSize(){
@@ -49,16 +52,27 @@ export class ServizioAnnunciService {
 
       if(annuncio.ambito===ambito){
         inHome=false;
-        
+
         annunciFiltrati.push(annuncio)
       }
     }
 
-    if(inHome){
-      return this.annunci
+    if(annunciFiltrati.length>0){
+      return annunciFiltrati
     }
-    return annunciFiltrati
+
+
+    return []
+  }
+
+  isLavoratore(){
+    return this.lavoratoreBool;
+  }
+  setlavoratoreBool(bool: boolean){
+
+    this.lavoratoreBool=bool;
 
   }
 
-}
+
+} 
