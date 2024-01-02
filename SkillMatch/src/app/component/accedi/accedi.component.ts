@@ -2,6 +2,7 @@ import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@ang
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { ServizioAnnunciService } from '../../servizio-annunci.service';
 
 
 
@@ -78,7 +79,7 @@ export class AccediComponent implements OnInit, AfterViewChecked {
   arrowLeft=faArrowLeft
   googleIcon=faGoogle
   url=""
-  constructor() {}
+  constructor(private service: ServizioAnnunciService) {}
 
   ngAfterViewChecked(): void {
 
@@ -139,6 +140,11 @@ export class AccediComponent implements OnInit, AfterViewChecked {
     }
 
   }
+
+  isLavoratore(){
+    
+    return this.service.isLavoratore()
+  }
   clickArrow(){
     
     this.container?.nativeElement.classList.remove('generalita')
@@ -173,5 +179,13 @@ export class AccediComponent implements OnInit, AfterViewChecked {
       this.container.nativeElement.classList.add('active');
   
   }
+}
+checkPassword(form : FormGroup):boolean {
+
+    console.log(form.get("password")?.value+" "+form.get("confermaPassword")?.value)
+    if(form.get("password")?.value===form.get("confermaPassword")?.value){
+      return true;
+    }
+    else return false;
 }
 }

@@ -8,7 +8,7 @@
             </div>
             <span>or use your email password</span>
             <input type="email" placeholder="Email" formControlName="email">
-            <input type="password" placeholder="Password" formControlName="password">
+            <input type="password" placeholder="Password" formControlName="password" >
             <a href="#">Forget Your Password?</a>
             <button type="submit"  [ngStyle]="{'background': loginForm.valid ? '#512da8':'grey'}">Accedi</button>
         </form>
@@ -16,7 +16,9 @@
 
     <div class="form-container sign-up">
         <form [formGroup]="credenzialiForm " (ngSubmit)="onSubmit() ">
-            <h1>Crea Account</h1>
+            
+            <h1 *ngIf="isLavoratore()">Crea Account Lavoratore</h1>
+            <h1 *ngIf="!isLavoratore()">Crea Account Cliente</h1>
             <div class="social-icons">
                 <fa-icon [icon]="googleIcon" size="2x"></fa-icon>
             </div>
@@ -24,7 +26,7 @@
             <input type="text" placeholder="Username" formControlName="username">
             <input type="email" placeholder="Email" formControlName="email">
             <input type="password" placeholder="Password" formControlName="password">
-            <input type="password" placeholder="Conferma Password" formControlName="confermaPassword">
+            <input type="password" placeholder="Conferma Password"  formControlName="confermaPassword" [ngStyle]="{'background-color':!checkPassword(credenzialiForm)? 'red':'white'}">
             <button type="submit"  [ngStyle]="{'background': credenzialiForm.valid ? '#512da8':'grey'}">Registrati</button>
         </form>
     </div>
@@ -48,9 +50,8 @@
     </div>
 
 
-    <div class="form-container ambitoClass">
-       
-       
+    <div class="form-container ambitoClass" *ngIf="isLavoratore()">
+
         <form [formGroup]="ambitoForm">
            
             <div class="contenitore">
@@ -115,13 +116,17 @@
     <div class="toggle-container">
         <div class="toggle">
             <div class="toggle-panel toggle-left">
-              <h1>Benvenuto</h1>
-              <p>Inserisci i tuoi dati personali per registrarti e utilizzare il sito</p>
+              <h1 *ngIf="isLavoratore()">Benvenuto Professionista</h1>
+              <h1 *ngIf="!isLavoratore()">Benvenuto Cliente</h1>
+              <p>Inserisci i tuoi dati personali per registrarti e utilizzare il sito </p>
+
+              <p *ngIf="isLavoratore()">non sei un professionista? e desideri effetuare solo un annuncio? crea un account cliente nella sezione "Effettua Annuncio"</p>
               <p>hai gia un account? effettua l'accesso da qui</p>
                 <button class="hidden" #login (click)="removeActive()">Login</button>
             </div>
             <div class="toggle-panel toggle-right">
-              <h1>Benvenuto</h1>
+                <h1 *ngIf="isLavoratore()">Benvenuto Professionista</h1>
+                <h1 *ngIf="!isLavoratore()">Benvenuto Cliente</h1>
               <p>Inserisci i tuoi dati personali per usufruire del sito </p>
               <p>non hai ancora un account? effetua la registrazione da qui</p>
                 <button class="hidden" #register (click)="addActive()">Registrati</button>

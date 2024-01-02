@@ -1,12 +1,12 @@
 
 <body>
-  <div class="container">
+  <div class="full-container">
     <div class="navBar">
       <ul>
         <li *ngIf="isHome"><a routerLink="Home">Home</a></li>
-        <li style="margin-right: 50px;"><a  href="#" routerLink="Accedi" >Accedi</a></li>
+        <li style="margin-right: 50px;" (click)="setLavoratore(true)"><a  href="#" routerLink="Accedi" >Accedi</a></li>
 
-        <li><a href="#" routerLink="Annuncio">Effettua Annuncio</a></li>
+        <li><a routerLink="Annuncio" (click)="setLavoratore(false)">Effettua Annuncio</a></li>
         
         <li><a style="pointer-events: none; cursor: default;">Esplora   <fa-icon [icon]="arrowIcon"></fa-icon></a>
           <ul> 
@@ -21,7 +21,7 @@
 
   </div>
   <div class="content">
-          <router-outlet></router-outlet>
+          <router-outlet style="z-index: 0;"></router-outlet>
   </div>
 </div>
 </body> 

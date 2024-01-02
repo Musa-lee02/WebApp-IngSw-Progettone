@@ -57,6 +57,10 @@
   background-color: transparent;
   border-color: #fff;
 }
+input.ng-invalid.ng-touched{
+  background-color: rgb(233, 71, 71) !important;
+
+}
 
 
 

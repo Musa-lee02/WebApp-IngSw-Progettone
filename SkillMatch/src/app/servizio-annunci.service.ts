@@ -14,6 +14,8 @@ type Annunci ={
 
 export class ServizioAnnunciService {
 
+
+  private lavoratoreBool :boolean;
   url='https://material.angular.io/assets/img/examples/shiba2.jpg';
 
  
@@ -32,6 +34,7 @@ export class ServizioAnnunciService {
   }
   ]
 
+ 
   constructor() { }
 
   annunciGetSize(){
@@ -53,12 +56,23 @@ export class ServizioAnnunciService {
         annunciFiltrati.push(annuncio)
       }
     }
-
-    if(inHome){
-      return this.annunci
+    
+    if(annunciFiltrati.length>0){
+      return annunciFiltrati
     }
-    return annunciFiltrati
-
+   
+    
+    return []
   }
+
+  isLavoratore(){
+    return this.lavoratoreBool;
+  }
+  setlavoratoreBool(bool: boolean){
+    
+    this.lavoratoreBool=bool;
+   
+  }
+
 
 }
