@@ -1,5 +1,6 @@
 <div class="container" #container>
-    
+    <div class="contenitoreScelta" #componentScelta *ngIf="doingAccesso()">
+    <app-scelta-utente (mandaSceltaUtente)="onRiceviScelta($event)"></app-scelta-utente></div>
     <div class="form-container sign-in">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit() ">
             <h1>Accedi</h1>
@@ -45,9 +46,12 @@
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-            <a *ngIf="!isLavoratore()" routerLink="/Annuncio">
-            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}">Registrati</button></a>
-            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="isLavoratore()">Registrati</button>
+            
+            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="!isLavoratore() && !doingAccesso()">
+                <a  routerLink="/Annuncio">Registrati</a></button>
+            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="!isLavoratore() && doingAccesso()">
+                    <a  routerLink="/Profilo">Registrati</a></button>
+            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="isLavoratore()"></button>
             
 
         </form>
@@ -57,7 +61,7 @@
 
     <div class="form-container ambitoClass" *ngIf="isLavoratore()">
 
-        <form [formGroup]="ambitoForm">
+        <form [formGroup]="ambitoForm" (ngSubmit)="onSubmit()">
            
             <div class="contenitore">
                 <div class="contenitoreB" style="margin-top: 10px;">
@@ -108,7 +112,7 @@
                 
             </div>
             <div class="contenitoreB" style="margin-bottom: 5px;">
-                <a routerLink="/Profilo"><button type="submit" [ngStyle]="{'background': ambitoForm.valid ? '#512da8':'grey'}"> Registrati</button></a>
+                <button type="submit" [ngStyle]="{'background': ambitoForm.valid ? '#512da8':'grey'}"><a routerLink="/Profilo"> Registrati </a></button>
             </div>
         
         </div>

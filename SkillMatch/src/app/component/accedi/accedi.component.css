@@ -5,7 +5,13 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-
+app-scelta-utente{
+  display:flex;
+  
+}
+.remove app-scelta-utente{
+  display: none;
+}
 .container{
   background-color: #fff;
   border-radius: 30px;

@@ -26,6 +26,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {FormsModule} from '@angular/forms';
 import { EffettuaAnnuncioComponent } from './component/effettua-annuncio/effettua-annuncio.component';
 import { ProfiloComponent } from './component/profilo/profilo.component';
+import { SceltaUtenteComponent } from './component/accedi/scelta-utente/scelta-utente.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,7 @@ import { ProfiloComponent } from './component/profilo/profilo.component';
     EsploraComponent,
        EffettuaAnnuncioComponent,
        ProfiloComponent,
+       SceltaUtenteComponent,
     
   ],
   imports: [

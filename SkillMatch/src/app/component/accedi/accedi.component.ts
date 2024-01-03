@@ -1,8 +1,9 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ComponentFactoryResolver, ComponentRef, ElementRef, NgZone, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { ServizioAnnunciService } from '../../servizio-annunci.service';
+import { SceltaUtenteComponent } from './scelta-utente/scelta-utente.component';
 
 
 
@@ -15,9 +16,7 @@ export class AccediComponent implements OnInit, AfterViewChecked {
   @ViewChild('container') container: ElementRef | undefined;
   @ViewChild('register') registerBtn: ElementRef | undefined;
   @ViewChild('login') loginBtn: ElementRef | undefined;
-
-
-
+  @ViewChild('componentScelta') componentScelta: ElementRef | undefined;
   states: string[] = [
     'Alabama',
     'Alaska',
@@ -72,6 +71,7 @@ export class AccediComponent implements OnInit, AfterViewChecked {
   ];
 
   
+  
   generalitaForm : FormGroup
   credenzialiForm : FormGroup
   loginForm:FormGroup
@@ -79,25 +79,36 @@ export class AccediComponent implements OnInit, AfterViewChecked {
   arrowLeft=faArrowLeft
   googleIcon=faGoogle
   url=""
-  autenticato=false;
-  constructor(private service: ServizioAnnunciService) {}
+  
+  constructor(private service: ServizioAnnunciService,) {
+
+    
+  }
 
   ngAfterViewChecked(): void {
 
 
-    if (this.loginForm.valid || this.credenzialiForm.valid){
-
-      this.container?.nativeElement.classList.add('attivaBottone')
-    }
-    else{
-
-      this.container?.nativeElement.classList.remove('attivaBottone')
-    }
-
   }
+
+  /*setTrue(){
+
+    console.log(this.credenzialiForm.valid+ "+"+ this.generalitaForm.valid +"+"+ this.ambitoForm.valid)
+    if (this.credenzialiForm.valid && this.generalitaForm.valid && !this.isLavoratore() ){
+
+      this.service.setAutenticato()
+      return
+    }
+
+    if (this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid){
+      
+      this.service.setAutenticato()
+      return
+    }
+  }*/
 
   ngOnInit(): void {
 
+    
     this.generalitaForm= new FormGroup({
       nome: new FormControl(null, Validators.required),
       cognome: new FormControl(null, Validators.required),
@@ -126,6 +137,8 @@ export class AccediComponent implements OnInit, AfterViewChecked {
       ambito: new FormControl(null,Validators.required),
     })
 
+    
+
 
   }
 
@@ -146,26 +159,43 @@ export class AccediComponent implements OnInit, AfterViewChecked {
     
     return this.service.isLavoratore()
   }
+
+
+  onRiceviScelta(scelta: string){
+
+    
+    if(scelta==="cliente"){
+      this.service.setlavoratoreBool(false)
+    }
+    else
+      this.service.setlavoratoreBool(true);
+
+      this.componentScelta?.nativeElement.classList.add('remove')
+
+  }
   clickArrow(){
     
     this.container?.nativeElement.classList.remove('generalita')
     this.container?.nativeElement.classList.remove('ambito')
 
   }
+
+  doingAccesso(){
+
+    return this.service.doingAccesso
+  }
   onSubmit(){
+
 
     if(this.credenzialiForm.valid){
       this.container?.nativeElement.classList.add('generalita')
       
     }
 
-    console.log(this.generalitaForm.valid +" ddd "+ this.isLavoratore(),"  cd"+ this.autenticato)
     if(this.generalitaForm.valid && this.isLavoratore()){
       this.container?.nativeElement.classList.add('ambito')
     }
-    else{
-        this.autenticato=true;
-    }
+    
   }
 
   removeActive() {

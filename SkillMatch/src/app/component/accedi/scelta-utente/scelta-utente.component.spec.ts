@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegisterComponent } from './register.component';
+import { SceltaUtenteComponent } from './scelta-utente.component';
 
-describe('RegisterComponent', () => {
-  let component: RegisterComponent;
-  let fixture: ComponentFixture<RegisterComponent>;
+describe('SceltaUtenteComponent', () => {
+  let component: SceltaUtenteComponent;
+  let fixture: ComponentFixture<SceltaUtenteComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RegisterComponent]
+      declarations: [SceltaUtenteComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(RegisterComponent);
+    fixture = TestBed.createComponent(SceltaUtenteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

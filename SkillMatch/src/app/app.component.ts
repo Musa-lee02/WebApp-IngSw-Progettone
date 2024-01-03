@@ -2,6 +2,7 @@ import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChi
 import { ServizioAnnunciService } from './servizio-annunci.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -42,6 +43,13 @@ export class AppComponent implements AfterViewChecked{
    
     this.service.setlavoratoreBool(bool);
 
+  }
+  setDoingAccesso(bool:boolean){
+    this.service.doingAccesso=bool;
+  }
+  isAutenticato(){
+ 
+    return this.service.isAutenticato()
   }
 
 

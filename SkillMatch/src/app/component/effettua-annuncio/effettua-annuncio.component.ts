@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ServizioAnnunciService } from '../../servizio-annunci.service';
 
 @Component({
   selector: 'app-effettua-annuncio',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class EffettuaAnnuncioComponent {
 
+  constructor(private service: ServizioAnnunciService){
+
+  }
+
+  isAutenticato(){
+    return this.service.isAutenticato()
+  }
 }
