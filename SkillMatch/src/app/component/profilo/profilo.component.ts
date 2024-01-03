@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ServizioAnnunciService } from '../../servizio-annunci.service';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profilo',
@@ -8,6 +9,7 @@ import { ServizioAnnunciService } from '../../servizio-annunci.service';
 })
 export class ProfiloComponent {
 
+  pencil=faPencil
   constructor(private service: ServizioAnnunciService){
 
     service.setAutenticato()

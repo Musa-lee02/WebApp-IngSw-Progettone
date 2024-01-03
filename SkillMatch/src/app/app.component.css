@@ -57,7 +57,7 @@ body {
 
 
 
-ul {
+.navBar ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -67,7 +67,7 @@ ul {
 
 }
 
-ul ul{
+.navBar ul ul{
     
     display:none;
     position: absolute;
@@ -78,17 +78,17 @@ ul ul{
     width: 200%;
 
 }
-ul li {
+.navBar ul li {
 
     display: inline-block;
     position: relative;
 }
 
-ul ul li:last-child{
+.navBar ul ul li:last-child{
     border: none;
 }
 
-li {
+.navBar li {
     float: right;
     padding: 10px;
    
