@@ -4,7 +4,7 @@ import { ServizioAnnunciService } from '../../servizio-annunci.service';
 @Component({
   selector: 'app-profilo',
   templateUrl: './profilo.component.html',
-  styleUrl: './profilo.component.css'
+  styleUrls: ['./profilo.component.css','../../app.component.css']
 })
 export class ProfiloComponent {
 

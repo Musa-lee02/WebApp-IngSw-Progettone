@@ -1,5 +1,8 @@
 
 
+.bodyNone{
+    background: none;
+}
 body {
     display: block;
     margin: 0;
@@ -10,7 +13,7 @@ body {
     background-color: white;
     height: 80%;
 }
-.container{
+.full-container{
 
     scroll-behavior: smooth;
     display: flex;
@@ -36,12 +39,20 @@ body {
 
     width: 100%;
   }
-.content{
+.contentSfondo{
 
     padding-top: 150px;
     display: flex;
     justify-content: center;
 
+}
+.content{
+
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
 }
 
 

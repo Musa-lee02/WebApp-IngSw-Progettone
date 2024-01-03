@@ -26,7 +26,7 @@ export class AppComponent implements AfterViewChecked{
   ngAfterViewChecked(): void {
     
    
-    if(this.router.url==="/Home"){
+    if(this.router.url!=="/Profilo" && this.router.url!=="/Annuncio" ){
       this.isHome=true
       
     }

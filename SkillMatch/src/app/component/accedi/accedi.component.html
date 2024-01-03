@@ -51,7 +51,7 @@
                 <a  routerLink="/Annuncio">Registrati</a></button>
             <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="!isLavoratore() && doingAccesso()">
                     <a  routerLink="/Profilo">Registrati</a></button>
-            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="isLavoratore()"></button>
+            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="isLavoratore()">Registrati</button>
             
 
         </form>

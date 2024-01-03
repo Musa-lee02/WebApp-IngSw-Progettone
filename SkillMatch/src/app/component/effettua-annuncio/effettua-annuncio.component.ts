@@ -4,7 +4,7 @@ import { ServizioAnnunciService } from '../../servizio-annunci.service';
 @Component({
   selector: 'app-effettua-annuncio',
   templateUrl: './effettua-annuncio.component.html',
-  styleUrl: './effettua-annuncio.component.css'
+  styleUrls: ['./effettua-annuncio.component.css','../profilo/profilo.component.css']
 })
 export class EffettuaAnnuncioComponent {
 

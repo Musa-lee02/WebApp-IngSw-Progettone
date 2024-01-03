@@ -1,0 +1,51 @@
+ul{
+    display: flex;
+    justify-content: center;
+}
+ul li{
+
+    padding-right: 25px;
+    padding-left: 25px;
+}
+li a{
+    text-decoration: none;
+    display: block;
+    color: white;
+    padding: 0px 0px !important;
+    cursor:pointer;
+}
+
+.header{
+    border-bottom-left-radius: 200px;
+    border-bottom-right-radius: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 100px;
+    margin-left: 0px;
+    width: 1520px;
+    background-color: black;
+}
+.dashboard{
+    
+    background-color: grey;
+    height: 700px;
+    display:flex;
+    flex-direction: row;
+}
+.leftPart{
+    margin-left: 100px;
+    width: 40%;
+    background-color: red;
+}
+.picProfile{
+    background-color: yellow;
+    width: 100%;
+    height: 50%;
+}
+.rightPart{
+    background-color: green;
+    margin-right: 100px;
+    width: 100%;
+    height: 50%;
+}

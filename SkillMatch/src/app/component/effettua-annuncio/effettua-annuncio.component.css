@@ -1,4 +1,12 @@
-body{
+.dashboard{
+    overflow-y: hidden;
+   
+}
 
-    background-image: none !important;
+.leftPart{
+    height: 600px;
+}
+.rightPart{
+
+    height:600px !important;
 }

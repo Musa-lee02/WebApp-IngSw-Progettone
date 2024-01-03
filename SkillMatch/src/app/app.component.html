@@ -1,5 +1,5 @@
 
-<body>
+<body [ngClass]="{'body': isHome , 'bodyNone' : !isHome}">
   
   <div class="full-container">
     <div class="navBar">
@@ -9,7 +9,7 @@
         <li *ngIf="isAutenticato()"> <img src="../assets/default.jpg" alt="">
           <ul>
             <li><a routerLink="/Profilo">Profilo </a></li>
-            <li><a routerLink="/Annuncio">Pubblica Annuncio</a></li>
+            <li><a routerLink="/Annuncio" (click)="setDoingAccesso(false)">Pubblica Annuncio</a></li>
             <li><a routerLink="/Home">logout</a></li>
           </ul>
         </li>
@@ -28,7 +28,7 @@
     <img src="../assets/semicerchio.png" style="margin: 10px;" >
 
   </div>
-  <div class="content">
+  <div [ngClass]="{'contentSfondo': isHome, 'content':!isHome}">
           <router-outlet style="z-index: 0;"></router-outlet>
   </div>
 </div>
