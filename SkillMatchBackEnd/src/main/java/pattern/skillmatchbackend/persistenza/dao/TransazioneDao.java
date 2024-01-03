@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface TransazioneDao {
 
-    public List<Transazione> findAll();
-    public Transazione findByPrimaryKey(long id);
+    public List<TransazionePagamento> findAll();
+    public TransazionePagamento findByPrimaryKey(long id);
 
-    public void saveOrUpdate(Transazione transazione);
+    public void saveOrUpdate(TransazionePagamento transazione);
 
-    public void delete(Transazione transazione);
+    public void delete(TransazionePagamento transazione);
 
 
 }
