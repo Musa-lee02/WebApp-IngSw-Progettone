@@ -8,7 +8,7 @@ public abstract class Utente {
     private String cognome;
     private String email;
     private String indirizzo;
-    private String numero_civico;
+    private String numeroCivico;
     private String citta;
     private String cap;
 
@@ -63,11 +63,11 @@ public abstract class Utente {
     }
 
     public void setNumeroCivico(String numero_civico) {
-        this.numero_civico = numero_civico;
+        this.numeroCivico = numero_civico;
     }
 
     public String getNumeroCivico() {
-        return numero_civico;
+        return numeroCivico;
     }
 
     public void setCitta(String citta) {

@@ -1,6 +1,13 @@
 package pattern.skillmatchbackend.model;
 
+
+
+import pattern.skillmatchbackend.model.Image;
+
+
 import java.sql.Date;
+
+import java.util.LinkedList;
 import java.util.List;
 
 public class Annuncio {
@@ -10,21 +17,9 @@ public class Annuncio {
     private Date dataDiScadenza;
     private String provinciaAnnuncio;
     private Cliente cliente;
-
-    private List<Ambiti> ambiti;
-
-    public Annuncio() {
-    }
-
-    public Annuncio(Long idAnnuncio, String titolo, String descrizione, Date dataDiScadenza, String provinciaAnnuncio, Cliente cliente, List<Ambiti> ambiti) {
-        this.idAnnuncio = idAnnuncio;
-        this.titolo = titolo;
-        this.descrizione = descrizione;
-        this.dataDiScadenza = dataDiScadenza;
-        this.provinciaAnnuncio = provinciaAnnuncio;
-        this.cliente = cliente;
-        this.ambiti = ambiti;
-    }
+    private Ambito ambito;
+    private Image image = new Image();
+    private List<Proposta> proposteRicevute;
 
     public Long getIdAnnuncio() {
         return idAnnuncio;
@@ -74,22 +69,28 @@ public class Annuncio {
         this.cliente = cliente;
     }
 
-    public List<Ambiti> getAmbiti() {
-        return ambiti;
+    public Ambito getAmbito() {
+        return ambito;
     }
 
-    public void setAmbiti(List<Ambiti> ambiti) {
-        this.ambiti = ambiti;
+    public void setAmbito(Ambito ambito) {
+        this.ambito = ambito;
     }
 
+    public Image getImage() {
+        return image;
+    }
 
+    public void setImage(Image image) {
+        this.image = image;
+    }
 
+    public List<Proposta> getProposteRicevute() {
+        return proposteRicevute;
+    }
 
-
-
-
-
-
-
-
+    public void setProposteRicevute(List<Proposta> proposteRicevute) {
+        this.proposteRicevute = proposteRicevute;
+    }
 }
+

@@ -13,6 +13,8 @@ public class Messaggio {
     boolean letto;
     private Utente mittente;
 
+    private boolean who;
+
     private Chat chat;
 
     public Messaggio() {
@@ -83,4 +85,13 @@ public class Messaggio {
     public void setChat(Chat chat) {
         this.chat = chat;
     }
+
+    public boolean isWho() {
+        return who;
+    }
+
+public void setWho(boolean who) {
+        this.who = who;
+    }
+
 }
