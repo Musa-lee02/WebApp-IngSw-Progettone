@@ -1,0 +1,12 @@
+.dashboard{
+    overflow-y: hidden;
+   
+}
+
+.leftPart{
+    height: 600px;
+}
+.rightPart{
+
+    height:600px !important;
+}

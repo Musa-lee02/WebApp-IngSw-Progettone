@@ -1,0 +1,32 @@
+
+
+.card{
+  border-style:solid;
+  margin: 20px;
+  border-color: black;
+  border-width: thin;
+  border-radius: 5px;
+}
+.example-card {
+
+    max-width: 250px;
+    margin: 30px;
+    
+  }
+.vetrina{
+  
+
+  max-width: 100%;
+  width: 100%;
+  box-shadow: 10px 10px 0 rgba(81, 45, 168, 1);
+  border-style: solid;
+  border-color: black;
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: auto;
+    
+}
+  /*.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }*/

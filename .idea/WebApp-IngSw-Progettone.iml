@@ -5,5 +5,9 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+<<<<<<< HEAD
+=======
+    <orderEntry type="library" name="Maven: org.springframework:spring-web:6.1.2" level="project" />
+>>>>>>> origin/GodNazzy
   </component>
 </module>
