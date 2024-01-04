@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ComponentFactoryResolver, ComponentRef, ElementRef, NgZone, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewChecked, Component, ComponentFactoryResolver, ComponentRef, ElementRef, NgZone, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
@@ -12,7 +12,7 @@ import { SceltaUtenteComponent } from './scelta-utente/scelta-utente.component';
   templateUrl: './accedi.component.html',
   styleUrls: ['./accedi.component.css']
 })
-export class AccediComponent implements OnInit, AfterViewChecked {
+export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('container') container: ElementRef | undefined;
   @ViewChild('register') registerBtn: ElementRef | undefined;
   @ViewChild('login') loginBtn: ElementRef | undefined;
@@ -84,6 +84,7 @@ export class AccediComponent implements OnInit, AfterViewChecked {
 
     
   }
+  
 
   ngAfterViewChecked(): void {
 
@@ -136,11 +137,15 @@ export class AccediComponent implements OnInit, AfterViewChecked {
       zona: new FormControl(null,Validators.required),
       ambito: new FormControl(null,Validators.required),
     })
-
-    
-
-
   }
+
+  ngOnDestroy(): void {
+    if(this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid){
+
+      this.service.setAutenticato()
+    }
+  }
+  
 
  
   onSelectFile(e:any){
@@ -186,7 +191,7 @@ export class AccediComponent implements OnInit, AfterViewChecked {
   }
   onSubmit(){
 
-
+    
     if(this.credenzialiForm.valid){
       this.container?.nativeElement.classList.add('generalita')
       
@@ -195,6 +200,7 @@ export class AccediComponent implements OnInit, AfterViewChecked {
     if(this.generalitaForm.valid && this.isLavoratore()){
       this.container?.nativeElement.classList.add('ambito')
     }
+
     
   }
 

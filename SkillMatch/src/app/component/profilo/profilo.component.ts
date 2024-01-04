@@ -12,7 +12,7 @@ export class ProfiloComponent {
   pencil=faPencil
   constructor(private service: ServizioAnnunciService){
 
-    service.setAutenticato()
+    
 
   }
 

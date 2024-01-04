@@ -92,6 +92,8 @@ li{
     padding: 20px;
 }
 .singleChat{
+    display: flex;
+    align-items: flex-start;
     width: 100%;
     max-height:100px;
     height: 100px;
