@@ -1,5 +1,5 @@
 package pattern.skillmatchbackend.persistenza.dao.postgres;
-import java.sql.*;
+/*import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -128,3 +128,4 @@ public class ClienteDaoPostgres implements ClienteDao {
     }
 
 }
+*/

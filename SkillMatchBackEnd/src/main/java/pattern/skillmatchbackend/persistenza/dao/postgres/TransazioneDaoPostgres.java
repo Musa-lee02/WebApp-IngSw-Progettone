@@ -1,6 +1,6 @@
 package pattern.skillmatchbackend.persistenza.dao.postgres;
 
-import application.model.Transazione;
+/*mport application.model.Transazione;
 import application.persistenza.dao.TransazioneDao;
 
 import java.sql.Connection;
@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
+/*
 public class TransazioneDaoPostgres implements TransazioneDao {
 
     Connection conn;
@@ -105,3 +105,4 @@ public class TransazioneDaoPostgres implements TransazioneDao {
 
 
 }
+*/

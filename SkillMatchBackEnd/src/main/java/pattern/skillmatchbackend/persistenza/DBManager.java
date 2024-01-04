@@ -1,7 +1,7 @@
 package pattern.skillmatchbackend.persistenza;
 
 import pattern.skillmatchbackend.persistenza.dao.ClienteDao;
-import pattern.skillmatchbackend.persistenza.dao.postgres.ClienteDaoPostgres;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -29,8 +29,8 @@ public class DBManager {
         return con;
     }
 
-    public ClienteDao getClienteDao(){
+    /*public ClienteDao getClienteDao(){
         return new ClienteDaoPostgres(getConnection());
-    }
+    }*/
 
 }

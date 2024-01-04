@@ -7,16 +7,17 @@ import pattern.skillmatchbackend.model.Lavoratore;
 import pattern.skillmatchbackend.model.ValidationService;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/lavoratore/signup")
 public class SignUpController {
 
     @PostMapping("/passo1")
-    public ResponseEntity<?> registerStep1(@RequestBody Lavoratore lavoratore, HttpSession session) {
-        if(ValidationService.validateEmail(lavoratore.getEmail())) {
-            return ResponseEntity.badRequest().body("Email non valida");
-        }
+    public boolean registerStep1(@RequestBody Lavoratore lavoratore, HttpSession session) {
+       /*if(lavoratore.getEmail().equals("ooo")) {
+            //return ResponseEntity.badRequest().body("Email non valida");
+        }*/
 
-        if(isEmailTaken(lavoratore.getEmail())) {
+        /*(isEmailTaken(lavoratore.getEmail())) {
             return ResponseEntity.badRequest().body("Email già in uso");
         }
 
@@ -38,10 +39,12 @@ public class SignUpController {
 
         if(ValidationService.validatePasswordLength(lavoratore.getPassword())) {
             return ResponseEntity.badRequest().body("Password non valida");
-        }
+        }*/
+        System.out.println(lavoratore.getEmail());
 
         session.setAttribute("lavoratore1", lavoratore);
-        return ResponseEntity.ok().build();
+        return true;
+
     }
 
      @PostMapping("/passo2")

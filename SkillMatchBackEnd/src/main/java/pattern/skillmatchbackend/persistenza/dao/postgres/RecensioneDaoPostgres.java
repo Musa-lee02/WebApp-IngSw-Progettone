@@ -1,17 +1,19 @@
 package pattern.skillmatchbackend.persistenza.dao.postgres;
 
-import application.model.Recensione;
-import application.model.user.Cliente;
-import application.model.user.Lavoratore;
-import application.persistenza.dao.RecensioneDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+
+import pattern.skillmatchbackend.persistenza.dao.RecensioneDao;
+
+import pattern.skillmatchbackend.model.Recensione;
+
 import java.util.List;
 
-public class RecensioneDaoPostgres implements RecensioneDao {
+/*public class RecensioneDaoPostgres implements RecensioneDao {
 
     Connection conn;
 
@@ -33,7 +35,7 @@ public class RecensioneDaoPostgres implements RecensioneDao {
             st.setLong(1, id);
             ResultSet rs = st.executeQuery();
 
-            if (rs.next()) {
+           /* if (rs.next()) {
                 recensione = new Recensione();
                 recensione.setIdRecensione(rs.getLong("id"));
                 recensione.setTitolo(rs.getString("titolo"));
@@ -107,3 +109,4 @@ public class RecensioneDaoPostgres implements RecensioneDao {
 
 
 }
+*/

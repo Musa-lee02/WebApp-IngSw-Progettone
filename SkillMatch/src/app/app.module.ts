@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component'; 
+import { AppComponent } from './app.component';
 import {CdkMenuModule} from '@angular/cdk/menu';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,6 +26,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {FormsModule} from '@angular/forms';
 import { EffettuaAnnuncioComponent } from './component/effettua-annuncio/effettua-annuncio.component';
 import { ProfiloComponent } from './component/profilo/profilo.component';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,11 +36,12 @@ import { ProfiloComponent } from './component/profilo/profilo.component';
     ContattiComponent,
     CardsVetrinaComponent,
     HomeComponent,
-  
+
+
     EsploraComponent,
        EffettuaAnnuncioComponent,
        ProfiloComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { ProfiloComponent } from './component/profilo/profilo.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

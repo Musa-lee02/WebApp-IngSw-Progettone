@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { ServizioAnnunciService } from '../../servizio-annunci.service';
+import {BackEndService} from "../../BackEndService";
+import {elementSelectors} from "@angular/cdk/schematics";
 
 
 
@@ -71,7 +73,7 @@ export class AccediComponent implements OnInit, AfterViewChecked {
     'Wyoming',
   ];
 
-  
+
   generalitaForm : FormGroup
   credenzialiForm : FormGroup
   loginForm:FormGroup
@@ -80,7 +82,7 @@ export class AccediComponent implements OnInit, AfterViewChecked {
   googleIcon=faGoogle
   url=""
   autenticato=false;
-  constructor(private service: ServizioAnnunciService) {}
+  constructor(private service: ServizioAnnunciService, private backend: BackEndService) {}
 
   ngAfterViewChecked(): void {
 
@@ -106,7 +108,7 @@ export class AccediComponent implements OnInit, AfterViewChecked {
     })
 
     this.credenzialiForm=new FormGroup({
-       
+
       username: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null,Validators.required),
@@ -129,7 +131,7 @@ export class AccediComponent implements OnInit, AfterViewChecked {
 
   }
 
- 
+
   onSelectFile(e:any){
     if(e.target.files){
       var reader = new FileReader();
@@ -143,20 +145,35 @@ export class AccediComponent implements OnInit, AfterViewChecked {
   }
 
   isLavoratore(){
-    
+
     return this.service.isLavoratore()
   }
   clickArrow(){
-    
+
     this.container?.nativeElement.classList.remove('generalita')
     this.container?.nativeElement.classList.remove('ambito')
 
   }
   onSubmit(){
+    const lavoratore = {
+      username: this.credenzialiForm.get("username")?.value,
+      password: this.credenzialiForm.get("password")?.value,
+      confermaPassword: this.credenzialiForm.get("confermaPassword")?.value,
+      email: this.credenzialiForm.get("email")?.value,
+    }
+
+    this.backend.postSignupWorker(lavoratore).subscribe( ok=> {
+      if (ok) {
+        alert("Registrazione effettuata con successo")
+        sessionStorage .setItem("username",this.credenzialiForm.get("username")?.value)
+      }else alert("Registrazione fallita")
+    });
 
     if(this.credenzialiForm.valid){
+
+
       this.container?.nativeElement.classList.add('generalita')
-      
+
     }
 
     console.log(this.generalitaForm.valid +" ddd "+ this.isLavoratore(),"  cd"+ this.autenticato)
@@ -169,24 +186,24 @@ export class AccediComponent implements OnInit, AfterViewChecked {
   }
 
   removeActive() {
-    
+
         if (this.container) {
           console.log(this.container);
           this.container.nativeElement.classList.remove('active');
         }
-      
+
     }
-  
+
   addActive() {
     if (this.container) {
       console.log(this.container);
       this.container.nativeElement.classList.add('active');
-  
+
   }
 }
 checkPassword(form : FormGroup):boolean {
 
- 
+
     if(form.get("password")?.value===form.get("confermaPassword")?.value){
       return true;
     }

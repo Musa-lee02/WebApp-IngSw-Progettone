@@ -1,7 +1,10 @@
 package pattern.skillmatchbackend.persistenza.dao.postgres;
 
-import application.model.user.Utente;
-import application.persistenza.dao.UtenteDao;
+/*import ;
+
+import pattern.skillmatchbackend.model.Utente;
+
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UtenteDaoPostgres implements UtenteDao {
+public class UtenteDaoPostgres {
 
     Connection conn;
 
@@ -48,7 +51,7 @@ public class UtenteDaoPostgres implements UtenteDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return utente;*/
+        return utente;
         return null;
     }
 
@@ -121,3 +124,4 @@ public class UtenteDaoPostgres implements UtenteDao {
     }
 
 }
+*/
