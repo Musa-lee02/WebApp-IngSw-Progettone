@@ -3,7 +3,7 @@
 <h2 style="text-align: center;">annunci in vetrina</h2>
 <div class="vetrina">
 
-<span *ngFor="let annuncio of annunci">
+<div *ngFor="let annuncio of annunci">
   <div class="card">
   <mat-card class="example-card">
     
@@ -24,9 +24,9 @@
     </mat-card-actions>
   </mat-card>
 </div>
-</span>
+</div>
 
-<span *ngFor="let annuncio of annunci">
+<div *ngFor="let annuncio of annunci">
   <div class="card">
   <mat-card class="example-card">
     
@@ -35,7 +35,7 @@
       <mat-card-title>Shiba Inu</mat-card-title>
       <mat-card-subtitle>Dog Breed</mat-card-subtitle>
     </mat-card-header>-->
-    <img mat-card-image src="{{annuncio.img}}" alt="Photo of a Shiba Inu">
+    <img mat-card-image src="{{annuncio.img}}" alt="Photo of a Shiba Inu" style="z-index: 0;">
     <mat-card-content>
       <p>
         {{annuncio.descrizione}}
@@ -47,9 +47,9 @@
     </mat-card-actions>
   </mat-card>
 </div>
-</span>
+</div>
 
-<span *ngFor="let annuncio of annunci">
+<div *ngFor="let annuncio of annunci">
   <div class="card">
   <mat-card class="example-card">
     
@@ -58,7 +58,7 @@
       <mat-card-title>Shiba Inu</mat-card-title>
       <mat-card-subtitle>Dog Breed</mat-card-subtitle>
     </mat-card-header>-->
-    <img mat-card-image src="{{annuncio.img}}" alt="Photo of a Shiba Inu">
+    <img mat-card-image src="{{annuncio.img}}" alt="Photo of a Shiba Inu" style="z-index: 0;">
     <mat-card-content>
       <p>
         {{annuncio.descrizione}}
@@ -70,6 +70,7 @@
     </mat-card-actions>
   </mat-card>
 </div>
-</span>
+</div>
+
 
 </div>

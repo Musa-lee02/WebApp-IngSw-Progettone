@@ -1,7 +1,8 @@
 
 
-h1{
+.containerHome{
    
+    max-width: 100vw;
 }
 .centered{
     display: flex;

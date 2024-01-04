@@ -4,6 +4,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { ServizioAnnunciService } from '../../servizio-annunci.service';
 import { SceltaUtenteComponent } from './scelta-utente/scelta-utente.component';
+import Swal from 'sweetalert2';
 
 
 
@@ -140,8 +141,10 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid){
 
+    
+    if(this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid){
+      Swal.fire("Ricora di confermare l'email se vuoi pubblicare o proporti per un annuncio")
       this.service.setAutenticato()
     }
   }
@@ -191,14 +194,22 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
   onSubmit(){
 
+    if(this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid){
+
+      this.container?.nativeElement.classList.add('emailConferma')
+    }
     
+    if(this.generalitaForm.valid && this.isLavoratore()){
+      this.container?.nativeElement.classList.add('ambito')
+    }
+
+    if(this.generalitaForm.valid && !this.isLavoratore()){
+      this.container?.nativeElement.classList.add('emailConferma')
+    }
+
     if(this.credenzialiForm.valid){
       this.container?.nativeElement.classList.add('generalita')
       
-    }
-
-    if(this.generalitaForm.valid && this.isLavoratore()){
-      this.container?.nativeElement.classList.add('ambito')
     }
 
     

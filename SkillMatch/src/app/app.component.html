@@ -2,11 +2,19 @@
 <body [ngClass]="{'body': isHome , 'bodyNone' : !isHome}">
   
   <div class="full-container">
+
+    
     <div class="navBar">
+
+      <input class="menu-btn" id="menu-btn" type="checkbox">
+        <label for="menu-btn" class="menu-icon">
+          <span class="nav-icon"></span>
+        </label>
+        <div class="imgNavBar"><img src="../assets/semicerchio.png"></div>
       <ul>
 
         <li *ngIf="!isAutenticato()" (click)="setDoingAccesso(true)"><a  href="#" routerLink="Accedi" >Accedi</a></li>
-        <li *ngIf="isAutenticato()"> <img src="../assets/default.jpg" alt="">
+        <li *ngIf="isAutenticato()" style="padding: 0;"><div class="imgNavBar"><img src="../assets/default.jpg" alt=""></div>
           <ul>
             <li><a routerLink="/Profilo">Profilo </a></li>
             <li><a routerLink="/Annuncio" (click)="setDoingAccesso(false)">Pubblica Annuncio</a></li>
@@ -25,7 +33,7 @@
         </li>
       </ul>
 
-    <img src="../assets/semicerchio.png" style="margin: 10px;" >
+    
 
   </div>
   <div [ngClass]="{'contentSfondo': isHome, 'content':!isHome}">

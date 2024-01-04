@@ -27,6 +27,7 @@ import {FormsModule} from '@angular/forms';
 import { EffettuaAnnuncioComponent } from './component/effettua-annuncio/effettua-annuncio.component';
 import { ProfiloComponent } from './component/profilo/profilo.component';
 import { SceltaUtenteComponent } from './component/accedi/scelta-utente/scelta-utente.component';
+import { ConfermaEmailComponent } from './component/accedi/conferma-email/conferma-email.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,7 @@ import { SceltaUtenteComponent } from './component/accedi/scelta-utente/scelta-u
        EffettuaAnnuncioComponent,
        ProfiloComponent,
        SceltaUtenteComponent,
+       ConfermaEmailComponent,
     
   ],
   imports: [
