@@ -1,19 +1,56 @@
-
 <!--<div *ngIf="!isAutenticato()"><app-accedi></app-accedi></div>-->
 
 <!--<div *ngIf="isAutenticato()">-->
     
-    <div class="header">
-        <ul>
-            <li><a>Profilo</a></li>
-            <li><a>Annunci</a></li>
-        </ul>
-    </div>
     <div class="dashboard">
         <div class="leftPart">
         </div>
         <div class="rightPart">
+            <form [formGroup]="ambitoForm" (ngSubmit)="onSubmit()">
+                <div class="contenitoreA">
+                    <fa-icon [icon]="arrowLeft" (click)="clickArrow()"></fa-icon>
+                    <h1 style="margin-right: 10px;">Crea un annuncio   </h1>
+                    <h4>Foto annuncio (Opzionale)</h4>
+                    <img [src]="url" height="50px" width="50px" style="margin-right: 10px;">
+                    <input type="file" (change)="onSelectFile($event)" style="width: 250px" formControlName="foto">
+                </div>
     
+                <div class="contenitoreA">
+                    <h4>Zona di lavoro</h4>
+                    <mat-form-field >
+                    <mat-label>Provincia</mat-label>
+                        <mat-select formControlName="provincia">
+                        <mat-option>None</mat-option>
+                            @for (pv of province; track pv) {
+                                <mat-option [value]="pv">{{pv}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+    
+                
+                <div class="contenitoreA">
+                    <h4>ambito di lavoro</h4>
+                    <mat-form-field >
+                    <mat-label>Ambito</mat-label>
+                    <mat-select formControlName="ambito">
+                    <mat-option>None</mat-option>
+                    @for (ab of ambiti; track ab) {
+                        <mat-option [value]="ab">{{ab}}</mat-option>
+                    }
+                    </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="contenitoreA">
+                    <h4>Descrizione sul lavoro e sulle abilitÃ  richieste (opzionale) </h4>    
+                    <mat-form-field>
+                    <mat-label >Textarea</mat-label>
+                    <textarea matInput style></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="contenitoreA">
+                    <button mat-raised-button type="submit">Pubblica annuncio</button>
+                </div>
+            </form>
         </div>
     </div>
-<!--</div>-->
