@@ -28,6 +28,8 @@ import { EffettuaAnnuncioComponent } from './component/effettua-annuncio/effettu
 import { ProfiloComponent } from './component/profilo/profilo.component';
 import { SceltaUtenteComponent } from './component/accedi/scelta-utente/scelta-utente.component';
 import { ConfermaEmailComponent } from './component/accedi/conferma-email/conferma-email.component';
+import { CarouselComponent } from './carousel/carousel.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +44,7 @@ import { ConfermaEmailComponent } from './component/accedi/conferma-email/confer
        ProfiloComponent,
        SceltaUtenteComponent,
        ConfermaEmailComponent,
+       CarouselComponent,
     
   ],
   imports: [
@@ -58,7 +61,8 @@ import { ConfermaEmailComponent } from './component/accedi/conferma-email/confer
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    SlickCarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent]
