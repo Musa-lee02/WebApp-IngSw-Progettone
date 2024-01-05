@@ -10,7 +10,7 @@
       <ul>
         
         <li *ngIf="!isAutenticato()" (click)="setDoingAccesso(true)"><a  href="#" routerLink="Accedi" >Accedi</a></li>
-        <li *ngIf="isAutenticato()" style="padding: 0;"><div class="imgNavBar"><img src="../assets/default.jpg" alt=""></div>
+        <li *ngIf="isAutenticato()" style="padding: 0; margin-left: 20px;"><div class="imgNavBar"><img src="../assets/default.jpg" alt=""></div>
           <ul>
             <li><a routerLink="/Profilo">Profilo </a></li>
             <li><a routerLink="/Annuncio" (click)="setDoingAccesso(false)">Pubblica Annuncio</a></li>
