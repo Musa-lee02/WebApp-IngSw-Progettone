@@ -20,13 +20,22 @@ export class AppComponent implements AfterViewChecked{
   title = 'SkillMatch';
   sizeAnnunci:number=0;
   isHome:boolean=false;
+  setSfondo=false;
   linkHome:String="http://localhost:4200/Home"
 
   
   ngAfterViewChecked(): void {
     
+    if(this.router.url!=="/Profilo" && this.router.url!=="/Annunci")
+    {
+      this.setSfondo=true
+    }
+    else{
+      this.setSfondo=false
+    }
+    
    
-    if(this.router.url!=="/Profilo" && this.router.url!=="/Annuncio" ){
+    if(this.router.url==="/Home"){
       this.isHome=true
       
     }

@@ -100,7 +100,7 @@ input.ng-invalid.ng-touched{
 .sign-in{
   left: 0;
   width: 50%;
-  z-index: 2;
+  z-index: 4;
 }
 
 .container.active .sign-in{
@@ -116,6 +116,7 @@ input.ng-invalid.ng-touched{
   opacity: 0;
   z-index: 1;
 }
+
 
 .container.active .sign-up{
   transform: translateX(100%);
@@ -137,7 +138,7 @@ input.ng-invalid.ng-touched{
   opacity:1;
   z-index: 3;
   transform: translateX(100%);
-  animation: move 0.6s;
+  animation: move 0.2s;
 
 }
 
@@ -261,6 +262,80 @@ input.ng-invalid.ng-touched{
 .container.active .toggle-right{
   transform: translateX(200%);
 
+}
+
+@media only screen and (max-width:1024px){
+
+  .container{
+
+    width: 70vw;
+   
+  }
+  .container *:not(h1){
+    font-size: 12px !important;
+  }
+  
+  .switch{
+    cursor: pointer;
+  }
+  .switch p{
+    width: 100%;
+    height: 100%;
+  }
+
+
+  .toggle-container p:not(.switch)
+  .toggle-container .toggle button,
+  .toggle-container .toggle h1{
+
+    display: none !important;
+  }
+
+  .toggle-container{
+    border-radius: 0 0 0 0 ;
+    width: 100%;
+    left: 0px;
+    height: 15%;
+    transition: none !important;
+    transform: none !important;
+  }
+  .container.active .toggle-container{
+    border-radius: 0 0 0 0 ;
+  }
+
+  .contenitore{
+    overflow: auto;
+    flex-direction: column;
+  }
+
+  
+  .sign-in,.sign-up,.generalitaForm,.ambitoClass{
+
+    width: 100%;
+  }
+
+  .container.active .generalitaForm{
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 2;
+    animation: move 0.6s;
+  }
+  .container.generalita .generalitaForm{
+
+    padding-top: 50px;
+    opacity:1;
+    z-index: 3;
+    transform: translateX(0);
+    animation: move 0.6s;
+  
+  }
+  .sign-up {
+    left: -100%;
+    padding-top: 50px;
+  }
+  
+
+  
 }
 
 
