@@ -11,8 +11,8 @@ import { AccediComponent } from './component/accedi/accedi.component';
 import { ContattiComponent } from './component/contatti/contatti.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
-import { CardsVetrinaComponent } from './cards-vetrina/cards-vetrina.component';
-import { ServizioAnnunciService } from './servizio-annunci.service';
+import { CardsVetrinaComponent } from './component/cards-vetrina/cards-vetrina.component';
+import { ServizioAnnunciService } from './service/servizio-annunci.service';
 import { HomeComponent } from './component/home/home.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -28,8 +28,11 @@ import { EffettuaAnnuncioComponent } from './component/effettua-annuncio/effettu
 import { ProfiloComponent } from './component/profilo/profilo.component';
 import { SceltaUtenteComponent } from './component/accedi/scelta-utente/scelta-utente.component';
 import { ConfermaEmailComponent } from './component/accedi/conferma-email/conferma-email.component';
-import { CarouselComponent } from './carousel/carousel.component';
+//import { CarouselComponent } from './carousel/carousel.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { ChatComponent } from './component/effettua-annuncio/chat/chat.component';
+import { FormAnnuncioComponent } from './component/effettua-annuncio/form-annuncio/form-annuncio.component';
+import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +47,10 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
        ProfiloComponent,
        SceltaUtenteComponent,
        ConfermaEmailComponent,
-       CarouselComponent,
+
+       ChatComponent,
+       FormAnnuncioComponent,
+       NavBarComponent,
     
   ],
   imports: [

@@ -1,6 +1,10 @@
+
+
+<div class="contentSfondo">
 <div class="container" #container>
     <div class="contenitoreScelta" #componentScelta *ngIf="doingAccesso()">
-    <app-scelta-utente (mandaSceltaUtente)="onRiceviScelta($event)"></app-scelta-utente></div>
+        <app-scelta-utente (mandaSceltaUtente)="onRiceviScelta($event)"></app-scelta-utente>
+    </div>
     <div class="form-container sign-in">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit() ">
             <h1>Accedi</h1>
@@ -141,4 +145,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

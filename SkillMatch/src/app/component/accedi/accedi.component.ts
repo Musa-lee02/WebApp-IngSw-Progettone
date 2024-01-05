@@ -2,7 +2,7 @@ import { AfterViewChecked, Component, ComponentFactoryResolver, ComponentRef, El
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { ServizioAnnunciService } from '../../servizio-annunci.service';
+import { ServizioAnnunciService } from '../../service/servizio-annunci.service'
 import { SceltaUtenteComponent } from './scelta-utente/scelta-utente.component';
 import Swal from 'sweetalert2';
 
@@ -145,7 +145,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     
     if(this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid){
       Swal.fire("Ricora di confermare l'email se vuoi pubblicare o proporti per un annuncio")
-      this.service.setAutenticato()
+      this.service.setAutenticato(true)
     }
   }
   
@@ -190,6 +190,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   doingAccesso(){
 
+    console.log(this.service.doingAccesso)
+    
     return this.service.doingAccesso
   }
   onSubmit(){

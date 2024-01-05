@@ -1,18 +1,14 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ServizioAnnunciService } from './service/servizio-annunci.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
-import { CommonModule } from '@angular/common';
-
+import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
-
+  selector: 'app-nav-bar',
+  templateUrl: './nav-bar.component.html',
+  styleUrl: './nav-bar.component.css'
 })
-export class AppComponent implements AfterViewChecked{
-
+export class NavBarComponent {
 
   constructor(private router: Router, private service: ServizioAnnunciService){}
   
@@ -63,6 +59,7 @@ export class AppComponent implements AfterViewChecked{
  
     return this.service.isAutenticato()
   }
+
 
 
 }

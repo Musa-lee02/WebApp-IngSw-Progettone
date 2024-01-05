@@ -12,7 +12,16 @@ app-scelta-utente{
 .remove app-scelta-utente{
   display: none;
 }
+
+.contentSfondo{
+
+  padding-top: 180px;
+  display: flex;
+  justify-content: center;
+
+}
 .container{
+
   background-color: #fff;
   border-radius: 30px;
   box-shadow: 0px 30px 60px  rgba(0,0,0,1);

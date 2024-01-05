@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { ServizioAnnunciService } from '../servizio-annunci.service';
 
 @Component({
@@ -49,3 +49,4 @@ export class CarouselComponent implements OnInit {
     ]
   };
 }
+*/

@@ -1,5 +1,11 @@
 
 
+.contentSfondo{
+  padding-top: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .card{
   border-style:solid;
   margin: 20px;
@@ -13,9 +19,11 @@
     margin: 30px;
     
   }
+
 .vetrina{
   
 
+  
   max-width: 100%;
   width: 100%;
   box-shadow: 10px 10px 0 rgba(81, 45, 168, 1);

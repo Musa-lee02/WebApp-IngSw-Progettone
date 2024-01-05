@@ -19,7 +19,7 @@ export class ServizioAnnunciService implements OnInit {
   private lavoratoreBool :boolean=false;
   private autenticato: boolean=false;
 
-  url='https://material.angular.io/assets/img/examples/shiba2.jpg';
+  url:string;
 
  
   
@@ -45,6 +45,14 @@ export class ServizioAnnunciService implements OnInit {
 
   }
 
+
+  setRouterUrl(url : string){
+    this.url=url
+  }
+
+  getRouterUrl(){
+    return this.url;
+  }
 
   annunciGetSize(){
     return this.annunci.length
@@ -84,9 +92,9 @@ export class ServizioAnnunciService implements OnInit {
    
   }
 
-  setAutenticato(){
+  setAutenticato(bool: boolean){
    
-    this.autenticato=true;
+    this.autenticato=bool;
     
   }
   isAutenticato(){
