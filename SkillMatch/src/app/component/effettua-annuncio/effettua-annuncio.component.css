@@ -40,9 +40,9 @@
     padding: 0 40px;
     height: 100%;
   }
-.rightPart button{
+.rightPart .mybutton{
     
-    background-color: rgb(106, 171, 211);
+    background-color: rgb(57, 154, 214);
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
@@ -54,21 +54,26 @@
     cursor: pointer;
 
 }
+.contenitore{
+    width: 100% !important;
+    height: 100% !important;
+    flex-wrap: wrap; /* se non ci sta in una riga va a capo */
+    display: flex; /* per mettere i figli in riga */
+    gap: 60px;
+    grid-template-columns:  1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
 .contenitoreA{
     margin-top: 20px;
     margin-bottom: 30px;
     border-bottom: blueviolet 1px solid;
 }
-.contenitore{
-    width: 100% !important;
-  height: 100% !important;
-  flex-wrap: wrap;
-  display: flex;
-  gap: 60px;
-  grid-template-columns:  1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-
-  
+.contenitoreB{
+    display: flex;
+    justify-content: center; /* sposta su asse x */
+    align-items: center; /* sposta su asse y */
+    height: 100px;
+    width: 100%;
 }
 .matA{
     border-radius:40px;
