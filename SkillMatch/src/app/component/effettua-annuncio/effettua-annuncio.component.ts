@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { ServizioAnnunciService } from '../../servizio-annunci.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -10,8 +11,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./effettua-annuncio.component.css']//,'../profilo/profilo.component.css']
 })
 
-export class EffettuaAnnuncioComponent{
-  minDate: Date;
+export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy{
 
   url = 'https://www.felicinabiorci.com/wp/wp-content/uploads/2019/01/diet-food-macro-111130.jpg'
 
@@ -22,30 +22,43 @@ export class EffettuaAnnuncioComponent{
 
   ambitoForm:FormGroup
   arrowLeft=faArrowLeft
-  
+  minDate = new Date();
+
   constructor(private service: ServizioAnnunciService){
-    this.minDate = new Date();
 
     //this.minDate.setDate(this.minDate.getDate() + 1);
   }
-
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
+  }
   ngOnInit(): void {
     this.ambitoForm=new FormGroup({
-      nomeAnnuncio: new FormControl(null,Validators.required),
-      zonaAnnuncio: new FormControl(null,Validators.required),
-      ambitoAnnucnio: new FormControl(null,Validators.required),
+      foto: new FormControl(null,Validators.required),
+      provincia: new FormControl(null,Validators.required),
+      ambito: new FormControl(null,Validators.required),
       dataScadenza: new FormControl(null,Validators.required),
+      
     })
   }
+
+  ngOnDestroy(): void {
+    if (this.ambitoForm.valid) {
+      Swal.fire("Annuncio creato con successo")
+    }
+  }
+
+  ngAfterViewChecked(): void {
+    throw new Error('Method not implemented.');
+  }  
+
   onSubmit(): void{
 
   }
   onSelectFile(e: Event): void {
   }
   clickArrow() : void{
-
+    console.log("click")
   }
-  
   isAutenticato(){
     return this.service.isAutenticato()
   }

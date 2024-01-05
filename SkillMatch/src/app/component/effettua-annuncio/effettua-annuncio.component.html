@@ -5,17 +5,15 @@
     <div class="dashboard">
         <div class="leftPart">
         </div>
-        <div class="rightPart">
+        <div class="rightPart" #rightPart>
             <form [formGroup]="ambitoForm" (ngSubmit)="onSubmit()">
                 <div class="contenitoreA">
                     <fa-icon [icon]="arrowLeft" (click)="clickArrow()"></fa-icon>
                     <h1 style="margin-right: 10px;">CREA UN'ANNUNCIO   </h1>
-                    <form class="example-form">
                         <mat-form-field class="matA">
                           <mat-label>Titolo dell'annuncio</mat-label>
                           <input matInput placeholder="Ex. Pizza" value="Sushi">
                         </mat-form-field>
-                    </form>
                     <h4>Carica una foto dell'annuncio (Opzionale)</h4>
                     <img [src]="url" height="50px" width="50px" style="margin-right: 10px;">
                     <input type="file" (change)="onSelectFile($event)" style="width: 250px" formControlName="foto">
@@ -26,9 +24,10 @@
                     <mat-form-field class="matA">
                     <mat-label >Textarea</mat-label>
                     <textarea matInput style></textarea>
+
                     </mat-form-field>
                 </div>
-
+ 
                 <div class="contenitoreA">
                     <h4>Zona di lavoro</h4>
                     <mat-form-field class="matA">
@@ -60,15 +59,15 @@
                     <h4>Imposta una data di scadenza</h4>
                     <mat-form-field class="matA">
                         <mat-label>Data</mat-label>
+                        <mat-select formControlName="dataScadenza">
                         <input matInput [matDatepicker]="picker" formControlName="dataScadenza" [min]="minDate">
                         <mat-hint>MM/DD/YYYY</mat-hint>
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
+                        </mat-select>
                     </mat-form-field>
                     
                 </div>
-
-
 
                 <div class="contenitoreA">
                     <button mat-raised-button type="submit">Pubblica annuncio</button>

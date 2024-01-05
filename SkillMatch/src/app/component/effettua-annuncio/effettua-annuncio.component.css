@@ -5,13 +5,11 @@
     font-family: 'Montserrat', sans-serif;
   }
 .dashboard{
-    height: 1080px;
-    width: 75%;
+    height: 1050px;
+    width: 1200px;
     display:flex;
     flex-direction: row;
-    gap:5px;
-    margin: 125px;
-    margin-left: 199px;
+    gap:0px;
     justify-content: center;
     box-shadow: 0px 10px 10px  rgba(0,0,0,1);
     border-radius: 11px;
@@ -22,18 +20,18 @@
     border-radius: 11px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0px 10px 10px  rgba(0,0,0,1);
     width: 30%;
     text-align: center;
 }
 .rightPart{
     height:100% !important;
+    width: 70%;
     background-color: white;
     border-radius: 11px;
     position: relative;
     overflow: hidden;
-    width: 70%;
     text-align: center;
-    margin-right: 0px;
 }
 .rightPart form{
     align-items: center;

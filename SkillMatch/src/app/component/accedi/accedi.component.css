@@ -66,10 +66,7 @@ app-scelta-utente{
 }
 input.ng-invalid.ng-touched{
   background-color: rgb(233, 71, 71) !important;
-
 }
-
-
 
 .container form{
   background-color: #fff;
