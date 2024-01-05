@@ -9,13 +9,13 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit() ">
             <h1>Accedi</h1>
             <div class="social-icons">
-                <fa-icon [icon]="googleIcon" size="2x"></fa-icon>
+                
             </div>
             <span>or use your email password</span>
             <input type="email" placeholder="Email" formControlName="email">
             <input type="password" placeholder="Password" formControlName="password" >
             <a href="#">Forget Your Password?</a>
-            <button type="submit"  [ngStyle]="{'background': loginForm.valid ? '#512da8':'grey'}">Accedi</button>
+            <a routerLink="/Profilo"></a><button type="submit"  [ngStyle]="{'background': loginForm.valid ? '#512da8':'grey'}">Accedi</button>
         </form>
     </div>
 

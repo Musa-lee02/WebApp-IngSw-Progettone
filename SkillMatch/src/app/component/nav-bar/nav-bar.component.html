@@ -6,9 +6,9 @@
         <label for="menu-btn" class="menu-icon">
           <span class="nav-icon"></span>
         </label>
-        <div class="imgNavBar"><img src="../assets/semicerchio.png"></div>
+        <div class="imgNavBar"></div>
       <ul>
-
+        
         <li *ngIf="!isAutenticato()" (click)="setDoingAccesso(true)"><a  href="#" routerLink="Accedi" >Accedi</a></li>
         <li *ngIf="isAutenticato()" style="padding: 0;"><div class="imgNavBar"><img src="../assets/default.jpg" alt=""></div>
           <ul>
