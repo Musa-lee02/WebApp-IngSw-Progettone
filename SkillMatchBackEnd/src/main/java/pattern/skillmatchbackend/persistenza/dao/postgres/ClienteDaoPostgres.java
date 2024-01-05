@@ -1,9 +1,10 @@
 package pattern.skillmatchbackend.persistenza.dao.postgres;
-/*import java.sql.*;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 import pattern.skillmatchbackend.model.Cliente;
+import pattern.skillmatchbackend.model.Image;
 import pattern.skillmatchbackend.persistenza.DBManager;
 import pattern.skillmatchbackend.persistenza.dao.ClienteDao;
 
@@ -35,13 +36,11 @@ public class ClienteDaoPostgres implements ClienteDao {
                 cliente.setIndirizzo(rs.getString("indirizzo"));
                 cliente.setNumeroCivico(rs.getString("numero_civico"));
                 cliente.setCitta(rs.getString("citta"));
-                cliente.setProvinciaServizio(rs.getString("provinciaDiServizio"));
                 cliente.setCap(rs.getString("cap"));
-                cliente.setRuolo(rs.getBoolean("ruolo"));
                 cliente.setRecensioni(DBManager.getInstance().getRecensioneDao().findByPrimaryKeyCliente(cliente.getUsername()));
                 cliente.setTransazioni(DBManager.getInstance().getTransazioneDao().findByPrimaryKeyCliente(cliente.getUsername()));
                 cliente.setAnnunci(DBManager.getInstance().getAnnuncioDao().findByPrimaryCliente(cliente.getUsername()));
-                cliente.setImage(new Image(rs.getString("immagine")));
+                //cliente.setImage(new Image(rs.getString("immagine")));
             }
 
         } catch (SQLException e) {

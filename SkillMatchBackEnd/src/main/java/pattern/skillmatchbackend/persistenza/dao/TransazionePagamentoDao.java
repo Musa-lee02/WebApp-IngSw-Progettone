@@ -4,7 +4,7 @@ import pattern.skillmatchbackend.model.TransazionePagamento;
 
 import java.util.List;
 
-public interface TransazioneDao {
+public interface TransazionePagamentoDao {
 
     public List<TransazionePagamento> findAll();
     public TransazionePagamento findByPrimaryKey(long id);

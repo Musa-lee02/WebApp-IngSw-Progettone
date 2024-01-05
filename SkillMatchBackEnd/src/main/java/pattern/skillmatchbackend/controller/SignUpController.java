@@ -49,6 +49,9 @@ public class SignUpController {
 
      @PostMapping("/passo2")
     public ResponseEntity<?> registerStep2(@RequestBody Lavoratore lavoratore, HttpSession session) {
+        Lavoratore lavoratore1 = (Lavoratore) session.getAttribute("lavoratore1");
+         System.out.print(lavoratore.getEmail());
+
 
         session.setAttribute("lavoratore2", lavoratore);
         return ResponseEntity.ok().build();

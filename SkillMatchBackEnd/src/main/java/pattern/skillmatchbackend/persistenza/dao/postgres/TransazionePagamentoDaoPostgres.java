@@ -1,30 +1,32 @@
 package pattern.skillmatchbackend.persistenza.dao.postgres;
 
-/*mport application.model.Transazione;
-import application.persistenza.dao.TransazioneDao;
+import pattern.skillmatchbackend.model.TransazionePagamento;
+import pattern.skillmatchbackend.persistenza.dao.TransazionePagamentoDao;
+
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-/*
-public class TransazioneDaoPostgres implements TransazioneDao {
+
+public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao {
 
     Connection conn;
 
-    public TransazioneDaoPostgres(Connection conn) {
+    public TransazionePagamentoDaoPostgres(Connection conn) {
         this.conn = conn;
     }
 
     @Override
-    public List<Transazione> findAll() {
+    public List<TransazionePagamento> findAll() {
         return null;
     }
 
     @Override
-    public Transazione findByPrimaryKey(long id) {
-        Transazione transazione = null;
+    public TransazionePagamento findByPrimaryKey(long id) {
+        TransazionePagamento transazione = null;
         String query = "SELECT * FROM TRANSAZIONE WHERE id = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
@@ -32,7 +34,7 @@ public class TransazioneDaoPostgres implements TransazioneDao {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                transazione = new Transazione();
+                transazione = new TransazionePagamento();
                 transazione.setIdTransazione(rs.getLong("id"));
                 transazione.setDataTransazione(rs.getDate("data_transazione"));
                 transazione.setImporto(rs.getDouble("importo"));
@@ -48,7 +50,7 @@ public class TransazioneDaoPostgres implements TransazioneDao {
     }
 
     @Override
-    public void saveOrUpdate(Transazione transazione) {
+    public void saveOrUpdate(TransazionePagamento transazione) {
         if (findByPrimaryKey(transazione.getIdTransazione()) == null) {
             String insertStr = "INSERT INTO TRANSAZIONE VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -92,7 +94,7 @@ public class TransazioneDaoPostgres implements TransazioneDao {
     }
 
     @Override
-    public void delete(Transazione transazione) {
+    public void delete(TransazionePagamento transazione) {
         String query = "DELETE FROM TRANSAZIONE WHERE id = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
@@ -105,4 +107,3 @@ public class TransazioneDaoPostgres implements TransazioneDao {
 
 
 }
-*/

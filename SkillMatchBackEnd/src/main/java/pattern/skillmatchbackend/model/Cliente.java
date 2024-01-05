@@ -11,9 +11,51 @@ public class Cliente extends Utente {
 
     private List<Recensione> RecensioniScritte;
 
-    private List<TokenRegistrazione> tokenRegistrazione;
+    private TokenRegistrazione tokenRegistrazione;
 
     private List<TransazionePagamento> transazioni;
+
+    public List<Chat> getChatList() {
+        return chatList;
+    }
+
+    public void setChatList(List<Chat> chatList) {
+        this.chatList = chatList;
+    }
+
+    public List<Annuncio> getAnnunci() {
+        return annunciPubblicati;
+    }
+
+    public void setAnnunci(List<Annuncio> annunciPubblicati) {
+        this.annunciPubblicati = annunciPubblicati;
+    }
+
+    public List<Recensione> getRecensioni() {
+        return RecensioniScritte;
+    }
+
+    public void setRecensioni(List<Recensione> recensioniScritte) {
+        RecensioniScritte = recensioniScritte;
+    }
+
+    public TokenRegistrazione getTokenRegistrazione() {
+        return tokenRegistrazione;
+    }
+
+    public void setTokenRegistrazione(TokenRegistrazione tokenRegistrazione) {
+        this.tokenRegistrazione = tokenRegistrazione;
+    }
+
+    public List<TransazionePagamento> getTransazioni() {
+        return transazioni;
+    }
+
+    public void setTransazioni(List<TransazionePagamento> transazioni) {
+        this.transazioni = transazioni;
+    }
+
+
 
 
 

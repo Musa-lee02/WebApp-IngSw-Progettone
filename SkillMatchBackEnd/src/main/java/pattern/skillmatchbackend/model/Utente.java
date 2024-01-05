@@ -86,11 +86,11 @@ public abstract class Utente {
         return cap;
     }
 
-    public void setImgUrl(String imgUrl) {
+    public void setImage(String imgUrl) {
         this.imgUrl = imgUrl;
     }
 
-    public String getImgUrl() {
+    public String getImage() {
         return imgUrl;
     }
 }

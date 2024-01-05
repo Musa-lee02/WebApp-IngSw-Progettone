@@ -16,6 +16,22 @@ public class Proposta {
     private Annuncio annuncioRelativo;
     private Lavoratore lavoratore;
 
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
+    }
+
+    public String getTitolo() {
+        return titolo;
+    }
+
+    public void setDurata(String durata) {
+        this.durata = durata;
+    }
+
+    public String getDurata() {
+        return durata;
+    }
+
     public String getStato() {
         return stato;
     }
