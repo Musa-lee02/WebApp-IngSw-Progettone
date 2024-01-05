@@ -5,7 +5,7 @@
     font-family: 'Montserrat', sans-serif;
   }
 .dashboard{
-    height: 1010px;
+    height: 1300px;
     width: 1200px;
     display:flex;
     flex-direction: row;
@@ -57,8 +57,19 @@
 .contenitoreA{
     margin-top: 20px;
     margin-bottom: 30px;
+    border-bottom: blueviolet 1px solid;
 }
+.contenitore{
+    width: 100% !important;
+  height: 100% !important;
+  flex-wrap: wrap;
+  display: flex;
+  gap: 60px;
+  grid-template-columns:  1fr 1fr;
+  grid-template-rows: 1fr 1fr;
 
+  
+}
 .matA{
     border-radius:40px;
     height: 80px;
