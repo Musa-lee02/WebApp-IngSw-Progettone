@@ -8,6 +8,8 @@ import { HomeComponent } from './component/home/home.component';
 import { EsploraComponent } from './component/esplora/esplora.component';
 import { EffettuaAnnuncioComponent } from './component/effettua-annuncio/effettua-annuncio.component';
 import { ProfiloComponent } from './component/profilo/profilo.component';
+import { ConfermaEmailComponent } from './component/accedi/conferma-email/conferma-email.component';
+import { ChatComponent } from './component/effettua-annuncio/chat/chat.component';
 
 const routes: Routes = [
 { path :'', pathMatch:'full', redirectTo:'/Home'},
@@ -16,7 +18,10 @@ const routes: Routes = [
  {path: 'Esplora', component: EsploraComponent},
  {path: 'Esplora/:ambito', component: EsploraComponent},
  {path: 'Accedi', component: AccediComponent},
- {path:'Profilo', component: ProfiloComponent}
+ {path:'Profilo', component: ProfiloComponent},
+ {path: 'Conferma', component: ConfermaEmailComponent},
+ {path: 'Annuncio/:Chat', component: EffettuaAnnuncioComponent}
+ 
 ];
 
 @NgModule({

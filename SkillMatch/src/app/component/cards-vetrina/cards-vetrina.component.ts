@@ -1,5 +1,5 @@
 import { AfterContentInit, AfterViewChecked, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ServizioAnnunciService } from '../servizio-annunci.service';
+import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

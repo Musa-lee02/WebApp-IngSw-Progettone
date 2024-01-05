@@ -1,31 +1,7 @@
 
-<body>
+<body [ngClass]="{'body': isHome , 'bodyNone' : !isHome}">
   
-  <div class="full-container">
-    <div class="navBar">
-      <ul>
-        <li *ngIf="!isHome"><a routerLink="Home">Home</a></li>
-        <li style="margin-right: 50px;" (click)="setLavoratore(true)"><a  href="#" routerLink="Accedi" >Accedi</a></li>
-
-        <li><a routerLink="Annuncio" (click)="setLavoratore(false)">Effettua Annuncio</a></li>
-        
-        <li><a style="pointer-events: none; cursor: default;">Esplora   <fa-icon [icon]="arrowIcon"></fa-icon></a>
-          <ul> 
-            <li><a routerLink="/Esplora/Tecnologia">Tecnologia</a></li>
-            <li><a routerLink="/Esplora/Edilizia">Edilizia</a></li>
-            <li><a routerLink="/Esplora/Falegnameria">Falegnameria</a></li>
-          </ul>
-        </li>
-      </ul>
-
-    <img src="../assets/semicerchio.png" style="height: 80%;" >
-
-  </div>
-  <div class="content">
-          <router-outlet style="z-index: 0;"></router-outlet>
-  </div>
-</div>
-</body> 
+<app-nav-bar></app-nav-bar>
+</body>
 
 
- 

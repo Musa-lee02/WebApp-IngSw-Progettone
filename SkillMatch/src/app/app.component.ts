@@ -1,7 +1,8 @@
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ServizioAnnunciService } from './servizio-annunci.service';
+import { ServizioAnnunciService } from './service/servizio-annunci.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -19,12 +20,12 @@ export class AppComponent implements AfterViewChecked{
   title = 'SkillMatch';
   sizeAnnunci:number=0;
   isHome:boolean=false;
+  
   linkHome:String="http://localhost:4200/Home"
 
   
   ngAfterViewChecked(): void {
     
-   
     if(this.router.url==="/Home"){
       this.isHome=true
       
@@ -32,6 +33,17 @@ export class AppComponent implements AfterViewChecked{
     else{
       this.isHome=false
     }
+  }
+
+
+  setSfondo(){
+
+    this.getRouterUrl()
+  }
+
+  getRouterUrl(){
+
+    return this.service.getRouterUrl()
   }
 
   getRange(sizeAnnunci: number){
@@ -42,6 +54,14 @@ export class AppComponent implements AfterViewChecked{
    
     this.service.setlavoratoreBool(bool);
 
+  }
+  setDoingAccesso(bool:boolean){
+    this.service.setAutenticato(false)
+    this.service.doingAccesso=bool;
+  }
+  isAutenticato(){
+ 
+    return this.service.isAutenticato()
   }
 
 

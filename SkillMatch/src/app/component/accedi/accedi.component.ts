@@ -1,10 +1,10 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ComponentFactoryResolver, ComponentRef, ElementRef, NgZone, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { ServizioAnnunciService } from '../../servizio-annunci.service';
-import {BackEndService} from "../../BackEndService";
-import {elementSelectors} from "@angular/cdk/schematics";
+import { ServizioAnnunciService } from '../../service/servizio-annunci.service'
+import { SceltaUtenteComponent } from './scelta-utente/scelta-utente.component';
+import Swal from 'sweetalert2';
 
 
 
@@ -13,13 +13,11 @@ import {elementSelectors} from "@angular/cdk/schematics";
   templateUrl: './accedi.component.html',
   styleUrls: ['./accedi.component.css']
 })
-export class AccediComponent implements OnInit, AfterViewChecked {
+export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('container') container: ElementRef | undefined;
   @ViewChild('register') registerBtn: ElementRef | undefined;
   @ViewChild('login') loginBtn: ElementRef | undefined;
-
-
-
+  @ViewChild('componentScelta') componentScelta: ElementRef | undefined;
   states: string[] = [
     'Alabama',
     'Alaska',
@@ -73,7 +71,8 @@ export class AccediComponent implements OnInit, AfterViewChecked {
     'Wyoming',
   ];
 
-
+  
+  
   generalitaForm : FormGroup
   credenzialiForm : FormGroup
   loginForm:FormGroup
@@ -81,25 +80,37 @@ export class AccediComponent implements OnInit, AfterViewChecked {
   arrowLeft=faArrowLeft
   googleIcon=faGoogle
   url=""
-  autenticato=false;
-  constructor(private service: ServizioAnnunciService, private backend: BackEndService) {}
+  
+  constructor(private service: ServizioAnnunciService,) {
+
+    
+  }
+  
 
   ngAfterViewChecked(): void {
 
 
-    if (this.loginForm.valid || this.credenzialiForm.valid){
-
-      this.container?.nativeElement.classList.add('attivaBottone')
-    }
-    else{
-
-      this.container?.nativeElement.classList.remove('attivaBottone')
-    }
-
   }
+
+  /*setTrue(){
+
+    console.log(this.credenzialiForm.valid+ "+"+ this.generalitaForm.valid +"+"+ this.ambitoForm.valid)
+    if (this.credenzialiForm.valid && this.generalitaForm.valid && !this.isLavoratore() ){
+
+      this.service.setAutenticato()
+      return
+    }
+
+    if (this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid){
+      
+      this.service.setAutenticato()
+      return
+    }
+  }*/
 
   ngOnInit(): void {
 
+    
     this.generalitaForm= new FormGroup({
       nome: new FormControl(null, Validators.required),
       cognome: new FormControl(null, Validators.required),
@@ -108,7 +119,7 @@ export class AccediComponent implements OnInit, AfterViewChecked {
     })
 
     this.credenzialiForm=new FormGroup({
-
+       
       username: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null,Validators.required),
@@ -127,11 +138,19 @@ export class AccediComponent implements OnInit, AfterViewChecked {
       zona: new FormControl(null,Validators.required),
       ambito: new FormControl(null,Validators.required),
     })
-
-
   }
 
+  ngOnDestroy(): void {
 
+    
+    if(this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid){
+      Swal.fire("Ricora di confermare l'email se vuoi pubblicare o proporti per un annuncio")
+      this.service.setAutenticato(true)
+    }
+  }
+  
+
+ 
   onSelectFile(e:any){
     if(e.target.files){
       var reader = new FileReader();
@@ -145,65 +164,78 @@ export class AccediComponent implements OnInit, AfterViewChecked {
   }
 
   isLavoratore(){
-
+    
     return this.service.isLavoratore()
   }
-  clickArrow(){
 
+
+  onRiceviScelta(scelta: string){
+
+    
+    if(scelta==="cliente"){
+      this.service.setlavoratoreBool(false)
+    }
+    else
+      this.service.setlavoratoreBool(true);
+
+      this.componentScelta?.nativeElement.classList.add('remove')
+
+  }
+  clickArrow(){
+    
     this.container?.nativeElement.classList.remove('generalita')
     this.container?.nativeElement.classList.remove('ambito')
 
   }
+
+  doingAccesso(){
+
+    console.log(this.service.doingAccesso)
+    
+    return this.service.doingAccesso
+  }
   onSubmit(){
-    const lavoratore = {
-      username: this.credenzialiForm.get("username")?.value,
-      password: this.credenzialiForm.get("password")?.value,
-      confermaPassword: this.credenzialiForm.get("confermaPassword")?.value,
-      email: this.credenzialiForm.get("email")?.value,
+
+    if(this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid){
+
+      this.container?.nativeElement.classList.add('emailConferma')
     }
-
-    this.backend.postSignupWorker(lavoratore).subscribe( ok=> {
-      if (ok) {
-        alert("Registrazione effettuata con successo")
-        sessionStorage .setItem("username",this.credenzialiForm.get("username")?.value)
-      }else alert("Registrazione fallita")
-    });
-
-    if(this.credenzialiForm.valid){
-
-
-      this.container?.nativeElement.classList.add('generalita')
-
-    }
-
-    console.log(this.generalitaForm.valid +" ddd "+ this.isLavoratore(),"  cd"+ this.autenticato)
+    
     if(this.generalitaForm.valid && this.isLavoratore()){
       this.container?.nativeElement.classList.add('ambito')
     }
-    else{
-        this.autenticato=true;
+
+    if(this.generalitaForm.valid && !this.isLavoratore()){
+      this.container?.nativeElement.classList.add('emailConferma')
     }
+
+    if(this.credenzialiForm.valid){
+      this.container?.nativeElement.classList.add('generalita')
+      
+    }
+
+    
   }
 
   removeActive() {
-
+    
         if (this.container) {
           console.log(this.container);
           this.container.nativeElement.classList.remove('active');
         }
-
+      
     }
-
+  
   addActive() {
     if (this.container) {
       console.log(this.container);
       this.container.nativeElement.classList.add('active');
-
+  
   }
 }
 checkPassword(form : FormGroup):boolean {
 
-
+ 
     if(form.get("password")?.value===form.get("confermaPassword")?.value){
       return true;
     }

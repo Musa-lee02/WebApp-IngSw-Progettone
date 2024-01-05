@@ -1,3 +1,31 @@
+<!--<div *ngIf="!isAutenticato()"><app-accedi></app-accedi></div>-->
 
-<app-accedi></app-accedi>
+<!--<div *ngIf="isAutenticato()">-->
 
+<div class="content">
+    <div class="dashboard">
+        <div class="leftPart">
+
+            <div class="cardAnnuncio">
+                <div class="containerProposta">
+                    <div class="cardProposta"></div>
+                    <div class="cardProposta"></div>
+                </div>
+            </div>
+            <div class="cardAnnuncio">
+                <div class="containerProposta">
+                    <div class="cardProposta"></div>
+                    <div class="cardProposta"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="rightPart">
+
+            
+            <app-chat [contatto]="ambiti"></app-chat>
+            
+        </div>
+    </div>
+
+</div>

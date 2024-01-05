@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 
 type Annunci ={
@@ -12,11 +12,14 @@ type Annunci ={
   providedIn: 'root'
 })
 
-export class ServizioAnnunciService {
+export class ServizioAnnunciService implements OnInit {
 
 
-  private lavoratoreBool :boolean;
-  url='https://material.angular.io/assets/img/examples/shiba2.jpg';
+  doingAccesso: boolean=false;
+  private lavoratoreBool :boolean=false;
+  private autenticato: boolean=false;
+
+  url:string;
 
 
 
@@ -36,6 +39,20 @@ export class ServizioAnnunciService {
 
 
   constructor() { }
+  ngOnInit(): void {
+    console.log(this.autenticato)
+    this.autenticato=false
+
+  }
+
+
+  setRouterUrl(url : string){
+    this.url=url
+  }
+
+  getRouterUrl(){
+    return this.url;
+  }
 
   annunciGetSize(){
     return this.annunci.length
@@ -66,6 +83,7 @@ export class ServizioAnnunciService {
   }
 
   isLavoratore(){
+   
     return this.lavoratoreBool;
   }
   setlavoratoreBool(bool: boolean){
@@ -74,5 +92,14 @@ export class ServizioAnnunciService {
 
   }
 
+  setAutenticato(bool: boolean){
+   
+    this.autenticato=bool;
+    
+  }
+  isAutenticato(){
+    
+    return this.autenticato
+  }
 
 }
