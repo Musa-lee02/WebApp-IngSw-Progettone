@@ -29,7 +29,6 @@ import { ProfiloComponent } from './component/profilo/profilo.component';
 import { SceltaUtenteComponent } from './component/accedi/scelta-utente/scelta-utente.component';
 import { ConfermaEmailComponent } from './component/accedi/conferma-email/conferma-email.component';
 import { CarouselComponent } from './carousel/carousel.component';
-import { SlickCarouselModule } from 'ngx-slick-carousel';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +61,6 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     MatNativeDateModule,
     MatSelectModule,
     FormsModule,
-    SlickCarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent]
