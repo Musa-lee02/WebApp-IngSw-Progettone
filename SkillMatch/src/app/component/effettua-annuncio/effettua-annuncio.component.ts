@@ -36,7 +36,6 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
       foto: new FormControl(null,Validators.required),
       provincia: new FormControl(null,Validators.required),
       ambito: new FormControl(null,Validators.required),
-      dataScadenza: new FormControl(null,Validators.required),
       
     })
   }

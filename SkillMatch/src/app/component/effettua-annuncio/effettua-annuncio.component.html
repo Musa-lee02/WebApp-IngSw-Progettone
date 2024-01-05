@@ -59,12 +59,12 @@
                     <h4>Imposta una data di scadenza</h4>
                     <mat-form-field class="matA">
                         <mat-label>Data</mat-label>
-                        <mat-select formControlName="dataScadenza">
+                        
                         <input matInput [matDatepicker]="picker" formControlName="dataScadenza" [min]="minDate">
                         <mat-hint>MM/DD/YYYY</mat-hint>
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
-                        </mat-select>
+                 
                     </mat-form-field>
                     
                 </div>
