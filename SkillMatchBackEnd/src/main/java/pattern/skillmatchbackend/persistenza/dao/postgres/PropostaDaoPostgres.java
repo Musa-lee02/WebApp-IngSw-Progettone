@@ -1,4 +1,4 @@
-package pattern.skillmatchbackend.persistenza.dao.postgres;
+/*package pattern.skillmatchbackend.persistenza.dao.postgres;
 
 import pattern.skillmatchbackend.model.Proposta;
 
@@ -56,14 +56,14 @@ public class PropostaDaoPostgres implements PropostaDao {
 
             if (rs.next()) {
                 proposta = new Proposta();
-                proposta.setIdProposta(rs.getLong("id"));
-                proposta.setTitolo(rs.getString("titolo"));
-                proposta.setDescrizione(rs.getString("descrizione"));
+               // proposta.setIdProposta(rs.getLong("id"));
+               // proposta.setTitolo(rs.getString("titolo"));
+               // proposta.setDescrizione(rs.getString("descrizione"));
                 proposta.setStato(rs.getString("stato"));
                 proposta.setPrezzoLavoro(rs.getFloat("prezzo_lavoro"));
                 proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("username")));
                 proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString(rs.getString("username"))));
-                proposta.setMessaggi(DBManager.getInstance().getMessaggioDao().findByIdProposta(proposta.getIdProposta()));
+                //proposta.setMessaggi(DBManager.getInstance().getMessaggioDao().findByIdProposta(proposta.getIdProposta()));
             }
 
         } catch (SQLException e) {
@@ -172,4 +172,4 @@ public class PropostaDaoPostgres implements PropostaDao {
 
     }
 
-}
+}*/

@@ -32,7 +32,7 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                TransazionePagamento transazione = new TransazionePagamento;
+                TransazionePagamento transazione = new TransazionePagamento();
                 transazione.setIdTransazione(rs.getLong("id"));
                 transazione.setDataTransazione(rs.getDate("data_transazione"));
                 transazione.setImporto(rs.getDouble("importo"));
