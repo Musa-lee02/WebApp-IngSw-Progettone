@@ -1,0 +1,33 @@
+
+form{
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+}
+
+  .matA{
+    border-radius:40px;
+    height: 80px;
+
+}
+
+.contenitoreA button{
+    
+    background-color: rgb(106, 171, 211);
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+
+}
+.contenitoreA{
+    margin-top: 20px;
+    margin-bottom: 30px;
+}

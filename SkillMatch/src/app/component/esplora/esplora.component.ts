@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ServizioAnnunciService } from '../../servizio-annunci.service';
+import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 
 @Component({
   selector: 'app-esplora',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ServizioAnnunciService } from '../../servizio-annunci.service';
+import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 

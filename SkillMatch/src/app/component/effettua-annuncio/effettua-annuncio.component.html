@@ -1,85 +1,31 @@
 <!--<div *ngIf="!isAutenticato()"><app-accedi></app-accedi></div>-->
 
 <!--<div *ngIf="isAutenticato()">-->
-    
+
+<div class="content">
     <div class="dashboard">
         <div class="leftPart">
-        </div>
-        <div class="rightPart" #rightPart>
-            <form [formGroup]="ambitoForm" (ngSubmit)="onSubmit()">
-                <fa-icon [icon]="arrowLeft" (click)="clickArrow()"></fa-icon>
-                <h1 style="margin-right: 10px;">CREA UN'ANNUNCIO   </h1>
 
-                <div class="contenitore">
-
-                    <div class="contenitoreA">
-                        <h4>Carica una foto dell'annuncio (Opzionale)</h4>
-                        <img [src]="url" height="150px" width="150px" style="margin-right: 10px;">
-                        <input type="file" (change)="onSelectFile($event)" style="width: 250px" formControlName="foto">
-                    </div>
-
-                    <div class="contenitoreA">
-                        <h4>Titolo dell'annuncio</h4>
-                            <mat-form-field class="matA">
-                            <mat-label>Titolo dell'annuncio</mat-label>
-                            <input matInput placeholder="Ex. Pizza" value="Sushi">
-                            </mat-form-field>
-                    </div>
-                    
-                    <div class="contenitoreA">
-                        <h4>Descrizione sul lavoro e sulle abilità  richieste (opzionale) </h4>    
-                        <mat-form-field class="matA">
-                        <mat-label >Textarea</mat-label>
-                        <textarea matInput style></textarea>
-
-                        </mat-form-field>
-                    </div>
-    
-                    <div class="contenitoreA">
-                        <h4>Zona di lavoro</h4>
-                        <mat-form-field class="matA">
-                        <mat-label>Provincia</mat-label>
-                            <mat-select formControlName="provincia">
-                            <mat-option>None</mat-option>
-                                @for (pv of province; track pv) {
-                                    <mat-option [value]="pv">{{pv}}</mat-option>
-                                }
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-        
-                    
-                    <div class="contenitoreA">
-                        <h4>Ambito di lavoro</h4>
-                        <mat-form-field class="matA">
-                        <mat-label>Ambito</mat-label>
-                        <mat-select formControlName="ambito">
-                        <mat-option>None</mat-option>
-                        @for (ab of ambiti; track ab) {
-                            <mat-option [value]="ab">{{ab}}</mat-option>
-                        }
-                        </mat-select>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="contenitoreA">
-                        <h4>Imposta una data di scadenza</h4>
-                        <mat-form-field class="matA">
-                            <mat-label>Data</mat-label>
-                            
-                            <input matInput [matDatepicker]="picker" formControlName="dataScadenza" [min]="minDate">
-                            <mat-hint>MM/DD/YYYY</mat-hint>
-                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                    
-                        </mat-form-field>
-                        
-                    </div>
-
-                    <div class="contenitoreA contenitoreB">
-                        <button mat-raised-button type="submit" class="mybutton">Pubblica annuncio</button>
-                    </div>
+            <div class="cardAnnuncio">
+                <div class="containerProposta">
+                    <div class="cardProposta"></div>
+                    <div class="cardProposta"></div>
                 </div>
-                </form>
+            </div>
+            <div class="cardAnnuncio">
+                <div class="containerProposta">
+                    <div class="cardProposta"></div>
+                    <div class="cardProposta"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="rightPart">
+
+            
+            <app-chat [contatto]="ambiti"></app-chat>
+            
         </div>
     </div>
+
+</div>

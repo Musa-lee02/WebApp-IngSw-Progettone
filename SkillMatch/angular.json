@@ -35,18 +35,12 @@
               "src/assets"
             ],
             "styles": [
-              
-              "./node_modules/slick-carousel/slick/slick.scss",
-              "./node_modules/slick-carousel/slick/slick-theme.scss",
               "./node_modules/sweetalert2/src/sweetalert2.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.css",
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": [
-
-              "node_modules/jQuery/dist/jquery.min.js",
-              "node_modules/slick-carousel/slick/slick.min.js"
             ]
           },
           "configurations": {

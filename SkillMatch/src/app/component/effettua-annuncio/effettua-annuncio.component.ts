@@ -1,5 +1,5 @@
-import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { ServizioAnnunciService } from '../../servizio-annunci.service';
+import { AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
@@ -32,6 +32,10 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
     throw new Error('Method not implemented.');
   }
   ngOnInit(): void {
+
+
+    this.service.setRouterUrl("/Annuncio")
+    
     this.ambitoForm=new FormGroup({
       foto: new FormControl(null,Validators.required),
       provincia: new FormControl(null,Validators.required),
