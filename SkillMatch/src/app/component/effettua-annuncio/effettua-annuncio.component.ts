@@ -20,6 +20,8 @@ export class EffettuaAnnuncioComponent{
 
   ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica', 'Letteratura', 'Cinema', 'Teatro', 'Moda', 'Altro']
 
+  annunci:any 
+  proposte:any
   ambitoForm:FormGroup
   arrowLeft=faArrowLeft
   
@@ -40,6 +42,12 @@ export class EffettuaAnnuncioComponent{
       ambitoAnnucnio: new FormControl(null,Validators.required),
       dataScadenza: new FormControl(null,Validators.required),
     })
+
+    this.annunci=this.service.getAnnunci()
+    this.proposte=this.service.getProposte()
+
+    console.log(this.annunci)
+    console.log(this.proposte)
   }
   onSubmit(): void{
 
