@@ -12,10 +12,27 @@ type Annunci ={
 }
 
 type Proposte={
-  nome:string
+  username:string
   img: string
   descrizione:string
   id:string
+}
+
+type Messaggio={
+
+  contenuto:string
+  data:string
+  idChat: Chat
+  inviato:boolean
+
+}
+
+type Chat={
+
+  idAnnuncio: string
+  usernameUtente: string 
+  usernameLavoratore:string
+
 }
 @Injectable({
   providedIn: 'root'
@@ -29,9 +46,9 @@ export class ServizioAnnunciService implements OnInit {
   private autenticato: boolean=false;
 
   url:string;
+  chatAttuale: Chat ;
 
- 
-  
+  usernameUtente="io" 
   annunci : Annunci[]=[{
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     titolo:"pincher da mangiare",
@@ -53,38 +70,85 @@ export class ServizioAnnunciService implements OnInit {
 
   proposte : Proposte[]=[{
 
-    nome:"pippo",
+
+    username:"pippo",
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     descrizione:"cecedcc",
     id:"13"
     
   },
   {
-    nome:"giacom",
+    username:"giacom",
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     descrizione:"ceceaxdc",
     id:"12"
   },
   {
-    nome:"mll",
+    username:"mll",
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     descrizione:"cecedcc",
     id:"12"
   },
   {
-    nome:"luigio",
+    username:"luigio",
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     descrizione:"cecedcc",
     id:"13"
   },
   {
-    nome:"maswso",
+    username:"maswso",
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     descrizione:"cecedcc",
     id:"13"
   },
 ]
 
+  chat1:Chat={
+    idAnnuncio:"13",
+    usernameUtente:"io",
+    usernameLavoratore:"maswso",
+  }
+  chat2:Chat={
+    idAnnuncio:"12",
+    usernameUtente:"io",
+    usernameLavoratore:"giacom",
+  }
+  chat3:Chat={
+    idAnnuncio:"12",
+    usernameUtente:"io",
+    usernameLavoratore:"giacom",
+  }
+  chat4:Chat={
+    idAnnuncio:"12",
+    usernameUtente:"io",
+    usernameLavoratore:"giacom",
+  }
+
+  chatTotali : Chat[]=[
+
+    this.chat1,this.chat2,this.chat3
+  ]
+  messaggi : Messaggio[]=[{
+    contenuto:"a pucchiac",
+    data:"27/07/96",
+    idChat:this.chat1,
+    inviato:true
+
+  },
+  {
+    contenuto:"a uallera",
+    data:"27/07/96",
+    idChat:this.chat1,
+    inviato:false
+  },
+  {
+
+    contenuto:"i treni",
+    data:"27/09/96",
+    idChat:this.chat2,
+    inviato:true
+  }
+]
  
   constructor() { }
   ngOnInit(): void {
@@ -145,6 +209,38 @@ export class ServizioAnnunciService implements OnInit {
    
     
     return []
+  }
+
+  getMessaggiByChat(){
+    
+    let chat: Messaggio[]=[]
+    for(const messaggio of this.messaggi){
+
+      if(messaggio.idChat===this.chatAttuale){
+      
+        chat.push(messaggio)
+      }
+    }
+    return chat
+    
+  }
+
+  setChatByUsernameAndId(usernameLavoratore : string,  idAnnuncio : string){
+
+    console.log(usernameLavoratore+"username", idAnnuncio+"id")
+    for(const chat of this.chatTotali){
+
+      if(chat.idAnnuncio === idAnnuncio &&  chat.usernameLavoratore===usernameLavoratore
+         && chat.usernameUtente===this.usernameUtente){
+
+          this.chatAttuale=chat
+          return
+      }
+    }
+    this.chatAttuale=this.chat4
+
+
+    /*this.chatTotali.push(new Chat(idAnnuncio, usernameLavoratore,this.usernameUtente))*/
   }
 
   isLavoratore(){

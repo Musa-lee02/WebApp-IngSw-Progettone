@@ -1,0 +1,13 @@
+<div class="chat">
+
+    <div class="messageArea">
+        <div class="messaggioContainer" *ngFor="let message of chat">
+            <div [ngClass]="{'messaggioInviato': message.inviato, 'messaggioRicevuto':!message.inviato}"><h1>{{message.contenuto}}</h1></div>
+        </div>
+    </div>
+    <div class="textArea">
+
+    </div>
+
+
+</div>

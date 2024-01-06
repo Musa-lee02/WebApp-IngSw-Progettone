@@ -30,9 +30,12 @@ import { SceltaUtenteComponent } from './component/accedi/scelta-utente/scelta-u
 import { ConfermaEmailComponent } from './component/accedi/conferma-email/conferma-email.component';
 //import { CarouselComponent } from './carousel/carousel.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
-import { ChatComponent } from './component/effettua-annuncio/chat/chat.component';
+import { ChatComponent } from './component/chat/chat.component';
 import { FormAnnuncioComponent } from './component/effettua-annuncio/form-annuncio/form-annuncio.component';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
+import { ChatTextComponent } from './component/chat/chat-text/chat-text.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +54,7 @@ import { NavBarComponent } from './component/nav-bar/nav-bar.component';
        ChatComponent,
        FormAnnuncioComponent,
        NavBarComponent,
+       ChatTextComponent,
     
   ],
   imports: [

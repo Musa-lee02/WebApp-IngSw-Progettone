@@ -13,12 +13,12 @@
       <li *ngIf="isAutenticato()" style="padding: 0; margin-left: 20px;"><div class="imgNavBar"><img src="../assets/default.jpg" alt=""></div>
         <ul>
           <li><a routerLink="/Profilo">Profilo </a></li>
-          <li><a routerLink="/Annuncio" (click)="setDoingAccesso(false)">Pubblica Annuncio</a></li>
+          <li><a routerLink="/Chat" (click)="setDoingAccesso(false)">Pubblica Annuncio</a></li>
           <li><a routerLink="/Home">logout</a></li>
         </ul>
       </li>
       <li *ngIf="!isHome"><a routerLink="Home">Home</a></li>
-      <li><a routerLink="Annuncio" (click)="setLavoratore(false)" (click)="setDoingAccesso(false)">Pubblica  Annuncio</a></li>
+      <li><a routerLink="Chat" (click)="setLavoratore(false)" (click)="setDoingAccesso(false)">Pubblica  Annuncio</a></li>
       
       <li><a style="pointer-events: none; cursor: default;">Esplora   <fa-icon [icon]="arrowIcon"></fa-icon></a>
         <ul>

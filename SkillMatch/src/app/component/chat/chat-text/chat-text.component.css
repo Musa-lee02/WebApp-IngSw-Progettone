@@ -1,0 +1,42 @@
+.chat{
+
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: cornsilk;
+}
+
+.messageArea{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    height: 90%;
+    background-color: lightblue;
+}
+.messaggioRicevuto{
+
+    color: blue;
+    align-self: flex-end;
+}
+
+.messaggioInviato{
+
+    color:green;
+    align-self: flex-start;
+}
+.messaggioContainer{
+
+    display: flex;
+    flex-direction: column;
+    padding: 10px 30px;
+
+}
+.textArea{
+
+    width: 100%;
+    height: 10%;
+    background-color: black;
+}
