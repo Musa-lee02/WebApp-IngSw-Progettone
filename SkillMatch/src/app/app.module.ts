@@ -14,7 +14,7 @@ import {MatCardModule} from '@angular/material/card';
 import { CardsVetrinaComponent } from './component/cards-vetrina/cards-vetrina.component';
 import { ServizioAnnunciService } from './service/servizio-annunci.service';
 import { HomeComponent } from './component/home/home.component';
-
+import {MatIconModule} from '@angular/material/icon'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EsploraComponent } from './component/esplora/esplora.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -72,7 +72,7 @@ import { ChatTextComponent } from './component/chat/chat-text/chat-text.componen
     MatNativeDateModule,
     MatSelectModule,
     FormsModule,
-    SlickCarouselModule
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

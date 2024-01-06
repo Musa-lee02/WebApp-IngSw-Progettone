@@ -1,3 +1,6 @@
+
+
+
 .full-container{
 
     scroll-behavior: smooth;
@@ -11,7 +14,7 @@
     /*border-bottom: 2px solid black;
 */  
     background-image: linear-gradient(white, white ,white,white,white,white, rgb(79, 60, 143));
-    /*background-color:#5c6bc0 ;*/
+    
     display: block;
     position: fixed;
     padding-right: 10%;
@@ -150,17 +153,6 @@ li li a{
 
     color: black;
 }
-
-
-
-li li:hover:not(.active) {
-    
-   
-    
-}
-
-
-
 
 
 
