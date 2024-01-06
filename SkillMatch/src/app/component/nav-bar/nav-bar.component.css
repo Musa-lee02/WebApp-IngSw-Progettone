@@ -1,4 +1,3 @@
-
 .full-container{
 
     scroll-behavior: smooth;
@@ -109,8 +108,9 @@ ul li:hover ul{
     border-top-left-radius: 20px;
     padding-bottom: 10px;
 }
-.navBar>ul >li:hover{
+.navBar ul li:hover{
 
+    
     background-image: linear-gradient( white 30%, #4f3c8f);
     
 }
@@ -127,7 +127,9 @@ ul li li{
 
 }
 
-ul ul li:hover{
+.navBar ul ul li:hover{
+
+    background-image: none;
     background-color: rgba(79, 60, 143,0.2);
 }
 
@@ -168,7 +170,7 @@ li li:hover:not(.active) {
 
         box-sizing: content-box;
         background-color: white;
-        left: 18%;
+        left: 25%;
         border-radius: 20px;
         border: 1px solid #000000;
         width: 40%;
@@ -181,24 +183,33 @@ li li:hover:not(.active) {
     .navBar ul li ul{
 
         top: 0;
-        left: -133%;
+        left: -145%;
         
         /* top: 200px; */
-        display: block;
+        max-width: 0;
         height: fit-content;
         width: 100%;
+        transition: max-width 1s ease-in;
     
     }
 
-   
+    
+    .navBar ul li:hover ul{
+        
+        max-width: 200px;
+        transition: max-width 1s ease-in;
+    
+    }
     
     .navBar ul li:hover{
+        background-image: none;
         background-color: rgba(79, 60, 143,0.2) ;
     
     }
 
-    .navBar li a{
+    .navBar ul li a{
 
+        padding:0px 20px 10px 20px !important;
         color: black;
         font-size: 13px;
         float: right;
@@ -279,3 +290,6 @@ li li:hover:not(.active) {
     }
 
 }
+
+
+
