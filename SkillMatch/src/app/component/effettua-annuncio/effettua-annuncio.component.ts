@@ -20,6 +20,8 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
 
   ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica', 'Letteratura', 'Cinema', 'Teatro', 'Moda', 'Altro']
 
+  annunci:any 
+  proposte:any
   ambitoForm:FormGroup
   arrowLeft=faArrowLeft
   minDate = new Date();
@@ -42,6 +44,12 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
       ambito: new FormControl(null,Validators.required),
       
     })
+
+    this.annunci=this.service.getAnnunci()
+    this.proposte=this.service.getProposte()
+
+    console.log(this.annunci)
+    console.log(this.proposte)
   }
 
   ngOnDestroy(): void {
