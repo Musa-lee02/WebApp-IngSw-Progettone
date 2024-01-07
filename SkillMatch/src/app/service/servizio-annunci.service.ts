@@ -190,6 +190,20 @@ export class ServizioAnnunciService implements OnInit {
     return proposteFiltrate;
 
   }
+  getLavoratoreCard(chat :Chat){
+
+    for(const proposta of this.proposte){
+
+      
+      if(chat.idAnnuncio === proposta.id &&  chat.usernameLavoratore===proposta.username
+        && chat.usernameUtente===this.usernameUtente){
+
+          
+          return proposta; 
+        }
+    }
+    return
+}
   getAnnunciByAmbito(ambito: string) : Annunci[]{
 
     let inHome=true
@@ -230,10 +244,12 @@ export class ServizioAnnunciService implements OnInit {
     console.log(usernameLavoratore+"username", idAnnuncio+"id")
     for(const chat of this.chatTotali){
 
+      
       if(chat.idAnnuncio === idAnnuncio &&  chat.usernameLavoratore===usernameLavoratore
          && chat.usernameUtente===this.usernameUtente){
 
           this.chatAttuale=chat
+          
           return
       }
     }
@@ -241,6 +257,12 @@ export class ServizioAnnunciService implements OnInit {
 
 
     /*this.chatTotali.push(new Chat(idAnnuncio, usernameLavoratore,this.usernameUtente))*/
+  }
+
+  getChat(){
+
+    
+    return this.chatAttuale
   }
 
   isLavoratore(){

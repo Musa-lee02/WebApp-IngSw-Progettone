@@ -1,14 +1,23 @@
 
 
 <div class="chat">
-
+    <div class="contactArea">
+        <mat-icon class="arrowResponsive" *ngIf="lavoratoreCard" style="color:white">arrow_back</mat-icon>
+        <div class="contactImgName" *ngIf="lavoratoreCard">
+            <img src="{{lavoratoreCard.img}}">
+            {{lavoratoreCard.username}}
+        </div>
+            
+            <mat-icon *ngIf="lavoratoreCard" style="color:white" >cancel</mat-icon>
+            <mat-icon *ngIf="lavoratoreCard" style="color: white;">check</mat-icon>
+    </div>
     <div class="messageArea">
-        <div class="messaggioContainer" *ngFor="let message of chat">
+        <div class="messaggioContainer" *ngFor="let message of messaggi">
             <div [ngClass]="{'messaggioInviato': message.inviato, 'messaggioRicevuto':!message.inviato}"><h4>{{message.contenuto}}</h4></div>
         </div>
     </div>
     <div class="textArea">
-        <input type="text" placeholder="Cerca annuncio..."><mat-icon style="color: white;">send</mat-icon>
+        <input type="text" placeholder="Messaggio..."><mat-icon style="color: white;">send</mat-icon>
     </div>
 
 

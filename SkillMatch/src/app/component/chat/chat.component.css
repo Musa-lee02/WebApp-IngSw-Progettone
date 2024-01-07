@@ -54,6 +54,10 @@
     border-radius: 11px;
 }
 
+.proposteBtn{
+
+    display: none;
+}
 
 .imgCard{
    
@@ -98,6 +102,7 @@
 }
 .cardAnnuncio{
     
+    width: 100%;
     color: white;
     background-color: rgb(33, 30, 45);
     display: flex;
@@ -118,7 +123,7 @@
     position: absolute;
     top: 0;
     left: 100%;
-    height: 1080px;
+    height: 100%;
     width: 100%;
     background-color: rgb(44, 36, 72);
     z-index: 2;
@@ -149,6 +154,7 @@
 }
 .leftPart{
     background-color: rgb(44, 36, 72);
+    
     height:100% !important;
     border-radius: 11px;
     position: relative;
@@ -170,7 +176,9 @@
     z-index: 1;
 }
 
-
+.arrowDownResponsive{
+    display:none;
+}
 
 @media only screen and (max-width: 1024px){
 
@@ -181,4 +189,70 @@
     .dashboard .rightPart{
         margin-right: 0px;
     }
+    .rightPart{
+        display: none;
+    }
+    .rightPartResponsive{
+        display: none;
+    }
+
+    .cardAnnuncio{
+        position: relative;
+    }
+    .leftPart  .visualizzaChat .containerProposta,
+    .leftPart{
+
+        width: 100%;
+        height: 100%;
+        padding-top: 50px;
+    }
+
+    .visualizzaChat .rightPart {
+
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    .visualizzaChat .leftPart{
+
+        display: none;
+    }
+
+    .leftPart .cardAnnuncio .containerProposta{
+        
+        max-height: 0;
+        top: 100%;
+        left:0;
+        max-width: 100%;
+        height: fit-content;
+        transition: max-height 1s;
+
+    }
+    .containerProposta{
+        padding-left: 100px;
+    }
+    .containerProposta .imgCard{
+        width: 30%;
+    }
+    .cardAnnuncio:hover .containerProposta{
+    
+        max-width: 0;
+        transition: none;
+    }
+
+    .cardAnnuncio .proposteBtn:checked ~.cardAnnuncio .containerProposta{
+
+        max-height: fit-content;
+        max-width: 100%;
+    }
+
+    .cardProposta .chatBtn:checked ~.cardProposta .rightPartResponsive{
+
+        display: block;
+    }
+    .arrowDownResponsive{
+        display:inline;
+    }
+
+
 }

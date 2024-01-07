@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,9 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 })
 
 export class ChatComponent{
+
+  @ViewChild('rightPart') dashboard :ElementRef
+ 
   minDate: Date;
 
   url = 'https://www.felicinabiorci.com/wp/wp-content/uploads/2019/01/diet-food-macro-111130.jpg'
@@ -22,8 +25,10 @@ export class ChatComponent{
 
   annunci:any 
   proposte:any
+  lavoratore:any
   ambitoForm:FormGroup
   arrowLeft=faArrowLeft
+  primoCaricamento:boolean=true
   
   constructor(private service: ServizioAnnunciService){
     this.minDate = new Date();
@@ -48,12 +53,20 @@ export class ChatComponent{
 
 
   }
+
   onSubmit(): void{
 
   }
   onSelectFile(e: Event): void {
   }
   clickArrow() : void{
+
+  }
+
+  visualizzaChatResponsive(){
+
+    console.log("swss")
+    this.dashboard.nativeElement.classList.add('visualizzaChat')
 
   }
   
@@ -64,12 +77,14 @@ export class ChatComponent{
 
   setChatByUsernameAndId(username : string, id : string){
 
-    return this.service.setChatByUsernameAndId(username, id);
+    
+    return this.service.setChatByUsernameAndId(username, id);//cancella
 
   }
 
   getChat(){
-
-    return this.service.getMessaggiByChat()
+    this.primoCaricamento=true
+    console.log(this.primoCaricamento)
+    return this.service.getChat()
   }
 }
