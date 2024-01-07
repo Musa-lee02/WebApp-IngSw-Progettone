@@ -1,3 +1,4 @@
+declare var google: any;
 import { AfterViewChecked, Component, ComponentFactoryResolver, ComponentRef, ElementRef, NgZone, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -71,8 +72,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     'Wyoming',
   ];
 
-  
-  
+
+
   generalitaForm : FormGroup
   credenzialiForm : FormGroup
   loginForm:FormGroup
@@ -80,12 +81,12 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   arrowLeft=faArrowLeft
   googleIcon=faGoogle
   url=""
-  
+
   constructor(private service: ServizioAnnunciService,) {
 
-    
+
   }
-  
+
 
   ngAfterViewChecked(): void {
 
@@ -102,7 +103,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
 
     if (this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid){
-      
+
       this.service.setAutenticato()
       return
     }
@@ -110,7 +111,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngOnInit(): void {
 
-    
+
+
     this.generalitaForm= new FormGroup({
       nome: new FormControl(null, Validators.required),
       cognome: new FormControl(null, Validators.required),
@@ -119,7 +121,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     })
 
     this.credenzialiForm=new FormGroup({
-       
+
       username: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null,Validators.required),
@@ -142,15 +144,15 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngOnDestroy(): void {
 
-    
+
     if(this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid){
       Swal.fire("Ricora di confermare l'email se vuoi pubblicare o proporti per un annuncio")
       this.service.setAutenticato(true)
     }
   }
-  
 
- 
+
+
   onSelectFile(e:any){
     if(e.target.files){
       var reader = new FileReader();
@@ -164,14 +166,14 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   isLavoratore(){
-    
+
     return this.service.isLavoratore()
   }
 
 
   onRiceviScelta(scelta: string){
 
-    
+
     if(scelta==="cliente"){
       this.service.setlavoratoreBool(false)
     }
@@ -182,7 +184,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   }
   clickArrow(){
-    
+
     this.container?.nativeElement.classList.remove('generalita')
     this.container?.nativeElement.classList.remove('ambito')
 
@@ -191,7 +193,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   doingAccesso(){
 
     console.log(this.service.doingAccesso)
-    
+
     return this.service.doingAccesso
   }
   onSubmit(){
@@ -200,7 +202,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
       this.container?.nativeElement.classList.add('emailConferma')
     }
-    
+
     if(this.generalitaForm.valid && this.isLavoratore()){
       this.container?.nativeElement.classList.add('ambito')
     }
@@ -211,31 +213,31 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     if(this.credenzialiForm.valid){
       this.container?.nativeElement.classList.add('generalita')
-      
+
     }
 
-    
+
   }
 
   removeActive() {
-    
+
         if (this.container) {
           console.log(this.container);
           this.container.nativeElement.classList.remove('active');
         }
-      
+
     }
-  
+
   addActive() {
     if (this.container) {
       console.log(this.container);
       this.container.nativeElement.classList.add('active');
-  
+
   }
 }
 checkPassword(form : FormGroup):boolean {
 
- 
+
     if(form.get("password")?.value===form.get("confermaPassword")?.value){
       return true;
     }

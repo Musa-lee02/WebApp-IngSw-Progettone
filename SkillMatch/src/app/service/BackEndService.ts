@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
-import {LavoratoreSignUp} from "./lavoratore";
+import {LavoratoreSignUp} from "../lavoratore";
 
 @Injectable({
   providedIn: 'root'
