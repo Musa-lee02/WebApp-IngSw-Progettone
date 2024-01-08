@@ -1,38 +1,69 @@
-
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
 
 .contentSfondo{
-  padding-top: 180px;
+  margin-top: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.card{
-  border-style:solid;
-  margin: 20px;
-  border-color: black;
-  border-width: thin;
-  border-radius: 5px;
-}
-.example-card {
-
-    max-width: 250px;
-    margin: 30px;
-    
-  }
 
 .vetrina{
-  
-
-  
-  max-width: 100%;
-  width: 100%;
-  box-shadow: 10px 10px 0 rgba(81, 45, 168, 1);
-  border-style: solid;
-  border-color: black;
   display: flex;
-  justify-content: flex-start;
-  overflow-x: auto;
-    
+  flex-wrap: wrap;
+  gap: 40px;
+  box-shadow: 0px 2px 6px rgb(107, 62, 211);  
+  margin-top: 30px;
+  margin-left: 180px;
+  margin-right: 180px;
+  z-index: 1;
+  justify-content: center;
+ 
+}
+
+.example-card {
+  width: calc(21% - 20px);
+  max-height:20%;
+  border-style:solid;
+  border-width: thin;
+  border-radius: 20px;
+  box-shadow: 0px 4px 8px rgb(107, 62, 211);  
+    margin-top: 15px;
+    z-index: 1;
+    overflow: hidden;
+}
+.mdc-card__media {
+  position: relative;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  object-fit: cover;
+  border-radius: 30px;
+  
+  width: 302px;
+  height: 280px;
+}
+.mat-mdc-card-header {
+
+  display: flex;
+  padding: 16px 16px 0;
+}
+.mat-mdc-card-content{
+  height: 140px;
+  display: block;
+    padding: 0 16px
+}
+
+.mat-mdc-button:not(:disabled) {
+  color: var(--mdc-text-button-label-text-color);
+  background-color: rgb(146, 111, 228);
+  margin: 7px;
+  border-radius: 30px;
 }
   /*.example-header-image {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');

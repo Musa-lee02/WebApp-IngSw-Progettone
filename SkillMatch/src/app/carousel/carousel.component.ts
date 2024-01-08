@@ -1,12 +1,16 @@
-/*import { Component, OnInit } from '@angular/core';
-import { ServizioAnnunciService } from '../servizio-annunci.service';
-
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ServizioAnnunciService } from '../service/servizio-annunci.service';
+import {SlickCarouselModule} from 'ngx-slick-carousel';
 @Component({
   selector: 'app-carousel',
+  standalone: true,
+  imports: [CommonModule, SlickCarouselModule],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.css'
 })
 export class CarouselComponent implements OnInit {
+  
   
   slides: any
 
@@ -22,7 +26,7 @@ export class CarouselComponent implements OnInit {
   slideConfig= {
     "slidesToShow":4,
     "slidesToScroll":4,
-    "autoplay": true,
+    "autoplay": false,
     "autoplaySpeed": 5000,
     "pauseInHover": true,
     "infinite": true,
@@ -49,4 +53,3 @@ export class CarouselComponent implements OnInit {
     ]
   };
 }
-*/

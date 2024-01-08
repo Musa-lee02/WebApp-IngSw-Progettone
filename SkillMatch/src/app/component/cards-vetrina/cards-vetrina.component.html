@@ -1,76 +1,34 @@
 
 <div class="contentSfondo">
-  <h2 style="text-align: center;">annunci in vetrina</h2>
+  <h2 style="text-align: center;">Annunci in vetrina</h2>
   <div class="vetrina">
+      <mat-card *ngFor="let annuncio of annunci" class="example-card">
+        
+        
+        <!--<mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Shiba Inu</mat-card-title>
+          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        </mat-card-header>-->
+        <img mat-card-image src="{{annuncio.img}}" alt="Photo of a Shiba Inu" >
 
-  <div *ngFor="let annuncio of annunci">
-    <div class="card">
-    <mat-card class="example-card">
-      
-      <!--<mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-      </mat-card-header>-->
-      <img mat-card-image src="{{annuncio.img}}" alt="Photo of a Shiba Inu" style="z-index: 0;">
-      <mat-card-content>
-        <p>
-          {{annuncio.descrizione}}
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-  </div>
+        <mat-card-header>
+          <mat-card-title>Shiba Inu</mat-card-title>
+          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            {{annuncio.descrizione}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>CHAT</button>
+          <button mat-button>CONDIVIDI</button>
+        </mat-card-actions>
+      </mat-card>
 
-  <div *ngFor="let annuncio of annunci">
-    <div class="card">
-    <mat-card class="example-card">
-      
-      <!--<mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-      </mat-card-header>-->
-      <img mat-card-image src="{{annuncio.img}}" alt="Photo of a Shiba Inu" style="z-index: 0;">
-      <mat-card-content>
-        <p>
-          {{annuncio.descrizione}}
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-  </div>
 
-  <div *ngFor="let annuncio of annunci">
-    <div class="card">
-    <mat-card class="example-card">
-      
-      <!--<mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-      </mat-card-header>-->
-      <img mat-card-image src="{{annuncio.img}}" alt="Photo of a Shiba Inu" style="z-index: 0;">
-      <mat-card-content>
-        <p>
-          {{annuncio.descrizione}}
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-  </div>
-</div>
+
+  
 
 </div>

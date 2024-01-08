@@ -1,6 +1,7 @@
 import { AfterContentInit, AfterViewChecked, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { ActivatedRoute } from '@angular/router';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-cards-vetrina',
@@ -11,6 +12,7 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked{
 
   annunci: any;
   ambito: string
+
   constructor(private route : ActivatedRoute, private servizioAnnunci: ServizioAnnunciService){}
 
   
@@ -29,9 +31,6 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked{
   }
 
   ngOnInit(): void {
-    
-   
-  
     
   }
 

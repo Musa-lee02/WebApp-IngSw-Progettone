@@ -6,7 +6,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-form-annuncio',
   templateUrl: './form-annuncio.component.html',
-  styleUrls: ['./form-annuncio.component.css']
+  styleUrls: ['./form-annuncio.component.css']  
 })
 export class FormAnnuncioComponent {
 
@@ -27,8 +27,6 @@ export class FormAnnuncioComponent {
   }
 
   ngOnInit(): void {
-
-
     this.service.setRouterUrl("/Annuncio")
     
     this.ambitoForm=new FormGroup({
