@@ -1,5 +1,5 @@
 <div class="full-container">
-    
+
     <div class="navBar">
 
       <input class="menu-btn" id="menu-btn" type="checkbox">
@@ -8,8 +8,8 @@
         </label>
         <div class="imgNavBar"></div>
       <ul>
-        
-        <li *ngIf="!isAutenticato()" (click)="setDoingAccesso(true)"><a  href="#" routerLink="Accedi" >Accedi</a></li>
+
+        <li *ngIf="!isAutenticato()" (click)="setDoingAccesso(true)"><a  href="Accedi">Accedi</a></li>
         <li *ngIf="isAutenticato()" style="padding: 0;"><div class="imgNavBar"><img src="../assets/default.jpg" alt=""></div>
           <ul>
             <li><a routerLink="/Profilo">Profilo </a></li>
@@ -19,7 +19,7 @@
         </li>
         <li *ngIf="!isHome"><a routerLink="Home">Home</a></li>
         <li><a routerLink="Annuncio" (click)="setLavoratore(false)" (click)="setDoingAccesso(false)">Pubblica  Annuncio</a></li>
-        
+
         <li><a style="pointer-events: none; cursor: default;">Esplora   <fa-icon [icon]="arrowIcon"></fa-icon></a>
           <ul>
             <li><a routerLink="/Esplora/Tecnologia">Tecnologia</a></li>
@@ -30,7 +30,7 @@
       </ul>
 
   </div>
-  
+
     <router-outlet style="z-index: 0;"></router-outlet>
-  
+
 </div>

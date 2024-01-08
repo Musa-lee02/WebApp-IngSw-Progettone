@@ -1,4 +1,5 @@
 declare var google: any;
+declare var window: any;
 import { AfterViewChecked, Component, ComponentFactoryResolver, ComponentRef, ElementRef, NgZone, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -83,6 +84,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   url=""
 
   constructor(private service: ServizioAnnunciService,) {
+    window.AccediComponent = this;
 
 
   }
@@ -243,4 +245,19 @@ checkPassword(form : FormGroup):boolean {
     }
     else return false;
 }
+
+// Inside your Angular Component
+  public processGoogleUserData(userData: any) {
+    this.generalitaForm.patchValue({
+      nome: userData.name.regex("^\w+"),
+      cognome: userData.name.regex("\w$"),
+
+    });
+    // @ts-ignore
+    console.log(this.generalitaForm.get("nome").value);
+
+
+  }
+
+
 }
