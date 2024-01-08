@@ -10,7 +10,7 @@
 
     /*border-bottom: 2px solid black;
 */  
-    background-image: linear-gradient(white, white ,white,white,white,white, #4f3c8f);
+    background-image: linear-gradient(white, white ,white,white,white,white, rgb(79, 60, 143));
     /*background-color:#5c6bc0 ;*/
     display: block;
     position: fixed;
@@ -53,6 +53,10 @@
 
 .navBar ul ul{
     
+    border-radius: 20px;
+    border: 1px solid #000000;
+    background-color: white;
+    height: auto;
     display:none;
     position: absolute;
     top: 100%; 
@@ -60,10 +64,12 @@
     border-style: solid;
     border-color: black;
     width: 200%;
+    min-width: fit-content;
 
 }
 .navBar ul li {
 
+    
     display: inline-block;
     position: relative;
 }
@@ -81,8 +87,9 @@
 }
 
 .navBar .imgNavBar{
+    
     display: inline-block;
-    padding: 25px 0;
+    padding: 10px 0;
     width: 50px;
     height: 100px;
 }
@@ -101,20 +108,29 @@ ul li:hover ul{
     border-top-left-radius: 20px;
     padding-bottom: 10px;
 }
-.navBar>ul >li:hover{
+.navBar ul li:hover{
 
-    /*background-image: linear-gradient( white 30%, #4f3c8f);*/
     
+    background-image: linear-gradient( white 30%, #4f3c8f);
+    
+}
+.navBar ul li ul li:hover{
+
 }
 
 ul li li{
    
+    border-radius: 20px;
     width: 100%;
     text-align: center;
-    border-bottom: solid;
-    border-color: black;
-    background-color: white;
     
+
+}
+
+.navBar ul ul li:hover{
+
+    background-image: none;
+    background-color: rgba(79, 60, 143,0.2);
 }
 
 li a {
@@ -127,6 +143,9 @@ li a {
     font-size: 17px;
 }
 
+ul li li a{
+    padding: 10px 20px;
+}
 li li a{
 
     color: black;
@@ -135,8 +154,8 @@ li li a{
 
 
 li li:hover:not(.active) {
-    background-color: rgba(211, 211, 211, 0.5) ;
-    transition: 0.5s;
+    
+   
     
 }
 
@@ -149,34 +168,48 @@ li li:hover:not(.active) {
     
     .navBar ul{
 
-        
-        left: 18%;
+        box-sizing: content-box;
+        background-color: white;
+        left: 25%;
         border-radius: 20px;
         border: 1px solid #000000;
         width: 40%;
         position: relative;
         height: auto;
         top: 78px;
-        max-height: 0;
-        overflow: hidden;
+        display: none;
         transition: max-height 1s ease-in-out;
+    }
+    .navBar ul li ul{
 
+        top: 0;
+        left: -145%;
         
-    }
-    .navBar ul ul{
-
-        left: -300px;
-        position: absolute;
         /* top: 200px; */
-        display: block;
-        height: 300px;
+        max-width: 0;
+        height: fit-content;
+        width: 100%;
+        transition: max-width 1s ease-in;
+    
     }
 
+    
+    .navBar ul li:hover ul{
+        
+        max-width: 200px;
+        transition: max-width 1s ease-in;
+    
+    }
+    
     .navBar ul li:hover{
-        background-color: #4f3c8f !important;
+        background-image: none;
+        background-color: rgba(79, 60, 143,0.2) ;
+    
     }
-    .navBar li a{
 
+    .navBar ul li a{
+
+        padding:0px 20px 10px 20px !important;
         color: black;
         font-size: 13px;
         float: right;
@@ -184,21 +217,26 @@ li li:hover:not(.active) {
     }
     .navBar ul li{
         
-        background-color: white;
+        position: relative;
+        max-height: 80px ;
         padding: 10px;
         width: 100%;
-        display: block; 
-        
+        display: block;  
     }
     .navBar ul li{
-        border-radius: 0 0 0 0 ;
+        border-radius: 20px
     }
     .navBar .menu-btn:checked ~ ul{
         
-         max-height: 350px;
+         
+         display: block;
         
     }
-  
+    
+    .navBar .imgNavBar{
+        float: right;
+        margin-right: 20px;
+    }
     .navBar .menu-icon{
     
         
@@ -252,3 +290,6 @@ li li:hover:not(.active) {
     }
 
 }
+
+
+
