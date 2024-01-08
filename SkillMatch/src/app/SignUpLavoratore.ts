@@ -4,3 +4,8 @@ export interface LavoratoreSignUp{
   confermaPassword: string;
   email: string;
 }
+
+export interface LavoratoreSignUpGoogle{
+  username: string;
+  email: string;
+}

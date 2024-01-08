@@ -152,7 +152,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   }
   clickArrow(){
-    
+
     console.log(this.generalitaForm)
     this.container?.nativeElement.classList.remove('generalita')
     this.container?.nativeElement.classList.remove('ambito')
@@ -199,7 +199,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   removeActive() {
 
         if (this.container) {
-          
+
           this.container.nativeElement.classList.remove('active');
         }
 
@@ -227,6 +227,15 @@ registrazioneGoogle(googleData : any){
       cognome: googleData.family_name
     })
    this.container?.nativeElement.classList.add('generalita')
+  if(this.generalitaForm.valid && this.isLavoratore()){
+    this.ambitoForm.patchValue({
+      foto: googleData.picture
+
+    })
+    console.log(this.ambitoForm.get("foto")?.value)
+    this.container?.nativeElement.classList.add('ambito')
+  }
+
 }
 
 
