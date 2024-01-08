@@ -1,6 +1,18 @@
 declare var google: any;
 declare var window: any;
-import { AfterViewChecked, Component, ComponentFactoryResolver, ComponentRef, ElementRef, NgZone, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  ElementRef,
+  Injector,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
@@ -83,11 +95,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   googleIcon=faGoogle
   url=""
 
-  constructor(private service: ServizioAnnunciService,) {
-    window.AccediComponent = this;
-
-
-  }
+  constructor(private service: ServizioAnnunciService, ){}
 
 
   ngAfterViewChecked(): void {
@@ -112,6 +120,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }*/
 
   ngOnInit(): void {
+      window['accediComponentRef'] = this;
+
 
 
 
@@ -246,18 +256,13 @@ checkPassword(form : FormGroup):boolean {
     else return false;
 }
 
-// Inside your Angular Component
-  public processGoogleUserData(userData: any) {
+registrazioneGoogle(googleData : any){
     this.generalitaForm.patchValue({
-      nome: userData.name.regex("^\w+"),
-      cognome: userData.name.regex("\w$"),
-
-    });
-    // @ts-ignore
-    console.log(this.generalitaForm.get("nome").value);
-
-
-  }
+      nome: googleData.given_name,
+      cognome: googleData.family_name
+    })
+   this.container?.nativeElement.classList.add('generalita')
+}
 
 
 }

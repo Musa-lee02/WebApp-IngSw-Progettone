@@ -9,7 +9,7 @@
         <div class="imgNavBar"></div>
       <ul>
 
-        <li *ngIf="!isAutenticato()" (click)="setDoingAccesso(true)"><a  href="Accedi">Accedi</a></li>
+        <li *ngIf="!isAutenticato()"><a  href="Accedi">Accedi</a></li>
         <li *ngIf="isAutenticato()" style="padding: 0;"><div class="imgNavBar"><img src="../assets/default.jpg" alt=""></div>
           <ul>
             <li><a routerLink="/Profilo">Profilo </a></li>
