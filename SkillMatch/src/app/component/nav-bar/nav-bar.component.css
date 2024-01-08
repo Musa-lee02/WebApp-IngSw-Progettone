@@ -1,3 +1,6 @@
+
+
+
 .full-container{
 
     scroll-behavior: smooth;
@@ -11,7 +14,7 @@
     /*border-bottom: 2px solid black;
 */  
     background-image: linear-gradient(white, white ,white,white,white,white, rgb(79, 60, 143));
-    /*background-color:#5c6bc0 ;*/
+    
     display: block;
     position: fixed;
     padding-right: 10%;
@@ -153,51 +156,37 @@ li li a{
 
 
 
-li li:hover:not(.active) {
-    
-   
-    
-}
-
-
-
-
-
-
 @media only screen and (max-width: 1024px){
     
-    .navBar ul{
+    .navBar>ul{
 
-        box-sizing: content-box;
-        background-color: white;
-        left: 25%;
-        border-radius: 20px;
-        border: 1px solid #000000;
-        width: 40%;
+        left: 230px;
+        /* float: right; */
         position: relative;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        margin-right: 10%;
+        margin-top: 80px;
+        width: 300px;
+        background-color: white;
         height: auto;
-        top: 78px;
+        border-radius: 20px;
         display: none;
-        transition: max-height 1s ease-in-out;
     }
-    .navBar ul li ul{
-
-        top: 0;
-        left: -145%;
-        
-        /* top: 200px; */
-        max-width: 0;
-        height: fit-content;
-        width: 100%;
-        transition: max-width 1s ease-in;
+    .navBar ul  ul{
     
+        width: 100%;
+        top:0;
+        left: -100%;
+        position: absolute;
+      
     }
 
     
     .navBar ul li:hover ul{
         
-        max-width: 200px;
-        transition: max-width 1s ease-in;
+        
     
     }
     
@@ -209,7 +198,7 @@ li li:hover:not(.active) {
 
     .navBar ul li a{
 
-        padding:0px 20px 10px 20px !important;
+        padding:10px 5px 10px 20px !important;
         color: black;
         font-size: 13px;
         float: right;
@@ -217,19 +206,19 @@ li li:hover:not(.active) {
     }
     .navBar ul li{
         
-        position: relative;
-        max-height: 80px ;
-        padding: 10px;
+        margin-left: 0 !important;
+        box-sizing: border-box;
+        border-radius: 20px;
         width: 100%;
-        display: block;  
+        display: flex;
+        justify-content: flex-end;
+        height: 80px;
+        position: relative;
     }
-    .navBar ul li{
-        border-radius: 20px
-    }
+   
     .navBar .menu-btn:checked ~ ul{
         
-         
-         display: block;
+        display: block;
         
     }
     

@@ -37,52 +37,6 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     'Alaska',
     'Arizona',
     'Arkansas',
-    'California',
-    'Colorado',
-    'Connecticut',
-    'Delaware',
-    'Florida',
-    'Georgia',
-    'Hawaii',
-    'Idaho',
-    'Illinois',
-    'Indiana',
-    'Iowa',
-    'Kansas',
-    'Kentucky',
-    'Louisiana',
-    'Maine',
-    'Maryland',
-    'Massachusetts',
-    'Michigan',
-    'Minnesota',
-    'Mississippi',
-    'Missouri',
-    'Montana',
-    'Nebraska',
-    'Nevada',
-    'New Hampshire',
-    'New Jersey',
-    'New Mexico',
-    'New York',
-    'North Carolina',
-    'North Dakota',
-    'Ohio',
-    'Oklahoma',
-    'Oregon',
-    'Pennsylvania',
-    'Rhode Island',
-    'South Carolina',
-    'South Dakota',
-    'Tennessee',
-    'Texas',
-    'Utah',
-    'Vermont',
-    'Virginia',
-    'Washington',
-    'West Virginia',
-    'Wisconsin',
-    'Wyoming',
   ];
 
 
@@ -152,6 +106,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       zona: new FormControl(null,Validators.required),
       ambito: new FormControl(null,Validators.required),
     })
+
+    this.service.setDoingAccesso(true)
   }
 
   ngOnDestroy(): void {
@@ -196,17 +152,26 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   }
   clickArrow(){
-
+    
+    console.log(this.generalitaForm)
     this.container?.nativeElement.classList.remove('generalita')
     this.container?.nativeElement.classList.remove('ambito')
+    this.ambitoForm.clearValidators();
+    this.generalitaForm.clearValidators();
 
+    this.generalitaForm.reset();
+    console.log(this.generalitaForm)
   }
 
   doingAccesso(){
 
-    console.log(this.service.doingAccesso)
-
     return this.service.doingAccesso
+
+  }
+
+  skipAutentication(){
+
+    return this.service.getSkipAutentication()
   }
   onSubmit(){
 
@@ -234,7 +199,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   removeActive() {
 
         if (this.container) {
-          console.log(this.container);
+          
           this.container.nativeElement.classList.remove('active');
         }
 
@@ -242,7 +207,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   addActive() {
     if (this.container) {
-      console.log(this.container);
+
       this.container.nativeElement.classList.add('active');
 
   }

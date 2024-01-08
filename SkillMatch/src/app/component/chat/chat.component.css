@@ -36,14 +36,14 @@
     background-color: black;
 }
 .content{
-    margin-top: 150px;
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 .dashboard{
-    height: 1080px;
-    width: 90vw;
+    height: calc(100vh - 100px);
+    width: 70vw;
     display:flex;
     flex-direction: row;
     gap:5px;
@@ -54,6 +54,10 @@
     border-radius: 11px;
 }
 
+.proposteBtn{
+
+    display: none;
+}
 
 .imgCard{
    
@@ -76,7 +80,10 @@
     text-align: left;
     width: 100%;
     height: 50%;
-    background-color: aqua;
+    border-radius: 10px;
+    padding-left: 10px;
+    background-color: rgb(44, 36, 72);
+    
 }
 
 .titoloDesc{
@@ -95,7 +102,9 @@
 }
 .cardAnnuncio{
     
-    
+    width: 100%;
+    color: white;
+    background-color: rgb(33, 30, 45);
     display: flex;
     height: 100px;
     margin-bottom: 3px;
@@ -114,9 +123,9 @@
     position: absolute;
     top: 0;
     left: 100%;
-    height: 1080px;
+    height: 100%;
     width: 100%;
-    background-color: green;
+    background-color: rgb(44, 36, 72);
     z-index: 2;
     transition: max-width 0s;
 }
@@ -126,7 +135,7 @@
     top: 0;
     height: 100px;
     width: 100%;
-    background-color: yellow;
+    background-color: rgb(33, 30, 45);
 }
 
 .cardProposta .imgCard{
@@ -144,12 +153,13 @@
     transition: 1s ease-in-out;
 }
 .leftPart{
-    background-color: skyblue;
+    background-color: rgb(44, 36, 72);
+    
     height:100% !important;
     border-radius: 11px;
     position: relative;
     overflow: visible;
-    width: 30%;
+    width: 37%;
     text-align: center;
 }
 
@@ -160,13 +170,15 @@
     border-radius: 11px;
     position: flex;
     overflow: hidden;
-    width: 70%;
+    width: 73%;
     text-align: center;
     margin-right: 0px;
     z-index: 1;
 }
 
-
+.arrowDownResponsive{
+    display:none;
+}
 
 @media only screen and (max-width: 1024px){
 
@@ -177,4 +189,70 @@
     .dashboard .rightPart{
         margin-right: 0px;
     }
+    .rightPart{
+        display: none;
+    }
+    .rightPartResponsive{
+        display: none;
+    }
+
+    .cardAnnuncio{
+        position: relative;
+    }
+    .leftPart  .visualizzaChat .containerProposta,
+    .leftPart{
+
+        width: 100%;
+        height: 100%;
+        padding-top: 50px;
+    }
+
+    .visualizzaChat .rightPart {
+
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    .visualizzaChat .leftPart{
+
+        display: none;
+    }
+
+    .leftPart .cardAnnuncio .containerProposta{
+        
+        max-height: 0;
+        top: 100%;
+        left:0;
+        max-width: 100%;
+        height: fit-content;
+        transition: max-height 1s;
+
+    }
+    .containerProposta{
+        padding-left: 100px;
+    }
+    .containerProposta .imgCard{
+        width: 30%;
+    }
+    .cardAnnuncio:hover .containerProposta{
+    
+        max-width: 0;
+        transition: none;
+    }
+
+    .cardAnnuncio .proposteBtn:checked ~.cardAnnuncio .containerProposta{
+
+        max-height: fit-content;
+        max-width: 100%;
+    }
+
+    .cardProposta .chatBtn:checked ~.cardProposta .rightPartResponsive{
+
+        display: block;
+    }
+    .arrowDownResponsive{
+        display:inline;
+    }
+
+
 }

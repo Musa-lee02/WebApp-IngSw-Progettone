@@ -53,11 +53,16 @@ export class NavBarComponent {
   }
   setDoingAccesso(bool:boolean){
     this.service.setAutenticato(false)
-    this.service.doingAccesso=bool;
+    this.service.setDoingAccesso(bool);
   }
   isAutenticato(){
  
     return this.service.isAutenticato()
+  }
+
+  skipAutentication(bool: boolean){
+
+    this.service.setSkipAutentication(bool)
   }
 
 

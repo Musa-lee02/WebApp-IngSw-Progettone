@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -6,11 +6,14 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-effettua-annuncio',
-  templateUrl: './effettua-annuncio.component.html',
-  styleUrls: ['./effettua-annuncio.component.css']//,'../profilo/profilo.component.css']
+  templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.css']//,'../profilo/profilo.component.css']
 })
 
-export class EffettuaAnnuncioComponent{
+export class ChatComponent{
+
+  @ViewChild('rightPart') dashboard :ElementRef
+ 
   minDate: Date;
 
   url = 'https://www.felicinabiorci.com/wp/wp-content/uploads/2019/01/diet-food-macro-111130.jpg'
@@ -22,8 +25,10 @@ export class EffettuaAnnuncioComponent{
 
   annunci:any 
   proposte:any
+  lavoratore:any
   ambitoForm:FormGroup
   arrowLeft=faArrowLeft
+  primoCaricamento:boolean=true
   
   constructor(private service: ServizioAnnunciService){
     this.minDate = new Date();
@@ -46,9 +51,9 @@ export class EffettuaAnnuncioComponent{
     this.annunci=this.service.getAnnunci()
     this.proposte=this.service.getProposte()
 
-    console.log(this.annunci)
-    console.log(this.proposte)
+
   }
+
   onSubmit(): void{
 
   }
@@ -57,8 +62,29 @@ export class EffettuaAnnuncioComponent{
   clickArrow() : void{
 
   }
+
+  visualizzaChatResponsive(){
+
+    console.log("swss")
+    this.dashboard.nativeElement.classList.add('visualizzaChat')
+
+  }
   
   isAutenticato(){
     return this.service.isAutenticato()
+  }
+
+
+  setChatByUsernameAndId(username : string, id : string){
+
+    
+    return this.service.setChatByUsernameAndId(username, id);//cancella
+
+  }
+
+  getChat(){
+    this.primoCaricamento=true
+    console.log(this.primoCaricamento)
+    return this.service.getChat()
   }
 }

@@ -9,18 +9,18 @@ import { EsploraComponent } from './component/esplora/esplora.component';
 import { EffettuaAnnuncioComponent } from './component/effettua-annuncio/effettua-annuncio.component';
 import { ProfiloComponent } from './component/profilo/profilo.component';
 import { ConfermaEmailComponent } from './component/accedi/conferma-email/conferma-email.component';
-import { ChatComponent } from './component/effettua-annuncio/chat/chat.component';
+import { ChatComponent } from './component/chat/chat.component';
 
 const routes: Routes = [
 { path :'', pathMatch:'full', redirectTo:'/Home'},
  {path: 'Home', component: HomeComponent},
- {path: 'Annuncio', component: EffettuaAnnuncioComponent },
+ {path: 'Chat', component: ChatComponent },
  {path: 'Esplora', component: EsploraComponent},
  {path: 'Esplora/:ambito', component: EsploraComponent},
  {path: 'Accedi', component: AccediComponent},
  {path:'Profilo', component: ProfiloComponent},
  {path: 'Conferma', component: ConfermaEmailComponent},
- {path: 'Annuncio/:Chat', component: EffettuaAnnuncioComponent}
+ {path: 'Annuncio', component: EffettuaAnnuncioComponent}
  
 ];
 

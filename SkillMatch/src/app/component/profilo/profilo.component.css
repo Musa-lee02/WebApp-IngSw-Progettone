@@ -3,6 +3,11 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.dashboard *{
+
+    border: 1px solid black;
+}
 .header ul{
     display: flex;
     justify-content: center;
@@ -44,7 +49,7 @@
     
     margin-left: 100px;
     width: 30%;
-    height: auto;
+    height: fit-content;
 }
 .picProfile{
   

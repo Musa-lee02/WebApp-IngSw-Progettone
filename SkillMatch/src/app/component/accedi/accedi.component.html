@@ -1,13 +1,30 @@
 <div class="contentSfondo">
 <div class="container" #container>
-    <div class="contenitoreScelta" #componentScelta *ngIf="doingAccesso()">
+    <div class="contenitoreScelta" #componentScelta *ngIf="doingAccesso() && !skipAutentication()" >
         <app-scelta-utente (mandaSceltaUtente)="onRiceviScelta($event)"></app-scelta-utente>
     </div>
     <div class="form-container sign-in">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit() ">
             <h1>Accedi</h1>
 
-            <span>or use your email password</span>
+            <div id="g_id_onload"
+                   data-client_id="549457029113-7dcap37mikasnu6qociaelhp4bk8o691.apps.googleusercontent.com"
+                   data-context="use"
+                   data-ux_mode="popup"
+                   data-callback="handleOauthResponse"
+                   data-auto_prompt="false"
+                   >
+              </div>
+
+              <div class="g_id_signin"
+                   data-type="icon"
+                   data-shape="circle"
+                   data-theme="filled_black"
+                   data-text="signin"
+                   data-size="large">
+              </div>
+
+            <span>Oppure usa la tua Email e password</span>
             <input type="email" placeholder="Email" formControlName="email">
             <input type="password" placeholder="Password" formControlName="password" >
             <a href="#">Forget Your Password?</a>
@@ -39,7 +56,7 @@
                    data-size="large">
               </div>
             </div>
-            <span>or use your email for registeration</span>
+            <span>Oppure crea un account utilizzando la tua Email</span>
             <input type="text" placeholder="Username" formControlName="username">
             <input type="email" placeholder="Email" formControlName="email">
             <input type="password" placeholder="Password" formControlName="password">
