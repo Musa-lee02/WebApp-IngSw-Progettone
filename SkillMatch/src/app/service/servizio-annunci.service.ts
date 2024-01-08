@@ -41,9 +41,10 @@ type Chat={
 export class ServizioAnnunciService implements OnInit {
 
 
-  doingAccesso: boolean=false;
+  doingAccesso: boolean;
   private lavoratoreBool :boolean=false;
   private autenticato: boolean=false;
+  private skipAutentication :boolean;
 
   url:string;
   chatAttuale: Chat ;
@@ -280,9 +281,24 @@ export class ServizioAnnunciService implements OnInit {
     this.autenticato=bool;
     
   }
+  setDoingAccesso(bool : boolean){
+    this.doingAccesso=bool;
+  }
   isAutenticato(){
     
     return this.autenticato
+  }
+
+  setSkipAutentication(bool: boolean){
+
+   
+    this.skipAutentication =bool
+
+  }
+  getSkipAutentication(){
+
+    
+    return this.skipAutentication
   }
 
 }
