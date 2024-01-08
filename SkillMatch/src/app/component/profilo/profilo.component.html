@@ -24,11 +24,53 @@
         <div class="rightPart">
 
             <div class="cronoChat">
-                <div class="singleChat">
-                    <div class="divImgChat"><img src="../../../assets/default.jpg" style="height: 100%; max-height: 100px; float: right;"></div>
-                    <div class="divTextChat">xisnxnsnxxisnxxnsxixnsinxinxisnsxsxsxsxssxssxsx</div>
+                <div *ngFor="let annuncio of annunci; index as i">
+        
+                    <div class="cardAnnuncio">
+                        
+                        <input class="proposteBtn" id="proposteBtn{{i}}" type="checkbox">
+                        <label for="proposteBtn{{i}}" class="cardAnnuncio">
+        
+                        <div class="imgCard" ><img src="{{annuncio.img}}"></div>
+                        <div class="titoloDesc">
+                            <div class="titoloCard">{{annuncio.titolo}}</div>
+                            <div class="descrizioneCard">{{annuncio.descrizione}}</div>
+                        </div>
+                        </label>
+                        </div>
+                </div>
+                <div *ngFor="let annuncio of annunci; index as i">
+        
+                    <div class="cardAnnuncio">
+                        
+                        <input class="proposteBtn" id="proposteBtn{{i}}" type="checkbox">
+                        <label for="proposteBtn{{i}}" class="cardAnnuncio">
+        
+                        <div class="imgCard" ><img src="{{annuncio.img}}"></div>
+                        <div class="titoloDesc">
+                            <div class="titoloCard">{{annuncio.titolo}}</div>
+                            <div class="descrizioneCard">{{annuncio.descrizione}}</div>
+                        </div>
+                        </label>
+                        </div>
+                </div>
+                <div *ngFor="let annuncio of annunci; index as i">
+        
+                    <div class="cardAnnuncio">
+                        
+                        <input class="proposteBtn" id="proposteBtn{{i}}" type="checkbox">
+                        <label for="proposteBtn{{i}}" class="cardAnnuncio">
+        
+                        <div class="imgCard" ><img src="{{annuncio.img}}"></div>
+                        <div class="titoloDesc">
+                            <div class="titoloCard">{{annuncio.titolo}}</div>
+                            <div class="descrizioneCard">{{annuncio.descrizione}}</div>
+                        </div>
+                        </label>
+                        </div>
                 </div>
             </div>
+            
 
             <div class="notifiche">
                 
