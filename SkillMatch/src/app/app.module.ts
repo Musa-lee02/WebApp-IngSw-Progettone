@@ -34,6 +34,7 @@ import { ChatComponent } from './component/chat/chat.component';
 import { FormAnnuncioComponent } from './component/effettua-annuncio/form-annuncio/form-annuncio.component';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 import { ChatTextComponent } from './component/chat/chat-text/chat-text.component';
+import { RiepilogoDatiComponent } from './component/accedi/riepilogo-dati/riepilogo-dati.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { ChatTextComponent } from './component/chat/chat-text/chat-text.componen
        FormAnnuncioComponent,
        NavBarComponent,
        ChatTextComponent,
+       RiepilogoDatiComponent,
     
   ],
   imports: [

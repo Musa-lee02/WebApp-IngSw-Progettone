@@ -144,7 +144,7 @@
 
             </div>
             <div class="contenitoreB" style="margin-bottom: 5px;">
-                <a routerLink="/Profilo"><button type="submit" [ngStyle]="{'background': ambitoForm.valid ? '#512da8':'grey'}"> Registrati </button></a>
+                <button type="submit" [ngStyle]="{'background': ambitoForm.valid ? '#512da8':'grey'}"> Registrati </button>
             </div>
 
         </div>
@@ -173,6 +173,9 @@
             </div>
         </div>
     </div>
+
+    
+    <app-riepilogo-dati *ngIf="riepilogoDati"></app-riepilogo-dati>
 </div>
 </div>
 
