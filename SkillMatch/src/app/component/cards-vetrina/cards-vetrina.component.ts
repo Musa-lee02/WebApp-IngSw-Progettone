@@ -12,15 +12,7 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked{
 
   annunci: any;
   ambito: string
-  caroselloOpzioni: OwlOptions = {
-    items: 4,
-    loop: true,
-    nav: true,
-    dots: false,
-    autoplay: true,
-    autoplayTimeout: 2000,
-    autoplayHoverPause: true,
-  };
+
   constructor(private route : ActivatedRoute, private servizioAnnunci: ServizioAnnunciService){}
 
   

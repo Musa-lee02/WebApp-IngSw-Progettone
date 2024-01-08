@@ -30,12 +30,91 @@ export class ServizioAnnunciService implements OnInit {
 
   url:string;
 
- 
-  
+
   annunci : Annunci[]=[{
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     titolo:"pincher da mangiare",
-    descrizione:"cecedcc",
+    descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
+    ambito:"Edilizia",
+    id:"12"
+  },
+  {
+    img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
+    titolo:"Shiba inu da vendere",
+    descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
+      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
+      "bred for hunting.",
+    ambito:"Tecnologia",
+    id:"13"
+  },
+  {
+    img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
+    titolo:"pincher da mangiare",
+    descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
+    ambito:"Edilizia",
+    id:"12"
+  },
+  {
+    img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
+    titolo:"Shiba inu da vendere",
+    descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
+      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
+      "bred for hunting.",
+    ambito:"Tecnologia",
+    id:"13"
+  },
+  {
+    img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
+    titolo:"pincher da mangiare",
+    descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
+    ambito:"Edilizia",
+    id:"12"
+  },
+  {
+    img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
+    titolo:"Shiba inu da vendere",
+    descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
+      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
+      "bred for hunting.",
+    ambito:"Tecnologia",
+    id:"13"
+  },
+  {
+    img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
+    titolo:"pincher da mangiare",
+    descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
+    ambito:"Edilizia",
+    id:"12"
+  },
+  {
+    img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
+    titolo:"Shiba inu da vendere",
+    descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
+      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
+      "bred for hunting.",
+    ambito:"Tecnologia",
+    id:"13"
+  },
+  {
+    img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
+    titolo:"pincher da mangiare",
+    descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
+    ambito:"Edilizia",
+    id:"12"
+  },
+  {
+    img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
+    titolo:"Shiba inu da vendere",
+    descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
+      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
+      "bred for hunting.",
+    ambito:"Tecnologia",
+    id:"13"
+  },
+  {
+    img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
+    titolo:"pincher da mangiare",
+    descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors m",
     ambito:"Edilizia",
     id:"12"
   },
@@ -85,7 +164,13 @@ export class ServizioAnnunciService implements OnInit {
   },
 ]
 
- 
+ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica', 'Letteratura', 'Cinema', 'Teatro', 'Moda', 'Altro']
+
+  province: String[] = ['Cosenza', 'Reggio Calabria', 'Vibo Valentia', 'Catanzaro', 'Crotone',
+              'Napoli', 'Salerno', 'Avellino', 'Benevento', 'Caserta', 'Potenza', 'Matera' ]
+
+  
+
   constructor() { }
   ngOnInit(): void {
     console.log(this.autenticato)
@@ -108,6 +193,12 @@ export class ServizioAnnunciService implements OnInit {
   getAnnunci(){
 
     return this.annunci;
+  }
+  getAmbiti(){
+    return this.ambiti;
+  }
+  getProvince(){
+    return this.province;
   }
 
   getProposte(){

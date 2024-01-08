@@ -21,6 +21,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import {MatSelectModule} from '@angular/material/select';
 import {FormsModule} from '@angular/forms';
@@ -33,6 +37,7 @@ import { ConfermaEmailComponent } from './component/accedi/conferma-email/confer
 import { ChatComponent } from './component/effettua-annuncio/chat/chat.component';
 import { FormAnnuncioComponent } from './component/effettua-annuncio/form-annuncio/form-annuncio.component';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
+import { AsyncPipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +73,10 @@ import { NavBarComponent } from './component/nav-bar/nav-bar.component';
     MatNativeDateModule,
     MatSelectModule,
     FormsModule,
+    MatAutocompleteModule,
+    AsyncPipe,
+    MatTooltipModule,
+     MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

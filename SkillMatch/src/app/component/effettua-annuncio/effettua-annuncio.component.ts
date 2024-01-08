@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 
-
+ 
 @Component({
   selector: 'app-effettua-annuncio',
   templateUrl: './effettua-annuncio.component.html',
