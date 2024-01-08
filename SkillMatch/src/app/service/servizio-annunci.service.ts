@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 
 
 type Annunci ={
-  
+
   img: string
   descrizione: string
   ambito: string
@@ -213,16 +213,16 @@ export class ServizioAnnunciService implements OnInit {
 
       if(annuncio.ambito===ambito){
         inHome=false;
-        
+
         annunciFiltrati.push(annuncio)
       }
     }
-    
+
     if(annunciFiltrati.length>0){
       return annunciFiltrati
     }
-   
-    
+
+
     return []
   }
 
@@ -271,9 +271,9 @@ export class ServizioAnnunciService implements OnInit {
     return this.lavoratoreBool;
   }
   setlavoratoreBool(bool: boolean){
-    
+
     this.lavoratoreBool=bool;
-   
+
   }
 
   setAutenticato(bool: boolean){

@@ -1,5 +1,3 @@
-
-
 <div class="contentSfondo">
 <div class="container" #container>
     <div class="contenitoreScelta" #componentScelta *ngIf="doingAccesso() && !skipAutentication()" >
@@ -8,9 +6,7 @@
     <div class="form-container sign-in">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit() ">
             <h1>Accedi</h1>
-            <div class="social-icons">
-                
-            </div>
+
             <span>or use your email password</span>
             <input type="email" placeholder="Email" formControlName="email">
             <input type="password" placeholder="Password" formControlName="password" >
@@ -21,11 +17,26 @@
 
     <div class="form-container sign-up">
         <form [formGroup]="credenzialiForm " (ngSubmit)="onSubmit() ">
-            
+
             <h1 *ngIf="isLavoratore()">Crea Account Lavoratore</h1>
             <h1 *ngIf="!isLavoratore()">Crea Account Cliente</h1>
             <div class="social-icons">
-                <fa-icon [icon]="googleIcon" size="2x"></fa-icon>
+              <div id="g_id_onload"
+                   data-client_id="549457029113-7dcap37mikasnu6qociaelhp4bk8o691.apps.googleusercontent.com"
+                   data-context="use"
+                   data-ux_mode="popup"
+                   data-callback="handleOauthResponse"
+                   data-auto_prompt="false"
+                   >
+              </div>
+
+              <div class="g_id_signin"
+                   data-type="icon"
+                   data-shape="circle"
+                   data-theme="filled_black"
+                   data-text="signin"
+                   data-size="large">
+              </div>
             </div>
             <span>or use your email for registeration</span>
             <input type="text" placeholder="Username" formControlName="username">
@@ -39,7 +50,7 @@
 
     <div class="form-container generalitaForm">
         <form [formGroup]="generalitaForm" (ngSubmit)="onSubmit()">
-            
+
             <div><fa-icon style="display: inline; padding: 10px;" [icon]="arrowLeft" (click)="clickArrow()"></fa-icon> <h1 style="display: inline-block;">Registrati</h1></div>
             <input  placeholder="Nome" formControlName="nome">
             <input placeholder="Cognome" formControlName="cognome">
@@ -50,23 +61,23 @@
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-            
+
             <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="!isLavoratore() && !doingAccesso()">
                 <a  routerLink="/Annuncio">Registrati</a></button>
             <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="!isLavoratore() && doingAccesso()">
                     <a  routerLink="/Profilo">Registrati</a></button>
             <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="isLavoratore()">Registrati</button>
-            
+
 
         </form>
-        
+
     </div>
 
 
     <div class="form-container ambitoClass" *ngIf="isLavoratore()">
 
         <form [formGroup]="ambitoForm" (ngSubmit)="onSubmit()">
-           
+
             <div class="contenitore">
                 <div class="contenitoreB" style="margin-top: 10px;">
                     <h1 style="margin-right: 10px;">Registrati   </h1>
@@ -92,7 +103,7 @@
                 </mat-form-field>
             </div>
             </div>
-          
+
             <div class="contenitoreA">
             <div>
                 <h4>ambito di lavoro</h4>
@@ -107,23 +118,23 @@
                 </mat-form-field>
             </div>
             <div>
-                <h4>Descrizione sulle tue abilita (opzionale) </h4>    
+                <h4>Descrizione sulle tue abilita (opzionale) </h4>
                 <mat-form-field>
                 <mat-label >Textarea</mat-label>
                 <textarea matInput style></textarea>
                 </mat-form-field>
             </div>
-                
+
             </div>
             <div class="contenitoreB" style="margin-bottom: 5px;">
                 <a routerLink="/Profilo"><button type="submit" [ngStyle]="{'background': ambitoForm.valid ? '#512da8':'grey'}"> Registrati </button></a>
             </div>
-        
+
         </div>
         </form>
-  
+
     </div>
-    
+
 
 
     <div class="toggle-container">
@@ -147,3 +158,8 @@
     </div>
 </div>
 </div>
+
+
+
+
+

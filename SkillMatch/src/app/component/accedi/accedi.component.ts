@@ -1,3 +1,5 @@
+declare var google: any;
+declare var window: any;
 import { AfterViewChecked, Component, ComponentFactoryResolver, ComponentRef, ElementRef, NgZone, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -25,8 +27,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     'Arkansas',
   ];
 
-  
-  
+
+
   generalitaForm : FormGroup
   credenzialiForm : FormGroup
   loginForm:FormGroup
@@ -34,12 +36,13 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   arrowLeft=faArrowLeft
   googleIcon=faGoogle
   url=""
-  
-  constructor(private service: ServizioAnnunciService,) {
 
-    
+  constructor(private service: ServizioAnnunciService,) {
+    window.AccediComponent = this;
+
+
   }
-  
+
 
   ngAfterViewChecked(): void {
 
@@ -56,7 +59,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
 
     if (this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid){
-      
+
       this.service.setAutenticato()
       return
     }
@@ -64,7 +67,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngOnInit(): void {
 
-    
+
+
     this.generalitaForm= new FormGroup({
       nome: new FormControl(null, Validators.required),
       cognome: new FormControl(null, Validators.required),
@@ -73,7 +77,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     })
 
     this.credenzialiForm=new FormGroup({
-       
+
       username: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null,Validators.required),
@@ -98,15 +102,15 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngOnDestroy(): void {
 
-    
+
     if(this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid){
       Swal.fire("Ricora di confermare l'email se vuoi pubblicare o proporti per un annuncio")
       this.service.setAutenticato(true)
     }
   }
-  
 
- 
+
+
   onSelectFile(e:any){
     if(e.target.files){
       var reader = new FileReader();
@@ -120,14 +124,14 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   isLavoratore(){
-    
+
     return this.service.isLavoratore()
   }
 
 
   onRiceviScelta(scelta: string){
 
-    
+
     if(scelta==="cliente"){
       this.service.setlavoratoreBool(false)
     }
@@ -165,7 +169,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
       this.container?.nativeElement.classList.add('emailConferma')
     }
-    
+
     if(this.generalitaForm.valid && this.isLavoratore()){
       this.container?.nativeElement.classList.add('ambito')
     }
@@ -176,34 +180,49 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     if(this.credenzialiForm.valid){
       this.container?.nativeElement.classList.add('generalita')
-      
+
     }
 
-    
+
   }
 
   removeActive() {
-    
+
         if (this.container) {
           
           this.container.nativeElement.classList.remove('active');
         }
-      
+
     }
-  
+
   addActive() {
     if (this.container) {
 
       this.container.nativeElement.classList.add('active');
-  
+
   }
 }
 checkPassword(form : FormGroup):boolean {
 
- 
+
     if(form.get("password")?.value===form.get("confermaPassword")?.value){
       return true;
     }
     else return false;
 }
+
+// Inside your Angular Component
+  public processGoogleUserData(userData: any) {
+    this.generalitaForm.patchValue({
+      nome: userData.name.regex("^\w+"),
+      cognome: userData.name.regex("\w$"),
+
+    });
+    // @ts-ignore
+    console.log(this.generalitaForm.get("nome").value);
+
+
+  }
+
+
 }

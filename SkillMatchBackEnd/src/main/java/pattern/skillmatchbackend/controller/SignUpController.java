@@ -1,30 +1,23 @@
 package pattern.skillmatchbackend.controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.apache.el.util.Validation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pattern.skillmatchbackend.model.Cliente;
 import pattern.skillmatchbackend.model.Lavoratore;
-import pattern.skillmatchbackend.model.Utente;
 import pattern.skillmatchbackend.model.ValidationService;
-import pattern.skillmatchbackend.persistenza.DBManager;
-import pattern.skillmatchbackend.persistenza.dao.ClienteDao;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/lavoratore/signup")
 public class SignUpController {
 
     @PostMapping("/passo1")
-    public ResponseEntity<?> registerStep1(@RequestBody Lavoratore lavoratore, HttpSession session) {
-        if(ValidationService.validateEmail(lavoratore.getEmail())) {
-            return ResponseEntity.badRequest().body("Email non valida");
-        }
+    public boolean registerStep1(@RequestBody Lavoratore lavoratore, HttpSession session) {
+       /*if(lavoratore.getEmail().equals("ooo")) {
+            //return ResponseEntity.badRequest().body("Email non valida");
+        }*/
 
-        if(isEmailTaken(lavoratore.getEmail())) {
+        /*(isEmailTaken(lavoratore.getEmail())) {
             return ResponseEntity.badRequest().body("Email già in uso");
         }
 
@@ -46,14 +39,19 @@ public class SignUpController {
 
         if(ValidationService.validatePasswordLength(lavoratore.getPassword())) {
             return ResponseEntity.badRequest().body("Password non valida");
-        }
+        }*/
+        System.out.println(lavoratore.getEmail());
 
         session.setAttribute("lavoratore1", lavoratore);
-        return ResponseEntity.ok().build();
+        return true;
+
     }
 
      @PostMapping("/passo2")
     public ResponseEntity<?> registerStep2(@RequestBody Lavoratore lavoratore, HttpSession session) {
+        Lavoratore lavoratore1 = (Lavoratore) session.getAttribute("lavoratore1");
+         System.out.print(lavoratore.getEmail());
+
 
         session.setAttribute("lavoratore2", lavoratore);
         return ResponseEntity.ok().build();
@@ -65,14 +63,11 @@ public class SignUpController {
 
         String email = lavoratore.getEmail();
 
-        String confirmationToken = tokenService.generateConfirmationToken(email);
+        //String confirmationToken = tokenService.generateConfirmationToken(email);
 
-        String confirmationUrl = "http://localhost:8080/lavoratore/signup/confirm?token=" + confirmationToken;
+        //String confirmationUrl = "http://localhost:8080/lavoratore/signup/confirm?token=" + confirmationToken;
 
-
-
-
-
+        return null;
     }
 
 

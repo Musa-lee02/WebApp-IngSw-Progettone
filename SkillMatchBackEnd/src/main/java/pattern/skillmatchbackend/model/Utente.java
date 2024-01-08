@@ -8,7 +8,7 @@ public abstract class Utente {
     private String cognome;
     private String email;
     private String indirizzo;
-    private String numero_civico;
+    private String numeroCivico;
     private String citta;
     private String cap;
 
@@ -62,12 +62,12 @@ public abstract class Utente {
         return indirizzo;
     }
 
-    public void setNumero_civico(String numero_civico) {
-        this.numero_civico = numero_civico;
+    public void setNumeroCivico(String numero_civico) {
+        this.numeroCivico = numero_civico;
     }
 
-    public String getNumero_civico() {
-        return numero_civico;
+    public String getNumeroCivico() {
+        return numeroCivico;
     }
 
     public void setCitta(String citta) {
@@ -86,11 +86,11 @@ public abstract class Utente {
         return cap;
     }
 
-    public void setImgUrl(String imgUrl) {
+    public void setImage(String imgUrl) {
         this.imgUrl = imgUrl;
     }
 
-    public String getImgUrl() {
+    public String getImage() {
         return imgUrl;
     }
 }

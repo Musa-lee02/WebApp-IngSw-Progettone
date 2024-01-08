@@ -1,24 +1,18 @@
 package pattern.skillmatchbackend.persistenza.dao;
 
 import pattern.skillmatchbackend.model.TransazionePagamento;
-
 import java.util.List;
 
 public interface TransazionePagamentoDao {
 
-    public List<TransazionePagamentoDao> findAll();
+    public List<TransazionePagamento> findAll();
+    public TransazionePagamento findByPrimaryKey(long id);
 
-    public TransazionePagamentoDao findByPrimaryKey(Long id);
+    public void saveOrUpdate(TransazionePagamento transazione);
 
-    public void save(TransazionePagamentoDao transazionePagamento);
+    public void delete(TransazionePagamento transazione);
 
-    public List<TransazionePagamento> findByDestinatario(Long idUtente);
+    public List<TransazionePagamento> findByPrimaryKeyLavoratore(String username);
+    public List<TransazionePagamento> findByPrimaryKeyCliente(String username);
 
-    public List<TransazionePagamento> findByMittente(Long idUtente);
-
-    public List<TransazionePagamento> findByMetodoPagamento(String MetodoPagamento);
-
-    public List<TransazionePagamento> findByImporto(Double importo);
-
-    public List<TransazionePagamento> findByDataTransazione(String dataTransazione);
 }
