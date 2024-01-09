@@ -44,6 +44,8 @@ import { RiepilogoDatiComponent } from './component/accedi/riepilogo-dati/riepil
 
 
 import { AsyncPipe } from '@angular/common';
+import { RecuperoComponent } from './component/accedi/recupero/recupero.component';
+import { RinserisciPasswordComponent } from './component/accedi/rinserisci-password/rinserisci-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +66,8 @@ import { AsyncPipe } from '@angular/common';
        NavBarComponent,
        ChatTextComponent,
        RiepilogoDatiComponent,
+       RecuperoComponent,
+       RinserisciPasswordComponent,
     
   ],
   imports: [

@@ -1,7 +1,7 @@
 declare var google: any;
 declare var window: any;
 import { AfterViewChecked, Component, ComponentFactoryResolver, ComponentRef, ElementRef, NgZone, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service'
@@ -84,8 +84,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       password: new FormControl(null,Validators.required),
       confermaPassword: new FormControl(null,Validators.required)
 
-    })
-
+    }, { validators: this.passwordMatchValidators });
+    
     this.loginForm=new FormGroup ({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null,Validators.required),
@@ -101,6 +101,13 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.service.setDoingAccesso(true)
   }
 
+  passwordMatchValidators(control: AbstractControl) {
+    const password = control.get('password')?.value;
+    const ripetiPassword = control.get('confermaPassword')?.value;
+
+    return password === ripetiPassword ? null : { mismatch: true };
+  }
+  
   ngOnDestroy(): void {
 
 

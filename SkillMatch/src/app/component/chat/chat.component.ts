@@ -69,6 +69,9 @@ export class ChatComponent{
     this.dashboard.nativeElement.classList.add('visualizzaChat')
 
   }
+  rimuoviChat(){
+    this.dashboard.nativeElement.classList.remove('visualizzaChat')
+  }
   
   isAutenticato(){
     return this.service.isAutenticato()

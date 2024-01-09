@@ -1,12 +1,16 @@
+
+*{font-family: 'Montserrat', sans-serif  !important};
 .content{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    
 }
 
-.dashboard *{
 
-    border: 1px solid black;
+
+.proposteBtn{
+    display: none;
 }
 .header ul{
     display: flex;
@@ -37,19 +41,32 @@
     background-color: black;
 }
 .dashboard{
-    
-    border: 1px solid black;
+ 
     height: 700px;
     display:flex;
     flex-direction: row;
-    gap:20px;
-    margin: 20px;
+    
+    padding: 0 70px 0 70px;
+    margin: 0 20px 20px 20px;
+    align-items: flex-start;
+    justify-content: center;
+}
+.leftPart, .rightPart{
+    padding: 0 20px 20px 20px;
+    height: 100%;
+}
+
+.leftPart, .rightPart>*{
+
+    padding-top: 20px;
 }
 .leftPart{
     
-    margin-left: 100px;
+   
+    border-left: 1px solid black;
+    border-right: 1px solid black;
     width: 30%;
-    height: fit-content;
+    
 }
 .picProfile{
   
@@ -71,13 +88,14 @@ li{
 .rightPart{
     
     display: flex;
-    
-    flex-wrap: wrap;
     width: 100%;
-    height: 68%;
+    border-right: 1px solid black;
 
 }
 
+.dashboard *{
+   
+}
 .dashboard div .divImgChat{
 
     border: none;
@@ -88,21 +106,26 @@ li{
 }
 .notifiche{
     
+    border-right: 1px solid black;
+    padding: 0 20px 20px 2px;
     align-self: flex-end;
-    margin-left: 5%;
-    background-color: yellow;
-    width: 45%;
+    
+    width: 100%;
     height: 100%;
 }
 .cronoChat{
+
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 80%;
     height: 100%;
-    padding: 20px;
-    margin-left: 10px;
-    overflow-y: auto;
+    padding: 0 20px 20px 20px;
+    
+    overflow-y: visible;
+    font-family: 'Montserrat', sans-serif;
+   
 }
+
 .singleChat{
     display: flex;
     align-items: flex-start;
@@ -165,7 +188,7 @@ li{
     height: 50%;
     border-radius: 10px;
     padding-left: 10px;
-    background-color: rgb(44, 36, 72);
+    background-color: rgb(237, 233, 252);
     
 }
 
@@ -186,11 +209,13 @@ li{
 .cardAnnuncio{
     
     width: 100%;
-    color: white;
-    background-color: rgb(33, 30, 45);
+    color: black;
+    background-color: rgb(213, 208, 233);
     display: flex;
     height: 100px;
     margin-bottom: 3px;
+    border-radius: 5px;
+    border: 1px solid black;
     
 }
 

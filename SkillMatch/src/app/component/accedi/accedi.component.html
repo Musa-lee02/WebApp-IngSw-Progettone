@@ -27,7 +27,7 @@
             <span>Oppure usa la tua Email e password</span>
             <input type="email" placeholder="Email" formControlName="email">
             <input type="password" placeholder="Password" formControlName="password" >
-            <a href="#">Forget Your Password?</a>
+            <a href="Recupero" style="color: black"><span>password dimenticata? Recuperala da qui</span></a>
             <a routerLink="/Profilo"></a><button type="submit"  [ngStyle]="{'background': loginForm.valid ? '#512da8':'grey'}">Accedi</button>
         </form>
     </div>
@@ -59,8 +59,9 @@
             <input type="text" placeholder="Username" formControlName="username">
             <input type="email" placeholder="Email" formControlName="email">
             <input type="password" placeholder="Password" formControlName="password">
-            <input type="password" placeholder="Conferma Password"  formControlName="confermaPassword" [ngStyle]="{'background-color':!checkPassword(credenzialiForm)? 'red':'white'}">
-            <button type="submit"  [ngStyle]="{'background': credenzialiForm.valid ? '#512da8':'grey'}">Registrati</button>
+            <input type="password" placeholder="Conferma Password"  formControlName="confermaPassword">
+            <button type="submit"  [ngStyle]="{'background': checkPassword(credenzialiForm) && this.credenzialiForm.valid ? '#512da8':'grey'}"
+             [disabled]="!checkPassword(credenzialiForm)">Registrati</button>
         </form>
     </div>
 

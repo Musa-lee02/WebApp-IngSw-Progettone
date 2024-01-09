@@ -23,60 +23,31 @@
         </div>
         <div class="rightPart">
 
-            <div class="cronoChat">
-                <div *ngFor="let annuncio of annunci; index as i">
-        
-                    <div class="cardAnnuncio">
-                        
-                        <input class="proposteBtn" id="proposteBtn{{i}}" type="checkbox">
-                        <label for="proposteBtn{{i}}" class="cardAnnuncio">
-        
-                        <div class="imgCard" ><img src="{{annuncio.img}}"></div>
-                        <div class="titoloDesc">
-                            <div class="titoloCard">{{annuncio.titolo}}</div>
-                            <div class="descrizioneCard">{{annuncio.descrizione}}</div>
-                        </div>
-                        </label>
-                        </div>
-                </div>
-                <div *ngFor="let annuncio of annunci; index as i">
-        
-                    <div class="cardAnnuncio">
-                        
-                        <input class="proposteBtn" id="proposteBtn{{i}}" type="checkbox">
-                        <label for="proposteBtn{{i}}" class="cardAnnuncio">
-        
-                        <div class="imgCard" ><img src="{{annuncio.img}}"></div>
-                        <div class="titoloDesc">
-                            <div class="titoloCard">{{annuncio.titolo}}</div>
-                            <div class="descrizioneCard">{{annuncio.descrizione}}</div>
-                        </div>
-                        </label>
-                        </div>
-                </div>
-                <div *ngFor="let annuncio of annunci; index as i">
-        
-                    <div class="cardAnnuncio">
-                        
-                        <input class="proposteBtn" id="proposteBtn{{i}}" type="checkbox">
-                        <label for="proposteBtn{{i}}" class="cardAnnuncio">
-        
-                        <div class="imgCard" ><img src="{{annuncio.img}}"></div>
-                        <div class="titoloDesc">
-                            <div class="titoloCard">{{annuncio.titolo}}</div>
-                            <div class="descrizioneCard">{{annuncio.descrizione}}</div>
-                        </div>
-                        </label>
-                        </div>
-                </div>
-            </div>
-            
-
             <div class="notifiche">
-                
+
+                <h2 style=" float: right;">Inbox</h2>
+
             </div>
-            <div class="buttonRow">
-                <div class="buttonColumn"><button>Gestisci Annunci</button></div>
+                
+            <div class="cronoChat">
+                <h2 style="align-self: flex-end;">I tuoi annunci</h2>
+                <div *ngFor="let annuncio of annunci; index as i">
+        
+                    <div class="cardAnnuncio">
+                        
+                        <input class="proposteBtn" id="proposteBtn{{i}}" type="checkbox">
+                        <label for="proposteBtn{{i}}" class="cardAnnuncio">
+        
+                        <div class="imgCard" ><img src="{{annuncio.img}}"></div>
+                        <div class="titoloDesc">
+                            <div class="titoloCard">{{annuncio.titolo}}</div>
+                            <div class="descrizioneCard">{{annuncio.descrizione}}</div>
+                        </div>
+                        </label>
+                        </div>
+                </div>         
+
+            
             </div>
         </div>
     </div>
