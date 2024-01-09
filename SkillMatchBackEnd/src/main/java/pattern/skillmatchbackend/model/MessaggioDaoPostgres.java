@@ -61,11 +61,11 @@ public class MessaggioDaoPostgres implements MessaggioDao {
             while (rs.next()) {
                 messaggio = new Messaggio();
                 messaggio.setIdMessaggio(rs.getLong("id"));
-                messaggio.setContenuto(new Contenuto(rs.getString("contenuto")));
+                //messaggio.setContenuto(new Contenuto(rs.getString("contenuto")));
                 messaggio.setDataInvio(rs.getDate("data_invio"));
                 messaggio.setOraInvio(rs.getTime("ora_invio"));
                 messaggio.setWho(rs.getBoolean("who"));
-                messaggio.setProposta(DBManager.getInstance().getPropostaDao().findByPrimaryKey(rs.getLong("idProposta")));
+                //messaggio.setProposta(DBManager.getInstance().getPropostaDao().findByPrimaryKey(rs.getLong("idProposta")));
             }
 
         } catch (SQLException e) {
@@ -90,11 +90,11 @@ public class MessaggioDaoPostgres implements MessaggioDao {
                 PreparedStatement st = conn.prepareStatement(query);
 
                 st.setLong(1, messaggio.getIdMessaggio());
-                st.setString(2, messaggio.getContenuto().getContenuto());
+                //st.setString(2, messaggio.getContenuto().getContenuto());
                 st.setDate(3, messaggio.getDataInvio());
                 st.setTime(4, messaggio.getOraInvio());
                 st.setBoolean(5, messaggio.isWho());
-                st.setLong(6, messaggio.getProposta().getIdProposta());
+                //st.setLong(6, messaggio.getProposta().getIdProposta());
 
                 st.executeUpdate();
 
@@ -130,11 +130,11 @@ public class MessaggioDaoPostgres implements MessaggioDao {
             while (rs.next()) {
                 Messaggio messaggio = new Messaggio();
                 messaggio.setIdMessaggio(rs.getLong("id"));
-                messaggio.setContenuto(new Contenuto(rs.getString("contenuto")));
+                //messaggio.setContenuto(new Contenuto(rs.getString("contenuto")));
                 messaggio.setDataInvio(rs.getDate("data_invio"));
                 messaggio.setOraInvio(rs.getTime("ora_invio"));
                 messaggio.setWho(rs.getBoolean("who"));
-                messaggio.setProposta(DBManager.getInstance().getPropostaDao().findByPrimaryKey(rs.getLong("idProposta")));
+                //messaggio.setProposta(DBManager.getInstance().getPropostaDao().findByPrimaryKey(rs.getLong("idProposta")));
             }
 
         } catch (SQLException e) {

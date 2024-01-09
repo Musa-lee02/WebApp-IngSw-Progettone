@@ -1,4 +1,4 @@
-/*package pattern.skillmatchbackend.persistenza.dao.postgres;
+package pattern.skillmatchbackend.persistenza.dao.postgres;
 
 import pattern.skillmatchbackend.model.Proposta;
 
@@ -75,9 +75,9 @@ public class PropostaDaoPostgres implements PropostaDao {
     @Override
     public void saveOrUpdate(Proposta proposta) {
 
-        String query = "INSERT INTO PROPOSTA VALUES (?, ?, ?, ?, ?, ?, ?)";
+        /*String query = "INSERT INTO PROPOSTA VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        if (findByPrimaryKey(proposta.getIdProposta()) != null)
+        /*if (findByPrimaryKey(proposta.getIdProposta()) != null)
             query = "UPDATE PROPOSTA SET titolo = ?, " + "descrizione = ?, " + "stato = ?, " + "prezzo_lavoro = ?, " + "idAnnuncio = ?, " + "idLavoratore = ? " + "WHERE id = ?";
 
             try {
@@ -94,7 +94,7 @@ public class PropostaDaoPostgres implements PropostaDao {
                 st.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
-            }
+            }*/
 
 
     }
@@ -104,7 +104,7 @@ public class PropostaDaoPostgres implements PropostaDao {
         String query = "DELETE FROM PROPOSTA WHERE id = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1, proposta.getIdProposta());
+            //st.setLong(1, proposta.getIdProposta());
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -125,9 +125,9 @@ public class PropostaDaoPostgres implements PropostaDao {
 
             while (rs.next()) {
                 Proposta proposta = new Proposta();
-                proposta.setIdProposta(rs.getLong("id"));
+                //proposta.setIdProposta(rs.getLong("id"));
                 proposta.setTitolo(rs.getString("titolo"));
-                proposta.setDescrizione(rs.getString("descrizione"));
+                //proposta.setDescrizione(rs.getString("descrizione"));
                 proposta.setStato(rs.getString("stato"));
                 proposta.setPrezzoLavoro(rs.getFloat("prezzo_lavoro"));
                 proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("username")));
@@ -155,9 +155,9 @@ public class PropostaDaoPostgres implements PropostaDao {
 
             while (rs.next()) {
                 Proposta proposta = new Proposta();
-                proposta.setIdProposta(rs.getLong("id"));
+                //proposta.setIdProposta(rs.getLong("id"));
                 proposta.setTitolo(rs.getString("titolo"));
-                proposta.setDescrizione(rs.getString("descrizione"));
+                //proposta.setDescrizione(rs.getString("descrizione"));
                 proposta.setStato(rs.getString("stato"));
                 proposta.setPrezzoLavoro(rs.getFloat("prezzo_lavoro"));
                 proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("username")));
@@ -171,5 +171,5 @@ public class PropostaDaoPostgres implements PropostaDao {
         return proposte;
 
     }
+    }
 
-}*/

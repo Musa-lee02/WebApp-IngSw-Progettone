@@ -23,7 +23,7 @@
         id: responsePayload.sub,
         email: responsePayload.email
       }
-      let res  = window['BackEndService'].postSignupRegistrationWithGoogle(lavoratore)
+      let res  = window['backEndServiceRef'].postSignupRegistrationWithGoogle(lavoratore)
       if(res){
         window.location.href = "http://localhost:4200/Profilo"
       }

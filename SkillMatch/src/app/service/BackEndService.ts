@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
 import {LavoratoreSignUp, LavoratoreSignUpGoogle} from "../SignUpLavoratore";
+import * as console from "console";
+declare var window: any;
 
 @Injectable({
   providedIn: 'root'
 })
-export class BackEndService {
+export class BackEndService implements OnInit{
   private url = "http://localhost:8080";
   constructor(private http: HttpClient) { }
 
@@ -18,6 +20,10 @@ export class BackEndService {
   public postSignupRegistrationWithGoogle(lavoratore : LavoratoreSignUpGoogle): Observable<boolean> {
     return this.http.post<boolean>(this.url+"/lavoratore/signup/google", lavoratore);
 
+  }
+
+  ngOnInit(): void {
+    window['backEndServiceRef'] = this;
   }
 }
 
