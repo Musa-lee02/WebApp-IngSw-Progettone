@@ -16,8 +16,12 @@ export class RinserisciPasswordComponent implements OnInit {
   }
   ngOnInit(): void {
     this.passwordValidators = new FormGroup({
-      password: new FormControl(null, [Validators.required]),
-      ripetiPassword: new FormControl(null, [Validators.required])
+      password: new FormControl(null, [Validators.required, 
+         Validators.minLength(8),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+-=]).{8,}$/)
+      ]),
+      ripetiPassword: new FormControl(null, [Validators.required,  Validators.minLength(8),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+-=]).{8,}$/)])
     }, { validators: this.passwordMatchValidators });
   }
 
