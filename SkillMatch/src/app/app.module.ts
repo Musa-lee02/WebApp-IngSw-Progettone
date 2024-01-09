@@ -21,6 +21,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
+
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import {MatSelectModule} from '@angular/material/select';
 import {FormsModule} from '@angular/forms';
@@ -29,13 +33,17 @@ import { ProfiloComponent } from './component/profilo/profilo.component';
 import { SceltaUtenteComponent } from './component/accedi/scelta-utente/scelta-utente.component';
 import { ConfermaEmailComponent } from './component/accedi/conferma-email/conferma-email.component';
 //import { CarouselComponent } from './carousel/carousel.component';
+//import { SlickCarouselModule } from 'ngx-slick-carousel';
+
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ChatComponent } from './component/chat/chat.component';
 import { FormAnnuncioComponent } from './component/effettua-annuncio/form-annuncio/form-annuncio.component';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 import { ChatTextComponent } from './component/chat/chat-text/chat-text.component';
+import { RiepilogoDatiComponent } from './component/accedi/riepilogo-dati/riepilogo-dati.component';
 
 
+import { AsyncPipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,15 +54,16 @@ import { ChatTextComponent } from './component/chat/chat-text/chat-text.componen
     HomeComponent,
   
     EsploraComponent,
-       EffettuaAnnuncioComponent,
+       //EffettuaAnnuncioComponent,
        ProfiloComponent,
        SceltaUtenteComponent,
        ConfermaEmailComponent,
-
+       EffettuaAnnuncioComponent,
        ChatComponent,
        FormAnnuncioComponent,
        NavBarComponent,
        ChatTextComponent,
+       RiepilogoDatiComponent,
     
   ],
   imports: [
@@ -72,6 +81,9 @@ import { ChatTextComponent } from './component/chat/chat-text/chat-text.componen
     MatNativeDateModule,
     MatSelectModule,
     FormsModule,
+    MatAutocompleteModule,
+    AsyncPipe,
+    MatTooltipModule,
     MatIconModule
   ],
   providers: [],

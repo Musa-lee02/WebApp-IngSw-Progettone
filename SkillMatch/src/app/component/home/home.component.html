@@ -2,10 +2,50 @@
 <div class="containerHome">
   <div class="centered">
     
-    <div class="titolo"><h1 style="font-size: 100px; ">SKILL MATCH</h1></div>
-    <div>
-      <input type="text" placeholder="Cerca annuncio..." style="height: 40px;">
-      <fa-icon [icon]="icon"></fa-icon>
+    <div class="titolo"><h1>SKILL MATCH</h1></div>
+    <div class="searchClass">
+      <!-- input type="text" placeholder="Cerca annuncio..." style="height: 40px;">
+      <fa-icon [icon]="icon"></fa-icon -->
+           <div class="prova">
+            <mat-form-field class="searchForm">
+              <!-- mat-select matAutocompleteOrigin="search" -->
+              <mat-label>Ambito</mat-label>
+              <input type="text"
+                    placeholder="Scegli un ambito"
+                    aria-label="Ambito"
+                    matInput
+                    [matAutocomplete]="ambitoAuto">
+              <mat-autocomplete autoActiveFirstOption #ambitoAuto="matAutocomplete">
+                @for (ab of ambiti; track ab) {
+                  <mat-option [value]="ab">{{ab}}</mat-option>
+                }
+              </mat-autocomplete>
+            <!-- /mat-select-->
+            </mat-form-field>
+           </div>
+
+          <div class="prova">
+          <mat-form-field class="searchForm">
+            <!-- mat-select matAutocompleteOrigin="search" -->
+            <mat-label>Zona di lavoro</mat-label>
+            <input type="text"
+                   placeholder="Imposta la tua zona"
+                   aria-label="Provincia"
+                   matInput
+                   [matAutocomplete]="zonaAuto">
+            <mat-autocomplete autoActiveFirstOption #zonaAuto="matAutocomplete">
+              @for (pv of province; track pv) {
+                <mat-option [value]="pv">{{pv}}</mat-option>
+              }
+            </mat-autocomplete>
+          <!-- /mat-select-->
+          </mat-form-field>
+          </div>
+
+          <button mat-fab extended color="primary">
+            <mat-icon>search</mat-icon>
+            Cerca
+          </button>
     </div>
 
   </div>

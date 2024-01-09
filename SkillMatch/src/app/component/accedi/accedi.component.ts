@@ -47,6 +47,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   ambitoForm:FormGroup
   arrowLeft=faArrowLeft
   googleIcon=faGoogle
+  riepilogoDati: boolean=false
   url=""
 
   constructor(private service: ServizioAnnunciService, ){}
@@ -178,6 +179,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     if(this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid){
 
       this.container?.nativeElement.classList.add('emailConferma')
+      this.riepilogoDati=true
+      console.log(this.riepilogoDati)
     }
 
     if(this.generalitaForm.valid && this.isLavoratore()){
