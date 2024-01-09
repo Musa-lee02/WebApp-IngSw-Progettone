@@ -5,6 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pattern.skillmatchbackend.model.Lavoratore;
 import pattern.skillmatchbackend.model.ValidationService;
+import pattern.skillmatchbackend.persistenza.DBManager;
+import pattern.skillmatchbackend.persistenza.dao.LavoratoreDao;
+import pattern.skillmatchbackend.persistenza.dao.postgres.LavoratoreDaoPostgres;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
@@ -47,47 +50,12 @@ public class SignUpController {
 
     }
 
-     @PostMapping("/passo2")
-    public ResponseEntity<?> registerStep2(@RequestBody Lavoratore lavoratore, HttpSession session) {
-        Lavoratore lavoratore1 = (Lavoratore) session.getAttribute("lavoratore1");
-         System.out.print(lavoratore.getEmail());
-
-
-        session.setAttribute("lavoratore2", lavoratore);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/passo3")
-    public ResponseEntity<?> registerStep3(HttpSession session) {
-        Lavoratore lavoratore = (Lavoratore) session.getAttribute("lavoratore1");
-
-        String email = lavoratore.getEmail();
-
-        //String confirmationToken = tokenService.generateConfirmationToken(email);
-
-        //String confirmationUrl = "http://localhost:8080/lavoratore/signup/confirm?token=" + confirmationToken;
-
-        return null;
-    }
-
-
-
-
-
-    private boolean isEmailTaken(String email) {
-        if (email.equals("abc@gmail.com")){
+    @PostMapping("checkExistence")
+    public boolean checkExistenceGoogleAccount(@RequestBody Lavoratore lavoratore) {
+        boolean presente = DBManager.getInstance().getLavoratoreDao().isEmailTaken(lavoratore.getEmail());
+        if (presente)
             return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
-    private boolean isUsernameTaken(String username) {
-        if (username.equals("abc")){
-            return true;
-        } else {
-            return false;
-        }
     }
-}
-

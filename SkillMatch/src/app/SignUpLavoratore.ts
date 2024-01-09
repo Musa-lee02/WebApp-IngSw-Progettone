@@ -6,6 +6,6 @@ export interface LavoratoreSignUp{
 }
 
 export interface LavoratoreSignUpGoogle{
-  username: string;
+  id: string;
   email: string;
 }

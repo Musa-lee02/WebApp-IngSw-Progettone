@@ -137,5 +137,23 @@ public class LavoratoreDaoPostgres implements LavoratoreDao {
         }
     }
 
+    @Override
+    public boolean isEmailTaken(String email){
+        String query = "SELECT * FROM LAVORATORE WHERE email = ?";
+        try{
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+
 
 }

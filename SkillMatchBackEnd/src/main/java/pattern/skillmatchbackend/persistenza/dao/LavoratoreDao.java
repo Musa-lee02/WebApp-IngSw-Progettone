@@ -13,5 +13,7 @@ public interface LavoratoreDao {
 
     public void delete(Lavoratore lavoratore);
 
+    public boolean isEmailTaken(String email);
+
 
 }

@@ -16,6 +16,7 @@ export class BackEndService {
   }
 
   public postSignupRegistrationWithGoogle(lavoratore : LavoratoreSignUpGoogle): Observable<boolean> {
+    return this.http.post<boolean>(this.url+"/lavoratore/signup/google", lavoratore);
 
   }
 }

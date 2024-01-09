@@ -19,10 +19,20 @@
     function handleOauthResponse(response){
       const responsePayload = decodeJWTToken(response.credential)
       console.log(responsePayload)
+      const lavoratore = {
+        id: responsePayload.sub,
+        email: responsePayload.email
+      }
+      let res  = window['BackEndService'].postSignupRegistrationWithGoogle(lavoratore)
+      if(res){
+        window.location.href = "http://localhost:4200/Profilo"
+      }
+
       //sessionStorage.setItem('loggedinUser',JSON.stringify(responsePayload))
       window['accediComponentRef'].registrazioneGoogle(responsePayload)
 
       //Changed the above URL where you want user to be redirected
+
     }
   </script>
 
