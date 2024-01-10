@@ -13,7 +13,7 @@ export class BackEndService{
 
   public postCheckRegistrationCredential(lavoratore : LavoratoreSignUp): Observable<string> {
     console.log(lavoratore);
-    return this.http.post<string>(this.url+"/lavoratore/signup/passo1", lavoratore);
+    return this.http.post<string>(this.url+"/lavoratore/signup/passo1", lavoratore,  );
   }
 
   public postSignupRegistrationWithGoogle(lavoratore : LavoratoreSignUpGoogle): Observable<boolean> {
