@@ -153,6 +153,22 @@ public class LavoratoreDaoPostgres implements LavoratoreDao {
         return false;
     }
 
+    @Override
+    public boolean isUsernameTaken(String username){
+        String query = "SELECT * FROM LAVORATORE WHERE username = ?";
+        try{
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
 
 

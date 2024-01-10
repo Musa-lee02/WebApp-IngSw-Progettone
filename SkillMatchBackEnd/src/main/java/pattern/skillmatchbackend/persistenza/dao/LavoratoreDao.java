@@ -15,5 +15,7 @@ public interface LavoratoreDao {
 
     public boolean isEmailTaken(String email);
 
+    public boolean isUsernameTaken(String username);
+
 
 }

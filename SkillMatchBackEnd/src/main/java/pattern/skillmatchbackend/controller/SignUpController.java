@@ -15,39 +15,35 @@ import pattern.skillmatchbackend.persistenza.dao.postgres.LavoratoreDaoPostgres;
 public class SignUpController {
 
     @PostMapping("/passo1")
-    public boolean registerStep1(@RequestBody Lavoratore lavoratore, HttpSession session) {
-       /*if(lavoratore.getEmail().equals("ooo")) {
-            //return ResponseEntity.badRequest().body("Email non valida");
-        }*/
+    public ResponseEntity<String> registerStep1(@RequestBody Lavoratore lavoratore, HttpSession session) {
 
-        /*(isEmailTaken(lavoratore.getEmail())) {
+        if (DBManager.getInstance().getLavoratoreDao().isEmailTaken(lavoratore.getEmail())) {
             return ResponseEntity.badRequest().body("Email già in uso");
         }
 
-        if(isUsernameTaken(lavoratore.getUsername())) {
+        if (DBManager.getInstance().getLavoratoreDao().isUsernameTaken(lavoratore.getUsername())) {
             return ResponseEntity.badRequest().body("Username già in uso");
         }
 
+
         if(ValidationService.validatePasswordUpperLetter(lavoratore.getPassword())) {
-            return ResponseEntity.badRequest().body("Password non valida");
+            return ResponseEntity.badRequest().body("Password non valida (deve contenere almeno una lettera maiuscola)");
         }
 
         if(ValidationService.validatePasswordNumber(lavoratore.getPassword())) {
-            return ResponseEntity.badRequest().body("Password non valida");
+            return ResponseEntity.badRequest().body("Password non valida (deve contenere almeno un numero)");
         }
 
         if(ValidationService.validatePasswordSpecialChar(lavoratore.getPassword())) {
-            return ResponseEntity.badRequest().body("Password non valida");
+            return ResponseEntity.badRequest().body("Password non valida (deve contenere almeno un carattere speciale)");
         }
 
         if(ValidationService.validatePasswordLength(lavoratore.getPassword())) {
-            return ResponseEntity.badRequest().body("Password non valida");
-        }*/
-        System.out.println(lavoratore.getEmail());
+            return ResponseEntity.badRequest().body("Password non valida (deve contenere almeno 8 caratteri)");
+        }
 
         session.setAttribute("lavoratore1", lavoratore);
-        return true;
-
+        return ResponseEntity.ok("ok");
     }
 
     @PostMapping("checkExistence")

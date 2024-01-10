@@ -195,6 +195,37 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
 
     if(this.credenzialiForm.valid){
+      const lavoratore = this.credenzialiForm.value
+      this.backEndService.postCheckRegistrationCredential(lavoratore).subscribe( (response : string) =>{
+        if(response==="ok"){
+          this.container?.nativeElement.classList.add('generalita')
+        }
+        else{
+          if (response==="Email già in uso")
+          Swal.fire("Email già in uso")
+
+          if (response==="Username già in uso")
+          Swal.fire("Username già in uso")
+
+          if (response==="Password non valida (deve contenere almeno una lettera maiuscola)")
+          Swal.fire("Password non valida (deve contenere almeno una lettera maiuscola)")
+
+          if (response==="Password non valida (deve contenere almeno un numero)")
+          Swal.fire("Password non valida (deve contenere almeno un numero)")
+
+          if (response==="Password non valida (deve contenere almeno 8 caratteri)")
+          Swal.fire("Password non valida (deve contenere almeno 8 caratteri)")
+
+          if (response==="Password non valida (deve contenere almeno un carattere speciale)")
+          Swal.fire("Password non valida (deve contenere almeno un carattere speciale)")
+
+
+
+
+
+        }
+      })
+
       this.container?.nativeElement.classList.add('generalita')
 
     }
