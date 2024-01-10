@@ -45,6 +45,7 @@ export class ServizioAnnunciService implements OnInit {
   private lavoratoreBool :boolean=false;
   private autenticato: boolean=false;
   private skipAutentication :boolean;
+  currentImage : string = "../../../assets/default.jpg";
 
   url:string;
   chatAttuale: Chat ;
@@ -267,6 +268,13 @@ ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica
   }
   getProvince(){
     return this.province;
+  }
+  setPicProfile(url : string){
+    this.currentImage=url
+  }
+  getPicProfile(){
+
+    return this.currentImage
   }
 
   getProposte(){

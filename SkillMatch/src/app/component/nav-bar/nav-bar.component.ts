@@ -65,6 +65,10 @@ export class NavBarComponent {
     this.service.setSkipAutentication(bool)
   }
 
+  getPicProfile(){
+    return this.service.getPicProfile();
+  }
+
 
 
 }
