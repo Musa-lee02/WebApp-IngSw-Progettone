@@ -11,8 +11,8 @@
     <ul>
       
       <li *ngIf="!isAutenticato()"><a href="Accedi" >Accedi</a></li>
-      <li *ngIf="isAutenticato()" style="padding: 0; margin-left: 20px;"><div class="imgNavBar"><img src="../assets/default.jpg" alt=""></div>
-        <ul style="width: 300%;">
+      <li *ngIf="isAutenticato()" style="padding: 0; margin-left: 20px;"><div class="imgNavBar"><img src="{{getPicProfile()}}" alt=""></div>
+        <ul>
           <li><a routerLink="/Profilo">Profilo </a></li>
           <li><a routerLink="/Chat" (click)="setDoingAccesso(false)">Chat</a></li>
           <li><a href="/Accedi" (click)="skipAutentication(true)">Diventa Professionista</a></li>

@@ -9,28 +9,40 @@
     <div class="dashboard">
         <div class="leftPart">
             <div class="picProfile">
-                <img src="../../../assets/default.jpg" style="height: auto; width: 100%; ">
+                <img src={{getPicProfile()}}>
+            
+            <label for="fileInput">
+            <fa-icon [icon]="pencil" size="2x" (click)="onSelectFile($event)"> </fa-icon>
+            </label>  
             </div>
+            <input type="file" id="fileInput" (change)="onSelectFile($event)">
             <div class="data">
                     <ul>
                         <li>Nome:</li>
                         <li>Cognome:</li>
                         <li>Data di nascita:</li>
                         <li>Indirizzo:</li>
-                        <fa-icon [icon]="pencil" size="2x" style="float: right;"></fa-icon>
+                        <li *ngIf="entita==='Lavoratore'">Zona di competenza:</li>
+                        <li *ngIf="entita==='Lavoratore'">Ambiti:</li>
+                        <li *ngIf="entita==='Lavoratore'">Altre informazioni</li>
+                        
+                     
+
                     </ul>
             </div>
         </div>
         <div class="rightPart">
 
             <div class="notifiche">
-
-                <h2 style=" float: right;">Inbox</h2>
+                <div class="inbox">
+                    <h2 style=" float: left;">Inbox</h2>
+                </div>
 
             </div>
                 
             <div class="cronoChat">
-                <h2 style="align-self: flex-end;">I tuoi annunci</h2>
+                <h2 style="align-self: flex-start;" *ngIf="entita==='Cliente'">I tuoi annunci</h2>
+                <h2 style="align-self: flex-start;" *ngIf="entita==='Lavoratore'">Le tue proposte di lavoro</h2>
                 <div *ngFor="let annuncio of annunci; index as i">
         
                     <div class="cardAnnuncio">

@@ -20,7 +20,7 @@ const routes: Routes = [
  {path: 'Esplora', component: EsploraComponent},
  {path: 'Esplora/:ambito', component: EsploraComponent},
  {path: 'Accedi', component: AccediComponent},
- {path:'Profilo', component: ProfiloComponent},
+ {path:'Profilo/:Entita', component: ProfiloComponent},
  {path: 'Conferma', component: ConfermaEmailComponent},
  {path: 'Annuncio', component: EffettuaAnnuncioComponent},
  {path: 'Recupero', component: RecuperoComponent},

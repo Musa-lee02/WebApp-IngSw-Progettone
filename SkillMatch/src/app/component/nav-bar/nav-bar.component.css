@@ -182,7 +182,7 @@ li li a{
         top:0;
         left: -100%;
         position: absolute;
-      
+        z-index: 10;
     }
 
     
