@@ -1,3 +1,5 @@
+import {BackEndService} from "../../service/BackEndService";
+
 declare var google: any;
 declare var window: any;
 import {
@@ -50,7 +52,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   riepilogoDati: boolean=false
   url=""
 
-  constructor(private service: ServizioAnnunciService, ){}
+  constructor(private service: ServizioAnnunciService, private backEndService: BackEndService ){}
 
 
   ngAfterViewChecked(): void {
@@ -76,6 +78,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngOnInit(): void {
       window['accediComponentRef'] = this;
+      window['backEndServiceRef'] = this.backEndService;
 
 
 

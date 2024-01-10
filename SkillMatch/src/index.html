@@ -13,6 +13,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script>
 
+
     function decodeJWTToken(token){
       return JSON.parse(atob(token.split(".")[1]))
     }
@@ -25,8 +26,11 @@
       }
       let res  = window['backEndServiceRef'].postSignupRegistrationWithGoogle(lavoratore)
       if(res){
+        console.log("ciao")
         window.location.href = "http://localhost:4200/Profilo"
       }
+
+
 
       //sessionStorage.setItem('loggedinUser',JSON.stringify(responsePayload))
       window['accediComponentRef'].registrazioneGoogle(responsePayload)

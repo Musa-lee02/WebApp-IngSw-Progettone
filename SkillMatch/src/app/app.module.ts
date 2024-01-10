@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component'; 
+import { AppComponent } from './app.component';
 import {CdkMenuModule} from '@angular/cdk/menu';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -41,6 +41,7 @@ import { FormAnnuncioComponent } from './component/effettua-annuncio/form-annunc
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 import { ChatTextComponent } from './component/chat/chat-text/chat-text.component';
 import { RiepilogoDatiComponent } from './component/accedi/riepilogo-dati/riepilogo-dati.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
 import { AsyncPipe } from '@angular/common';
@@ -52,7 +53,7 @@ import { AsyncPipe } from '@angular/common';
     ContattiComponent,
     CardsVetrinaComponent,
     HomeComponent,
-  
+
     EsploraComponent,
        //EffettuaAnnuncioComponent,
        ProfiloComponent,
@@ -64,7 +65,8 @@ import { AsyncPipe } from '@angular/common';
        NavBarComponent,
        ChatTextComponent,
        RiepilogoDatiComponent,
-    
+
+
   ],
   imports: [
     BrowserModule,
@@ -84,7 +86,8 @@ import { AsyncPipe } from '@angular/common';
     MatAutocompleteModule,
     AsyncPipe,
     MatTooltipModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
