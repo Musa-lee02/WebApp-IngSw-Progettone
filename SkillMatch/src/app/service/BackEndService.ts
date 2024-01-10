@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
-import {LavoratoreSignUp, LavoratoreSignUpGoogle} from "../SignUpLavoratore";
+import {Lavoratore, LavoratoreSignUp, LavoratoreSignUpGoogle} from "../SignUpLavoratore";
 declare var window: any;
 
 @Injectable({
