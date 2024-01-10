@@ -105,18 +105,18 @@
             <div>
                 <h4>Foto Profilo(opzionale)</h4>
                 <img [src]="url" height="50px" width="50px" style="margin-right: 10px;">
-                 
+                <input type="file" (change)="onSelectFile($event)" style="width: 250px" formControlName='foto'>
             </div>
 
             <div style="margin-right: 90px;">
             <h4>zona di competenza</h4>
                 <mat-form-field >
-                <mat-label>State</mat-label>
+                <mat-label>Zona</mat-label>
                     <mat-select formControlName="zona">
                     <mat-option>None</mat-option>
-                        @for (state of states; track state) {
-                            <mat-option [value]="state">{{state}}</mat-option>
-                        }
+                    @for (pv of province; track pv) {
+                        <mat-option [value]="pv">{{pv}}</mat-option>
+                      }
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -126,14 +126,15 @@
             <div>
                 <h4>ambito di lavoro</h4>
                 <mat-form-field >
-                <mat-label>State</mat-label>
+                <mat-label>Ambiti</mat-label>
                 <mat-select formControlName="ambito">
                 <mat-option>None</mat-option>
-                @for (state of states; track state) {
-                    <mat-option [value]="state">{{state}}</mat-option>
+                @for (ab of ambiti; track ab) {
+                    <mat-option [value]="ab">{{ab}}</mat-option>
                 }
                 </mat-select>
                 </mat-form-field>
+            
             </div>
             <div>
                 <h4>Descrizione sulle tue abilita (opzionale) </h4>

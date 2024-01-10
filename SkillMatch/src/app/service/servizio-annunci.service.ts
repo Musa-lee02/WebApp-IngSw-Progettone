@@ -50,6 +50,7 @@ export class ServizioAnnunciService implements OnInit {
   url:string;
   chatAttuale: Chat ;
 
+
   usernameUtente="io" 
   annunci : Annunci[]=[{
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',

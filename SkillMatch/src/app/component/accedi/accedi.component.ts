@@ -37,6 +37,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   googleIcon=faGoogle
   riepilogoDati: boolean=false
   url=""
+  province: any
+  ambiti:any
 
   constructor(private service: ServizioAnnunciService,) {
     window.AccediComponent = this;
@@ -105,6 +107,9 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     })
 
     this.service.setDoingAccesso(true)
+
+    this.province=this.service.getProvince()
+    this.ambiti=this.service.getAmbiti()
   }
 
   passwordMatchValidators(control: AbstractControl) {

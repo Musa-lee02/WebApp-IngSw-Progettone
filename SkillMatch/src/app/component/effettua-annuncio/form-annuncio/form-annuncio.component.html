@@ -10,7 +10,7 @@
         </form>
         <h4>Carica una foto dell'annuncio (Opzionale)</h4>
         <img [src]="url" height="50px" width="50px" style="margin-right: 10px;">
-        <input type="file" (change)="onSelectFile($event)" style="width: 250px" formControlName="foto">
+        <input type="file" (change)="onSelectFile($event)" style="width: 250px">
     </div>
     
     <div class="contenitoreA">
@@ -39,7 +39,7 @@
         <h4>Ambito di lavoro</h4>
         <mat-form-field class="matA">
         <mat-label>Ambito</mat-label>
-        <mat-select formControlName="ambito">
+        <mat-select >
         <mat-option>None</mat-option>
         @for (ab of ambiti; track ab) {
             <mat-option [value]="ab">{{ab}}</mat-option>

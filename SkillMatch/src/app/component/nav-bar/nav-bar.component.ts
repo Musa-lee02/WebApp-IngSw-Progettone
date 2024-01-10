@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterContentChecked, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
@@ -8,9 +8,21 @@ import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit, AfterContentChecked{
 
   constructor(private router: Router, private service: ServizioAnnunciService){}
+  ngAfterContentChecked(): void {
+    if(this.router.url==="/Home"){
+      this.isHome=true
+      
+    }
+    else{
+      this.isHome=false
+    }
+  }
+  ngOnInit(): void {
+    
+  }
   
   arrowIcon= faArrowDown
   title = 'SkillMatch';
@@ -22,13 +34,7 @@ export class NavBarComponent {
   
   ngAfterViewChecked(): void {
     
-    if(this.router.url==="/Home"){
-      this.isHome=true
-      
-    }
-    else{
-      this.isHome=false
-    }
+   
   }
 
 

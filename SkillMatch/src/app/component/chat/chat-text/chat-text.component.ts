@@ -26,7 +26,7 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit{
   ngOnChanges(changes: SimpleChanges): void {
     
     console.log(this.primoCaricamento)
-    console.log(this.chat)
+   
     if(this.primoCaricamento && this.chat){
       this.messaggi=this.service.getMessaggiByChat();
       /*this.primoCaricamento=false;*/
