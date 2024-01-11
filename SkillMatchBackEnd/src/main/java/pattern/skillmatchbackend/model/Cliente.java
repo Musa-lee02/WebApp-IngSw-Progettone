@@ -1,70 +1,81 @@
 package pattern.skillmatchbackend.model;
 
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Cliente extends Utente {
 
-    private List<Chat> chatList;
+    private long id;
+    private String username;
+    private List<Recensione> recensioni = new LinkedList<>();
+    private List<TransazionePagamento> transazionePagamento = new LinkedList<>();
+    private List<Notifica> notifiche = new LinkedList<>();
+    private List<Chat> chats = new LinkedList<>();
+    private Utente utente;
+    private List<Annuncio> annunci = new LinkedList<>();
 
-    private List<Annuncio> annunciPubblicati;
-
-    private List<Recensione> RecensioniScritte;
-
-    private TokenRegistrazione tokenRegistrazione;
-
-    private List<TransazionePagamento> transazioni;
-
-    public List<Chat> getChatList() {
-        return chatList;
+    public long getId() {
+        return id;
     }
 
-    public void setChatList(List<Chat> chatList) {
-        this.chatList = chatList;
-    }
-
-    public List<Annuncio> getAnnunci() {
-        return annunciPubblicati;
-    }
-
-    public void setAnnunci(List<Annuncio> annunciPubblicati) {
-        this.annunciPubblicati = annunciPubblicati;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public List<Recensione> getRecensioni() {
-        return RecensioniScritte;
+        return recensioni;
     }
 
-    public void setRecensioni(List<Recensione> recensioniScritte) {
-        RecensioniScritte = recensioniScritte;
+    public void setRecensioni(List<Recensione> recensioni) {
+        this.recensioni = recensioni;
     }
 
-    public TokenRegistrazione getTokenRegistrazione() {
-        return tokenRegistrazione;
+    public List<TransazionePagamento> getTransazionePagamento() {
+        return transazionePagamento;
     }
 
-    public void setTokenRegistrazione(TokenRegistrazione tokenRegistrazione) {
-        this.tokenRegistrazione = tokenRegistrazione;
+    public void setTransazionePagamento(List<TransazionePagamento> transazionePagamento) {
+        this.transazionePagamento = transazionePagamento;
     }
 
-    public List<TransazionePagamento> getTransazioni() {
-        return transazioni;
+    public List<Notifica> getNotifiche() {
+        return notifiche;
     }
 
-    public void setTransazioni(List<TransazionePagamento> transazioni) {
-        this.transazioni = transazioni;
+    public void setNotifiche(List<Notifica> notifiche) {
+        this.notifiche = notifiche;
     }
 
+    public List<Chat> getChats() {
+        return chats;
+    }
 
+    public void setChats(List<Chat> chats) {
+        this.chats = chats;
+    }
 
+    public Utente getUtente() {
+        return utente;
+    }
 
+    public void setUtente(Utente utente) {
+        this.utente = utente;
+    }
 
+    public List<Annuncio> getAnnunci() {
+        return annunci;
+    }
 
+    public void setAnnunci(List<Annuncio> annunci) {
+        this.annunci = annunci;
+    }
 
+    public String getUsername() {
+        return username;
+    }
 
-
-
-
-
-
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

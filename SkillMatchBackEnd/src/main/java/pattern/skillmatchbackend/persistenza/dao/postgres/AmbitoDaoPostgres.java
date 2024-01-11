@@ -20,16 +20,17 @@ public class AmbitoDaoPostgres implements AmbitoDao {
     @Override
     public List<Ambito> findAll() {
         List<Ambito> ambiti = new LinkedList<>();
-        String query = "SELECT * FROM AMBITO WHERE idProposta = ?";
+        String query = "SELECT * FROM ambito";
+
         try {
+
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
                 Ambito ambito = new Ambito();
-                ambito.setId(rs.getLong("id"));
+                ambito.setId(rs.getLong("id_ambito"));
                 ambito.setNome(rs.getString("nome"));
-                // Aggiungi altri set/get se necessario per le altre colonne
                 ambiti.add(ambito);
             }
 
@@ -42,7 +43,7 @@ public class AmbitoDaoPostgres implements AmbitoDao {
     @Override
     public Ambito findByPrimaryKey(long id) {
         Ambito ambito = null;
-        String query = "SELECT * FROM AMBITO WHERE id = ?";
+        String query = "SELECT * FROM ambito WHERE id_ambito = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, id);
@@ -50,9 +51,8 @@ public class AmbitoDaoPostgres implements AmbitoDao {
 
             while (rs.next()) {
                 ambito = new Ambito();
-                ambito.setId(rs.getLong("id"));
+                ambito.setId(rs.getLong("id_ambito"));
                 ambito.setNome(rs.getString("nome"));
-                // Aggiungi altri set/get se necessario per le altre colonne
             }
 
         } catch (SQLException e) {
@@ -63,16 +63,15 @@ public class AmbitoDaoPostgres implements AmbitoDao {
 
     @Override
     public void saveOrUpdate(Ambito ambito) {
-        String query = "INSERT INTO AMBITO VALUES (?, ?)";
+        String query = "INSERT INTO ambito VALUES (?, ?)";
 
         if (findByPrimaryKey(ambito.getId()) != null)
-            query = "UPDATE AMBITO SET nome = ? WHERE id = ?";
+            query = "UPDATE ambito SET nome = ? WHERE id_ambito = ?, nome = ?";
 
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, ambito.getId());
             st.setString(2, ambito.getNome());
-            // Aggiungi altri set/get se necessario per le altre colonne
             st.executeUpdate();
 
         } catch (SQLException e) {
@@ -82,7 +81,7 @@ public class AmbitoDaoPostgres implements AmbitoDao {
 
     @Override
     public void delete(Ambito ambito) {
-        String query = "DELETE FROM AMBITO WHERE id = ?";
+        String query = "DELETE FROM ambito WHERE id_ambito = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, ambito.getId());
@@ -96,7 +95,8 @@ public class AmbitoDaoPostgres implements AmbitoDao {
     public List<Ambito> findByNome(String nome) {
 
         List<Ambito> ambiti = new LinkedList<>();
-        String query = "SELECT * FROM AMBITO WHERE idProposta = ?";
+        String query = "SELECT * FROM ambito WHERE nome = ?";
+
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, nome);
@@ -104,9 +104,8 @@ public class AmbitoDaoPostgres implements AmbitoDao {
 
             while (rs.next()) {
                 Ambito ambito = new Ambito();
-                ambito.setId(rs.getLong("id"));
+                ambito.setId(rs.getLong("id_ambito"));
                 ambito.setNome(rs.getString("nome"));
-                // Aggiungi altri set/get se necessario per le altre colonne
                 ambiti.add(ambito);
             }
 

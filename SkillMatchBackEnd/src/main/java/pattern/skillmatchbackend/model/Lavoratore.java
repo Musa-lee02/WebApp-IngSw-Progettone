@@ -4,29 +4,68 @@ package pattern.skillmatchbackend.model;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Lavoratore extends Utente{
-
-    private String provinciaLavoro;
-
-    private List<Ambito> ambito;
-
-    private List<Proposta> proposte;
-    private List<Annuncio> annunciPerMe;
-
-    private List<Chat> chatList;
-
-    private List<TransazionePagamento>  transazioni;
-
-    private List<Recensione> recensioni;
+public class Lavoratore extends Utente {
 
 
 
-    public List<Ambito> getAmbito() {
-        return ambito;
+    private long id;
+    private List<Recensione> recensioni = new LinkedList<>();
+    private List<TransazionePagamento> transazionePagamento = new LinkedList<>();
+    private List<Notifica> notifiche = new LinkedList<>();
+    private List<Chat> chats = new LinkedList<>();
+    private Utente utente;
+    private List<Proposta> proposte = new LinkedList<>();
+    private List<Ambito> ambiti = new LinkedList<>();
+    private List<Annuncio> annunciDisponibili = new LinkedList<>();
+
+
+
+    public long getId() {
+        return id;
     }
 
-    public void setAmbito(List<Ambito> ambito) {
-        this.ambito = ambito;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<Recensione> getRecensioni() {
+        return recensioni;
+    }
+
+    public void setRecensioni(List<Recensione> recensioni) {
+        this.recensioni = recensioni;
+    }
+
+    public List<TransazionePagamento> getTransazionePagamento() {
+        return transazionePagamento;
+    }
+
+    public void setTransazionePagamento(List<TransazionePagamento> transazionePagamento) {
+        this.transazionePagamento = transazionePagamento;
+    }
+
+    public List<Notifica> getNotifiche() {
+        return notifiche;
+    }
+
+    public void setNotifiche(List<Notifica> notifiche) {
+        this.notifiche = notifiche;
+    }
+
+    public List<Chat> getChats() {
+        return chats;
+    }
+
+    public void setChats(List<Chat> chats) {
+        this.chats = chats;
+    }
+
+    public Utente getUtente() {
+        return utente;
+    }
+
+    public void setUtente(Utente utente) {
+        this.utente = utente;
     }
 
     public List<Proposta> getProposte() {
@@ -37,43 +76,19 @@ public class Lavoratore extends Utente{
         this.proposte = proposte;
     }
 
-    public List<Annuncio> getAnnunciPerMe() {
-        return annunciPerMe;
+    public List<Ambito> getAmbiti() {
+        return ambiti;
     }
 
-    public void setAnnunciPerMe(List<Annuncio> annunciPerMe) {
-        this.annunciPerMe = annunciPerMe;
+    public void setAmbiti(List<Ambito> ambiti) {
+        this.ambiti = ambiti;
     }
 
-    public List<Chat> getChatList() {
-        return chatList;
+    public List<Annuncio> getAnnunciDisponibili() {
+        return annunciDisponibili;
     }
 
-    public void setChatList(List<Chat> chatList) {
-        this.chatList = chatList;
-    }
-
-    public List<TransazionePagamento> getTransazioni() {
-        return transazioni;
-    }
-    public void setTransazioni(List<TransazionePagamento> transazioni) {
-        this.transazioni = transazioni;
-    }
-
-    public List<Recensione> getRecensioni() {
-        return recensioni;
-    }
-
-    public void setRecensioni(List<Recensione> recensioniAvute) {
-        this.recensioni = recensioniAvute;
-    }
-
-
-    public void setProvinciaServizio(String provinciaDiServizio) {
-        this.provinciaLavoro = provinciaDiServizio;
-    }
-
-    public String getProvinciaServizio() {
-        return provinciaLavoro;
+    public void setAnnunciDisponibili(List<Annuncio> annunciDisponibili) {
+        this.annunciDisponibili = annunciDisponibili;
     }
 }

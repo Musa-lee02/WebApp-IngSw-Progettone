@@ -1,43 +1,43 @@
 package pattern.skillmatchbackend.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class TransazionePagamento {
-        private Long idTransazione;
+    private Long id;
+    private Timestamp dataTransazione;
 
-        private Date dataTransazione;
+    private float importo;
 
-        private Double importo;
+    private Cliente mittente;
+    private Lavoratore destinatario;
+    private String metodoPagamento;
 
-        private Cliente mittente;
-        private Lavoratore destinatario;
-        private String metodoPagamento;
+    public Long getId() {
+        return id;
+    }
 
-        public Long getIdTransazione() {
-            return idTransazione;
-        }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-        public void setIdTransazione(Long idTransazione) {
-            this.idTransazione = idTransazione;
-        }
+    public Timestamp getDataTransazione() {
+        return dataTransazione;
+    }
 
-        public Date getDataTransazione() {
-            return dataTransazione;
-        }
+    public void setDataTransazione(Timestamp dataTransazione) {
+        this.dataTransazione = dataTransazione;
+    }
 
-        public void setDataTransazione(Date dataTransazione) {
-            this.dataTransazione = dataTransazione;
-        }
-
-        public Double getImporto() {
+    public float getImporto() {
             return importo;
         }
 
-        public void setImporto(Double importo) {
+        public void setImporto(float importo) {
             this.importo = importo;
         }
 
-        public Cliente getMittente() {
+    public Cliente getMittente() {
             return mittente;
         }
 

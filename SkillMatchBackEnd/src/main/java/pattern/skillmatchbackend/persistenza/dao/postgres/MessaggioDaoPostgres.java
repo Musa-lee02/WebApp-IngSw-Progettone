@@ -1,11 +1,8 @@
 package pattern.skillmatchbackend.persistenza.dao.postgres;
 
-import pattern.skillmatchbackend.model.Contenuto;
-
 import pattern.skillmatchbackend.model.Messaggio;
 
 import pattern.skillmatchbackend.persistenza.DBManager;
-
 import pattern.skillmatchbackend.persistenza.dao.MessaggioDao;
 
 import java.sql.*;
@@ -28,19 +25,23 @@ public class MessaggioDaoPostgres implements MessaggioDao {
     public List<Messaggio> findAll() {
 
         List<Messaggio> messaggi = new LinkedList<>();
-        String query = "SELECT * FROM MESSAGGIO WHERE idProposta = ?";
+        String query = "SELECT * FROM messaggio";
         try {
 
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
+
+
                 Messaggio messaggio = new Messaggio();
-                messaggio.setIdMessaggio(rs.getLong("id"));
-                //messaggio.setContenuto(new Contenuto(rs.getString("contenuto")));
-                messaggio.setDataInvio(rs.getDate("data_invio"));
-                messaggio.setOraInvio(rs.getTime("ora_invio"));
-                messaggio.setWho(rs.getBoolean("who"));
+                messaggio.setId(rs.getLong("id_messaggio"));
+                messaggio.setContenuto(rs.getString("contenuto"));
+                messaggio.setData(rs.getTimestamp("data"));
+                messaggio.setLetto(rs.getBoolean("visualizzato"));
+                messaggio.setChi(rs.getBoolean("chi"));
+                messaggio.setChat(DBManager.getInstance().getChatDao().findByPrimaryKey(rs.getLong("id_annuncio"),rs.getLong("id_cliente"),rs.getLong("id_lavoratore")));
+                messaggi.add(messaggio);
 
             }
 
@@ -55,7 +56,7 @@ public class MessaggioDaoPostgres implements MessaggioDao {
     @Override
     public Messaggio findByPrimaryKey(long id) {
         Messaggio messaggio = null;
-        String query = "SELECT * FROM MESSAGGIO WHERE id = ?";
+        String query = "SELECT * FROM messaggio WHERE id_messaggio = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, id);
@@ -63,11 +64,12 @@ public class MessaggioDaoPostgres implements MessaggioDao {
 
             while (rs.next()) {
                 messaggio = new Messaggio();
-                messaggio.setIdMessaggio(rs.getLong("id"));
-                //messaggio.setContenuto(new Contenuto(rs.getString("contenuto")));
-                messaggio.setDataInvio(rs.getDate("data_invio"));
-                messaggio.setOraInvio(rs.getTime("ora_invio"));
-                messaggio.setWho(rs.getBoolean("who"));
+                messaggio.setId(rs.getLong("id_messaggio"));
+                messaggio.setContenuto(rs.getString("contenuto"));
+                messaggio.setData(rs.getTimestamp("data"));
+                messaggio.setLetto(rs.getBoolean("visualizzato"));
+                messaggio.setChi(rs.getBoolean("chi"));
+                messaggio.setChat(DBManager.getInstance().getChatDao().findByPrimaryKey(rs.getLong("id_annuncio"),rs.getLong("id_cliente"),rs.getLong("id_lavoratore")));
             }
 
         } catch (SQLException e) {
@@ -81,20 +83,26 @@ public class MessaggioDaoPostgres implements MessaggioDao {
     @Override
     public void saveOrUpdate(Messaggio messaggio) {
 
-        String query = "INSERT INTO MESSAGGIO VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO MESSAGGIO VALUES (?, ?, ?, ?, ?, ?,?,?)";
 
-        if (findByPrimaryKey(messaggio.getIdMessaggio()) != null)
-            query = "UPDATE MESSAGGIO SET contenuto = ?, " + "data_invio = ?, " + "ora_invio = ?, " + "who = ?, " + "idProposta = ? " + "WHERE id = ?";
+        if (findByPrimaryKey(messaggio.getId()) != null)
+            query = "UPDATE Nome_Tua_Tabella SET "
+                    + "contenuto = ?, data = ?, visualizzato = ?, chi = ?, id_annuncio = ?, id_cliente = ?, id_lavoratore = ? "
+                    + "WHERE id_messaggio = ?";
 
 
             try {
 
                 PreparedStatement st = conn.prepareStatement(query);
 
-                st.setLong(1, messaggio.getIdMessaggio());
-                st.setDate(3, messaggio.getDataInvio());
-                st.setTime(4, messaggio.getOraInvio());
-                st.setBoolean(5, messaggio.isWho());
+                st.setLong(1, messaggio.getId());
+                st.setString(2, messaggio.getContenuto());
+                st.setTimestamp(3, messaggio.getData());
+                st.setBoolean(4, messaggio.isLetto());
+                st.setBoolean(5, messaggio.isChi());
+                st.setLong(6, messaggio.getChat().getAnnuncio().getId());
+                st.setLong(7, messaggio.getChat().getCliente().getId());
+                st.setLong(8, messaggio.getChat().getLavoratore().getId());
 
                 st.executeUpdate();
 
@@ -106,42 +114,45 @@ public class MessaggioDaoPostgres implements MessaggioDao {
 
     @Override
     public void delete(Messaggio messaggio) {
-        String query = "DELETE FROM MESSAGGIO WHERE id = ?";
+        String query = "DELETE FROM messaggio WHERE id_messaggio = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1, messaggio.getIdMessaggio());
+            st.setLong(1, messaggio.getId());
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public List<Messaggio> findByIdProposta(long id) {
-
+    public List<Messaggio> findByForeignKeyChat(long idAnnuncio, long idCliente,long idLavoratore) {
         List<Messaggio> messaggi = new LinkedList<>();
-        String query = "SELECT * FROM MESSAGGIO WHERE idProposta = ?";
+        String query = "SELECT * FROM messaggio WHERE id_annuncio = ? , id_cliente = ? , id_lavoratore = ?";
         try {
 
             PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1, id);
+            st.setLong(1, idAnnuncio);
+            st.setLong(2, idCliente);
+            st.setLong(3,idCliente);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
+
+
                 Messaggio messaggio = new Messaggio();
-                messaggio.setIdMessaggio(rs.getLong("id"));
-                //messaggio.setContenuto(new Contenuto(rs.getString("contenuto")));
-                messaggio.setDataInvio(rs.getDate("data_invio"));
-                messaggio.setOraInvio(rs.getTime("ora_invio"));
-                messaggio.setWho(rs.getBoolean("who"));
+                messaggio.setId(rs.getLong("id_messaggio"));
+                messaggio.setContenuto(rs.getString("contenuto"));
+                messaggio.setData(rs.getTimestamp("data"));
+                messaggio.setLetto(rs.getBoolean("visualizzato"));
+                messaggio.setChi(rs.getBoolean("chi"));
+                messaggio.setChat(DBManager.getInstance().getChatDao().findByPrimaryKey(rs.getLong("id_annuncio"),rs.getLong("id_cliente"),rs.getLong("id_lavoratore")));
+                messaggi.add(messaggio);
+
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return messaggi;
-
-
     }
 
 

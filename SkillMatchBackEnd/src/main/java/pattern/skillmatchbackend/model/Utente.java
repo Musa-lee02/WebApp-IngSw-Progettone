@@ -1,96 +1,133 @@
 package pattern.skillmatchbackend.model;
 
-public abstract class Utente {
+import java.sql.Date;
 
-    private String username;
-    private String password;
-    private String nome;
-    private String cognome;
-    private String email;
-    private String indirizzo;
-    private String numeroCivico;
-    private String citta;
-    private String cap;
+public class  Utente {
 
-    private String imgUrl;
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    protected String username;
+    protected String password;
+    protected String email;
+    protected String nome;
+    protected String cognome;
+    protected String via;
+    protected int numeroCivico;
+    protected String cap;
+    protected String provincia;
+    protected String citta;
+    protected String provinciaLavoro;
+    protected Image imgProfilo = new Image();
+    protected boolean registrato;
+    protected Date dataRegistrazione;
 
     public String getUsername() {
         return username;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setIndirizzo(String indirizzo) {
-        this.indirizzo = indirizzo;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getIndirizzo() {
-        return indirizzo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNumeroCivico(String numero_civico) {
-        this.numeroCivico = numero_civico;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getNumeroCivico() {
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public String getVia() {
+        return via;
+    }
+
+    public void setVia(String via) {
+        this.via = via;
+    }
+
+    public int getNumeroCivico() {
         return numeroCivico;
     }
 
-    public void setCitta(String citta) {
-        this.citta = citta;
-    }
-
-    public String getCitta() {
-        return citta;
-    }
-
-    public void setCap(String cap) {
-        this.cap = cap;
+    public void setNumeroCivico(int numeroCivico) {
+        this.numeroCivico = numeroCivico;
     }
 
     public String getCap() {
         return cap;
     }
 
-    public void setImage(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setCap(String cap) {
+        this.cap = cap;
     }
 
-    public String getImage() {
-        return imgUrl;
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getCitta() {
+        return citta;
+    }
+
+    public void setCitta(String citta) {
+        this.citta = citta;
+    }
+
+    public String getProvinciaLavoro() {
+        return provinciaLavoro;
+    }
+
+    public void setProvinciaLavoro(String provinciaLavoro) {
+        this.provinciaLavoro = provinciaLavoro;
+    }
+
+    public Image getImgProfilo() {
+        return imgProfilo;
+    }
+
+    public void setImgProfilo(Image imgProfilo) {
+        this.imgProfilo = imgProfilo;
+    }
+
+    public boolean isRegistrato() {
+        return registrato;
+    }
+
+    public void setRegistrato(boolean registrato) {
+        this.registrato = registrato;
+    }
+
+    public Date getDataRegistrazione() {
+        return dataRegistrazione;
+    }
+
+    public void setDataRegistrazione(Date dataRegistrazione) {
+        this.dataRegistrazione = dataRegistrazione;
     }
 }
