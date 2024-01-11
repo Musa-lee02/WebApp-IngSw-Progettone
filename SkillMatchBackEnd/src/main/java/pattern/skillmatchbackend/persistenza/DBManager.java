@@ -1,6 +1,5 @@
 package pattern.skillmatchbackend.persistenza;
 
-import pattern.skillmatchbackend.model.TransazionePagamento;
 import pattern.skillmatchbackend.persistenza.dao.*;
 import pattern.skillmatchbackend.persistenza.dao.postgres.*;
 
@@ -38,8 +37,9 @@ public class DBManager {
         return new ClienteDaoPostgres(getConnection());
     }
 
-    public TransazionePagamentoDao getTransazioneDao() {
+    public TransazionePagamentoDao getTransazionePagamentoDao() {
         return new TransazionePagamentoDaoPostgres(getConnection());
+
     }
 
     public MessaggioDao getMessaggioDao() {
@@ -59,7 +59,8 @@ public class DBManager {
     }
 
     public AmbitoDao getAmbitoDao() { return new AmbitoDaoPostgres(getConnection());}
-
+    public ChatDao getChatDao() {return new ChatDaoPostgres(getConnection());}
+    private NotificaDao getNotificaDao() {return new NotificaDaoPostgres(getConnection());}
 
 
 

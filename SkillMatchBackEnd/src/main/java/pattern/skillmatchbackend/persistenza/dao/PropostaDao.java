@@ -7,14 +7,14 @@ import java.util.List;
 public interface PropostaDao {
 
     public List<Proposta> findAll();
-    public Proposta findByPrimaryKey(long id);
+    public Proposta findByPrimaryKey(long idAnnuncio, long idLavoratore);
 
     public void saveOrUpdate(Proposta proposta);
 
     public void delete(Proposta proposta);
 
     public List<Proposta> findByLavoratore(String username);
-    public List<Proposta> findByPrimaryKeyAnnuncio(long id);
+    public Proposta findByForeignKeyAnnuncio(long id);
 
 
 

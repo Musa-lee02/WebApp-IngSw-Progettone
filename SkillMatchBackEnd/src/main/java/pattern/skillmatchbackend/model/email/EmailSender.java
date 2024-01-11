@@ -1,14 +1,20 @@
 package pattern.skillmatchbackend.model.email;
-/*import org.apache.catalina.Authenticator;
-import org.apache.catalina.Session;
-import org.apache.logging.log4j.message.Message;
-
 import java.net.PasswordAuthentication;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
 public class EmailSender {
+
+    private EmailSender(){}
+
+    private static EmailSender instance = new EmailSender();
+
+    public static EmailSender getInstance() {
+        return instance;
+    }
+
+
 
     public boolean sendEmail(EmailConfig emailConfig, EmailContent emailContent){
 
@@ -20,10 +26,11 @@ public class EmailSender {
         Properties properties = emailConfig.getProperties();
 
         // Autenticazione
+
         Session session = Session.getInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from, emailConfig.getPassword());
+            protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+                return new javax.mail.PasswordAuthentication(from, emailConfig.getPassword());
+
             }
         });
 
@@ -51,4 +58,3 @@ public class EmailSender {
     }
 
 }
-*/
