@@ -1,4 +1,6 @@
 package pattern.skillmatchbackend.model.email;
+import jakarta.websocket.Session;
+
 import java.net.PasswordAuthentication;
 import java.util.Properties;
 import javax.mail.*;
