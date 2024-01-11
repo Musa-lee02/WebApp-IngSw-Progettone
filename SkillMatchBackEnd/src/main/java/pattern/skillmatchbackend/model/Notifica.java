@@ -2,20 +2,19 @@ package pattern.skillmatchbackend.model;
 
 import java.sql.Timestamp;
 
-public class Messaggio {
+public class Notifica {
 
-    private Long id;
+    private long id;
     private String contenuto;
     private Timestamp data;
-    private boolean letto;
+    private boolean visualizzato;
     private boolean chi;
-    private Chat chat;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -35,12 +34,12 @@ public class Messaggio {
         this.data = data;
     }
 
-    public boolean isLetto() {
-        return letto;
+    public boolean isVisualizzato() {
+        return visualizzato;
     }
 
-    public void setLetto(boolean letto) {
-        this.letto = letto;
+    public void setVisualizzato(boolean visualizzato) {
+        this.visualizzato = visualizzato;
     }
 
     public boolean isChi() {
@@ -49,13 +48,5 @@ public class Messaggio {
 
     public void setChi(boolean chi) {
         this.chi = chi;
-    }
-
-    public Chat getChat() {
-        return chat;
-    }
-
-    public void setChat(Chat chat) {
-        this.chat = chat;
     }
 }

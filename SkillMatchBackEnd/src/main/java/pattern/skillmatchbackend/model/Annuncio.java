@@ -11,22 +11,23 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Annuncio {
-    private Long idAnnuncio;
+
+    private Long id;
     private String titolo;
     private String descrizione;
     private Date dataDiScadenza;
     private String provinciaAnnuncio;
+    private Image image = new Image();
     private Cliente cliente;
     private Ambito ambito;
-    private Image image = new Image();
-    private List<Proposta> proposteRicevute;
+    private Proposta proposta;
 
-    public Long getIdAnnuncio() {
-        return idAnnuncio;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdAnnuncio(Long idAnnuncio) {
-        this.idAnnuncio = idAnnuncio;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitolo() {
@@ -61,6 +62,14 @@ public class Annuncio {
         this.provinciaAnnuncio = provinciaAnnuncio;
     }
 
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -77,20 +86,12 @@ public class Annuncio {
         this.ambito = ambito;
     }
 
-    public Image getImage() {
-        return image;
+    public Proposta getProposta() {
+        return proposta;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
-    public List<Proposta> getProposteRicevute() {
-        return proposteRicevute;
-    }
-
-    public void setProposteRicevute(List<Proposta> proposteRicevute) {
-        this.proposteRicevute = proposteRicevute;
+    public void setProposta(Proposta proposta) {
+        this.proposta = proposta;
     }
 }
 

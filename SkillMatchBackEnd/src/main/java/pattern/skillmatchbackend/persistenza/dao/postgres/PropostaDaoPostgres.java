@@ -1,4 +1,4 @@
-/*package pattern.skillmatchbackend.persistenza.dao.postgres;
+package pattern.skillmatchbackend.persistenza.dao.postgres;
 
 import pattern.skillmatchbackend.model.Proposta;
 
@@ -23,7 +23,7 @@ public class PropostaDaoPostgres implements PropostaDao {
     @Override
     public List<Proposta> findAll() {
         List<Proposta> proposte = new LinkedList<>();
-        String query = "SELECT * FROM PROPOSTA";
+        String query = "SELECT * FROM proposta";
 
         try {
             Proposta proposta;
@@ -32,11 +32,15 @@ public class PropostaDaoPostgres implements PropostaDao {
 
             while (rs.next()) {
                 proposta = new Proposta();
+                proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
+                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
+                proposta.setTitolo(rs.getString("titolo"));
+                proposta.setDescrizione(rs.getString("descrizione"));
                 proposta.setStato(rs.getString("stato"));
                 proposta.setPrezzoLavoro(rs.getFloat("prezzo_lavoro"));
-                proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("username")));
-                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString(rs.getString("username"))));
                 proposte.add(proposta);
+
+
             }
 
         } catch (SQLException e) {
@@ -46,24 +50,23 @@ public class PropostaDaoPostgres implements PropostaDao {
     }
 
     @Override
-    public Proposta findByPrimaryKey(long id) {
+    public Proposta findByPrimaryKey(long idAnnuncio, long idLavoratore) {
         Proposta proposta = null;
-        String query = "SELECT * FROM PROPOSTA WHERE id = ?";
+        String query = "SELECT * FROM proposta WHERE WHERE id_annuncio = ? and id_lavoratore = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1, id);
+            st.setLong(1, idAnnuncio);
+            st.setLong(2,idLavoratore);
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
                 proposta = new Proposta();
-               // proposta.setIdProposta(rs.getLong("id"));
-               // proposta.setTitolo(rs.getString("titolo"));
-               // proposta.setDescrizione(rs.getString("descrizione"));
+                proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
+                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
+                proposta.setTitolo(rs.getString("titolo"));
+                proposta.setDescrizione(rs.getString("descrizione"));
                 proposta.setStato(rs.getString("stato"));
                 proposta.setPrezzoLavoro(rs.getFloat("prezzo_lavoro"));
-                proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("username")));
-                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString(rs.getString("username"))));
-                //proposta.setMessaggi(DBManager.getInstance().getMessaggioDao().findByIdProposta(proposta.getIdProposta()));
             }
 
         } catch (SQLException e) {
@@ -75,9 +78,9 @@ public class PropostaDaoPostgres implements PropostaDao {
     @Override
     public void saveOrUpdate(Proposta proposta) {
 
-        String query = "INSERT INTO PROPOSTA VALUES (?, ?, ?, ?, ?, ?, ?)";
+        /*String query = "INSERT INTO PROPOSTA VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        if (findByPrimaryKey(proposta.getIdProposta()) != null)
+        /*if (findByPrimaryKey(proposta.getIdProposta()) != null)
             query = "UPDATE PROPOSTA SET titolo = ?, " + "descrizione = ?, " + "stato = ?, " + "prezzo_lavoro = ?, " + "idAnnuncio = ?, " + "idLavoratore = ? " + "WHERE id = ?";
 
             try {
@@ -94,17 +97,18 @@ public class PropostaDaoPostgres implements PropostaDao {
                 st.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
-            }
+            }*/
 
 
     }
 
     @Override
     public void delete(Proposta proposta) {
-        String query = "DELETE FROM PROPOSTA WHERE id = ?";
+        String query = "DELETE FROM proposta WHERE id_annuncio = ? and id_lavoratore = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1, proposta.getIdProposta());
+            st.setLong(1, proposta.getAnnuncioRelativo().getId());
+            st.setLong(2,proposta.getLavoratore().getId());
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -112,40 +116,10 @@ public class PropostaDaoPostgres implements PropostaDao {
     }
 
     @Override
-    public List<Proposta> findByLavoratore(String username) {
+    public List<Proposta> findByByForeignKeyLavoratore(long id) {
 
         List<Proposta> proposte = new LinkedList<>();
-        String query = "SELECT * FROM PROPOSTA WHERE idAnuncio = ?";
-
-        try {
-
-            PreparedStatement st = conn.prepareStatement(query);
-            st.setString(1, username);
-            ResultSet rs = st.executeQuery();
-
-            while (rs.next()) {
-                Proposta proposta = new Proposta();
-                proposta.setIdProposta(rs.getLong("id"));
-                proposta.setTitolo(rs.getString("titolo"));
-                proposta.setDescrizione(rs.getString("descrizione"));
-                proposta.setStato(rs.getString("stato"));
-                proposta.setPrezzoLavoro(rs.getFloat("prezzo_lavoro"));
-                proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("username")));
-                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString(rs.getString("username"))));
-                proposte.add(proposta);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return proposte;
-
-    }
-
-    @Override
-    public List<Proposta> findByPrimaryKeyAnnuncio(long id) {
-        List<Proposta> proposte = new LinkedList<>();
-        String query = "SELECT * FROM PROPOSTA WHERE idAnuncio = ?";
+        String query = "SELECT * FROM proposta WHERE id_lavoratore = ?";
 
         try {
 
@@ -155,13 +129,12 @@ public class PropostaDaoPostgres implements PropostaDao {
 
             while (rs.next()) {
                 Proposta proposta = new Proposta();
-                proposta.setIdProposta(rs.getLong("id"));
+                proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
+                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
                 proposta.setTitolo(rs.getString("titolo"));
                 proposta.setDescrizione(rs.getString("descrizione"));
                 proposta.setStato(rs.getString("stato"));
                 proposta.setPrezzoLavoro(rs.getFloat("prezzo_lavoro"));
-                proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("username")));
-                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString(rs.getString("username"))));
                 proposte.add(proposta);
             }
 
@@ -172,4 +145,31 @@ public class PropostaDaoPostgres implements PropostaDao {
 
     }
 
-}*/
+    @Override
+    public Proposta findByForeignKeyAnnuncio(long id) {
+        Proposta proposta = null;
+        String query = "SELECT * FROM proposta WHERE WHERE id_annuncio = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setLong(1, id);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                proposta = new Proposta();
+                proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
+                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
+                proposta.setTitolo(rs.getString("titolo"));
+                proposta.setDescrizione(rs.getString("descrizione"));
+                proposta.setStato(rs.getString("stato"));
+                proposta.setPrezzoLavoro(rs.getFloat("prezzo_lavoro"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return proposta;
+
+    }
+
+    }
+

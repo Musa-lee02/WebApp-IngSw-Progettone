@@ -1,6 +1,5 @@
 package pattern.skillmatchbackend.persistenza;
 
-import pattern.skillmatchbackend.model.TransazionePagamento;
 import pattern.skillmatchbackend.persistenza.dao.*;
 import pattern.skillmatchbackend.persistenza.dao.postgres.*;
 
@@ -23,7 +22,7 @@ public class DBManager {
     public Connection getConnection(){
         if (con == null){
             try {
-                con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/webapp24_ristoranti", "postgres", "postgres");
+                con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "postgres");
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -38,8 +37,9 @@ public class DBManager {
         return new ClienteDaoPostgres(getConnection());
     }
 
-    public TransazionePagamentoDao getTransazioneDao() {
+    public TransazionePagamentoDao getTransazionePagamentoDao() {
         return new TransazionePagamentoDaoPostgres(getConnection());
+
     }
 
     public MessaggioDao getMessaggioDao() {
@@ -59,7 +59,8 @@ public class DBManager {
     }
 
     public AmbitoDao getAmbitoDao() { return new AmbitoDaoPostgres(getConnection());}
-
+    public ChatDao getChatDao() {return new ChatDaoPostgres(getConnection());}
+    private NotificaDao getNotificaDao() {return new NotificaDaoPostgres(getConnection());}
 
 
 

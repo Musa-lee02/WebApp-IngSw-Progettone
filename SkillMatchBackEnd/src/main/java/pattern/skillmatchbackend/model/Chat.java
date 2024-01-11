@@ -1,5 +1,8 @@
 package pattern.skillmatchbackend.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Chat {
 
     private Cliente cliente;
@@ -7,29 +10,37 @@ public class Chat {
 
     private Annuncio annuncio;
 
+    private List<Messaggio> messaggi = new LinkedList<>();
 
-    Cliente getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    void setCliente(Cliente cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
-    Lavoratore getLavoratore() {
+    public Lavoratore getLavoratore() {
         return lavoratore;
     }
 
-    void setLavoratore(Lavoratore lavoratore) {
+    public void setLavoratore(Lavoratore lavoratore) {
         this.lavoratore = lavoratore;
     }
 
-    Annuncio getAnnuncio() {
+    public Annuncio getAnnuncio() {
         return annuncio;
     }
 
-    void setAnnuncio(Annuncio annuncio) {
+    public void setAnnuncio(Annuncio annuncio) {
         this.annuncio = annuncio;
     }
 
+    public List<Messaggio> getMessaggi() {
+        return messaggi;
+    }
+
+    public void setMessaggi(List<Messaggio> messaggi) {
+        this.messaggi = messaggi;
+    }
 }

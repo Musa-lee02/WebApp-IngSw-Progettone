@@ -4,7 +4,6 @@ import pattern.skillmatchbackend.model.TransazionePagamento;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
 import pattern.skillmatchbackend.persistenza.dao.TransazionePagamentoDao;
-import pattern.skillmatchbackend.persistenza.dao.TransazionePagamentoDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,19 +25,19 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
     public List<TransazionePagamento> findAll() {
 
         List<TransazionePagamento> transazioni = new LinkedList<>();
-        String query = "SELECT * FROM TRANSAZIONE WHERE id = ?";
+        String query = "SELECT * FROM transazione_pagamento";
         try {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
                 TransazionePagamento transazione = new TransazionePagamento();
-                transazione.setIdTransazione(rs.getLong("id"));
-                transazione.setDataTransazione(rs.getDate("data_transazione"));
-                transazione.setImporto(rs.getDouble("importo"));
-                transazione.setMittente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username")));
-                transazione.setDestinatario(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username")));
-                transazione.setMetodoPagamento(rs.getString("metodo_pagamento"));
+                transazione.setId(rs.getLong("id_transazione"));
+                transazione.setImporto(rs.getFloat("importo"));
+                transazione.setDataTransazione(rs.getTimestamp("data"));
+                transazione.setMetodoPagamento(rs.getString("metodo_di_pagamento"));
+                transazione.setMittente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong("id_cliente")));
+                transazione.setDestinatario(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
                 transazioni.add(transazione);
             }
 
@@ -53,7 +52,7 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
     @Override
     public TransazionePagamento findByPrimaryKey(long id) {
         TransazionePagamento transazione = null;
-        String query = "SELECT * FROM TRANSAZIONE WHERE id = ?";
+        String query = "SELECT * FROM transazione_pagamento WHERE id_transazione_pagamento = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, id);
@@ -61,12 +60,12 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
 
             if (rs.next()) {
                 transazione = new TransazionePagamento();
-                transazione.setIdTransazione(rs.getLong("id"));
-                transazione.setDataTransazione(rs.getDate("data_transazione"));
-                transazione.setImporto(rs.getDouble("importo"));
-                transazione.setMittente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username")));
-                transazione.setDestinatario(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username")));
-                transazione.setMetodoPagamento(rs.getString("metodo_pagamento"));
+                transazione.setId(rs.getLong("id_transazione"));
+                transazione.setImporto(rs.getFloat("importo"));
+                transazione.setDataTransazione(rs.getTimestamp("data"));
+                transazione.setMetodoPagamento(rs.getString("metodo_di_pagamento"));
+                transazione.setMittente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong("id_cliente")));
+                transazione.setDestinatario(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
             }
 
         } catch (SQLException e) {
@@ -78,35 +77,36 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
     @Override
     public void saveOrUpdate(TransazionePagamento transazione) {
 
-        String query = "INSERT INTO TRANSAZIONE VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO transazione_pagamento VALUES (?, ?, ?, ?, ?, ?)";
 
-        if (findByPrimaryKey(transazione.getIdTransazione()) != null)
-            query = "UPDATE TRANSAZIONE SET data_transazione = ?, " + "importo = ?, " + "idMittente = ?, " + "idDestinatario = ?, " + "metodo_pagamento = ? " + "WHERE id = ?";
+
+        if (findByPrimaryKey(transazione.getId()) != null)
+            query = "UPDATE transazione_pagamento SET data_transazione = ?, " + "importo = ?, " + "idMittente = ?, " + "idDestinatario = ?, " + "metodo_pagamento = ? " + "WHERE id = ?";
+
 
         try {
-                PreparedStatement st = conn.prepareStatement(query);
 
-                st.setLong(1, transazione.getIdTransazione());
-                st.setDate(2, transazione.getDataTransazione());
-                st.setDouble(3, transazione.getImporto());
-                st.setString(4, transazione.getMittente().getUsername());
-                st.setString(5, transazione.getDestinatario().getUsername());
-                st.setString(6, transazione.getMetodoPagamento());
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setLong(1, transazione.getId());
+            st.setFloat(2, transazione.getImporto());
+            st.setTimestamp(3, transazione.getDataTransazione());
+            st.setString(4, transazione.getMetodoPagamento());
+            st.setLong(5, transazione.getMittente().getId());
+            st.setLong(6, transazione.getDestinatario().getId());
+            st.executeUpdate();
 
-                st.executeUpdate();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public void delete(TransazionePagamento transazione) {
-        String query = "DELETE FROM TRANSAZIONE WHERE id = ?";
+        String query = "DELETE FROM transazione_pagamento WHERE id_transazione = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1, transazione.getIdTransazione());
+            st.setLong(1, transazione.getId());
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -114,58 +114,42 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
     }
 
     @Override
-    public List<TransazionePagamento> findByPrimaryKeyLavoratore(String username) {
-
-        List<TransazionePagamento> transazioni = new LinkedList<>();
-        String query = "SELECT * FROM TRANSAZIONE WHERE idLavoratore = ?";
-        try {
-            PreparedStatement st = conn.prepareStatement(query);
-            st.setString(1, username);
-            ResultSet rs = st.executeQuery();
-
-            while (rs.next()) {
-                TransazionePagamento transazione = new TransazionePagamento();
-                transazione.setIdTransazione(rs.getLong("id"));
-                transazione.setDataTransazione(rs.getDate("data_transazione"));
-                transazione.setImporto(rs.getDouble("importo"));
-                transazione.setMittente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username")));
-                transazione.setDestinatario(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username")));
-                transazione.setMetodoPagamento(rs.getString("metodo_pagamento"));
-                transazioni.add(transazione);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return transazioni;
-
+    public List<TransazionePagamento> findByForeignKeyLavoratore(long id) {
+        return findByForeignKeyClienteoLavoratore(id,"id_cliente");
     }
 
     @Override
-    public List<TransazionePagamento> findByPrimaryKeyCliente(String username) {
+    public List<TransazionePagamento> findByForeignKeyCliente(long id) {
+        return findByForeignKeyClienteoLavoratore(id,"id_cliente");
+    }
+
+    public List<TransazionePagamento> findByForeignKeyClienteoLavoratore(Long id, String profilo) {
         List<TransazionePagamento> transazioni = new LinkedList<>();
-        String query = "SELECT * FROM TRANSAZIONE WHERE idCliente = ?";
+        String query = "SELECT * FROM transazione_pagamento WHERE "+profilo+" = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
-            st.setString(1, username);
+            st.setLong(1, id);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 TransazionePagamento transazione = new TransazionePagamento();
-                transazione.setIdTransazione(rs.getLong("id"));
-                transazione.setDataTransazione(rs.getDate("data_transazione"));
-                transazione.setImporto(rs.getDouble("importo"));
-                transazione.setMittente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username")));
-                transazione.setDestinatario(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username")));
-                transazione.setMetodoPagamento(rs.getString("metodo_pagamento"));
+                transazione.setId(rs.getLong("id_transazione"));
+                transazione.setImporto(rs.getFloat("importo"));
+                transazione.setDataTransazione(rs.getTimestamp("data"));
+                transazione.setMetodoPagamento(rs.getString("metodo_di_pagamento"));
+                transazione.setMittente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong("id_cliente")));
+                transazione.setDestinatario(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
                 transazioni.add(transazione);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return transazioni;
     }
+
+
 
 
 }

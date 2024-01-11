@@ -11,6 +11,6 @@ public interface MessaggioDao {
 
     public void delete(Messaggio messaggio);
 
-    public List<Messaggio> findByIdProposta(long id);
+    public List<Messaggio> findByForeignKeyChat(long idAnnuncio, long idCliente,long idLavoratore);
 
 }

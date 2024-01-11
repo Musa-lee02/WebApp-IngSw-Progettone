@@ -8,14 +8,14 @@ import java.util.List;
 
 public interface RecensioneDao {
     public List<Recensione> findAll();
-    public Recensione findByPrimaryKey(long idRecensione);
+    public Recensione findByPrimaryKey(long id);
 
     public void saveOrUpdate(Recensione recensione);
 
     public void delete(Recensione recensione);
 
-    public List<Recensione>  findByPrimaryKeyLavoratore(String username);
-    public List<Recensione>  findByPrimaryKeyCliente(String username);
+    public List<Recensione>  findByForeignKeyLavoratore(long id);
+    public List<Recensione>  findByForeignKeyCliente(long id);
 
 
 }

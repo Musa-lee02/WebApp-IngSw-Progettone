@@ -1,15 +1,11 @@
 package pattern.skillmatchbackend.model;
 
 
-
-import java.util.LinkedList;
-import java.util.List;
-
 public class Proposta {
 
     private String titolo;
 
-    private String durata;
+    private String descrizione;
 
     private String stato;
     private Float prezzoLavoro;
@@ -24,12 +20,12 @@ public class Proposta {
         return titolo;
     }
 
-    public void setDurata(String durata) {
-        this.durata = durata;
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
     }
 
-    public String getDurata() {
-        return durata;
+    public String getDescrizione() {
+        return descrizione;
     }
 
     public String getStato() {

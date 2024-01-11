@@ -4,6 +4,7 @@ import pattern.skillmatchbackend.model.Image;
 
 import pattern.skillmatchbackend.model.Lavoratore;
 
+import pattern.skillmatchbackend.model.Utente;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
 import pattern.skillmatchbackend.persistenza.dao.LavoratoreDao;
@@ -12,7 +13,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class LavoratoreDaoPostgres implements LavoratoreDao {
+public class LavoratoreDaoPostgres  implements LavoratoreDao  {
 
     Connection conn;
 
@@ -24,32 +25,14 @@ public class LavoratoreDaoPostgres implements LavoratoreDao {
     public List<Lavoratore> findAll() {
 
         List<Lavoratore> lavoratori = new LinkedList<>();
-        String query = "SELECT * FROM LAVORATORE WHERE username = ?";
+        String query = "SELECT * FROM lavoratore";
         try {
 
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                Lavoratore lavoratore = new Lavoratore();
-                lavoratore.setUsername(rs.getString("username"));
-                lavoratore.setPassword(rs.getString("password"));
-                lavoratore.setNome(rs.getString("nome"));
-                lavoratore.setCognome(rs.getString("cognome"));
-                lavoratore.setEmail(rs.getString("email"));
-                lavoratore.setIndirizzo(rs.getString("indirizzo"));
-                lavoratore.setNumeroCivico(rs.getString("numero_civico"));
-                lavoratore.setCitta(rs.getString("citta"));
-                lavoratore.setProvinciaServizio(rs.getString("provinciaDiServizio"));
-                lavoratore.setCap(rs.getString("cap"));
-                //lavoratore.setRuolo(rs.getBoolean("ruolo"));
-                //lavoratore.setAmbito();
-                lavoratore.setRecensioni(DBManager.getInstance().getRecensioneDao().findByPrimaryKeyLavoratore(lavoratore.getUsername()));
-                lavoratore.setTransazioni(DBManager.getInstance().getTransazioneDao().findByPrimaryKeyLavoratore(lavoratore.getUsername()));
-                lavoratore.setAnnunciPerMe(DBManager.getInstance().getAnnuncioDao().annunciPerMe(lavoratore.getProvinciaServizio(),null));
-                //lavoratore.setImage(new Image(rs.getString("immagine")));
-                lavoratore.setProposte(DBManager.getInstance().getPropostaDao().findByLavoratore(lavoratore.getUsername()));
-                lavoratori.add(lavoratore);
+
             }
 
         } catch (SQLException e) {
@@ -59,32 +42,37 @@ public class LavoratoreDaoPostgres implements LavoratoreDao {
     }
 
     @Override
-    public Lavoratore findByPrimaryKey(String username) {
+    public Lavoratore findByPrimaryKey(long id) {
         Lavoratore lavoratore = null;
-        String query = "SELECT * FROM LAVORATORE WHERE username = ?";
+        String query = "SELECT * FROM lavoratore WHERE id_lavoratore = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
-            st.setString(1, username);
+            st.setLong(1, id);
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
                 lavoratore = new Lavoratore();
-                lavoratore.setUsername(rs.getString("username"));
-                lavoratore.setPassword(rs.getString("password"));
-                lavoratore.setNome(rs.getString("nome"));
-                lavoratore.setCognome(rs.getString("cognome"));
-                lavoratore.setEmail(rs.getString("email"));
-                lavoratore.setIndirizzo(rs.getString("indirizzo"));
-                lavoratore.setNumeroCivico(rs.getString("numero_civico"));
-                lavoratore.setCitta(rs.getString("citta"));
-                lavoratore.setProvinciaServizio(rs.getString("provinciaDiServizio"));
-                lavoratore.setCap(rs.getString("cap"));
-                //lavoratore.setRuolo(rs.getBoolean("ruolo"));
-                lavoratore.setRecensioni(DBManager.getInstance().getRecensioneDao().findByPrimaryKeyLavoratore(lavoratore.getUsername()));
-                lavoratore.setTransazioni(DBManager.getInstance().getTransazioneDao().findByPrimaryKeyLavoratore(lavoratore.getUsername()));
-                lavoratore.setAnnunciPerMe(DBManager.getInstance().getAnnuncioDao().annunciPerMe(lavoratore.getProvinciaServizio(),null));
-                //lavoratore.setImage(new Image(rs.getString("immagine")));
-                lavoratore.setProposte(DBManager.getInstance().getPropostaDao().findByLavoratore(lavoratore.getUsername()));
+                lavoratore.setId(rs.getLong("id_lavoratore"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lavoratore;
+    }
+
+    @Override
+    public Lavoratore findByPrimaryKey(String username) {
+        Lavoratore lavoratore = null;
+        String query = "SELECT * FROM lavoratore WHERE username = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1,username);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                lavoratore = new Lavoratore();
+                lavoratore.setId(rs.getLong("id_lavoratore"));
             }
 
         } catch (SQLException e) {
@@ -105,18 +93,6 @@ public class LavoratoreDaoPostgres implements LavoratoreDao {
 
             PreparedStatement st = conn.prepareStatement(query);
 
-            st.setString(1, lavoratore.getUsername());
-            st.setString(2, lavoratore.getPassword());
-            st.setString(3, lavoratore.getNome());
-            st.setString(4, lavoratore.getCognome());
-            st.setString(5, lavoratore.getEmail());
-            st.setString(6, lavoratore.getIndirizzo());
-            st.setString(7, lavoratore.getNumeroCivico());
-            st.setString(8, lavoratore.getCitta());
-            st.setString(9, lavoratore.getCap());
-            //st.setBoolean(10, lavoratore.isRuolo());
-            st.setString(11, lavoratore.getProvinciaServizio());
-            //st.setString(12, lavoratore.getImage().getPath());
 
             st.executeUpdate();
 
@@ -136,6 +112,40 @@ public class LavoratoreDaoPostgres implements LavoratoreDao {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public boolean isEmailTaken(String email){
+        String query = "SELECT * FROM LAVORATORE WHERE email = ?";
+        try{
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isUsernameTaken(String username){
+        String query = "SELECT * FROM LAVORATORE WHERE username = ?";
+        try{
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
 
 
 }

@@ -1,3 +1,5 @@
+import {BackEndService} from "../../service/BackEndService";
+
 declare var google: any;
 declare var window: any;
 import { AfterViewChecked, Component, ComponentFactoryResolver, ComponentRef, ElementRef, NgZone, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
@@ -7,6 +9,7 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service'
 import { SceltaUtenteComponent } from './scelta-utente/scelta-utente.component';
 import Swal from 'sweetalert2';
+import {HttpErrorResponse} from "@angular/common/http";
 
 
 
@@ -40,11 +43,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   province: any
   ambiti:any
 
-  constructor(private service: ServizioAnnunciService,) {
-    window.AccediComponent = this;
-
-
-  }
+  constructor(private service: ServizioAnnunciService, private backEndService: BackEndService ){}
 
 
   ngAfterViewChecked(): void {
@@ -69,6 +68,9 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }*/
 
   ngOnInit(): void {
+      window['accediComponentRef'] = this;
+      window['backEndServiceRef'] = this.backEndService;
+
 
 
 
@@ -83,7 +85,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
       username: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null,[Validators.required, 
+      password: new FormControl(null,[Validators.required,
         Validators.minLength(8),
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+-=]).{8,}$/)
       ]),
@@ -93,7 +95,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       ])
 
     }, { validators: this.passwordMatchValidators });
-    
+
     this.loginForm=new FormGroup ({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null,Validators.required),
@@ -118,7 +120,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     return password === ripetiPassword ? null : { mismatch: true };
   }
-  
+
   ngOnDestroy(): void {
 
 
@@ -161,7 +163,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   }
   clickArrow(){
-    
+
     console.log(this.generalitaForm)
     this.container?.nativeElement.classList.remove('generalita')
     this.container?.nativeElement.classList.remove('ambito')
@@ -200,7 +202,35 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
 
     if(this.credenzialiForm.valid){
-      this.container?.nativeElement.classList.add('generalita')
+      const lavoratore = this.credenzialiForm.value
+      this.backEndService.postCheckRegistrationCredential(lavoratore).subscribe(
+        response =>{
+          //console.log(response.message)
+          this.container?.nativeElement.classList.add('generalita')
+        }, (error : HttpErrorResponse)=> {
+        console.log(error)
+
+          if (error.error==="Email già in uso")
+          alert("Email già in uso")
+
+          if (error.error==="Username già in uso")
+          alert("Username già in uso")
+
+          if (error.error==="Password non valida (deve contenere almeno una lettera maiuscola)")
+          Swal.fire("Password non valida (deve contenere almeno una lettera maiuscola)")
+
+          if (error.error==="Password non valida (deve contenere almeno un numero)")
+          Swal.fire("Password non valida (deve contenere almeno un numero)")
+
+          if (error.error==="Password non valida (deve contenere almeno 8 caratteri)")
+          Swal.fire("Password non valida (deve contenere almeno 8 caratteri)")
+
+          if (error.error==="Password non valida (deve contenere almeno un carattere speciale)")
+          Swal.fire("Password non valida (deve contenere almeno un carattere speciale)")
+
+        })
+
+      //this.container?.nativeElement.classList.add('generalita')
 
     }
 
@@ -210,7 +240,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   removeActive() {
 
         if (this.container) {
-          
+
           this.container.nativeElement.classList.remove('active');
         }
 
@@ -232,18 +262,22 @@ checkPassword(form : FormGroup):boolean {
     else return false;
 }
 
-// Inside your Angular Component
-  public processGoogleUserData(userData: any) {
+registrazioneGoogle(googleData : any){
     this.generalitaForm.patchValue({
-      nome: userData.name.regex("^\w+"),
-      cognome: userData.name.regex("\w$"),
+      nome: googleData.given_name,
+      cognome: googleData.family_name
+    })
+   this.container?.nativeElement.classList.add('generalita')
+  if(this.generalitaForm.valid && this.isLavoratore()){
+    this.ambitoForm.patchValue({
+      foto: googleData.picture
 
-    });
-    // @ts-ignore
-    console.log(this.generalitaForm.get("nome").value);
-
-
+    })
+    console.log(this.ambitoForm.get("foto")?.value)
+    this.container?.nativeElement.classList.add('ambito')
   }
+
+}
 
 
 }

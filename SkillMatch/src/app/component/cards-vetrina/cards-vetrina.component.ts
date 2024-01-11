@@ -17,24 +17,24 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
   ngAfterContentChecked(): void {
     if(this.route.snapshot.paramMap.get('ambito')){
 
-      
+
       this.ambito=this.route.snapshot.paramMap.get('ambito')!;
       this.annunci=this.servizioAnnunci.getAnnunciByAmbito(this.ambito);
-      
+
     }
     else {
       this.annunci=this.servizioAnnunci.getAnnunci()
-      
+
     }
   }
 
-  
+
   ngAfterViewChecked(): void {
- 
+
   }
 
   ngOnInit(): void {
-    
+
   }
 
 }

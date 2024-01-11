@@ -19,7 +19,7 @@ public class ValidationService {
     }
 
     public static boolean validatePasswordLength(String password) {
-        return password.length() >= 8;
+        return password.length() < 8;
     }
 
 

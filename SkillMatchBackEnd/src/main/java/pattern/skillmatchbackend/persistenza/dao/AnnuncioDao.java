@@ -17,7 +17,7 @@ public interface AnnuncioDao {
 
     public void delete(Annuncio annuncio);
 
-    public List<Annuncio> findByPrimaryCliente(String username);
+    public List<Annuncio> findByForeignKeyCliente(long id);
     public List<Annuncio> annunciPerMe(String provincia, Ambito ambito);
 
 }

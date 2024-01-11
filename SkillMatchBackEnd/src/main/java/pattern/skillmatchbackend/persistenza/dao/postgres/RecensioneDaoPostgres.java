@@ -21,20 +21,21 @@ public class RecensioneDaoPostgres implements RecensioneDao {
     public List<Recensione> findAll() {
 
         List <Recensione> recensioni = new LinkedList<>();
-        String query = "SELECT * FROM RECENSIONE WHERE id = ?";
+        String query = "SELECT * FROM recensione";
         try {
 
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
+
                 Recensione recensione = new Recensione();
-                recensione.setIdRecensione(rs.getLong("id"));
+                recensione.setIdRecensione(rs.getLong("id_recensione"));
                 recensione.setTitolo(rs.getString("titolo"));
                 recensione.setDescrizione(rs.getString("descrizione"));
                 recensione.setPunteggio(rs.getInt("punteggio"));
-                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username")));
-                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username")));
+                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong(("id_cliente"))));
+                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong(("id_lavoratore"))));
                 recensioni.add(recensione);
             }
 
@@ -48,7 +49,7 @@ public class RecensioneDaoPostgres implements RecensioneDao {
     @Override
     public Recensione findByPrimaryKey(long id) {
         Recensione recensione = null;
-        String query = "SELECT * FROM RECENSIONE WHERE id = ?";
+        String query = "SELECT * FROM recensione WHERE id_recensione = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, id);
@@ -56,12 +57,12 @@ public class RecensioneDaoPostgres implements RecensioneDao {
 
             if (rs.next()) {
                 recensione = new Recensione();
-                recensione.setIdRecensione(rs.getLong("id"));
+                recensione.setIdRecensione(rs.getLong("id_recensione"));
                 recensione.setTitolo(rs.getString("titolo"));
                 recensione.setDescrizione(rs.getString("descrizione"));
                 recensione.setPunteggio(rs.getInt("punteggio"));
-                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username")));
-                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username")));
+                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong("id_cliente")));
+                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong(("id_lavoratore"))));
             }
 
         } catch (SQLException e) {
@@ -73,31 +74,33 @@ public class RecensioneDaoPostgres implements RecensioneDao {
     @Override
     public void saveOrUpdate(Recensione recensione) {
 
-        String query = "INSERT INTO RECENSIONE VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO recensione VALUES (?, ?, ?, ?, ?, ?)";
 
         if (findByPrimaryKey(recensione.getIdRecensione()) != null)
-            query = "UPDATE RECENSIONE SET titolo = ?, " + "descrizione = ?, " + "punteggio = ?, " + "idRecensore = ?, " + "idRecensito = ? " + "WHERE id = ?";
+            query = "UPDATE recensione " +
+                    "SET titolo = ?, descrizione = ?, punteggio = ?, id_cliente = ?, id_lavoratore = ? " +
+                    "WHERE id_recensione = ?";
 
-            try {
-                PreparedStatement st = conn.prepareStatement(query);
+        try {
 
-                st.setLong(1, recensione.getIdRecensione());
-                st.setString(2, recensione.getTitolo());
-                st.setString(3, recensione.getDescrizione());
-                st.setFloat(4, recensione.getPunteggio());
-                st.setString(5, recensione.getRecensore().getUsername());
-                st.setString(6, recensione.getRecensito().getUsername());
+            PreparedStatement st = conn.prepareStatement(query);
 
-                st.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            st.setString(1, recensione.getTitolo());
+            st.setString(2, recensione.getDescrizione());
+            st.setInt(3, recensione.getPunteggio());
+            st.setLong(4, recensione.getRecensore().getId());
+            st.setLong(5, recensione.getRecensito().getId());
+            st.setLong(6, recensione.getIdRecensione());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public void delete(Recensione recensione) {
-        String query = "DELETE FROM RECENSIONE WHERE id = ?";
+        String query = "DELETE FROM recensione WHERE id_recensione = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, recensione.getIdRecensione());
@@ -108,57 +111,35 @@ public class RecensioneDaoPostgres implements RecensioneDao {
     }
 
     @Override
-    public List<Recensione>  findByPrimaryKeyLavoratore(String username) {
+    public List<Recensione> findByForeignKeyLavoratore(long id) {
+        return findByForeignKeyClienteoLavoratore(id,"id_lavoratore");
+    }
 
-        List <Recensione> recensioni = new LinkedList<>();
-        String query = "SELECT * FROM RECENSIONE WHERE idLavoratore = ?";
-
-        try {
-
-            PreparedStatement st = conn.prepareStatement(query);
-            st.setString(1, username);
-            ResultSet rs = st.executeQuery();
-
-            while (rs.next()) {
-                Recensione recensione = new Recensione();
-                recensione.setIdRecensione(rs.getLong("id"));
-                recensione.setTitolo(rs.getString("titolo"));
-                recensione.setDescrizione(rs.getString("descrizione"));
-                recensione.setPunteggio(rs.getInt("punteggio"));
-                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username")));
-                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username")));
-                recensioni.add(recensione);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return recensioni;
-
+    @Override
+    public List<Recensione> findByForeignKeyCliente(long id) {
+        return findByForeignKeyClienteoLavoratore(id,"id_cliente");
     }
 
 
-
-    @Override
-    public List<Recensione> findByPrimaryKeyCliente(String username) {
+    public List<Recensione> findByForeignKeyClienteoLavoratore(Long id, String profilo) {
 
         List <Recensione> recensioni = new LinkedList<>();
-        String query = "SELECT * FROM RECENSIONE WHERE idCliente = ?";
+        String query = "SELECT * FROM recensione WHERE "+profilo+" = ?";
 
         try {
 
             PreparedStatement st = conn.prepareStatement(query);
-            st.setString(1, username);
+            st.setLong(1, id);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 Recensione recensione = new Recensione();
-                recensione.setIdRecensione(rs.getLong("id"));
+                recensione.setIdRecensione(rs.getLong("id_recensione"));
                 recensione.setTitolo(rs.getString("titolo"));
                 recensione.setDescrizione(rs.getString("descrizione"));
                 recensione.setPunteggio(rs.getInt("punteggio"));
-                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username")));
-                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username")));
+                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong("id_cliente")));
+                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
                 recensioni.add(recensione);
             }
 

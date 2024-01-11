@@ -12,15 +12,31 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script>
+
+
     function decodeJWTToken(token){
       return JSON.parse(atob(token.split(".")[1]))
     }
     function handleOauthResponse(response){
       const responsePayload = decodeJWTToken(response.credential)
       console.log(responsePayload)
-      sessionStorage.setItem('loggedinUser',JSON.stringify(responsePayload))
-      window.location.href = "http://localhost:4200/Profilo";
+      const lavoratore = {
+        id: responsePayload.sub,
+        email: responsePayload.email
+      }
+      let res  = window['backEndServiceRef'].postSignupRegistrationWithGoogle(lavoratore)
+      if(res){
+        console.log("ciao")
+        window.location.href = "http://localhost:4200/Profilo"
+      }
+
+
+
+      //sessionStorage.setItem('loggedinUser',JSON.stringify(responsePayload))
+      window['accediComponentRef'].registrazioneGoogle(responsePayload)
+
       //Changed the above URL where you want user to be redirected
+
     }
   </script>
 

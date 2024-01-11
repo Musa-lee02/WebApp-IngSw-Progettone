@@ -12,7 +12,7 @@ public interface TransazionePagamentoDao {
 
     public void delete(TransazionePagamento transazione);
 
-    public List<TransazionePagamento> findByPrimaryKeyLavoratore(String username);
-    public List<TransazionePagamento> findByPrimaryKeyCliente(String username);
+    public List<TransazionePagamento> findByForeignKeyLavoratore(long id);
+    public List<TransazionePagamento> findByForeignKeyCliente(long id);
 
 }
