@@ -207,6 +207,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
         response =>{
           //console.log(response.message)
           this.container?.nativeElement.classList.add('generalita')
+
+
         }, (error : HttpErrorResponse)=> {
         console.log(error)
 

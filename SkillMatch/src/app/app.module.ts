@@ -44,7 +44,7 @@ import { RiepilogoDatiComponent } from './component/accedi/riepilogo-dati/riepil
 import {HttpClientModule} from "@angular/common/http";
 
 
-import { AsyncPipe } from '@angular/common';
+import {AsyncPipe, CommonModule} from '@angular/common';
 import { RecuperoComponent } from './component/accedi/recupero/recupero.component';
 import { RinserisciPasswordComponent } from './component/accedi/rinserisci-password/rinserisci-password.component';
 @NgModule({
@@ -67,6 +67,8 @@ import { RinserisciPasswordComponent } from './component/accedi/rinserisci-passw
        NavBarComponent,
        ChatTextComponent,
        RiepilogoDatiComponent,
+       RinserisciPasswordComponent,
+      RecuperoComponent
 
 
   ],
@@ -89,7 +91,8 @@ import { RinserisciPasswordComponent } from './component/accedi/rinserisci-passw
     AsyncPipe,
     MatTooltipModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

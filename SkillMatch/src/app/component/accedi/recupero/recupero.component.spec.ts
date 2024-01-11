@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RecuperoComponent } from './recupero.component';
 
+import {CommonModule}  from "@angular/common";
+
 describe('RecuperoComponent', () => {
   let component: RecuperoComponent;
   let fixture: ComponentFixture<RecuperoComponent>;
@@ -11,7 +13,7 @@ describe('RecuperoComponent', () => {
       declarations: [RecuperoComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(RecuperoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
