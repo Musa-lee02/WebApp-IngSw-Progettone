@@ -205,7 +205,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       const lavoratore = this.credenzialiForm.value
       this.backEndService.postCheckRegistrationCredential(lavoratore).subscribe(
         response =>{
-          console.log(response.message)
+          //console.log(response.message)
           this.container?.nativeElement.classList.add('generalita')
         }, (error : HttpErrorResponse)=> {
         console.log(error)
