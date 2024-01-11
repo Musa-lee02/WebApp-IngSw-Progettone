@@ -16,7 +16,7 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit{
   @Output() tornaDietro = new EventEmitter<boolean>()
   
   messaggi : any;
-  lavoratoreCard:any;
+  DestinatarioCard:any;
   
   constructor( private service: ServizioAnnunciService){}
   ngAfterViewInit(): void {
@@ -30,7 +30,7 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit{
     if(this.primoCaricamento && this.chat){
       this.messaggi=this.service.getMessaggiByChat();
       /*this.primoCaricamento=false;*/
-      this.lavoratoreCard=this.service.getLavoratoreCard(this.chat)
+      this.DestinatarioCard=this.service.getDestinatarioCard(this.chat)
     }
     
 

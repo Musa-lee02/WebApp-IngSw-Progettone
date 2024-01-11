@@ -3,11 +3,13 @@ import { Injectable, OnInit } from '@angular/core';
 
 type Annunci ={
 
+  username:string
   img: string
   descrizione: string
   ambito: string
   titolo: string
   id:string
+  stato: string
 
 }
 
@@ -16,6 +18,7 @@ type Proposte={
   img: string
   descrizione:string
   id:string
+  stato: string
 }
 
 type Messaggio={
@@ -30,8 +33,14 @@ type Messaggio={
 type Chat={
 
   idAnnuncio: string
-  usernameUtente: string 
-  usernameLavoratore:string
+  interlocutore1: string 
+  interlocutore2:string
+
+}
+
+type Lavoratore={
+  username:string
+  img:string
 
 }
 @Injectable({
@@ -51,138 +60,140 @@ export class ServizioAnnunciService implements OnInit {
   chatAttuale: Chat ;
 
 
-  usernameUtente="io" 
+  usernameUtente="maswso" 
   annunci : Annunci[]=[{
+    username: 'utente1',
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     titolo:"pincher da mangiare",
     descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
     ambito:"Edilizia",
-    id:"12"
+    id:"12",
+    stato: "accettata"
   },
   {
+    username: 'utente1',
     img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
     titolo:"Shiba inu da vendere",
     descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
       "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
       "bred for hunting.",
     ambito:"Tecnologia",
-    id:"13"
+    id:"13",
+    stato: "rifiutata"
   },
   {
+    username: 'utente2',
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     titolo:"pincher da mangiare",
     descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
     ambito:"Edilizia",
-    id:"12"
+    id:"12",
+    stato: "rifiutata"
   },
   {
+    username: 'utente2',
     img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
     titolo:"Shiba inu da vendere",
     descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
       "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
       "bred for hunting.",
     ambito:"Tecnologia",
-    id:"13"
+    id:"13",
+    stato: "InCorso"
   },
   {
+    username: 'utente1',
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     titolo:"pincher da mangiare",
     descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
     ambito:"Edilizia",
-    id:"12"
+    id:"12",
+    stato: "rifiutata"
   },
   {
+    username: 'utente3',
     img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
     titolo:"Shiba inu da vendere",
     descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
       "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
       "bred for hunting.",
     ambito:"Tecnologia",
-    id:"13"
+    id:"13",
+    stato: "InCorso"
   },
   {
+    username: 'utente1',
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     titolo:"pincher da mangiare",
     descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
     ambito:"Edilizia",
-    id:"12"
+    id:"12",
+    stato: "InCorso"
   },
-  {
-    img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    titolo:"Shiba inu da vendere",
-    descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
-      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
-      "bred for hunting.",
-    ambito:"Tecnologia",
-    id:"13"
-  },
-  {
-    img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
-    titolo:"pincher da mangiare",
-    descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
-    ambito:"Edilizia",
-    id:"12"
-  },
-  {
-    img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    titolo:"Shiba inu da vendere",
-    descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
-      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
-      "bred for hunting.",
-    ambito:"Tecnologia",
-    id:"13"
-  },
-  {
-    img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
-    titolo:"pincher da mangiare",
-    descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors m",
-    ambito:"Edilizia",
-    id:"12"
-  },
-  {
-    img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    titolo:"Shiba inu da vendere",
-    descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
-      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
-      "bred for hunting.",
-    ambito:"Tecnologia",
-    id:"13"
-  }
 
+
+  ]
+
+  lavoratori: Lavoratore[]=[{
+      username: "pippo",
+      img:"https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg"
+    },
+
+    {
+      username:"maswso",
+      img:"https://www.centrodogtrainer.it/wp-content/uploads/2020/11/addestramento-golden-retriever-1920x960.jpg"
+    },
+    {
+      username:"giacom",
+      img:"https://www.centrodogtrainer.it/wp-content/uploads/2020/11/addestramento-golden-retriever-1920x960.jpg"
+    },
+    {
+      username:"luigio",
+      img:"https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg"
+    },
+    {
+      username:"mll",
+      img:"'https://material.angular.io/assets/img/examples/shiba2.jpg'"
+    }
+  
   ]
 
   proposte : Proposte[]=[{
 
 
-    username:"pippo",
+    username:'pippo',
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     descrizione:"cecedcc",
-    id:"13"
-    
+    id:"13",
+    stato:"InCorso"
   },
   {
-    username:"giacom",
+    username:'giacom',
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     descrizione:"ceceaxdc",
-    id:"12"
+    id:"12",
+    stato:"accettata"
   },
   {
-    username:"mll",
+    username:'mll',
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     descrizione:"cecedcc",
-    id:"12"
+    id:"12",
+    stato:"rifiutata"
   },
   {
-    username:"luigio",
+    username:'luigio',
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     descrizione:"cecedcc",
-    id:"13"
+    id:"13",
+    stato:"inCorso"
   },
   {
-    username:"maswso",
+    username:'maswso',
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     descrizione:"cecedcc",
-    id:"13"
+    id:"13",
+    stato: "inCorso"
   },
 ]
 
@@ -196,23 +207,23 @@ ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica
 
   chat1:Chat={
     idAnnuncio:"13",
-    usernameUtente:"io",
-    usernameLavoratore:"maswso",
+    interlocutore1:"utente1",
+    interlocutore2:"maswso",
   }
   chat2:Chat={
     idAnnuncio:"12",
-    usernameUtente:"io",
-    usernameLavoratore:"giacom",
+    interlocutore1:"untente2",
+    interlocutore2:"giacom",
   }
   chat3:Chat={
     idAnnuncio:"12",
-    usernameUtente:"io",
-    usernameLavoratore:"giacom",
+    interlocutore1:"untente3",
+    interlocutore2:"giacom",
   }
   chat4:Chat={
     idAnnuncio:"12",
-    usernameUtente:"io",
-    usernameLavoratore:"giacom",
+    interlocutore1:"utente1",
+    interlocutore2:"maswso",
   }
 
   chatTotali : Chat[]=[
@@ -281,6 +292,22 @@ ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica
   getProposte(){
     return this.proposte
   }
+
+  getLavoratoriByIdAnnuncio(id: string){
+
+    let proposteFiltrate=this.getProposteById(id)
+    let lavoratoriFiltarti : Lavoratore[]=[]
+    for(const lavoratore of this.lavoratori){
+      for(let i =0; i<proposteFiltrate.length; i++){
+        if(proposteFiltrate[i].username===lavoratore.username){
+          lavoratoriFiltarti.push(lavoratore)
+          proposteFiltrate.splice(i,1);
+        }
+      }
+    }
+  
+    return lavoratoriFiltarti
+  }
   getProposteById(id: string){
 
     let proposteFiltrate:Proposte[]=[]
@@ -294,20 +321,62 @@ ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica
     return proposteFiltrate;
 
   }
-  getLavoratoreCard(chat :Chat){
+   getPropostaAccettataByid(id: string){
 
     for(const proposta of this.proposte){
 
+      if(proposta.id===id){
       
-      if(chat.idAnnuncio === proposta.id &&  chat.usernameLavoratore===proposta.username
-        && chat.usernameUtente===this.usernameUtente){
+        proposta.stato==="accettata"
+        return proposta
+      }
+    }
+    return null
 
-          
-          return proposta; 
+  }
+  getDestinatarioCard(chat :Chat){
+
+    this.setlavoratoreBool(false)
+    for(const lavoratore of this.lavoratori){
+
+      
+      if(chat.interlocutore1 === lavoratore.username){
+
+            return lavoratore; 
         }
     }
     return
 }
+  getProposteLavoratore(username: string){
+    
+    let proposteFiltrate : Proposte[]=[]
+    for(const proposta of this.proposte){
+      if(proposta.username ===username){
+        proposteFiltrate.push(proposta)
+      }
+    }
+    return proposteFiltrate
+  }
+
+  getAnnunciByUsernameLavoratore(username: string){
+
+      let proposteFiltrate=this.getProposteLavoratore(username)
+      
+      let annunciFiltrati: Annunci[]=[]
+      for( let i=0; i<this.annunci.length; i++){
+        for( let j=0; j<proposteFiltrate.length;j++)
+        {
+         
+          if(proposteFiltrate[j].id === this.annunci[i].id)
+          {
+            annunciFiltrati.push(this.annunci[i])
+            
+          }
+        }
+      }
+      
+      return annunciFiltrati
+  }
   getAnnunciByAmbito(ambito: string) : Annunci[]{
 
     let inHome=true
@@ -343,14 +412,15 @@ ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica
     
   }
 
-  setChatByUsernameAndId(usernameLavoratore : string,  idAnnuncio : string){
+  setChatByUsernameAndId(usernameDestinatario : string,  idAnnuncio : string){
 
-    console.log(usernameLavoratore+"username", idAnnuncio+"id")
+    console.log(usernameDestinatario+"username", idAnnuncio+"id")
     for(const chat of this.chatTotali){
 
       
-      if(chat.idAnnuncio === idAnnuncio &&  chat.usernameLavoratore===usernameLavoratore
-         && chat.usernameUtente===this.usernameUtente){
+      if(chat.idAnnuncio === idAnnuncio &&  ((chat.interlocutore1===usernameDestinatario
+         && chat.interlocutore2===this.usernameUtente)||chat.interlocutore1===this.usernameUtente
+         && chat.interlocutore2===usernameDestinatario)){
 
           this.chatAttuale=chat
           

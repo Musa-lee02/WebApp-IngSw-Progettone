@@ -16,7 +16,7 @@ import { RinserisciPasswordComponent } from './component/accedi/rinserisci-passw
 const routes: Routes = [
 { path :'', pathMatch:'full', redirectTo:'/Home'},
  {path: 'Home', component: HomeComponent},
- {path: 'Chat', component: ChatComponent },
+ {path: 'Chat/:Entita', component: ChatComponent },
  {path: 'Esplora', component: EsploraComponent},
  {path: 'Esplora/:ambito', component: EsploraComponent},
  {path: 'Accedi', component: AccediComponent},

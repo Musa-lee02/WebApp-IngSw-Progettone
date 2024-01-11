@@ -46,6 +46,7 @@ import { RiepilogoDatiComponent } from './component/accedi/riepilogo-dati/riepil
 import { AsyncPipe } from '@angular/common';
 import { RecuperoComponent } from './component/accedi/recupero/recupero.component';
 import { RinserisciPasswordComponent } from './component/accedi/rinserisci-password/rinserisci-password.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,7 +89,8 @@ import { RinserisciPasswordComponent } from './component/accedi/rinserisci-passw
     MatAutocompleteModule,
     AsyncPipe,
     MatTooltipModule,
-    MatIconModule
+    MatIconModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
