@@ -1,11 +1,12 @@
 <div class="content">
 
+    
     <div class="dashboard" #rightPart >
         <div class="leftPart">
             <!--*ngIf="proposta.id===annuncio.id"><img src="{{proposta.img}}"-->
             <div *ngFor="let annuncio of annunci; index as i">
         
-            <div class="cardAnnuncio">
+                <div class="cardAnnuncio">
                 
                 <input class="proposteBtn" id="proposteBtn{{i}}" type="checkbox">
                 <label for="proposteBtn{{i}}" class="cardAnnuncio">
@@ -19,7 +20,7 @@
                 </div>
                 <div class="containerProposta">
                     <div *ngFor="let proposta of proposte; index as j">
-                        <div class="cardProposta"  *ngIf="proposta.id==annuncio.id"
+                       <div class="cardProposta"  *ngIf="proposta.id==annuncio.id"
                          (click)="setChatByUsernameAndId(proposta.username, annuncio.id)" (click)="visualizzaChatResponsive()">
                             <!--<input class="chatBtn" id="chatBtn{{j}}" type="checkbox">
                             <label for="chatBtn{{j}}" class="cardProposta">-->
@@ -38,10 +39,11 @@
             
 
         </div>
-        <div class="rightPart">
+    <div class="rightPart">
 
-            <app-chat-text [primoCaricamento]="primoCaricamento" [chat]="getChat()" ></app-chat-text>
+            <app-chat-text [primoCaricamento]="primoCaricamento" [chat]="getChat()" (tornaDietro)="rimuoviChat()" ></app-chat-text>
         </div>
     </div>
+   
 
 </div>

@@ -45,6 +45,8 @@ import {HttpClientModule} from "@angular/common/http";
 
 
 import { AsyncPipe } from '@angular/common';
+import { RecuperoComponent } from './component/accedi/recupero/recupero.component';
+import { RinserisciPasswordComponent } from './component/accedi/rinserisci-password/rinserisci-password.component';
 @NgModule({
   declarations: [
     AppComponent,

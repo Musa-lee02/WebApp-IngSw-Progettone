@@ -1,5 +1,5 @@
 
-
+*{font-family: 'Montserrat', sans-serif I !important};
 
 .full-container{
 
@@ -33,6 +33,7 @@
 
     width: 100%;
   }
+  
 .contentSfondo{
 
     padding-top: 180px;
@@ -54,6 +55,7 @@
     
 }
 
+  
 .navBar ul ul{
     
     border-radius: 20px;
@@ -180,7 +182,7 @@ li li a{
         top:0;
         left: -100%;
         position: absolute;
-      
+        z-index: 10;
     }
 
     

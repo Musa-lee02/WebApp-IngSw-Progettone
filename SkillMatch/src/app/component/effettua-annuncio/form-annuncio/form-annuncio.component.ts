@@ -10,11 +10,8 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 })
 export class FormAnnuncioComponent {
 
-  province: String[] = ['Cosenza', 'Reggio Calabria', 'Vibo Valentia', 'Catanzaro', 'Crotone',
-              'Napoli', 'Salerno', 'Avellino', 'Benevento', 'Caserta', 'Potenza', 'Matera' ]
-
-  ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica', 'Letteratura', 'Cinema', 'Teatro', 'Moda', 'Altro']
-
+  ambiti : any
+  province : any
   minDate: Date;
   url = 'https://www.felicinabiorci.com/wp/wp-content/uploads/2019/01/diet-food-macro-111130.jpg'
   ambitoForm:FormGroup
@@ -35,6 +32,9 @@ export class FormAnnuncioComponent {
       ambitoAnnucnio: new FormControl(null,Validators.required),
       dataScadenza: new FormControl(null,Validators.required),
     })
+
+    this.province=this.service.getProvince()
+    this.ambiti=this.service.getAmbiti()
   }
 
   onSubmit(): void{

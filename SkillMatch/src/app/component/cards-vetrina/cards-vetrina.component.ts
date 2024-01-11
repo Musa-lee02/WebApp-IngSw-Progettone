@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewChecked, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -8,15 +8,13 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './cards-vetrina.component.html',
   styleUrl: './cards-vetrina.component.css'
 })
-export class CardsVetrinaComponent implements OnInit, AfterViewChecked{
+export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterContentChecked{
 
   annunci: any;
   ambito: string
 
   constructor(private route : ActivatedRoute, private servizioAnnunci: ServizioAnnunciService){}
-
-
-  ngAfterViewChecked(): void {
+  ngAfterContentChecked(): void {
     if(this.route.snapshot.paramMap.get('ambito')){
 
 
@@ -28,6 +26,11 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked{
       this.annunci=this.servizioAnnunci.getAnnunci()
 
     }
+  }
+
+
+  ngAfterViewChecked(): void {
+
   }
 
   ngOnInit(): void {

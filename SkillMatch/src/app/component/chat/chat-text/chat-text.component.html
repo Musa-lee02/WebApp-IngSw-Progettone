@@ -2,14 +2,21 @@
 
 <div class="chat">
     <div class="contactArea">
-        <mat-icon class="arrowResponsive" *ngIf="lavoratoreCard" style="color:white">arrow_back</mat-icon>
+        
+        <mat-icon class="arrowResponsive" *ngIf="lavoratoreCard" style="color:white" (click)="back()">arrow_back</mat-icon>
         <div class="contactImgName" *ngIf="lavoratoreCard">
             <img src="{{lavoratoreCard.img}}">
             {{lavoratoreCard.username}}
         </div>
             
-            <mat-icon *ngIf="lavoratoreCard" style="color:white" >cancel</mat-icon>
-            <mat-icon *ngIf="lavoratoreCard" style="color: white;">check</mat-icon>
+            <mat-icon *ngIf="lavoratoreCard" style="color:white" (click)="alertRifiuta()">cancel</mat-icon>
+            <mat-icon *ngIf="lavoratoreCard" style="color: white;" (click)="alertConferma()">check</mat-icon>
+            <input class="propostaBtn" id="propostaBtn" type="checkbox" *ngIf="lavoratoreCard">
+            <label for="propostaBtn" *ngIf="lavoratoreCard">
+            <mat-icon *ngIf="lavoratoreCard" style="color: white;">description</mat-icon></label>
+            <div class="form">
+                <app-form-annuncio></app-form-annuncio>
+            </div>
     </div>
     <div class="messageArea">
         <div class="messaggioContainer" *ngFor="let message of messaggi">
@@ -19,6 +26,6 @@
     <div class="textArea">
         <input type="text" placeholder="Messaggio..."><mat-icon style="color: white;">send</mat-icon>
     </div>
-
+   
 
 </div>
