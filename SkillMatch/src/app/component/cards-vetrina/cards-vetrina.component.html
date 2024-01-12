@@ -16,8 +16,14 @@
         <img mat-card-image src="{{annuncio.img}}" alt="Photo of a Shiba Inu" >
 
         <mat-card-header>
+              
+
           <mat-card-title>{{annuncio.titolo}}</mat-card-title>
           <mat-card-subtitle>{{annuncio.ambito}} - {{annuncio.zona}}</mat-card-subtitle>
+          <mat-card-title>
+            {{ annuncio.numeroStelle }}
+            <img [src]="starImg" class="starImg" alt="Icona personalizzata">
+          </mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <p>

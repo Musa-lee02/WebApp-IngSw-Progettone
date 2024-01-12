@@ -13,6 +13,9 @@ import { ChatComponent } from './component/chat/chat.component';
 import { RecuperoComponent } from './component/accedi/recupero/recupero.component';
 import { RinserisciPasswordComponent } from './component/accedi/rinserisci-password/rinserisci-password.component';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
+import { FooterComponent } from './component/footer/footer.component';
+
+
 
 const routes: Routes = [
 { path :'', pathMatch:'full', redirectTo:'/Home'},
@@ -25,7 +28,8 @@ const routes: Routes = [
  {path: 'Annuncio', component: EffettuaAnnuncioComponent},
  {path: 'Recupero', component: RecuperoComponent},
  {path: 'Recupero/Reinserisci', component: RinserisciPasswordComponent},
- {path: 'search-bar', component: SearchBarComponent}
+ {path: 'search-bar', component: SearchBarComponent},
+ {path: 'Footer', component: FooterComponent}
  
 ];
 

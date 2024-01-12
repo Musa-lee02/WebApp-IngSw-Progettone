@@ -47,6 +47,7 @@ import { AsyncPipe } from '@angular/common';
 import { RecuperoComponent } from './component/accedi/recupero/recupero.component';
 import { RinserisciPasswordComponent } from './component/accedi/rinserisci-password/rinserisci-password.component';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
+import { FooterComponent } from './component/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +71,7 @@ import { SearchBarComponent } from './component/search-bar/search-bar.component'
        RecuperoComponent,
        RinserisciPasswordComponent,
        SearchBarComponent,
+       FooterComponent,
     
   ],
   imports: [

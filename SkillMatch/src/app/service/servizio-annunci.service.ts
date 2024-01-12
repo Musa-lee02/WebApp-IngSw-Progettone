@@ -10,6 +10,7 @@ type Annunci ={
   titolo: string
   id:string
   zona:string
+  numeroStelle:number
 
 }
 
@@ -54,6 +55,7 @@ export class ServizioAnnunciService implements OnInit {
   url:string;
   chatAttuale: Chat ;
 
+
   usernameUtente="io" 
   annunci : Annunci[]=[{
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
@@ -61,7 +63,8 @@ export class ServizioAnnunciService implements OnInit {
     descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
     ambito:"Cucina",
     id:"12",
-    zona:"Cosenza"
+    zona:"Cosenza",
+    numeroStelle: 5
   },
   {
     img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
@@ -71,7 +74,8 @@ export class ServizioAnnunciService implements OnInit {
       "bred for hunting.",
     ambito:"Tecnologia",
     id:"13",
-    zona:"Vibo Valentia"
+    zona:"Vibo Valentia",
+    numeroStelle: 5
   },
   {
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
@@ -79,7 +83,8 @@ export class ServizioAnnunciService implements OnInit {
     descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
     ambito:"Edilizia",
     id:"12",
-    zona:"Reggio Calabria"
+    zona:"Reggio Calabria",
+    numeroStelle: 5
   },
   {
     img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
@@ -89,7 +94,8 @@ export class ServizioAnnunciService implements OnInit {
       "bred for hunting.",
     ambito:"Tecnologia",
     id:"13",
-    zona:"Cosenza"
+    zona:"Cosenza",
+    numeroStelle: 5
   },
   {
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
@@ -99,7 +105,8 @@ export class ServizioAnnunciService implements OnInit {
       "bred for hunting.",
         ambito:"Edilizia",
     id:"12",
-    zona:"Cosenza"
+    zona:"Cosenza",
+    numeroStelle: 5
   },
   {
     img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
@@ -109,7 +116,8 @@ export class ServizioAnnunciService implements OnInit {
       "bred for hunting.",
     ambito:"Tecnologia",
     id:"13",
-    zona:"Vibo Valentia"
+    zona:"Vibo Valentia",
+    numeroStelle: 5
   },
   {
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
@@ -117,7 +125,8 @@ export class ServizioAnnunciService implements OnInit {
     descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
     ambito:"Edilizia",
     id:"12",
-    zona:"Vibo Valentia"
+    zona:"Vibo Valentia",
+    numeroStelle: 5
   },
   {
     img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
@@ -127,7 +136,8 @@ export class ServizioAnnunciService implements OnInit {
       "bred for hunting.",
     ambito:"Tecnologia",
     id:"13",
-    zona:"Reggio Calabria"
+    zona:"Reggio Calabria",
+    numeroStelle: 5
   },
   {
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
@@ -137,7 +147,8 @@ export class ServizioAnnunciService implements OnInit {
       "bred for hunting.",
           ambito:"Edilizia",
     id:"12",
-    zona:"Reggio Calabria"
+    zona:"Reggio Calabria",
+    numeroStelle: 5
   },
   {
     img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
@@ -147,7 +158,8 @@ export class ServizioAnnunciService implements OnInit {
       "bred for hunting.",
     ambito:"Tecnologia",
     id:"13",
-    zona:"Reggio Calabria"
+    zona:"Reggio Calabria",
+    numeroStelle: 5
   },
   {
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
@@ -155,7 +167,8 @@ export class ServizioAnnunciService implements OnInit {
     descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors m",
     ambito:"Edilizia",
     id:"12",
-    zona:"Cosenza"
+    zona:"Cosenza",
+    numeroStelle: 5
   },
   {
     img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
@@ -165,7 +178,8 @@ export class ServizioAnnunciService implements OnInit {
       "bred for hunting.",
     ambito:"Tecnologia",
     id:"13",
-    zona:"Cosenza"
+    zona:"Cosenza",
+    numeroStelle: 5
   }
 
   ]
