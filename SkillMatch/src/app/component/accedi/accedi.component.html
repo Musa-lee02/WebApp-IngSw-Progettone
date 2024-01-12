@@ -106,7 +106,7 @@
             <div>
                 <h4>Foto Profilo(opzionale)</h4>
                 <img [src]="url" height="50px" width="50px" style="margin-right: 10px;">
-                <input type="file" (change)="onSelectFile($event)" style="width: 250px" formControlName='foto'>
+                <input type="file" (change)="onSelectFile($event)" style="width: 250px">
             </div>
 
             <div style="margin-right: 90px;">
@@ -135,7 +135,7 @@
                 }
                 </mat-select>
                 </mat-form-field>
-            
+
             </div>
             <div>
                 <h4>Descrizione sulle tue abilita (opzionale) </h4>
@@ -177,7 +177,7 @@
         </div>
     </div>
 
-    
+
     <app-riepilogo-dati *ngIf="riepilogoDati"></app-riepilogo-dati>
 </div>
 </div>
