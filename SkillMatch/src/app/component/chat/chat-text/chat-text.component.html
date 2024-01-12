@@ -1,0 +1,31 @@
+
+
+<div class="chat">
+    <div class="contactArea">
+        
+        <mat-icon class="arrowResponsive" *ngIf="DestinatarioCard" style="color:white" (click)="back()">arrow_back</mat-icon>
+        <div class="contactImgName" *ngIf="DestinatarioCard">
+            <img src="{{DestinatarioCard.img}}">
+            {{DestinatarioCard.username}}
+        </div>
+            
+            <mat-icon *ngIf="DestinatarioCard" style="color:white" (click)="alertRifiuta()">cancel</mat-icon>
+            <mat-icon *ngIf="DestinatarioCard" style="color: white;" (click)="alertConferma()">check</mat-icon>
+            <input class="propostaBtn" id="propostaBtn" type="checkbox" *ngIf="DestinatarioCard">
+            <label for="propostaBtn" *ngIf="DestinatarioCard">
+            <mat-icon *ngIf="DestinatarioCard" style="color: white;">description</mat-icon></label>
+            <div class="form">
+                <app-form-annuncio></app-form-annuncio>
+            </div>
+    </div>
+    <div class="messageArea">
+        <div class="messaggioContainer" *ngFor="let message of messaggi">
+            <div [ngClass]="{'messaggioInviato': message.inviato, 'messaggioRicevuto':!message.inviato}"><h4>{{message.contenuto}}</h4></div>
+        </div>
+    </div>
+    <div class="textArea">
+        <input type="text" placeholder="Messaggio..."><mat-icon style="color: white;">send</mat-icon>
+    </div>
+   
+
+</div>

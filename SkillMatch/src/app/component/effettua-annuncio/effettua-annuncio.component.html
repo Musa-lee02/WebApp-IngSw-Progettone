@@ -1,0 +1,42 @@
+<!--<div *ngIf="!isAutenticato()"><app-accedi></app-accedi></div>-->
+
+<!--<div *ngIf="isAutenticato()">-->
+
+<div class="content">
+
+    <div class="dashboard">
+        <div class="leftPart">
+            <!--*ngIf="proposta.id===annuncio.id"><img src="{{proposta.img}}"-->
+            <div *ngFor="let annuncio of annunci">
+            <div class="cardAnnuncio">
+                <div class="imgCard" ><img src="{{annuncio.img}}"></div>
+                <div class="titoloDesc">
+                    <div class="titoloCard">{{annuncio.titolo}}</div>
+                    <div class="descrizioneCard">{{annuncio.descrizione}}</div>
+                </div>
+                <div class="containerProposta">
+                    <div *ngFor="let proposta of proposte">
+                    
+                        <div class="cardProposta" *ngIf="proposta.id==annuncio.id" >
+                            <div class="imgCard"><img src="{{proposta.img}}"></div>
+                            <div class="titoloDesc">
+                                <div class="titoloCard">{{proposta.nome}}</div>
+                                <div class="descrizioneCard">{{proposta.descrizione}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            
+
+        </div>
+        <div class="rightPart">
+
+            
+           <!-- <app-chat [contatto]="ambiti"></app-chat>-->
+            
+        </div>
+    </div>
+
+</div>

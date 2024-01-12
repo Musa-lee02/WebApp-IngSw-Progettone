@@ -1,0 +1,17 @@
+
+
+.bodyNone{
+    background: none;
+}
+body {
+    display: block;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url('../assets/sfondo.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: white; 
+    height: 79%;
+}
+
+

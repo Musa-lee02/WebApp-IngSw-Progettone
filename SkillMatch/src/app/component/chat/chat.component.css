@@ -1,0 +1,273 @@
+
+
+html{
+    scroll-behavior: smooth;
+}
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+
+.header ul{
+    display: flex;
+    justify-content: center;
+}
+.header ul li{
+
+    padding-right: 25px;
+    padding-left: 25px;
+}
+.header li a{
+    text-decoration: none;
+    display: block;
+    color: white;
+    padding: 0px 0px !important;
+    cursor:pointer;
+}
+
+.header{
+    border-bottom-left-radius: 200px;
+    border-bottom-right-radius: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 100px;
+    margin-left: 0px;
+    width: 100%;
+    background-color: black;
+}
+.content{
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.dashboard{
+    height: calc(100vh - 100px);
+    width: 70vw;
+    display:flex;
+    flex-direction: row;
+    gap:5px;
+    margin-left: 30px;
+    margin-right: 30px;
+    justify-content: center;
+    box-shadow: 0px 10px 10px  rgba(0,0,0,1);
+    border-radius: 11px;
+}
+
+.proposteBtn{
+
+    display: none;
+}
+
+.imgCard{
+   
+    
+    width: 30%;
+    height: 100%;
+    overflow: hidden;
+}
+.imgCard img{
+
+    object-fit: cover;
+    border-radius: 20px;
+    width: 90%;
+    height: 100%;
+}
+
+.titoloCard{
+
+    
+    text-align: left;
+    width: 100%;
+    height: 50%;
+    border-radius: 10px;
+    padding-left: 10px;
+    background-color: rgb(44, 36, 72);
+    
+}
+
+.titoloDesc{
+    
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+.descrizioneCard{
+
+    overflow: hidden;
+    font-size: auto;
+    width: 100%;
+    height: 50%;
+    
+}
+.cardAnnuncio{
+    
+    width: 100%;
+    color: white;
+    background-color: rgb(33, 30, 45);
+    display: flex;
+    height: 100px;
+    margin-bottom: 3px;
+    
+}
+.cardAnnuncio, .cardProposta, .containerProposta{
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.cardAnnuncio .containerProposta{
+    overflow: hidden;
+    max-width: 0;
+    flex-direction: column;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(44, 36, 72);
+    z-index: 2;
+    transition: max-width 0s;
+}
+.cardAnnuncio .cardProposta{
+
+    display: flex;
+    top: 0;
+    height: 100px;
+    width: 100%;
+    background-color: rgb(33, 30, 45);
+}
+
+.cardProposta .imgCard{
+    width: 30%;
+    aspect-ratio: 1/1;
+}
+.cardProposta .imgCard img{
+
+    border-radius: 50%;
+}
+
+.cardAnnuncio:hover .containerProposta{
+    
+    max-width: 100%;
+    transition: 1s ease-in-out;
+}
+.leftPart{
+    background-color: rgb(44, 36, 72);
+    
+    height:100% !important;
+    border-radius: 11px;
+    position: relative;
+    width: 37%;
+    text-align: center;
+}
+
+
+.rightPart{
+    height:100% !important;
+    background-color: white;
+    border-radius: 11px;
+    overflow: visible;
+    width: 73%;
+    text-align: center;
+    margin-right: 0px;
+    z-index: 1;
+}
+
+.arrowDownResponsive{
+    display:none;
+}
+
+@media only screen and (max-width: 1024px){
+
+    
+    .dashboard{
+        flex-direction: column;
+        align-items: center;
+        width: 60vw;
+        margin-left: 10%;
+    }
+    .dashboard .rightPart{
+        margin-right: 0px;
+    }
+    .rightPart{
+        display: none;
+    }
+    .rightPartResponsive{
+        display: none;
+    }
+
+    .cardAnnuncio{
+        position: relative;
+    }
+    .leftPart  .visualizzaChat .containerProposta,
+    .leftPart{
+
+        width: 100%;
+        height: 100%;
+        padding-top: 50px;
+    }
+
+    .visualizzaChat .rightPart {
+
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    .visualizzaChat .leftPart{
+
+        display: none;
+    }
+
+    .leftPart .cardAnnuncio .containerProposta{
+        
+        max-height: 0;
+        top: 100%;
+        left:0;
+        max-width: 100%;
+        height: fit-content;
+        transition: max-height 1s;
+
+    }
+    .containerProposta{
+        padding-left: 100px;
+    }
+    .containerProposta .imgCard{
+        width: 30%;
+    }
+    .cardAnnuncio:hover .containerProposta{
+    
+        max-width: 0;
+        transition: none;
+    }
+
+    .cardAnnuncio .proposteBtn:checked ~.cardAnnuncio .containerProposta{
+
+        max-height: fit-content;
+        max-width: 100%;
+    }
+
+    .cardProposta .chatBtn:checked ~.cardProposta .rightPartResponsive{
+
+        display: block;
+    }
+    .arrowDownResponsive{
+        display:inline;
+    }
+
+
+}
+@media only screen and (max-width: 800px){
+
+
+    .containerProposta{
+
+        padding-left: 0;
+    }
+}
