@@ -58,16 +58,17 @@ import { RinserisciPasswordComponent } from './component/accedi/rinserisci-passw
 
     EsploraComponent,
        //EffettuaAnnuncioComponent,
-       ProfiloComponent,
-       SceltaUtenteComponent,
-       ConfermaEmailComponent,
-       EffettuaAnnuncioComponent,
-       ChatComponent,
-       FormAnnuncioComponent,
-       NavBarComponent,
-       ChatTextComponent,
-       RiepilogoDatiComponent,
-       RinserisciPasswordComponent
+    ProfiloComponent,
+    SceltaUtenteComponent,
+    ConfermaEmailComponent,
+    EffettuaAnnuncioComponent,
+    ChatComponent,
+    FormAnnuncioComponent,
+    NavBarComponent,
+    ChatTextComponent,
+    RiepilogoDatiComponent,
+    RinserisciPasswordComponent,
+    RecuperoComponent
 
 
   ],
