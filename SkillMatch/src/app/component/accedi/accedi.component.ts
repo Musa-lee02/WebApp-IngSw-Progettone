@@ -1,4 +1,5 @@
 import {BackEndService} from "../../service/BackEndService";
+import {DatiRegistrazioneService} from "../../service/DatiRegistrazioneService";
 
 declare var google: any;
 declare var window: any;
@@ -43,7 +44,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   province: any
   ambiti:any
 
-  constructor(private service: ServizioAnnunciService, private backEndService: BackEndService ){}
+  constructor(private service: ServizioAnnunciService, private backEndService: BackEndService, private datiRegistrazione: DatiRegistrazioneService ){}
 
 
   ngAfterViewChecked(): void {
@@ -194,7 +195,14 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
 
     if(this.generalitaForm.valid && this.isLavoratore()){
+      this.datiRegistrazione.setNome(this.generalitaForm.get("nome")?.value)
+      this.datiRegistrazione.setCognome(this.generalitaForm.get("cognome")?.value)
+      this.datiRegistrazione.setDataDiNascita(this.generalitaForm.get("dataNascita")?.value)
       this.container?.nativeElement.classList.add('ambito')
+      this.datiRegistrazione.setFoto(this.ambitoForm.get("foto")?.value)
+      this.datiRegistrazione.setZonaDiCompetenza(this.ambitoForm.get("zona")?.value)
+      this.datiRegistrazione.setAmbiti(this.ambitoForm.get("ambito")?.value)
+
     }
 
     if(this.generalitaForm.valid && !this.isLavoratore()){
@@ -206,6 +214,9 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       this.backEndService.postCheckRegistrationCredential(lavoratore).subscribe(
         response =>{
           //console.log(response.message)
+          this.datiRegistrazione.setUsername(this.credenzialiForm.get("username")?.value)
+          this.datiRegistrazione.setEmail(this.credenzialiForm.get("email")?.value)
+
           this.container?.nativeElement.classList.add('generalita')
 
 

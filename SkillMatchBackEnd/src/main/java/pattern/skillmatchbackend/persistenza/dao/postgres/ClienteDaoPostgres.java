@@ -34,7 +34,7 @@ public class ClienteDaoPostgres  implements ClienteDao {
 
             if (rs.next()) {
                 cliente.setId(rs.getLong("id_cliente"));
-                cliente.setUs(rs.getString("id_cliente"));
+                //cliente.setUs(rs.getString("id_cliente"));
 
             }
 

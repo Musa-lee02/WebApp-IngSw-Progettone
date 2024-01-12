@@ -7,6 +7,9 @@ export interface LavoratoreSignUp{
   cognome: string;
   dataNascita: string;
   fotoProfilo : string
+  zonaCompotenza: string;
+  ambitoDiLavoro: string;
+  descrizione: string;
 
 
 }

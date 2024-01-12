@@ -43,7 +43,7 @@ public class SignUpController {
         }
 
         session.setAttribute("lavoratore1", lavoratore);
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("checkExistence")
