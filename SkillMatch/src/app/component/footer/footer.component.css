@@ -3,8 +3,17 @@
 .main{
     background-color: rgb(27, 26, 26);
     width: 100%;
-    height: 180px;
+    height: 140px;
     margin-top: 400px;
+    display: flex;
+}
 
-
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.container p{
+    color: white;
 }
