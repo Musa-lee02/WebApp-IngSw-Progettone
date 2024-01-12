@@ -67,6 +67,7 @@ import { RinserisciPasswordComponent } from './component/accedi/rinserisci-passw
        NavBarComponent,
        ChatTextComponent,
        RiepilogoDatiComponent,
+       RinserisciPasswordComponent
 
 
   ],
