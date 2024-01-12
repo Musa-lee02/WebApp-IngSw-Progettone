@@ -68,6 +68,8 @@ import { RinserisciPasswordComponent } from './component/accedi/rinserisci-passw
        NavBarComponent,
        ChatTextComponent,
        RiepilogoDatiComponent,
+       RinserisciPasswordComponent,
+       RecuperoComponent
 
 
   ],
@@ -90,7 +92,7 @@ import { RinserisciPasswordComponent } from './component/accedi/rinserisci-passw
     AsyncPipe,
     MatTooltipModule,
     MatIconModule,
-    
+
     HttpClientModule
   ],
   providers: [],
