@@ -45,53 +45,6 @@
     box-shadow: 0px 0px 1px 2px rgb(107, 62, 211);
     
 }
-/*
-.searchForm{
-    padding: 0 5%;
-    width: 112%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-}
-.custom-dropdown {
-    margin-top: 8px; 
-}
-
-
-.mat-mdc-fab.mat-primary, html .mat-mdc-mini-fab.mat-primary{
-    --mdc-fab-container-color: rgb(107, 62, 211);
-    --mat-fab-foreground-color: #fff;
-    --mat-fab-state-layer-color: #fff;
-    --mat-fab-ripple-color: rgba(255, 255, 255, 0.1);
-}
-.mdc-fab--extended {
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
-    font-family: var(--mdc-typography-button-font-family);
-    font-size: var(--mdc-typography-button-font-size);
-    line-height: var(--mdc-typography-button-line-height);
-    font-weight: var(--mdc-typography-button-font-weight);
-    letter-spacing: var(--mdc-typography-button-letter-spacing);
-    text-decoration: var(--mdc-typography-button-text-decoration);
-    text-transform: var(--mdc-typography-button-text-transform);
-    border-radius: 24px;
-
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-left: 26%;
-    margin-bottom: 19.8%;
-    height: 48px;
-    
-    width: auto;
-    max-width: 100%;
-    line-height: normal;
-}
-
-.example-disabled {
-  display: inline-block;
-}*/
 @media only screen and (max-width: 855px) {
    
     .centered h1 {
@@ -125,24 +78,6 @@
         border-radius: 45px;
         box-shadow: 0px 0px 1px 2px rgb(107, 62, 211);
     }
-
-   /*
-    .searchForm {
-      width: 100%;
-      padding: 0 10px;
-    }
-
-    .mdc-fab--extended {    
-        padding-left: 20px;
-        padding-right: 20px;
-        margin-left: 4%;
-        margin-bottom: 16.8%;
-        height: 48px;
-        
-        width: auto;
-        max-width: 100%;
-        line-height: normal;
-    }*/
   }
 
 @media only screen and (max-width: 692px) {
@@ -163,24 +98,6 @@
         letter-spacing: 20px;
     }
 
-    /*
-    .searchForm {
-        padding: 0 5%;
-        width: 90%;
-    }
-
-    
-    .mdc-fab--extended {    
-        padding-left: 20px;
-        padding-right: 20px;
-        margin-left: -7%;
-        margin-bottom: 16.8%;
-        height: 40px;
-        
-        width: 80%;
-        max-width: 100%;
-        line-height: normal;
-    }*/
 }
 @media only screen and (max-width: 568px) {
    

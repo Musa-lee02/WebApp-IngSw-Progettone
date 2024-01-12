@@ -5,56 +5,7 @@
     <h1>SKILL MATCH</h1>
     <div class="searchClass">
       <app-search-bar></app-search-bar>
-      <!-- fa-icon [icon]="icon"></fa-icon>
-           <div class="prova">
-            <mat-form-field class="searchForm">
-              < mat-select matAutocompleteOrigin="search">
-              <mat-label>Ambito</mat-label>
-              <input type="text"
-                    placeholder="Scegli un ambito"
-                    aria-label="Ambito"
-                    matInput
-                    [matAutocomplete]="ambitoAuto"
-                    [(ngModel)]="selectedAmbito"
-                    (ngModelChange)="ambitoClicked(selectedAmbito)">
-              <mat-autocomplete autoActiveFirstOption #ambitoAuto="matAutocomplete">
-                @for (ab of ambiti; track ab) {
-                  <mat-option [value]="ab">{{ab}}</mat-option>
-                }
-              </mat-autocomplete>
-            </mat-select>
-            </mat-form-field>
-           </div>
-
-          <div class="prova">
-          <mat-form-field class="searchForm">
-            <mat-select matAutocompleteOrigin="search">
-            <mat-label>Zona di lavoro</mat-label>
-            <input type="text"
-                   placeholder="Scegli la tua zona"
-                   aria-label="Provincia"
-                   matInput
-                   [matAutocomplete]="zonaAuto"
-                   [(ngModel)]="selectedZona"
-                   (ngModelChange)="zonaClicked(selectedZona)">
-            <mat-autocomplete autoActiveFirstOption #zonaAuto="matAutocomplete">
-              @for (pv of province; track pv) {
-                <mat-option [value]="pv">{{pv}}</mat-option>
-              }
-            </mat-autocomplete>
-          </mat-select>
-          </mat-form-field>
-          </div>
-
-          <a routerLink="../Esplora/{{getParametriRicerca()}}">  
-          <button mat-fab extended color="primary" [disabled]="!searchClick()">
-            <mat-icon>search</mat-icon>
-            Cerca
-          </button>
-          </a>
-      </div -->
-
-  </div>
+    </div>
   </div>
 
   <app-cards-vetrina></app-cards-vetrina>
