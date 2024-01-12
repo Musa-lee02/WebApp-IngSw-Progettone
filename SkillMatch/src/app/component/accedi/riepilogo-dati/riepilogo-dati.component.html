@@ -5,7 +5,7 @@
         <h3>Nome: {{nome}}</h3><label></label>
         <h3>Cognome: {{cognome}}</h3><label></label>
         <h3>Indirizzo: {{indirizzo}}</h3><label></label>
-        <h3>Data di nascita: {{dataDiNascita}}</h3><label></label>
+        <h3>Data di nascita: {{dataDiNascita | date: 'dd/MM/yyyy'}}</h3><label></label>
         <h3>Ambito: {{ambito}}</h3><label></label>
         <h3>Zona di competenza:{{zonaDiCompetenza}} </h3><label></label>
         <h3>Altre skills: </h3><label></label>
@@ -14,8 +14,8 @@
     <div class="bottoni">
 
 
-        <button>Accetta</button>
-        <button>Modifica</button>
+        <button (click)=goToAccount()> Accetta </button>
+        <button> (click)=goToAccedi()> Modifica</button>
     </div>
 
 </div>

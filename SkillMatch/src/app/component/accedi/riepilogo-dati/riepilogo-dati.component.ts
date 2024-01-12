@@ -1,9 +1,10 @@
-import { Component } from '@angular/core'
+import {Component, signal} from '@angular/core'
 
 import { LavoratoreSignUp} from "../../../SignUpLavoratore";
 
 import { DatiRegistrazioneService } from "../../../service/DatiRegistrazioneService";
 
+import {Router } from "@angular/router";
 @Component({
   selector: 'app-riepilogo-dati',
   templateUrl: './riepilogo-dati.component.html',
@@ -19,7 +20,7 @@ export class RiepilogoDatiComponent {
   ambito: string
   zonaDiCompetenza: string
 
-  constructor(private datiRegistrazione: DatiRegistrazioneService) {
+  constructor(private datiRegistrazione: DatiRegistrazioneService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -32,4 +33,14 @@ export class RiepilogoDatiComponent {
     this.ambito = this.datiRegistrazione.getAmbiti();
     this.zonaDiCompetenza = this.datiRegistrazione.getZonaDiCompetenza();
   }
+
+
+  goToConfermaAccount() {
+    this.router.navigate(['Conferma'])
+  }
+
+  goToAccedi() {
+    window['accediComponentRef'].backToGeneralita()
+  }
 }
+
