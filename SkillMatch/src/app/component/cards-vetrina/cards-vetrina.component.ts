@@ -10,16 +10,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterContentChecked{
 
-  annunci: any;
-  ambito: string
-
+  annunci: any; 
+  ambito: string;
+ 
   constructor(private route : ActivatedRoute, private servizioAnnunci: ServizioAnnunciService){}
   ngAfterContentChecked(): void {
+    console.log("ngAfterContentChecked")
+    
     if(this.route.snapshot.paramMap.get('ambito')){
 
-      
       this.ambito=this.route.snapshot.paramMap.get('ambito')!;
-      this.annunci=this.servizioAnnunci.getAnnunciByAmbito(this.ambito);
+      this.annunci=this.servizioAnnunci.getAnnunciByAmbitoEZona();
       
     }
     else {
@@ -27,14 +28,30 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
       
     }
   }
+  getSizeAnnunci(){
+    return this.annunci.length
+  }
 
   
   ngAfterViewChecked(): void {
- 
+    console.log("ngAfterViewChecked")
   }
 
   ngOnInit(): void {
-    
+    console.log("ngOnInit")
+  }
+
+  initAnnunci(){
+    if(this.route.snapshot.paramMap.get('ambito')){
+
+      this.ambito=this.route.snapshot.paramMap.get('ambito')!;
+      this.annunci=this.servizioAnnunci.getAnnunciByAmbitoEZona();
+      
+    }
+    else {
+      this.annunci=this.servizioAnnunci.getAnnunci()
+      
+    }
   }
 
 }

@@ -5,11 +5,14 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.contentSfondo{
-  margin-top: 200px;
+.container{ 
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.containerMain{
+  margin-top: 200px;
 }
 
 .vetrina{

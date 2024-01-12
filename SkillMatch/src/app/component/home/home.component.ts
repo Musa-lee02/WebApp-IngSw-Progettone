@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FormControl } from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, map, retry, startWith } from 'rxjs';
 
 
 @Component({
@@ -11,32 +11,59 @@ import { Observable, map, startWith } from 'rxjs';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+
   myControl = new FormControl();
   ambiti : any;
   province : any;
-  opzioniFiltrate: Observable<string[]>;
 
   icon= faSearch;
   title = 'SkillMatch';
   sizeAnnunci:number=0;
+
+  selectedAmbito: string = '';
+  selectedZona: string = '';
 
   constructor(private servizioAnnunci: ServizioAnnunciService){}
 
   ngOnInit(): void {
     this.ambiti=this.servizioAnnunci.getAmbiti();
     this.province=this.servizioAnnunci.getProvince();
-    console.log(this.ambiti)
-    console.log(this.province)
     this.sizeAnnunci=this.servizioAnnunci.annunciGetSize()
-    this.opzioniFiltrate = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
+    
   }
-  private _filter(value: string): string[] {
-    const valoreFiltrato = value.toLowerCase();
-    return this.ambiti.filter((option: string) => option.toLowerCase().includes(valoreFiltrato));
+
+  ambitoClicked(ambito: string){
+    if (this.servizioAnnunci.ambiti.includes(ambito)) {
+      this.servizioAnnunci.setSelectAmbito(ambito) 
+    }
   }
+  zonaClicked(zona: string){
+    if (this.servizioAnnunci.province.includes(zona)) {
+      this.servizioAnnunci.setSelectZona(zona)
+    }
+  }
+
+  getSelectedAmbito(){
+    return this.servizioAnnunci.getSelectAmbito()
+  }
+  getSelectedZona(){
+    return this.servizioAnnunci.getSelectZona()
+  }
+  getParametriRicerca(){
+    console.log("" + this.getSelectedAmbito() + "/" + this.getSelectedZona())
+    return "" + this.getSelectedAmbito() + "/" + this.getSelectedZona()
+  }
+
+  
+  searchClick(){
+    // Verifica se l'ambito e la zona sono validi
+    if (this.servizioAnnunci.isAmbitoValid() && 
+    this.servizioAnnunci.isZoneValid()) {
+      return true;
+    }
+    return false;
+  }
+
   getRange(sizeAnnunci: number){
     return this.sizeAnnunci
   }
