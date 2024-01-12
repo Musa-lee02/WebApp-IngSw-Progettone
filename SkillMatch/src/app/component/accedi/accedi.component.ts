@@ -102,7 +102,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     })
 
     this.ambitoForm = new FormGroup({
-      //foto: new FormControl(null,Validators.required),
+      foto: new FormControl(),
       zona: new FormControl(null, Validators.required),
       ambito: new FormControl(null, Validators.required),
     })
@@ -136,6 +136,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event: any) => {
         this.url = event.target.result;
+        this.datiRegistrazione.setImmagineProfilo(e.target.files[0])
       }
 
     }
@@ -197,7 +198,6 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       this.datiRegistrazione.setCognome(this.generalitaForm.get("cognome")?.value)
       this.datiRegistrazione.setDataDiNascita(this.generalitaForm.get("dataNascita")?.value)
       this.container?.nativeElement.classList.add('ambito')
-      this.datiRegistrazione.setFoto(this.ambitoForm.get("foto")?.value)
       this.datiRegistrazione.setZonaDiCompetenza(this.ambitoForm.get("zona")?.value)
       this.datiRegistrazione.setAmbiti(this.ambitoForm.get("ambito")?.value)
 

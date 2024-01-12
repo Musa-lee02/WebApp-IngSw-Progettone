@@ -13,9 +13,10 @@ export class DatiRegistrazioneService{
   cognome : string;
   dataDiNascita : Date;
 
-  foto : string;
+  immagineProfilo : File;
   zonaDiCompetenza : string;
   ambitiDiCompetenza : string;
+  password: string;
 
 
 
@@ -58,15 +59,6 @@ export class DatiRegistrazioneService{
   getDataDiNascita() : Date{
     return this.dataDiNascita;
   }
-
-  setFoto(foto : string) : void{
-    this.foto = foto;
-  }
-
-  getFoto() : String{
-    return this.foto;
-  }
-
   setZonaDiCompetenza(zonaDiCompetenza : string) : void{
     this.zonaDiCompetenza = zonaDiCompetenza;
   }
@@ -83,7 +75,19 @@ export class DatiRegistrazioneService{
     return this.ambitiDiCompetenza;
   }
 
+  setImmagineProfilo(immagineProfilo : File) : void{
+    this.immagineProfilo = immagineProfilo;
+  }
+  getImmagineProfilo() : File{
+    return this.immagineProfilo;
+  }
+
+  setPassword(password : string) : void{
+    this.password = password;
+  }
 
 
-
+  getPassword() {
+    return this.password;
+  }
 }

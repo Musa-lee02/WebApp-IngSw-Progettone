@@ -5,6 +5,7 @@ import { LavoratoreSignUp} from "../../../SignUpLavoratore";
 import { DatiRegistrazioneService } from "../../../service/DatiRegistrazioneService";
 
 import {Router } from "@angular/router";
+import {AccediComponent} from "../accedi.component";
 @Component({
   selector: 'app-riepilogo-dati',
   templateUrl: './riepilogo-dati.component.html',
@@ -13,6 +14,7 @@ import {Router } from "@angular/router";
 export class RiepilogoDatiComponent {
   username: string
   email: string
+  password: string
   nome: string
   cognome: string
   indirizzo: string
@@ -20,12 +22,14 @@ export class RiepilogoDatiComponent {
   ambito: string
   zonaDiCompetenza: string
 
-  constructor(private datiRegistrazione: DatiRegistrazioneService, private router: Router) {
+  constructor(private datiRegistrazione: DatiRegistrazioneService, private router: Router, private accediComponent : AccediComponent) {
   }
 
   ngOnInit(): void {
     this.username = this.datiRegistrazione.getUsername();
     this.email = this.datiRegistrazione.getEmail();
+    this.password = this.datiRegistrazione.getPassword();
+
     this.nome = this.datiRegistrazione.getNome();
     this.cognome = this.datiRegistrazione.getCognome();
     //this.indirizzo = this.datiRegistrazione.getIndirizzo();
@@ -35,12 +39,23 @@ export class RiepilogoDatiComponent {
   }
 
 
-  goToConfermaAccount() {
-    this.router.navigate(['Conferma'])
+  public goToAccount() {
+    const formData = new FormData();
+    formData.append('username', this.username);
+    formData.append('email', this.email);
+    formData.append('password', this.password);
+    formData.append('nome', this.nome);
+    formData.append('cognome', this.cognome);
+    formData.append('dataDiNascita', this.dataDiNascita.toString());
+    formData.append('ambito', this.ambito);
+    formData.append('zonaDiCompetenza', this.zonaDiCompetenza);
+    //formData.append('indirizzo', this.indirizzo);
+
+
   }
 
-  goToAccedi() {
-    window['accediComponentRef'].backToGeneralita()
+  public goToAccess() {
+    this.accediComponent.backToGeneralita()
   }
 }
 
