@@ -3,7 +3,7 @@
     
     <div class="dashboard" #rightPart >
         <div class="leftPart">
-            <!--*ngIf="proposta.id===annuncio.id"><img src="{{proposta.img}}"-->
+            <ng-container *ngIf="entita==='Cliente'">
             <div *ngFor="let annuncio of annunci; index as i">
         
                 <div class="cardAnnuncio">
@@ -18,9 +18,10 @@
                     
                     
                 </div>
+                {{getLavoratoriByIdAnnuncio(annuncio.id)}}
                 <div class="containerProposta">
                     <div *ngFor="let proposta of proposte; index as j">
-                       <div class="cardProposta"  *ngIf="proposta.id==annuncio.id"
+                       <div class="cardProposta"
                          (click)="setChatByUsernameAndId(proposta.username, annuncio.id)" (click)="visualizzaChatResponsive()">
                             <!--<input class="chatBtn" id="chatBtn{{j}}" type="checkbox">
                             <label for="chatBtn{{j}}" class="cardProposta">-->
@@ -36,7 +37,29 @@
                 </div>
             </label></div>
             </div>
+        </ng-container>
+        
+        
+        <ng-container *ngIf="entita==='Lavoratore'">
+            {{getAnnunciByUsernameLavoratore()}}
+            <div *ngFor="let annuncio of annunci; index as i">
+        
+                <div class="cardAnnuncio" (click)="setChatByUsernameAndId(annuncio.username, annuncio.id)" (click)="visualizzaChatResponsive()">
+                
+                <input class="propostelavoratoreBtn" id="propostelavoratoreBtn{{i}}" type="checkbox">
+                <label for="propostelavoratoreBtn{{i}}" class="cardAnnuncio">
+
+                <div class="imgCard" ><img src="{{annuncio.img}}"></div>
+                <div class="titoloDesc">
+                    <div class="titoloCard">{{annuncio.titolo}}</div>
+                    <div class="descrizioneCard">{{annuncio.descrizione}}</div>
+                </div>
+                </label>
+                </div>  
+                </div>
             
+        </ng-container>
+
 
         </div>
     <div class="rightPart">

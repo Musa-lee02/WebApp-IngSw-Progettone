@@ -3,17 +3,17 @@
 <div class="chat">
     <div class="contactArea">
         
-        <mat-icon class="arrowResponsive" *ngIf="lavoratoreCard" style="color:white" (click)="back()">arrow_back</mat-icon>
-        <div class="contactImgName" *ngIf="lavoratoreCard">
-            <img src="{{lavoratoreCard.img}}">
-            {{lavoratoreCard.username}}
+        <mat-icon class="arrowResponsive" *ngIf="DestinatarioCard" style="color:white" (click)="back()">arrow_back</mat-icon>
+        <div class="contactImgName" *ngIf="DestinatarioCard">
+            <img src="{{DestinatarioCard.img}}">
+            {{DestinatarioCard.username}}
         </div>
             
-            <mat-icon *ngIf="lavoratoreCard" style="color:white" (click)="alertRifiuta()">cancel</mat-icon>
-            <mat-icon *ngIf="lavoratoreCard" style="color: white;" (click)="alertConferma()">check</mat-icon>
-            <input class="propostaBtn" id="propostaBtn" type="checkbox" *ngIf="lavoratoreCard">
-            <label for="propostaBtn" *ngIf="lavoratoreCard">
-            <mat-icon *ngIf="lavoratoreCard" style="color: white;">description</mat-icon></label>
+            <mat-icon *ngIf="DestinatarioCard" style="color:white" (click)="alertRifiuta()">cancel</mat-icon>
+            <mat-icon *ngIf="DestinatarioCard" style="color: white;" (click)="alertConferma()">check</mat-icon>
+            <input class="propostaBtn" id="propostaBtn" type="checkbox" *ngIf="DestinatarioCard">
+            <label for="propostaBtn" *ngIf="DestinatarioCard">
+            <mat-icon *ngIf="DestinatarioCard" style="color: white;">description</mat-icon></label>
             <div class="form">
                 <app-form-annuncio></app-form-annuncio>
             </div>

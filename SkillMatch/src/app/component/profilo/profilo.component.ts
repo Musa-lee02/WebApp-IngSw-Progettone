@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profilo',
@@ -10,9 +11,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProfiloComponent implements OnInit {
 
+
   annunci:any
   pencil=faPencil
+  ArrowDown=faArrowDown
   entita:string
+  propostaAccettata: any
 
   url:string;
   constructor(private service: ServizioAnnunciService, private route: ActivatedRoute){
@@ -33,6 +37,8 @@ export class ProfiloComponent implements OnInit {
       if(this.entita==="Lavoratore")
         this.entita=="Lavoratore";
     }
+
+    
   }
 
   onSelectFile(e:any){
@@ -53,6 +59,29 @@ export class ProfiloComponent implements OnInit {
   getPicProfile(){
 
     return this.service.getPicProfile()
+  }
+
+  setPropostaAccettata(id :string){
+
+    this.propostaAccettata=this.service.getPropostaAccettataByid(id)
+    
+
+  }
+  getPropostaAccettataImg(){
+
+    console.log(this.propostaAccettata)
+    if(this.propostaAccettata){
+
+      return this.propostaAccettata.img
+    }
+  }
+  getPropostaAccettataNome(){
+
+    
+    if(this.propostaAccettata){
+
+      return this.propostaAccettata.username
+    }
   }
 
   
