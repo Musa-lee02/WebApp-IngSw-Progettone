@@ -1,10 +1,6 @@
-
-
 html{
     scroll-behavior: smooth;
 }
-
-
 *{
     margin: 0;
     padding: 0;
@@ -149,19 +145,17 @@ html{
     aspect-ratio: 1/1;
 }
 .cardProposta .imgCard img{
-
     border-radius: 50%;
 }
 
 .cardAnnuncio:hover .containerProposta{
-    
     max-width: 100%;
     transition: 1s ease-in-out;
 }
 .leftPart{
     background-color: rgb(44, 36, 72);
     
-    height:100% !important;
+    height:fit-content !important;
     border-radius: 11px;
     position: relative;
     width: 37%;

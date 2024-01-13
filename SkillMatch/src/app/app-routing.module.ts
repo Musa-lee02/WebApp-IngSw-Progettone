@@ -12,19 +12,24 @@ import { ConfermaEmailComponent } from './component/accedi/conferma-email/confer
 import { ChatComponent } from './component/chat/chat.component';
 import { RecuperoComponent } from './component/accedi/recupero/recupero.component';
 import { RinserisciPasswordComponent } from './component/accedi/rinserisci-password/rinserisci-password.component';
+import { SearchBarComponent } from './component/search-bar/search-bar.component';
+import { FooterComponent } from './component/footer/footer.component';
+
+
 
 const routes: Routes = [
 { path :'', pathMatch:'full', redirectTo:'/Home'},
  {path: 'Home', component: HomeComponent},
  {path: 'Chat/:Entita', component: ChatComponent },
- {path: 'Esplora', component: EsploraComponent},
- {path: 'Esplora/:ambito', component: EsploraComponent},
+ {path: 'Esplora/:ambito/:zona', component: EsploraComponent},
  {path: 'Accedi', component: AccediComponent},
- {path:'Profilo/:Entita', component: ProfiloComponent},
+ {path: 'Profilo/:Entita', component: ProfiloComponent},
  {path: 'Conferma', component: ConfermaEmailComponent},
  {path: 'Annuncio', component: EffettuaAnnuncioComponent},
  {path: 'Recupero', component: RecuperoComponent},
- {path: 'Recupero/Reinserisci', component: RinserisciPasswordComponent}
+ {path: 'Recupero/Reinserisci', component: RinserisciPasswordComponent},
+ {path: 'search-bar', component: SearchBarComponent},
+ {path: 'Footer', component: FooterComponent}
  
 ];
 

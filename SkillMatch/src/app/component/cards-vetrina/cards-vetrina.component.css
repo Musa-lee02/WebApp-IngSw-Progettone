@@ -5,18 +5,21 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.contentSfondo{
-  margin-top: 200px;
+.container{ 
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.containerMain{
+  margin-top: 200px;
 }
 
 .vetrina{
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
-  box-shadow: 0px 2px 6px rgb(107, 62, 211);  
+  box-shadow: 4px 0px -1px rgb(107, 62, 211);  
   margin-top: 1%;
   margin-left: 10%;
   margin-right: 10%;
@@ -59,7 +62,7 @@
   padding: 0 16px;
   overflow: hidden;
   white-space: overflow;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis; 
 }
 
 .mat-mdc-button:not(:disabled) {
@@ -75,7 +78,12 @@
     background-size: cover;
   }*/
 
-
+.starImg{
+  width: 26px;
+  height: 25px;
+  margin-bottom:7px;
+  margin-right: 20px;
+}
   @media only screen and (max-width: 1850px) {
     .mdc-card__media {
       height: 50%; /* Ridotto l'altezza dell'immagine per uno stile più proporzionato */

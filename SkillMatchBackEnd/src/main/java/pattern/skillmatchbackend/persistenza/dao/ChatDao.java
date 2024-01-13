@@ -16,5 +16,9 @@ public interface ChatDao {
 
     //public Chat findByForeignKeyCliente(long id);
     //public Chat findByForeignKeyLavoratore(long id);
+    public Chat findByPrimaryKey(Long id);
+
+    public void save(Chat chat);
+
 
 }

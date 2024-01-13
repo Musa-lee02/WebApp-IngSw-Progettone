@@ -47,7 +47,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { AsyncPipe } from '@angular/common';
 import { RecuperoComponent } from './component/accedi/recupero/recupero.component';
 import { RinserisciPasswordComponent } from './component/accedi/rinserisci-password/rinserisci-password.component';
-
+import { SearchBarComponent } from './component/search-bar/search-bar.component';
+import { FooterComponent } from './component/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,9 +70,9 @@ import { RinserisciPasswordComponent } from './component/accedi/rinserisci-passw
        ChatTextComponent,
        RiepilogoDatiComponent,
        RinserisciPasswordComponent,
-       RecuperoComponent
-
-
+       SearchBarComponent,
+       FooterComponent,
+    
   ],
   imports: [
     BrowserModule,
