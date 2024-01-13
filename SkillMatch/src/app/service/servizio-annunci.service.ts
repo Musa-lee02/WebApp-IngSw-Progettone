@@ -12,7 +12,6 @@ type Annunci ={
   id:string
   stato: string
   zona:string
-  numeroStelle:number
 
 }
 
@@ -73,9 +72,9 @@ export class ServizioAnnunciService implements OnInit {
     descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
     ambito:"Cucina",
     id:"12",
+    stato: "accettata", 
     zona:"Cosenza",
-    numeroStelle: 5,
-    stato: "accettata"
+  
   },
   {
     username: 'utente1',
@@ -85,7 +84,10 @@ export class ServizioAnnunciService implements OnInit {
       "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
       "bred for hunting.",
     ambito:"Tecnologia",
-    id:"13"
+    id:"13",
+    stato: "rifiutata",
+    zona:"Vibo Valentia",
+   
   },
   {
     username: 'utente2',
@@ -94,36 +96,22 @@ export class ServizioAnnunciService implements OnInit {
     descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
     ambito:"Edilizia",
     id:"12",
+    stato: "rifiutata",
     zona:"Reggio Calabria",
-    numeroStelle: 5
-    id:"12",
-    stato: "rifiutata"
+
   },
-  {
-    username: 'utente2',
-    img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    titolo:"Shiba inu da vendere",
-    descrizione:"   The Shiba Inu is the prettiest ACCALAPPIA-CANI of the six original and distinct spitz breeds of dog from Japan."+
-      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
-      "bred for hunting.",
-    ambito:"Tecnologia",
-    id:"13",
-    zona:"Cosenza",
-    numeroStelle: 5
-    id:"13",
-    stato: "InCorso"
-  },
+
+
   {
     username: 'utente1',
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     titolo:"pincher da mangiare",
-    descrizione:"   The Shiba Inu is the prettiest ACCALAPPIA-CANI of the six original and distinct spitz breeds of dog from Japan."+
-      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
-      "bred for hunting.",
-        ambito:"Edilizia",
+    descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
+    ambito:"Edilizia",
     id:"12",
-    zona:"Cosenza",
-    numeroStelle: 5
+    stato: "rifiutata",
+    zona:"Vibo Valentia",
+
   },
   {
     username: 'utente3',
@@ -134,79 +122,10 @@ export class ServizioAnnunciService implements OnInit {
       "bred for hunting.",
     ambito:"Tecnologia",
     id:"13",
-    zona:"Vibo Valentia",
-    numeroStelle: 5
-    id:"13",
-    stato: "InCorso"
-  },
-  {
-    username: 'utente1',
-    img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
-    titolo:"pincher da mangiare",
-    descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
-    ambito:"Edilizia",
-    id:"12",
-    zona:"Vibo Valentia",
-    numeroStelle: 5
-  },
-  {
-    img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    titolo:"Shiba inu da vendere",
-    descrizione:"   The Shiba Inu is the prettiest ACCALAPPIA-CANI of the six original and distinct spitz breeds of dog from Japan."+
-      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
-      "bred for hunting.",
-    ambito:"Tecnologia",
-    id:"13",
+    stato: "InCorso",
     zona:"Reggio Calabria",
-    numeroStelle: 5
-  },
-  {
-    img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
-    titolo:"pincher da mangiare",
-    descrizione:"   The Shiba Inu is the prettiest ACCALAPPIA-CANI of the six original and distinct spitz breeds of dog from Japan."+
-      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
-      "bred for hunting.",
-          ambito:"Edilizia",
-    id:"12",
-    zona:"Reggio Calabria",
-    numeroStelle: 5
-  },
-  {
-    img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    titolo:"Shiba inu da vendere",
-    descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
-      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
-      "bred for hunting.",
-    ambito:"Tecnologia",
-    id:"13",
-    zona:"Reggio Calabria",
-    numeroStelle: 5
-  },
-  {
-    img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
-    titolo:"pincher da mangiare",
-    descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors m",
-    ambito:"Edilizia",
-    id:"12",
-    zona:"Cosenza",
-    numeroStelle: 5
-  },
-  {
-    img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    titolo:"Shiba inu da vendere",
-    descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
-      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
-      "bred for hunting.",
-    ambito:"Tecnologia",
-    id:"13",
-    zona:"Cosenza",
-    numeroStelle: 5
-  }
 
-    id:"12",
-    stato: "InCorso"
   },
-
 
   ]
 
@@ -534,6 +453,7 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
 
   setChatByUsernameAndId(usernameDestinatario : string,  idAnnuncio : string){
 
+    console.log(usernameDestinatario+"username", idAnnuncio+"id")
     for(const chat of this.chatTotali){
 
       
