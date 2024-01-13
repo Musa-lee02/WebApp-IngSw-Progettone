@@ -10,6 +10,8 @@ import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 })
 export class NavBarComponent implements OnInit, AfterContentChecked{
 
+  logoImg:string = "../../assets/Skill.png"
+
   constructor(private router: Router, private service: ServizioAnnunciService){}
   ngAfterContentChecked(): void {
     if(this.router.url==="/Home"){

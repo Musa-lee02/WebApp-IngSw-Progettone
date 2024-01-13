@@ -4,16 +4,20 @@
   <div class="navBar">
 
     <input class="menu-btn" id="menu-btn" type="checkbox">
-      <label for="menu-btn" class="menu-icon">
-        <span class="nav-icon"></span>
-      </label>
+      
+    <ul class="imgNavBar">
+      <img [src]="logoImg" class="logoImg">
+    </ul>
+    
       <ul class="firstUl" *ngIf="isEsplora" class="searchMain">
         <app-search-bar></app-search-bar>
       </ul>
       <!-- ul class="ul2">
         <li *ngIf="!isHome"><a routerLink="Home">Skill Match</a></li>
       </ul-->
-      <div class="imgNavBar"></div>
+      
+      
+      
       <ul>
       
       <li *ngIf="!isAutenticato()"><a href="Accedi" >Accedi</a></li>
