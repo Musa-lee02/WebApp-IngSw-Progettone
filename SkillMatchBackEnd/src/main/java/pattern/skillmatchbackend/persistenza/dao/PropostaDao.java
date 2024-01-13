@@ -13,7 +13,7 @@ public interface PropostaDao {
 
     public void delete(Proposta proposta);
 
-    public List<Proposta> findByLavoratore(String username);
+    public List<Proposta> findByForeignKeyLavoratore(long id);
     public Proposta findByForeignKeyAnnuncio(long id);
 
 

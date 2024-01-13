@@ -66,7 +66,7 @@ public class AmbitoDaoPostgres implements AmbitoDao {
         String query = "INSERT INTO ambito VALUES (?, ?)";
 
         if (findByPrimaryKey(ambito.getId()) != null)
-            query = "UPDATE ambito SET nome = ? WHERE id_ambito = ?, nome = ?";
+            query = "UPDATE ambito SET nome = ? WHERE id_ambito = ?";
 
         try {
             PreparedStatement st = conn.prepareStatement(query);
@@ -92,14 +92,14 @@ public class AmbitoDaoPostgres implements AmbitoDao {
     }
 
     @Override
-    public List<Ambito> findByNome(String nome) {
+    public List<Ambito> findByLavoratore(long id) {
 
         List<Ambito> ambiti = new LinkedList<>();
-        String query = "SELECT * FROM ambito WHERE nome = ?";
+        String query = "SELECT ambito.id_ambito,ambito.nome FROM ambito,competente,lavoratore WHERE competente.id_lavoratore = ? and lavoratore.id_lavoratore = competente.id_lavoratore and ambito.id_ambito = competente.id_ambito";
 
         try {
             PreparedStatement st = conn.prepareStatement(query);
-            st.setString(1, nome);
+            st.setLong(1, id);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {

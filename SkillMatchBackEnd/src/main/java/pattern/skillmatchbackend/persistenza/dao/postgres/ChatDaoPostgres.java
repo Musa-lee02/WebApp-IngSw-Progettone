@@ -100,7 +100,44 @@ public class ChatDaoPostgres implements ChatDao {
         }
     }
 
-
-
-
+    @Override
+    public List<Chat> findByForeignKeyCliente(long id) {
+        return findByForeignKeyAnnunciooClienteOLavoratore(id,"id_cliente");
     }
+
+    @Override
+    public List<Chat> findByForeignKeyLavoratore(long id) {
+        return findByForeignKeyAnnunciooClienteOLavoratore(id,"id_lavoratore");
+    }
+
+    @Override
+    public List<Chat> findByForeignKeyAnnuncio(long id) {
+        return findByForeignKeyAnnunciooClienteOLavoratore(id,"id_annuncio");
+    }
+
+    public List<Chat> findByForeignKeyAnnunciooClienteOLavoratore(long id,String cosa) {
+        List<Chat> chats = new LinkedList<>();
+
+        String query = "SELECT * FROM chat "+cosa+" = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setLong(1, id);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Chat chat = new Chat();
+                chat.setAnnuncio(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
+                chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong("id_clliente")));
+                chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
+                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getId(),chat.getLavoratore().getId()));
+                chats.add(chat);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return chats;
+    }
+
+
+}

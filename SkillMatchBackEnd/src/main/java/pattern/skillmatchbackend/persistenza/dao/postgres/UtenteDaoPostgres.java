@@ -1,7 +1,6 @@
 package pattern.skillmatchbackend.persistenza.dao.postgres;
 
 import pattern.skillmatchbackend.model.Image;
-import pattern.skillmatchbackend.model.Lavoratore;
 import pattern.skillmatchbackend.model.Utente;
 import pattern.skillmatchbackend.persistenza.dao.UtenteDao;
 
@@ -14,8 +13,8 @@ public class UtenteDaoPostgres implements UtenteDao {
 
     Connection conn;
 
-    public Connection getConn() {
-        return conn;
+    public UtenteDaoPostgres(Connection conn) {
+        this.conn = conn;
     }
 
     @Override

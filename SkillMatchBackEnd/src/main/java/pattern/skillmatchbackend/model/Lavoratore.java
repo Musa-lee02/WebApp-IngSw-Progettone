@@ -6,18 +6,20 @@ import java.util.List;
 
 public class Lavoratore extends Utente {
 
-
-
     private long id;
     private List<Recensione> recensioni = new LinkedList<>();
     private List<TransazionePagamento> transazionePagamento = new LinkedList<>();
     private List<Notifica> notifiche = new LinkedList<>();
     private List<Chat> chats = new LinkedList<>();
-    private Utente utente;
     private List<Proposta> proposte = new LinkedList<>();
     private List<Ambito> ambiti = new LinkedList<>();
     private List<Annuncio> annunciDisponibili = new LinkedList<>();
 
+    public Lavoratore(Utente utente) {
+        super(utente);
+    }
+
+    public Lavoratore(){}
 
 
     public long getId() {
@@ -58,14 +60,6 @@ public class Lavoratore extends Utente {
 
     public void setChats(List<Chat> chats) {
         this.chats = chats;
-    }
-
-    public Utente getUtente() {
-        return utente;
-    }
-
-    public void setUtente(Utente utente) {
-        this.utente = utente;
     }
 
     public List<Proposta> getProposte() {
