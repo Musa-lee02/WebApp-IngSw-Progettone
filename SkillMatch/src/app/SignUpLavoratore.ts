@@ -1,8 +1,17 @@
 export interface LavoratoreSignUp{
   username: string;
+  email : string;
   password: string;
   confermaPassword: string;
-  email: string;
+  nome: string;
+  cognome: string;
+  dataNascita: string;
+  fotoProfilo : string
+  zonaCompotenza: string;
+  ambitoDiLavoro: string;
+  descrizione: string;
+
+
 }
 
 export interface LavoratoreSignUpGoogle{

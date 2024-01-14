@@ -116,7 +116,7 @@ public class PropostaDaoPostgres implements PropostaDao {
     }
 
     @Override
-    public List<Proposta> findByByForeignKeyLavoratore(long id) {
+    public List<Proposta> findByForeignKeyLavoratore(long id) {
 
         List<Proposta> proposte = new LinkedList<>();
         String query = "SELECT * FROM proposta WHERE id_lavoratore = ?";
