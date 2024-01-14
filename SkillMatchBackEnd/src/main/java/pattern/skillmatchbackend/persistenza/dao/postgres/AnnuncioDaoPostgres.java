@@ -157,14 +157,16 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     }
 
     @Override
-    public List<Annuncio> annunciPerMe(String provincia, Ambito ambito) {
+    public List<Annuncio> annunciPerMe(String provincia, long id_lavoratore) {
         List<Annuncio> annunci = new LinkedList<>();
-        String query = "SELECT * FROM annuncio WHERE provincia_annuncio = ? and id_ambito = ?";
+        String query = "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione,annuncio.data_di_scadenza,annuncio.provincia_annuncio,annuncio.img_annuncio,annuncio.id_cliente,annuncio.id_ambito " +
+                "FROM annuncio,ambito,competente " +
+                "WHERE provincia_annuncio = ? and competente.id_lavoratore = ? and annuncio.id_ambito = ambito.id_ambito and competente.id_ambito = ambito.id_ambito ";
         try {
             //TODO DATA DI SCADENZA E STATO
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1,provincia);
-            st.setLong(2, ambito.getId());
+            st.setLong(2, id_lavoratore);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {

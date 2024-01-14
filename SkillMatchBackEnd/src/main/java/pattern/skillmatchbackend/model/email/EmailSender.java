@@ -1,4 +1,7 @@
 package pattern.skillmatchbackend.model.email;
+import pattern.skillmatchbackend.model.Annuncio;
+import pattern.skillmatchbackend.model.Utente;
+
 import java.net.PasswordAuthentication;
 import java.util.Properties;
 import javax.mail.*;
@@ -6,21 +9,12 @@ import javax.mail.internet.*;
 
 public class EmailSender {
 
-    private EmailSender(){}
 
-    private static EmailSender instance = new EmailSender();
-
-    public static EmailSender getInstance() {
-        return instance;
-    }
-
-
-
-    public boolean sendEmail(EmailConfig emailConfig, EmailContent emailContent){
+    private boolean sendEmail(EmailConfig emailConfig, EmailContent emailContent){
 
         // Indirizzo del mittente e destinatario
         String from = emailConfig.getSenderAddress();
-        String to = emailContent.to();
+        String to = emailContent.getTo();
 
         // Proprietà per la configurazione del server di posta
         Properties properties = emailConfig.getProperties();
@@ -39,8 +33,8 @@ public class EmailSender {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-            message.setSubject(emailContent.subject());
-            message.setText(emailContent.body());
+            message.setSubject(emailContent.getSubject());
+            message.setText(emailContent.getBody());
 
             // Invio del messaggio
             Transport.send(message);
@@ -55,6 +49,20 @@ public class EmailSender {
             return false;
         }
 
+    }
+
+    public boolean recuperaPassword(Utente utente, String link) {
+
+        return sendEmail(new GmailConfig(),new EmailContentRecuperaPassword(utente,link));
+
+    }
+
+    public boolean confermaLink(Utente utente,String link){
+        return sendEmail(new GmailConfig(),new EmailContentConfermaRegistrazione(utente,link));
+    }
+
+    public boolean annuncioRelativo(Utente utente, Annuncio annuncio) {
+        return sendEmail(new GmailConfig(),new EmailContentAnnuncioRelativo(utente,annuncio));
     }
 
 }

@@ -7,13 +7,18 @@ import java.util.List;
 public class Cliente extends Utente {
 
     private long id;
-    private String username;
     private List<Recensione> recensioni = new LinkedList<>();
     private List<TransazionePagamento> transazionePagamento = new LinkedList<>();
     private List<Notifica> notifiche = new LinkedList<>();
     private List<Chat> chats = new LinkedList<>();
-    private Utente utente;
     private List<Annuncio> annunci = new LinkedList<>();
+
+    public Cliente(Utente utente) {
+        super(utente);
+    }
+
+    public Cliente(){}
+
 
     public long getId() {
         return id;
@@ -55,13 +60,6 @@ public class Cliente extends Utente {
         this.chats = chats;
     }
 
-    public Utente getUtente() {
-        return utente;
-    }
-
-    public void setUtente(Utente utente) {
-        this.utente = utente;
-    }
 
     public List<Annuncio> getAnnunci() {
         return annunci;
@@ -71,11 +69,5 @@ public class Cliente extends Utente {
         this.annunci = annunci;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }
