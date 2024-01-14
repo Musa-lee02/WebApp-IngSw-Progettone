@@ -6,7 +6,7 @@ public class GmailConfig implements EmailConfig{
 
     private Properties properties = new Properties();
     private String senderAddress ="skillmatch2024@gmail.com";
-    private String password = "udjg soyy xrqh gtow";
+    private String password = "opps jjky isus dgbs";
 
 
     public GmailConfig() {
