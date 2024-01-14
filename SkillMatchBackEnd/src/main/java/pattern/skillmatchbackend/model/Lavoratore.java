@@ -1,10 +1,12 @@
 package pattern.skillmatchbackend.model;
 
 
+import pattern.skillmatchbackend.model.email.EmailSender;
+
 import java.util.LinkedList;
 import java.util.List;
 
-public class Lavoratore extends Utente {
+public class Lavoratore extends Utente implements Observer {
 
     private long id;
     private List<Recensione> recensioni = new LinkedList<>();
@@ -84,5 +86,13 @@ public class Lavoratore extends Utente {
 
     public void setAnnunciDisponibili(List<Annuncio> annunciDisponibili) {
         this.annunciDisponibili = annunciDisponibili;
+    }
+
+    @Override
+    public void update(Annuncio annuncio) {
+        if(annuncio.getProvinciaAnnuncio().equals(provincia) && ambiti.contains(annuncio.getAmbito())){
+            new EmailSender().annuncioRelativo(this,annuncio);
+            //notifica
+        }
     }
 }
