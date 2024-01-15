@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { ActivatedRoute } from '@angular/router';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
@@ -13,24 +13,16 @@ library.add(faStar);
 })
 export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterContentChecked{
 
-  annunci: any; 
+  @Input() annunci : any;
+ 
   ambito: string;
   starImg: string = "../../assets/star.jpg";
+  
  
   constructor(private route : ActivatedRoute, private servizioAnnunci: ServizioAnnunciService){}
   ngAfterContentChecked(): void {
     console.log("ngAfterContentChecked")
     
-    if(this.route.snapshot.paramMap.get('ambito')){
-
-      this.ambito=this.route.snapshot.paramMap.get('ambito')!;
-      this.annunci=this.servizioAnnunci.getAnnunciByAmbitoEZona();
-      
-    }
-    else {
-      this.annunci=this.servizioAnnunci.getAnnunci()
-
-    }
   }
   getSizeAnnunci(){
     return this.annunci.length

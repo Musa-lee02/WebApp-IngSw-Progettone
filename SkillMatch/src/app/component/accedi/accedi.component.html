@@ -126,15 +126,14 @@
             <div class="contenitoreA">
             <div>
                 <h4>ambito di lavoro</h4>
-                <mat-form-field >
-                <mat-label>Ambiti</mat-label>
-                <mat-select formControlName="ambito">
-                <mat-option>None</mat-option>
-                @for (ab of ambiti; track ab) {
-                    <mat-option [value]="ab">{{ab}}</mat-option>
-                }
-                </mat-select>
-                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Ambiti</mat-label>
+                    <mat-select formControlName="ambito" multiple>
+                      @for (ab of ambiti; track ab) {
+                        <mat-option [value]="ab">{{ab}}</mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
             
             </div>
             <div>

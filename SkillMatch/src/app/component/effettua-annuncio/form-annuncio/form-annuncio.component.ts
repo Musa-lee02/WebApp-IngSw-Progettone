@@ -40,7 +40,17 @@ export class FormAnnuncioComponent {
   onSubmit(): void{
 
   }
-  onSelectFile(e: Event): void {
+  onSelectFile(e: any): void {
+
+    if(e.target.files){
+      var reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload=(event:any)=>{
+        this.url=event.target.result;
+      }
+
+    }
+
   }
   clickArrow() : void{
 

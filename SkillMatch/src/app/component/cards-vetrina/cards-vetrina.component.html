@@ -1,9 +1,6 @@
 
 <div class="containerMain">
-  <h2 *ngIf="getSizeAnnunci() > 0; else bloccoelse" style="text-align: center;">Annunci in vetrina</h2>
-  <ng-template #bloccoelse>
-    <h2 style="text-align: center;">Nessun annuncio disponibile tra quelli selezionati ...</h2>
-  </ng-template>
+  
   <div class="vetrina">
       <mat-card *ngFor="let annuncio of annunci" class="example-card">
         
@@ -19,7 +16,7 @@
               
 
           <mat-card-title>{{annuncio.titolo}}</mat-card-title>
-          <mat-card-subtitle>{{annuncio.ambito}} - {{annuncio.zona}} |          {{ annuncio.numeroStelle }}
+          <mat-card-subtitle>{{annuncio.ambito}} - {{annuncio.zona}} |  {{ annuncio.numeroStelle }}
             <img [src]="starImg" class="starImg" alt="Icona personalizzata"></mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>

@@ -1,10 +1,4 @@
-.containerHome{
-    padding-top: 150px;
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    max-width: 100%;
-}
+
 .centered{
     gap: 70px;
     display: flex;
@@ -22,10 +16,11 @@
     align-items: center;
     justify-content: center;
     margin-top:10px;
-    font-size: 70px;
-    font-weight: 300;
-    word-wrap: break-word;
-    letter-spacing: 20px;
+    font-size: 5vw;
+    font-weight: 900;
+    overflow-wrap: break-word;
+    line-height: 40px;
+    letter-spacing: 10px;
 }
 
 /*barra di ricerca */
@@ -45,24 +40,48 @@
     box-shadow: 0px 0px 1px 2px rgb(107, 62, 211);
     
 }
-@media only screen and (max-width: 855px) {
+.testo{
+
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+}
+
+@media only screen and (min-width: 1600px) {
+   
+    .centered h1{
+        line-height: 60px;
+    }
+}@media only screen and (max-width: 1091px) {
    
     .centered h1 {
       height: 150px;
       font-weight: 250;
-      font-size: 80px;
+   
       margin-top: 0px;
       word-wrap: break-word;
         letter-spacing: 10px;
     }
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1091px) {
    
     .centered h1 {
       height: 150px;
       font-weight: 250;
-      font-size: 80px;
+   
       margin-top: 0px;
+      word-wrap: break-word;
+        letter-spacing: 10px;
+    }
+}
+@media only screen and (max-width: 930px) {
+   
+    .centered h1 {
+      height: 150px;
+      font-weight: 250;
+  
+      margin-top: 0px;
+      
     }
 
     .searchClass{
@@ -86,13 +105,9 @@
     }
 
     .centered h1{
-        width: 100%;
-        height: 200px;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
+       
         margin-top:80px;
-        font-size: 50px;
+    
         font-weight: 300;
         word-wrap: break-word;
         letter-spacing: 20px;

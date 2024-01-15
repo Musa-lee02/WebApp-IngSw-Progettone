@@ -18,12 +18,12 @@ import { FooterComponent } from './component/footer/footer.component';
 
 
 const routes: Routes = [
-{ path :'', pathMatch:'full', redirectTo:'/Home'},
+
  {path: 'Home', component: HomeComponent},
- {path: 'Chat/:Entita', component: ChatComponent },
+ {path: 'Chat', component: ChatComponent },
  {path: 'Esplora/:ambito/:zona', component: EsploraComponent},
  {path: 'Accedi', component: AccediComponent},
- {path: 'Profilo/:Entita', component: ProfiloComponent},
+ {path: 'Profilo', component: ProfiloComponent},
  {path: 'Conferma', component: ConfermaEmailComponent},
  {path: 'Annuncio', component: EffettuaAnnuncioComponent},
  {path: 'Recupero', component: RecuperoComponent},

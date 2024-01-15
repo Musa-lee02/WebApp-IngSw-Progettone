@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FormControl } from '@angular/forms';
@@ -12,9 +12,11 @@ import { Observable, map, retry, startWith } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
 
+  
   myControl = new FormControl();
   ambiti : any;
   province : any;
+  annunci: any;
 
   icon= faSearch;
   title = 'SkillMatch';
@@ -29,6 +31,7 @@ export class HomeComponent implements OnInit {
     this.ambiti=this.servizioAnnunci.getAmbiti();
     this.province=this.servizioAnnunci.getProvince();
     this.sizeAnnunci=this.servizioAnnunci.annunciGetSize()
+    this.annunci=this.servizioAnnunci.getAnnunci();
     
   }
 

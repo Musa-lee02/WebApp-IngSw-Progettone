@@ -203,7 +203,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     if(this.credenzialiForm.valid){
       const lavoratore = this.credenzialiForm.value
-      this.backEndService.postCheckRegistrationCredential(lavoratore).subscribe(
+      /*this.backEndService.postCheckRegistrationCredential(lavoratore).subscribe(
         response =>{
           //console.log(response.message)
           this.container?.nativeElement.classList.add('generalita')
@@ -228,9 +228,9 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           if (error.error==="Password non valida (deve contenere almeno un carattere speciale)")
           Swal.fire("Password non valida (deve contenere almeno un carattere speciale)")
 
-        })
+        })*/
 
-      //this.container?.nativeElement.classList.add('generalita')
+      this.container?.nativeElement.classList.add('generalita')
 
     }
 

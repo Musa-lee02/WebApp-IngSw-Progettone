@@ -23,6 +23,18 @@ type Proposte={
   stato: string
 }
 
+type Proposta={
+
+  descrizione:string
+  dataScadenza:string
+  stato:string
+  prezzo:number
+  idAnnuncio:string
+  usernameLavoratore:string
+
+}
+
+
 type Messaggio={
 
   contenuto:string
@@ -64,7 +76,7 @@ export class ServizioAnnunciService implements OnInit {
   chatAttuale: Chat ;
 
 
-  usernameUtente="maswso" 
+  usernameUtente="utente1" 
   annunci : Annunci[]=[{
     username: 'utente1',
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
@@ -153,6 +165,16 @@ export class ServizioAnnunciService implements OnInit {
   
   ]
 
+  proposta: Proposta[]=[{
+
+    descrizione:"cdwcwcewdcwqacwcwce",
+    dataScadenza:"23/07/21",
+    stato:"Inviata",
+    prezzo:100,
+    idAnnuncio:"13",
+    usernameLavoratore:"maswso"
+    
+  }]
   proposte : Proposte[]=[{
 
 
@@ -325,6 +347,16 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
   
     return lavoratoriFiltarti
   }
+  getPropostaVera(chat : Chat){
+
+    for(const proposta of this.proposta){
+
+      if(proposta.idAnnuncio===chat.idAnnuncio && (proposta.usernameLavoratore===chat.interlocutore1 || chat.interlocutore2)){
+        return proposta
+      }
+    }
+    return
+  }
   getProposteById(id: string){
 
     let proposteFiltrate:Proposte[]=[]
@@ -351,13 +383,14 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
     return null
 
   }
-  getDestinatarioCard(chat :Chat){
+  getDestinatarioCard(chat :Chat){ //DA CAMBIARE
 
     this.setlavoratoreBool(false)
+    
     for(const lavoratore of this.lavoratori){
 
       
-      if(chat.interlocutore1 === lavoratore.username){
+      if(chat.interlocutore1 === lavoratore.username || chat.interlocutore2 === lavoratore.username ){
 
             return lavoratore; 
         }

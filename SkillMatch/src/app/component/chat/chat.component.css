@@ -37,12 +37,7 @@ html{
     width: 100%;
     background-color: black;
 }
-.content{
-    padding-top: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+
 .dashboard{
     height: calc(100vh - 100px);
     width: 70vw;
@@ -155,7 +150,7 @@ html{
 .leftPart{
     background-color: rgb(44, 36, 72);
     
-    height:fit-content !important;
+    height:100%;
     border-radius: 11px;
     position: relative;
     width: 37%;

@@ -2,13 +2,14 @@
 <div class="containerHome">
   <div class="centered"> 
      
-    <h1>Trova il </h1>
-    <h1>professionista ideale</h1>
+    <div class="testo"><h1>Trova il 
+    <br><br>professionista ideale</h1></div>
+    
     <div class="searchClass">
       <app-search-bar></app-search-bar>
     </div>
   </div>
 
-  <app-cards-vetrina></app-cards-vetrina>
+  <app-cards-vetrina [annunci]="annunci"></app-cards-vetrina>
 </div>
 
