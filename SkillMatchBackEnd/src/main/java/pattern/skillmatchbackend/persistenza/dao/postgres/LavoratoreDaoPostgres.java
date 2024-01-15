@@ -32,7 +32,15 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-
+                Lavoratore lavoratore = new Lavoratore(DBManager.getInstance().getUtenteDao().findByPrimaryKey(rs.getString("username")));
+                lavoratore.setId(rs.getLong("id_lavoratore"));
+                lavoratore.setProposte(DBManager.getInstance().getPropostaDao().findByForeignKeyLavoratore(lavoratore.getId()));
+                lavoratore.setChats(DBManager.getInstance().getChatDao().findByForeignKeyLavoratore(lavoratore.getId()));
+                lavoratore.setRecensioni(DBManager.getInstance().getRecensioneDao().findByForeignKeyLavoratore(lavoratore.getId()));
+                lavoratore.setAnnunciDisponibili(DBManager.getInstance().getAnnuncioDao().annunciPerMe(lavoratore.getProvincia(),lavoratore.getId()));
+                lavoratore.setAmbiti(DBManager.getInstance().getAmbitoDao().findByLavoratore(lavoratore.getId()));
+                lavoratore.setTransazionePagamento(DBManager.getInstance().getTransazionePagamentoDao().findByForeignKeyLavoratore(lavoratore.getId()));
+                lavoratore.setNotifiche(DBManager.getInstance().getNotificaDao().findByForeignKeyLavoratore(lavoratore.getId()));
             }
 
         } catch (SQLException e) {
@@ -51,8 +59,15 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                lavoratore = new Lavoratore();
+                lavoratore = new Lavoratore(DBManager.getInstance().getUtenteDao().findByPrimaryKey(rs.getString("username")));
                 lavoratore.setId(rs.getLong("id_lavoratore"));
+                lavoratore.setProposte(DBManager.getInstance().getPropostaDao().findByForeignKeyLavoratore(lavoratore.getId()));
+                lavoratore.setChats(DBManager.getInstance().getChatDao().findByForeignKeyLavoratore(lavoratore.getId()));
+                lavoratore.setRecensioni(DBManager.getInstance().getRecensioneDao().findByForeignKeyLavoratore(lavoratore.getId()));
+                lavoratore.setAnnunciDisponibili(DBManager.getInstance().getAnnuncioDao().annunciPerMe(lavoratore.getProvincia(),lavoratore.getId()));
+                lavoratore.setAmbiti(DBManager.getInstance().getAmbitoDao().findByLavoratore(lavoratore.getId()));
+                lavoratore.setTransazionePagamento(DBManager.getInstance().getTransazionePagamentoDao().findByForeignKeyLavoratore(lavoratore.getId()));
+                lavoratore.setNotifiche(DBManager.getInstance().getNotificaDao().findByForeignKeyLavoratore(lavoratore.getId()));
             }
 
         } catch (SQLException e) {
@@ -63,16 +78,18 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
 
     @Override
     public Lavoratore findByPrimaryKey(String username) {
+
         Lavoratore lavoratore = null;
         String query = "SELECT * FROM lavoratore WHERE username = ?";
+
         try {
+
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1,username);
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                lavoratore = new Lavoratore();
-                lavoratore.setId(rs.getLong("id_lavoratore"));
+                lavoratore = findByPrimaryKey(rs.getLong("id_lavoratore"));
             }
 
         } catch (SQLException e) {
@@ -84,38 +101,52 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
     @Override
     public void saveOrUpdate(Lavoratore lavoratore) {
 
-        String query = "INSERT INTO LAVORATORE VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+        String query = "INSERT INTO lavoratore VALUES (?,?)";
 
-        if (findByPrimaryKey(lavoratore.getUsername()) != null)
-            query  = "UPDATE LAVORATORE SET password = ?, " + "nome = ?, " + "cognome = ?, " + "email = ?, " + "indirizzo = ?, " + "numero_civico = ?, " + "citta = ?, " + "cap = ?, " + "ruolo = ? " + "WHERE username = ?";
+        if (findByPrimaryKey(lavoratore.getId()) != null)
+            query  = "UPDATE lavoratore SET ";
 
         try {
 
+            DBManager.getInstance().getUtenteDao().saveOrUpdate(lavoratore);
             PreparedStatement st = conn.prepareStatement(query);
-
-
+            st.setLong(1,lavoratore.getId());
+            st.setString(2, lavoratore.getUsername());
             st.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        /*if (query.startsWith("UPDATE"))
+            query  = "UPDATE lavoratore SET ";
+        String query = "INSERT INTO competente VALUES (?,?)";*/
+
+        try {
+
+            DBManager.getInstance().getUtenteDao().saveOrUpdate(lavoratore);
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setLong(1,lavoratore.getId());
+            st.setString(2, lavoratore.getUsername());
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
     public void delete(Lavoratore lavoratore) {
-        String query = "DELETE FROM LAVORATORE WHERE username = ?";
-        try {
-            PreparedStatement st = conn.prepareStatement(query);
-            st.setString(1, lavoratore.getUsername());
-            st.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        DBManager.getInstance().getUtenteDao().delete(lavoratore);
+
     }
 
     @Override
     public boolean isEmailTaken(String email){
-        String query = "SELECT * FROM LAVORATORE WHERE email = ?";
+        String query = "SELECT * FROM lavoratore WHERE  = ?";
         try{
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, email);
@@ -131,7 +162,7 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
 
     @Override
     public boolean isUsernameTaken(String username){
-        String query = "SELECT * FROM LAVORATORE WHERE username = ?";
+        String query = "SELECT username FROM lavoratore WHERE username = ?";
         try{
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);

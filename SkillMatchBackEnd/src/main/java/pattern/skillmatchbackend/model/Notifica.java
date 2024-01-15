@@ -9,6 +9,7 @@ public class Notifica {
     private Timestamp data;
     private boolean visualizzato;
     private boolean chi;
+    private Utente utente;
 
     public long getId() {
         return id;
@@ -49,4 +50,18 @@ public class Notifica {
     public void setChi(boolean chi) {
         this.chi = chi;
     }
+
+    public Utente getUtente() {
+        return utente;
+    }
+
+    public void setUtente(Utente utente) {
+        this.utente = utente;
+    }
+
+    public void createNotifica(){
+        
+
+    }
+
 }
