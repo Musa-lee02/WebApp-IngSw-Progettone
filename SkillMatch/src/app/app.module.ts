@@ -47,6 +47,11 @@ import {HttpClientModule} from "@angular/common/http";
 import {AsyncPipe, CommonModule} from '@angular/common';
 import { RecuperoComponent } from './component/accedi/recupero/recupero.component';
 import { RinserisciPasswordComponent } from './component/accedi/rinserisci-password/rinserisci-password.component';
+import { SearchBarComponent } from './component/search-bar/search-bar.component';
+import { FooterComponent } from './component/footer/footer.component';
+import { PropostaComponent } from './component/chat/chat-text/proposta/proposta.component';
+import { RecensioniComponent } from './component/profilo/recensioni/recensioni.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,8 +73,24 @@ import { RinserisciPasswordComponent } from './component/accedi/rinserisci-passw
     ChatTextComponent,
     RiepilogoDatiComponent,
     RinserisciPasswordComponent,
-    RecuperoComponent
+    RecuperoComponent,
 
+
+       ProfiloComponent,
+       SceltaUtenteComponent,
+       ConfermaEmailComponent,
+       EffettuaAnnuncioComponent,
+       ChatComponent,
+       FormAnnuncioComponent,
+       NavBarComponent,
+       ChatTextComponent,
+       RiepilogoDatiComponent,
+       RinserisciPasswordComponent,
+       SearchBarComponent,
+       FooterComponent,
+       RecuperoComponent,
+       PropostaComponent,
+       RecensioniComponent
 
   ],
   imports: [

@@ -1,11 +1,13 @@
-<div class="centered">
+
+
+
+
 <div class="alert alert-primary" role="alert">
     RECUPERA LA TUA PASSWORD INSERISCI LA TUA EMAIL PER IL RECUPERO
    </div>
 
-    <h3 [formGroup]="inputValidators">EMAIL DI RECUPERO: <input type="input"
-     formControlName="input"></h3>
+    <div [formGroup]="inputValidators">EMAIL DI RECUPERO: <input type="input"
+     formControlName="input"></div>
 
-     <a href="Recupero/Reinserisci">
-       <button type="button" class="btn btn-primary" [ngStyle]="{'background': inputValidators.valid ? '#512da8':'grey'}">Invia</button></a>
-</div>
+   <button type="button" class="btn btn-primary" *ngStyle="{'background-color': inputValidators.valid ? '#512da8':'grey'}">Invia</button>
+

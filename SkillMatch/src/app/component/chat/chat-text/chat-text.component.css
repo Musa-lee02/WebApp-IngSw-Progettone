@@ -38,7 +38,7 @@
 
     height: calc(100vh - 100px);
     width: 25vw;
-    background-color: yellow;
+    background-color: rgb(44, 36, 72);
     position: absolute;
     left: 102%;
     top:0;
@@ -46,10 +46,12 @@
     max-height: 0;
     transition: all 1s ease-in-out;
     overflow: hidden;
+    border: 1px solid black;
+    border-radius: 20px;
 }
 .propostaBtn:checked ~ .form{
 
-    max-height: calc(100vh - 100px);
+    max-height: calc(100vh - 200px);
     max-width: 25vw;
 }
 .contactImgName img{
@@ -126,7 +128,7 @@ input{
     .form{
         height: calc(100vh - 280px) !important;
         width: 100%;
-        background-color: yellow;
+        
         position: absolute;
         left: 10%;
         top:80px;
@@ -134,11 +136,12 @@ input{
         max-height: 0;
         transition: all 1s ease-in-out;
         overflow: hidden;
+        border: 1px solid black;
     }
     .propostaBtn:checked ~ .form{
 
         max-height:calc(100vh - 280px) !important;
-        max-width: 100%;
+        max-width: 80%;
     }
     
     

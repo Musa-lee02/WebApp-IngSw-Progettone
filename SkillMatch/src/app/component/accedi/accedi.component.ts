@@ -32,16 +32,17 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   ];
 
 
-  generalitaForm: FormGroup
-  credenzialiForm: FormGroup
-  loginForm: FormGroup
-  ambitoForm: FormGroup
-  arrowLeft = faArrowLeft
-  googleIcon = faGoogle
-  riepilogoDati: boolean = false
-  url = ""
+
+  generalitaForm : FormGroup
+  credenzialiForm : FormGroup
+  loginForm:FormGroup
+  ambitoForm:FormGroup
+  arrowLeft=faArrowLeft
+  googleIcon=faGoogle
+  riepilogoDati: boolean=false
+  url=""
   province: any
-  ambiti: any
+  ambiti:any
 
   constructor(private service: ServizioAnnunciService, private backEndService: BackEndService, private datiRegistrazione: DatiRegistrazioneService) {
   }
@@ -69,69 +70,72 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }*/
 
   ngOnInit(): void {
-    window['accediComponentRef'] = this;
-    window['backEndServiceRef'] = this.backEndService;
+      window['accediComponentRef'] = this;
+      window['backEndServiceRef'] = this.backEndService;
 
 
-    this.generalitaForm = new FormGroup({
+
+
+    this.generalitaForm= new FormGroup({
       nome: new FormControl(null, Validators.required),
       cognome: new FormControl(null, Validators.required),
       dataNascita: new FormControl(null, Validators.required)
 
     })
 
-    this.credenzialiForm = new FormGroup({
+    this.credenzialiForm=new FormGroup({
 
       username: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required,
+      password: new FormControl(null,[Validators.required,
         Validators.minLength(8),
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+-=]).{8,}$/)
       ]),
-      confermaPassword: new FormControl(null, [Validators.required,
+      confermaPassword: new FormControl(null,[Validators.required,
         Validators.minLength(8),
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+-=]).{8,}$/)
       ])
 
-    }, {validators: this.passwordMatchValidators});
+    }, { validators: this.passwordMatchValidators });
 
-    this.loginForm = new FormGroup({
+    this.loginForm=new FormGroup ({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, Validators.required),
+      password: new FormControl(null,Validators.required),
 
     })
 
-    this.ambitoForm = new FormGroup({
-      foto: new FormControl(),
-      zona: new FormControl(null, Validators.required),
-      ambito: new FormControl(null, Validators.required),
+    this.ambitoForm=new FormGroup({
+      foto: new FormControl(null,Validators.required),
+      zona: new FormControl(null,Validators.required),
+      ambito: new FormControl(null,Validators.required),
     })
 
     this.service.setDoingAccesso(true)
 
-    this.province = this.service.getProvince()
-    this.ambiti = this.service.getAmbiti()
+    this.province=this.service.getProvince()
+    this.ambiti=this.service.getAmbiti()
   }
 
   passwordMatchValidators(control: AbstractControl) {
     const password = control.get('password')?.value;
     const ripetiPassword = control.get('confermaPassword')?.value;
 
-    return password === ripetiPassword ? null : {mismatch: true};
+    return password === ripetiPassword ? null : { mismatch: true };
   }
 
   ngOnDestroy(): void {
 
 
-    if (this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid) {
+    if(this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid){
       Swal.fire("Ricora di confermare l'email se vuoi pubblicare o proporti per un annuncio")
       this.service.setAutenticato(true)
     }
   }
 
 
-  onSelectFile(e: any) {
-    if (e.target.files) {
+
+  onSelectFile(e:any){
+    if(e.target.files){
       var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event: any) => {
@@ -143,25 +147,25 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   }
 
-  isLavoratore() {
+  isLavoratore(){
 
     return this.service.isLavoratore()
   }
 
 
-  onRiceviScelta(scelta: string) {
+  onRiceviScelta(scelta: string){
 
 
-    if (scelta === "cliente") {
+    if(scelta==="cliente"){
       this.service.setlavoratoreBool(false)
-    } else
+    }
+    else
       this.service.setlavoratoreBool(true);
 
-    this.componentScelta?.nativeElement.classList.add('remove')
+      this.componentScelta?.nativeElement.classList.add('remove')
 
   }
-
-  clickArrow() {
+  clickArrow(){
 
     console.log(this.generalitaForm)
     this.container?.nativeElement.classList.remove('generalita')
@@ -173,23 +177,22 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     console.log(this.generalitaForm)
   }
 
-  doingAccesso() {
+  doingAccesso(){
 
     return this.service.doingAccesso
 
   }
 
-  skipAutentication() {
+  skipAutentication(){
 
     return this.service.getSkipAutentication()
   }
+  onSubmit(){
 
-  onSubmit() {
-
-    if (this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid) {
+    if(this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid){
 
       this.container?.nativeElement.classList.add('emailConferma')
-      this.riepilogoDati = true
+      this.riepilogoDati=true
       console.log(this.riepilogoDati)
     }
 
@@ -203,7 +206,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     }
 
-    if (this.generalitaForm.valid && !this.isLavoratore()) {
+    if(this.generalitaForm.valid && !this.isLavoratore()){
       this.container?.nativeElement.classList.add('emailConferma')
     }
 

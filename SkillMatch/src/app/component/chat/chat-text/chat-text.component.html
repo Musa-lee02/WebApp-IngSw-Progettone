@@ -9,14 +9,15 @@
             {{DestinatarioCard.username}}
         </div>
             
-            <mat-icon *ngIf="DestinatarioCard" style="color:white" (click)="alertRifiuta()">cancel</mat-icon>
-            <mat-icon *ngIf="DestinatarioCard" style="color: white;" (click)="alertConferma()">check</mat-icon>
+        
+            
             <input class="propostaBtn" id="propostaBtn" type="checkbox" *ngIf="DestinatarioCard">
             <label for="propostaBtn" *ngIf="DestinatarioCard">
             <mat-icon *ngIf="DestinatarioCard" style="color: white;">description</mat-icon></label>
             <div class="form">
-                <app-form-annuncio></app-form-annuncio>
+                <app-proposta *ngIf="DestinatarioCard" [proposta]="getProposta()"></app-proposta>
             </div>
+        
     </div>
     <div class="messageArea">
         <div class="messaggioContainer" *ngFor="let message of messaggi">

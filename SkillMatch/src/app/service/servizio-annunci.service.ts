@@ -1,4 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
+import { CardsVetrinaComponent } from '../component/cards-vetrina/cards-vetrina.component';
 
 
 type Annunci ={
@@ -10,6 +11,7 @@ type Annunci ={
   titolo: string
   id:string
   stato: string
+  zona:string
 
 }
 
@@ -20,6 +22,18 @@ type Proposte={
   id:string
   stato: string
 }
+
+type Proposta={
+
+  descrizione:string
+  dataScadenza:string
+  stato:string
+  prezzo:number
+  idAnnuncio:string
+  usernameLavoratore:string
+
+}
+
 
 type Messaggio={
 
@@ -49,6 +63,8 @@ type Lavoratore={
 
 export class ServizioAnnunciService implements OnInit {
 
+  selectedAmbito: string;
+  selectedZona: string;
 
   doingAccesso: boolean;
   private lavoratoreBool :boolean=false;
@@ -60,26 +76,30 @@ export class ServizioAnnunciService implements OnInit {
   chatAttuale: Chat ;
 
 
-  usernameUtente="maswso" 
+  usernameUtente="utente1" 
   annunci : Annunci[]=[{
     username: 'utente1',
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     titolo:"pincher da mangiare",
     descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
-    ambito:"Edilizia",
+    ambito:"Cucina",
     id:"12",
-    stato: "accettata"
+    stato: "accettata", 
+    zona:"Cosenza",
+  
   },
   {
     username: 'utente1',
     img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
     titolo:"Shiba inu da vendere",
-    descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
+    descrizione:"   The Shiba Inu is the prettiest ACCALAPPIA-CANI of the six original and distinct spitz breeds of dog from Japan."+
       "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
       "bred for hunting.",
     ambito:"Tecnologia",
     id:"13",
-    stato: "rifiutata"
+    stato: "rifiutata",
+    zona:"Vibo Valentia",
+   
   },
   {
     username: 'utente2',
@@ -88,19 +108,12 @@ export class ServizioAnnunciService implements OnInit {
     descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
     ambito:"Edilizia",
     id:"12",
-    stato: "rifiutata"
+    stato: "rifiutata",
+    zona:"Reggio Calabria",
+
   },
-  {
-    username: 'utente2',
-    img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    titolo:"Shiba inu da vendere",
-    descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
-      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
-      "bred for hunting.",
-    ambito:"Tecnologia",
-    id:"13",
-    stato: "InCorso"
-  },
+
+
   {
     username: 'utente1',
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
@@ -108,29 +121,23 @@ export class ServizioAnnunciService implements OnInit {
     descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
     ambito:"Edilizia",
     id:"12",
-    stato: "rifiutata"
+    stato: "rifiutata",
+    zona:"Vibo Valentia",
+
   },
   {
     username: 'utente3',
     img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
     titolo:"Shiba inu da vendere",
-    descrizione:"   The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan."+
+    descrizione:"   The Shiba Inu is the prettiest ACCALAPPIA-CANI of the six original and distinct spitz breeds of dog from Japan."+
       "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
       "bred for hunting.",
     ambito:"Tecnologia",
     id:"13",
-    stato: "InCorso"
-  },
-  {
-    username: 'utente1',
-    img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
-    titolo:"pincher da mangiare",
-    descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
-    ambito:"Edilizia",
-    id:"12",
-    stato: "InCorso"
-  },
+    stato: "InCorso",
+    zona:"Reggio Calabria",
 
+  },
 
   ]
 
@@ -158,6 +165,16 @@ export class ServizioAnnunciService implements OnInit {
   
   ]
 
+  proposta: Proposta[]=[{
+
+    descrizione:"cdwcwcewdcwqacwcwce",
+    dataScadenza:"23/07/21",
+    stato:"Inviata",
+    prezzo:100,
+    idAnnuncio:"13",
+    usernameLavoratore:"maswso"
+    
+  }]
   proposte : Proposte[]=[{
 
 
@@ -197,9 +214,9 @@ export class ServizioAnnunciService implements OnInit {
   },
 ]
 
-ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica', 'Letteratura', 'Cinema', 'Teatro', 'Moda', 'Altro']
+ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanica', 'Informatica', 'Altro']
 
-  province: String[] = ['Cosenza', 'Reggio Calabria', 'Vibo Valentia', 'Catanzaro', 'Crotone',
+  province: string[] = ['Cosenza', 'Reggio Calabria', 'Vibo Valentia', 'Catanzaro', 'Crotone',
               'Napoli', 'Salerno', 'Avellino', 'Benevento', 'Caserta', 'Potenza', 'Matera' ]
 
   
@@ -252,14 +269,36 @@ ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica
   }
 ]
  
-  constructor() { }
+  constructor( ) { }
   ngOnInit(): void {
-    console.log(this.autenticato)
     this.autenticato=false
 
   }
 
+  setSelectAmbito(ambito: string){
+    this.selectedAmbito=ambito
+  }
+  setSelectZona(zona: string){
+    this.selectedZona=zona
+  }
 
+  getSelectAmbito(){
+    return this.selectedAmbito
+  }
+  getSelectZona(){
+    return this.selectedZona
+  }
+
+  isAmbitoValid(): boolean {
+    // Verifica se l'ambito è presente nella lista degli ambiti
+    return this.ambiti.includes(this.selectedAmbito);
+  }
+  isZoneValid(): boolean {
+    // Verifica se la zona è presente nella lista delle province
+    return this.province.includes(this.selectedZona);
+  }
+
+ 
   setRouterUrl(url : string){
     this.url=url
   }
@@ -308,6 +347,16 @@ ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica
   
     return lavoratoriFiltarti
   }
+  getPropostaVera(chat : Chat){
+
+    for(const proposta of this.proposta){
+
+      if(proposta.idAnnuncio===chat.idAnnuncio && (proposta.usernameLavoratore===chat.interlocutore1 || chat.interlocutore2)){
+        return proposta
+      }
+    }
+    return
+  }
   getProposteById(id: string){
 
     let proposteFiltrate:Proposte[]=[]
@@ -334,13 +383,14 @@ ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica
     return null
 
   }
-  getDestinatarioCard(chat :Chat){
+  getDestinatarioCard(chat :Chat){ //DA CAMBIARE
 
     this.setlavoratoreBool(false)
+    
     for(const lavoratore of this.lavoratori){
 
       
-      if(chat.interlocutore1 === lavoratore.username){
+      if(chat.interlocutore1 === lavoratore.username || chat.interlocutore2 === lavoratore.username ){
 
             return lavoratore; 
         }
@@ -396,6 +446,28 @@ ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica
 
 
     return []
+  }
+  setAnnunci(){
+    
+    this.annunci=this.getAnnunciByAmbitoEZona()
+  }
+  getAnnunciByAmbitoEZona() : Annunci[]{
+      
+    let inHome=true
+    let annunciFiltrati:Annunci[]=[]
+   
+    for(const annuncio of this.annunci){
+      if(annuncio.ambito=== this.selectedAmbito && annuncio.zona === this.selectedZona){
+        inHome=false;
+        annunciFiltrati.push(annuncio)
+      }
+    }
+
+    if(annunciFiltrati.length>0){
+      return annunciFiltrati
+    }
+    return []
+
   }
 
   getMessaggiByChat(){
@@ -469,8 +541,6 @@ ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica
 
   }
   getSkipAutentication(){
-
-    
     return this.skipAutentication
   }
 

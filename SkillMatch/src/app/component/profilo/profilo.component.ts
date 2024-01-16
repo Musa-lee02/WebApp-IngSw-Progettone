@@ -12,9 +12,10 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 export class ProfiloComponent implements OnInit {
 
 
+  
   annunci:any
   pencil=faPencil
-  ArrowDown=faArrowDown
+ 
   entita:string
   propostaAccettata: any
 
@@ -61,28 +62,7 @@ export class ProfiloComponent implements OnInit {
     return this.service.getPicProfile()
   }
 
-  setPropostaAccettata(id :string){
 
-    this.propostaAccettata=this.service.getPropostaAccettataByid(id)
-    
-
-  }
-  getPropostaAccettataImg(){
-
-    console.log(this.propostaAccettata)
-    if(this.propostaAccettata){
-
-      return this.propostaAccettata.img
-    }
-  }
-  getPropostaAccettataNome(){
-
-    
-    if(this.propostaAccettata){
-
-      return this.propostaAccettata.username
-    }
-  }
 
   
 
