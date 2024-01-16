@@ -213,7 +213,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     if (this.credenzialiForm.valid) {
       const lavoratore = this.credenzialiForm.value
       this.backEndService.postCheckRegistrationCredential(lavoratore).subscribe(
-        response => {
+        (response) => {
           //console.log(response.message)
           this.datiRegistrazione.setUsername(this.credenzialiForm.get("username")?.value)
           this.datiRegistrazione.setEmail(this.credenzialiForm.get("email")?.value)
@@ -227,20 +227,25 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           if (error.error === "Email già in uso")
             alert("Email già in uso")
 
-          if (error.error === "Username già in uso")
+          else if (error.error === "Username già in uso")
             alert("Username già in uso")
 
-          if (error.error === "Password non valida (deve contenere almeno una lettera maiuscola)")
+          else if (error.error === "Password non valida (deve contenere almeno una lettera maiuscola)")
             Swal.fire("Password non valida (deve contenere almeno una lettera maiuscola)")
 
-          if (error.error === "Password non valida (deve contenere almeno un numero)")
+          else if (error.error === "Password non valida (deve contenere almeno un numero)")
             Swal.fire("Password non valida (deve contenere almeno un numero)")
 
-          if (error.error === "Password non valida (deve contenere almeno 8 caratteri)")
+          else if (error.error === "Password non valida (deve contenere almeno 8 caratteri)")
             Swal.fire("Password non valida (deve contenere almeno 8 caratteri)")
 
-          if (error.error === "Password non valida (deve contenere almeno un carattere speciale)")
+          else if (error.error === "Password non valida (deve contenere almeno un carattere speciale)")
             Swal.fire("Password non valida (deve contenere almeno un carattere speciale)")
+
+          else{
+            Swal.fire("Errore generico")
+          }
+
 
         })
 
