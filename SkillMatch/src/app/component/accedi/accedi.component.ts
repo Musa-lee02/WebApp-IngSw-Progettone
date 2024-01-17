@@ -103,7 +103,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     })
 
     this.ambitoForm=new FormGroup({
-      foto: new FormControl(null,Validators.required),
+  
       zona: new FormControl(null,Validators.required),
       ambito: new FormControl(null,Validators.required),
     })

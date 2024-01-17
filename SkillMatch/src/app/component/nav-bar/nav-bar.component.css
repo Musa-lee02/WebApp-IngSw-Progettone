@@ -26,6 +26,23 @@
 
 }
 
+.searchClass{
+    gap: 6px;
+    width: 560px;
+    background-color: white; 
+    height: 50px;
+    display: inline-flex;
+    /*margin-left: 665px;*/
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-left: 2%;
+    z-index: 1;
+    border-radius: 45px;
+    box-shadow: 0px 0px 1px 2px rgb(107, 62, 211);
+    
+}
+
 .navBar .menu-btn{
     display: none;
 }

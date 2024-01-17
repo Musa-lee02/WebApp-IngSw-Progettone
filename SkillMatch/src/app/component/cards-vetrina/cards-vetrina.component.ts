@@ -21,7 +21,7 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
  
   constructor(private route : ActivatedRoute, private servizioAnnunci: ServizioAnnunciService){}
   ngAfterContentChecked(): void {
-    console.log("ngAfterContentChecked")
+   
     
   }
   getSizeAnnunci(){
@@ -30,11 +30,11 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
 
 
   ngAfterViewChecked(): void {
-    console.log("ngAfterViewChecked")
+
   }
 
   ngOnInit(): void {
-    console.log("ngOnInit")
+  
   }
 
   initAnnunci(){

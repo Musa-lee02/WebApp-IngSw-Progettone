@@ -19,6 +19,7 @@ import { FooterComponent } from './component/footer/footer.component';
 
 const routes: Routes = [
 
+  {path: '', pathMatch:'full', redirectTo:'Home'},
  {path: 'Home', component: HomeComponent},
  {path: 'Chat', component: ChatComponent },
  {path: 'Esplora/:ambito/:zona', component: EsploraComponent},

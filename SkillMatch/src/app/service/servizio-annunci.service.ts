@@ -66,6 +66,7 @@ export class ServizioAnnunciService implements OnInit {
   selectedAmbito: string;
   selectedZona: string;
 
+  buttonSearchClickedBool:boolean=false;
   doingAccesso: boolean;
   private lavoratoreBool :boolean=false;
   private autenticato: boolean=false;
@@ -77,11 +78,11 @@ export class ServizioAnnunciService implements OnInit {
 
 
   usernameUtente="utente1" 
-  annunci : Annunci[]=[{
+  annunci : Annunci[]=[/*{
     username: 'utente1',
-    img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
-    titolo:"pincher da mangiare",
-    descrizione:"The purina is a small breed of dog, originating from Germany. The breed's earliest ancestors may have included the German Pinscher mixed with Italian greyhounds and dachshunds.",
+    img:'../assets/soffione-doccia-rotto.png',
+    titolo:"soffione Rotto",
+    descrizione:"descrizione...",
     ambito:"Cucina",
     id:"12",
     stato: "accettata", 
@@ -90,11 +91,9 @@ export class ServizioAnnunciService implements OnInit {
   },
   {
     username: 'utente1',
-    img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    titolo:"Shiba inu da vendere",
-    descrizione:"   The Shiba Inu is the prettiest ACCALAPPIA-CANI of the six original and distinct spitz breeds of dog from Japan."+
-      "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally"+
-      "bred for hunting.",
+    img:'../assets/imagedeafault.avif',
+    titolo:"Logo per azienda",
+    descrizione:" Avrei bisogno di un logo per la mia startup che sto creando",
     ambito:"Tecnologia",
     id:"13",
     stato: "rifiutata",
@@ -124,7 +123,7 @@ export class ServizioAnnunciService implements OnInit {
     stato: "rifiutata",
     zona:"Vibo Valentia",
 
-  },
+  },*/
   {
     username: 'utente3',
     img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
@@ -147,8 +146,8 @@ export class ServizioAnnunciService implements OnInit {
     },
 
     {
-      username:"maswso",
-      img:"https://www.centrodogtrainer.it/wp-content/uploads/2020/11/addestramento-golden-retriever-1920x960.jpg"
+      username:"mario",
+      img:"../assets/user.jpg"
     },
     {
       username:"giacom",
@@ -167,18 +166,18 @@ export class ServizioAnnunciService implements OnInit {
 
   proposta: Proposta[]=[{
 
-    descrizione:"cdwcwcewdcwqacwcwce",
-    dataScadenza:"23/07/21",
+    descrizione:"incontro in data 24/12/2023 al prezzo stabilito nella voce sotto",
+    dataScadenza:"24/12/2023",
     stato:"Inviata",
     prezzo:100,
     idAnnuncio:"13",
-    usernameLavoratore:"maswso"
+    usernameLavoratore:"mario"
     
   }]
   proposte : Proposte[]=[{
 
 
-    username:'pippo',
+    username:'mario',
     img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
     descrizione:"cecedcc",
     id:"13",
@@ -206,8 +205,8 @@ export class ServizioAnnunciService implements OnInit {
     stato:"inCorso"
   },
   {
-    username:'maswso',
-    img:'https://www.purina.co.uk/sites/default/files/2021-02/BREED%20Hero_0084_miniature_pinscher.jpg',
+    username:'mario',
+    img:'../assets/user.jpg',
     descrizione:"cecedcc",
     id:"13",
     stato: "inCorso"
@@ -225,7 +224,7 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
   chat1:Chat={
     idAnnuncio:"13",
     interlocutore1:"utente1",
-    interlocutore2:"maswso",
+    interlocutore2:"mario",
   }
   chat2:Chat={
     idAnnuncio:"12",
@@ -240,7 +239,7 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
   chat4:Chat={
     idAnnuncio:"12",
     interlocutore1:"utente1",
-    interlocutore2:"maswso",
+    interlocutore2:"mario",
   }
 
   chatTotali : Chat[]=[
@@ -248,14 +247,14 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
     this.chat1,this.chat2,this.chat3
   ]
   messaggi : Messaggio[]=[{
-    contenuto:"a pucchiac",
+    contenuto:"ciao come va",
     data:"27/07/96",
     idChat:this.chat1,
     inviato:true
 
   },
   {
-    contenuto:"a uallera",
+    contenuto:"tutto bene",
     data:"27/07/96",
     idChat:this.chat1,
     inviato:false
@@ -447,26 +446,39 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
 
     return []
   }
-  setAnnunci(){
-    
-    this.annunci=this.getAnnunciByAmbitoEZona()
+  buttonSearchClicked(){
+
+
+    this.buttonSearchClickedBool=true
+    return this.getAnnunciByAmbitoEZona()
+
   }
   getAnnunciByAmbitoEZona() : Annunci[]{
       
+    
+    if (this.buttonSearchClickedBool){
+
+    
     let inHome=true
     let annunciFiltrati:Annunci[]=[]
    
+  
     for(const annuncio of this.annunci){
+
       if(annuncio.ambito=== this.selectedAmbito && annuncio.zona === this.selectedZona){
         inHome=false;
+        
         annunciFiltrati.push(annuncio)
       }
     }
 
     if(annunciFiltrati.length>0){
+      console.log(annunciFiltrati)
       return annunciFiltrati
     }
+    }
     return []
+  
 
   }
 
