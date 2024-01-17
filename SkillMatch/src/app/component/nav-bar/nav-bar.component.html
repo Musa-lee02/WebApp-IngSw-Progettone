@@ -3,12 +3,23 @@
     
   <div class="navBar">
 
+  
+  <img [src]="logoImg" class="logoImg">
 
-    <img [src]="logoImg" class="logoImg">
-
+  <span class="searchResponsive">
+   
+    <input class="search-btn" id="search-btn" type="checkbox">
+    <label for="search-btn">
+    <button mat-fab extended color="primary" class="buttonResponsive">
+      <h2>Esplora</h2>
+      <mat-icon>search</mat-icon>
+      <!-- Cerca-->
+    </button>
+    </label>
     <div class="searchClass" *ngIf="!isHome">
       <app-search-bar></app-search-bar>
     </div>
+  </span>
     <input class="menu-btn" id="menu-btn" type="checkbox">
       <label for="menu-btn" class="menu-icon">
         <span class="nav-icon"></span>

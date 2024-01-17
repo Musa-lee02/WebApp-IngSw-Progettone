@@ -10,6 +10,7 @@
 }
 
 
+
 .navBar{
 
     /*border-bottom: 2px solid black;
@@ -32,6 +33,7 @@
     background-color: white; 
     height: 50px;
     display: inline-flex;
+    flex-direction: column;
     /*margin-left: 665px;*/
     justify-content: center;
     align-items: center;
@@ -46,7 +48,9 @@
 .navBar .menu-btn{
     display: none;
 }
-
+.navBar .search-btn{
+    display: none;
+}
 .background {
 
     width: 100%;
@@ -59,6 +63,7 @@
     justify-content: center;
 
 }
+
 
 
 .navBar ul {
@@ -186,29 +191,43 @@ li li a{
     justify-content: center;
 }
 
+.buttonResponsive{
+    display: none;
+}
 
-@media only screen and (max-width: 1024px){
+.mat-mdc-fab.mat-primary, html .mat-mdc-mini-fab.mat-primary{
+    --mdc-fab-container-color: rgb(107, 62, 211);
+}
+
+.mat-mdc-extended-fab>.mat-icon, .mat-mdc-extended-fab>.material-icons {
+    justify-content: center;
+    margin-left: -5px;
+    margin-right: -10px;
+}
+
+
+@media only screen and (max-width: 1300px){
     
     .navBar>ul{
 
-        left: 230px;
+
         /* float: right; */
-        position: relative;
+        position: absolute;
         border: 1px solid black;
-        display: flex;
+        display: inline-flex;
         flex-direction: column;
-        margin-right: 20%;
-        margin-top: 80px;
-        width: 300px;
+        margin-left: calc(100vw - 400px);
+         width: 300px;
         background-color: white;
         height: auto;
         border-radius: 20px;
         display: none;
+        z-index: 10;
     }
     .navBar ul  ul{
     
         width: 100%;
-        top:0;
+        top: 80px;
         left: -100%;
         position: absolute;
         z-index: 10;
@@ -309,7 +328,47 @@ li li a{
         top: 0px;
     }
 
+    @media only screen and (max-width: 900px){
+
+        .navBar> ul{
+           
+        }
+        .buttonResponsive{
+            
+            display: inline-flex;
+            gap: 10px;
+            align-items: center;
+            position: relative;
+            pointer-events: none;
+            left: 50px;
+            
+        }
+        .searchClass{
+            
+            max-height: 0;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            height: fit-content;
+            transition: max-height 1s ease-in;
+            
+        }
+
+        .navBar .search-btn:checked ~ .searchClass{
+            max-height: fit-content;
+        }
+    }
+
+
+
 }
+
+@media only screen and (max-width: 800px){
+     
+
+}
+
+
 
 
 
