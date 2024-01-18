@@ -1,4 +1,4 @@
-/*package pattern.skillmatchbackend.controller.servlet;
+package pattern.skillmatchbackend.controller.servlet;
 
 
 import jakarta.servlet.ServletException;
@@ -40,11 +40,11 @@ public class RecuperoPasswordServlet extends HttpServlet {
                 else {
                     utente.setRegistrato(true);
                     DBManager.getInstance().getLavoratoreDao().saveOrUpdate(utente);
-                }
+                }*/
                 break;
 
         }
 
     }
 
-}*/
+}
