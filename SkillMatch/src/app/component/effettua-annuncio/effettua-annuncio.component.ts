@@ -34,7 +34,7 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
     //this.minDate.setDate(this.minDate.getDate() + 1);
   }
   ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
+
   }
   ngOnInit(): void {
 
@@ -62,7 +62,7 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
   }
 
   ngAfterViewChecked(): void {
-    throw new Error('Method not implemented.');
+   
   }  
 
   onSubmit(): void{

@@ -13,8 +13,8 @@ export class FormAnnuncioComponent {
   ambiti : any
   province : any
   minDate: Date;
-  url = 'https://www.felicinabiorci.com/wp/wp-content/uploads/2019/01/diet-food-macro-111130.jpg'
-  ambitoForm:FormGroup
+  url = '../../assets/imagedefault.avif'
+  nuovoAnnuncioForm:FormGroup
   arrowLeft=faArrowLeft
   
   constructor(private service: ServizioAnnunciService){
@@ -26,11 +26,12 @@ export class FormAnnuncioComponent {
   ngOnInit(): void {
     this.service.setRouterUrl("/Annuncio")
     
-    this.ambitoForm=new FormGroup({
-      nomeAnnuncio: new FormControl(null,Validators.required),
+    this.nuovoAnnuncioForm=new FormGroup({
+      titoloAnnuncio: new FormControl(null,Validators.required),
       zonaAnnuncio: new FormControl(null,Validators.required),
       ambitoAnnucnio: new FormControl(null,Validators.required),
       dataScadenza: new FormControl(null,Validators.required),
+
     })
 
     this.province=this.service.getProvince()
@@ -38,7 +39,7 @@ export class FormAnnuncioComponent {
   }
 
   onSubmit(): void{
-
+    console.log(this.nuovoAnnuncioForm.valid)
   }
   onSelectFile(e: any): void {
 

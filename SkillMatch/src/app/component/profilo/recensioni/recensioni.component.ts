@@ -14,6 +14,7 @@ export class RecensioniComponent implements OnInit {
   annunci:any
   propostaAccettata: any
   ArrowDown=faArrowDown
+  starsClicked: boolean = false
 
   ngOnInit(): void {
     this.annunci=this.service.getAnnunci();
@@ -41,6 +42,22 @@ export class RecensioniComponent implements OnInit {
 
       return this.propostaAccettata.username
     }
+  }
+
+  setStarsClicked(voto : number){
+
+    if(this.starsClicked){
+      this.starsClicked=false
+      voto=0
+      console.log(voto)
+    }
+    else
+    this.starsClicked=true
+    console.log(voto)
+  }
+  isStarsClicked(){
+
+    return this.starsClicked
   }
 
   

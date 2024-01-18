@@ -1,5 +1,5 @@
 
-<form [formGroup]="ambitoForm" (ngSubmit)="onSubmit()" class="containerForm">
+<form [formGroup]="nuovoAnnuncioForm" (ngSubmit)="onSubmit()" class="containerForm">
 
     <div class="contenitoreB">
         
@@ -10,7 +10,7 @@
         <form class="example-form">
             <h4>titolo dell'annuncio</h4>
             <mat-form-field class="matA"> 
-              <mat-label>Titolo dell'annuncio</mat-label>
+              <mat-label formControlName="titoloAnnuncio">Titolo dell'annuncio</mat-label>
               <input matInput placeholder="Ex. Pizza" value="Sushi">
             </mat-form-field>
         </form>
@@ -19,8 +19,8 @@
     
     <div class="contenitoreA">
         <h4>Descrizione sul lavoro e sulle abilità  richieste (opzionale) </h4>    
-        <mat-form-field class="matA">
-        <mat-label >Textarea</mat-label>
+        <mat-form-field class="matB">
+        <mat-label style="width: 100%;">Textarea</mat-label>
         <textarea matInput style></textarea>
         </mat-form-field>
     </div>
@@ -30,7 +30,7 @@
 
         <mat-form-field class="matA">
             <mat-label>Favorite food</mat-label>
-            <mat-select>
+            <mat-select formControlName="zonaAnnuncio">
               @for (pv of province; track pv) {
                 <mat-option [value]="pv">{{pv}}</mat-option>
               }
@@ -43,7 +43,7 @@
         <h4>Ambito di lavoro</h4>
         <mat-form-field class="matA">
         <mat-label>Ambito</mat-label>
-        <mat-select >
+        <mat-select formControlName="ambitoAnnuncio">
         <mat-option>None</mat-option>
         @for (ab of ambiti; track ab) {
             <mat-option [value]="ab">{{ab}}</mat-option>
@@ -73,7 +73,7 @@
 
 
     <div class="contenitoreB">
-        <button mat-raised-button type="submit">Pubblica annuncio</button>
+        <button mat-raised-button type="submit" disabled="{{nuovoAnnuncioForm.valid}}" >Pubblica annuncio</button>
     </div>
     
 </form>

@@ -146,6 +146,32 @@
     height: 25px;
     margin: 3px 10px
 }
+.divStelle{
+
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 20px;
+}
+
+.votoBtn{
+  display: none;
+}
+.divButton .starImg
+{
+    width: 20px;
+    height: 20px;
+    margin: 3px 0;
+    filter: brightness(0%);
+}
+
+.divButton .votoBtn:checked ~ .starLabel .starImg{
+
+    filter: brightness(100%);
+}
+
+.divButton .starImg:hover {
+    filter: brightness(100%);
+}
 
 @media only screen and (min-width: 1600px) {
 

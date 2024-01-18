@@ -6,12 +6,17 @@
 }
 
 
-  .matA{
+.matA{
     border-radius:40px;
     height: 80px;
-
 }
 
+.matB{
+
+    height: 150px;
+    width: 100% !important;
+    border-radius: 40px;
+}
 .contenitoreB button{
     
     background-color: rgb(106, 171, 211);
