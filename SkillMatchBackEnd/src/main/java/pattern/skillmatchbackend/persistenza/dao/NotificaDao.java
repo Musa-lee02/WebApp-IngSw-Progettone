@@ -14,7 +14,7 @@ public interface NotificaDao {
 
     public void delete(Notifica notifica);
 
-    public  List<Notifica> findByForeignKeyCliente(long id);
-    public List<Notifica> findByForeignKeyLavoratore(long id);
+    public  List<Notifica> findByForeignKeyCliente(String username);
+    public List<Notifica> findByForeignKeyLavoratore(String username);
 
 }

@@ -59,9 +59,8 @@ public class Notifica {
         this.utente = utente;
     }
 
-    public void createNotifica(){
-        
 
-    }
+
+
 
 }

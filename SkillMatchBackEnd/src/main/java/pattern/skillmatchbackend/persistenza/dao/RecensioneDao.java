@@ -3,7 +3,6 @@ package pattern.skillmatchbackend.persistenza.dao;
 import pattern.skillmatchbackend.model.Recensione;
 
 
-import java.util.LinkedList;
 import java.util.List;
 
 public interface RecensioneDao {
@@ -14,8 +13,8 @@ public interface RecensioneDao {
 
     public void delete(Recensione recensione);
 
-    public List<Recensione>  findByForeignKeyLavoratore(long id);
-    public List<Recensione>  findByForeignKeyCliente(long id);
+    public List<Recensione>  findByForeignKeyLavoratore(String username);
+    public List<Recensione>  findByForeignKeyCliente(String username);
 
 
 }

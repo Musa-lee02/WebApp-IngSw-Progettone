@@ -6,7 +6,6 @@ import java.util.List;
 
 public class Cliente extends Utente {
 
-    private long id;
     private List<Recensione> recensioni = new LinkedList<>();
     private List<TransazionePagamento> transazionePagamento = new LinkedList<>();
     private List<Notifica> notifiche = new LinkedList<>();
@@ -19,14 +18,6 @@ public class Cliente extends Utente {
 
     public Cliente(){}
 
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public List<Recensione> getRecensioni() {
         return recensioni;
