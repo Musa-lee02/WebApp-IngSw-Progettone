@@ -88,12 +88,12 @@ public class UtenteDaoPostgres implements UtenteDao {
     @Override
     public void saveOrUpdate(Utente utente) {
 
-        String query = "INSERT INTO Utenti "
+        String query = "INSERT INTO utente "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         if (findByPrimaryKey(utente.getUsername()) != null)
-            query  = "UPDATE Utenti SET "
-                    + "password = ?, email = ?, nome = ?, cognome = ?, via = ?, numero_civico = ?, cap = ?, provincia = ?, "
+            query  = "UPDATE utente SET "
+                    + "password = ?, email = ?, nome = ?, cognome = ?, provincia = ?, "
                     + "citta = ?, provincia_lavoro = ?, img_profilo = ?, registrato = ?, data_registrazione = ? "
                     + "WHERE username = ?";
 

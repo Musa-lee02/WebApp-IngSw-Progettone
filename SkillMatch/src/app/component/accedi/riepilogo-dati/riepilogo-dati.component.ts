@@ -3,9 +3,12 @@ import {Component, signal} from '@angular/core'
 import { LavoratoreSignUp} from "../../../SignUpLavoratore";
 
 import { DatiRegistrazioneService } from "../../../service/DatiRegistrazioneService";
+import Swal  from "sweetalert2";
 
 import {Router } from "@angular/router";
 import {AccediComponent} from "../accedi.component";
+import {BackEndService} from "../../../service/BackEndService";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 @Component({
   selector: 'app-riepilogo-dati',
   templateUrl: './riepilogo-dati.component.html',
@@ -22,7 +25,7 @@ export class RiepilogoDatiComponent {
   ambito: string
   zonaDiCompetenza: string
 
-  constructor(private datiRegistrazione: DatiRegistrazioneService, private router: Router, private accediComponent : AccediComponent) {
+  constructor(private datiRegistrazione: DatiRegistrazioneService, private router: Router, private accediComponent : AccediComponent, private backEndService: BackEndService) {
   }
 
   ngOnInit(): void {
@@ -32,7 +35,7 @@ export class RiepilogoDatiComponent {
 
     this.nome = this.datiRegistrazione.getNome();
     this.cognome = this.datiRegistrazione.getCognome();
-    //this.indirizzo = this.datiRegistrazione.getIndirizzo();
+
     this.dataDiNascita = this.datiRegistrazione.getDataDiNascita();
     this.ambito = this.datiRegistrazione.getAmbiti();
     this.zonaDiCompetenza = this.datiRegistrazione.getZonaDiCompetenza();
@@ -40,18 +43,15 @@ export class RiepilogoDatiComponent {
 
 
   public goToAccount() {
-    const formData = new FormData();
-    formData.append('username', this.username);
-    formData.append('email', this.email);
-    formData.append('password', this.password);
-    formData.append('nome', this.nome);
-    formData.append('cognome', this.cognome);
-    formData.append('dataDiNascita', this.dataDiNascita.toString());
-    formData.append('ambito', this.ambito);
-    formData.append('zonaDiCompetenza', this.zonaDiCompetenza);
-    //formData.append('indirizzo', this.indirizzo);
-
-
+    let data = new Date();
+    this.datiRegistrazione.setDataRegistrazione(data);
+    this.backEndService.completeSignUp(this.datiRegistrazione).subscribe(data => {
+      if (data) {
+        this.router.navigate(['/accedi/account']);
+      } else {
+        Swal.fire("Errore nella registrazione")
+      }
+    })
   }
 
   public goToAccess() {
