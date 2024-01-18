@@ -5,10 +5,14 @@
 
 
     <div class="dashboard">
+        
         <div class="leftPart">
 
 
-            <div class="titolo"><h1>I tuoi Annunci</h1></div>
+            
+      
+            <div class="titolo"><h1 style="display: inline-block;">I tuoi Annunci</h1></div>
+               
           
             <!--*ngIf="proposta.id===annuncio.id"><img src="{{proposta.img}}"-->
             <div class="cardAnnuncio" *ngFor="let annuncio of annunci">
@@ -20,10 +24,16 @@
                 </div>
                 
             </div>
-        </div>
-      
-            
+            </div>
 
+        
+       
+        <input id="annuncio-btn" class="annuncio-btn" type="checkbox">
+        <label for="annuncio-btn" class="matita"><div class="toggleCrea">
+            <fa-icon [icon]="faPencili" size="2x" ></fa-icon> 
+            <h2 style="float: right; display: block;">Crea nuovo annuncio</h2></div></label>
+        
+        
         <div class="rightPart">
 
             <app-form-annuncio></app-form-annuncio>

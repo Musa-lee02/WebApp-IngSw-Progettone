@@ -3,6 +3,7 @@ import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
  
 @Component({
@@ -14,6 +15,8 @@ import Swal from 'sweetalert2';
 export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy{
 
   url = 'https://www.felicinabiorci.com/wp/wp-content/uploads/2019/01/diet-food-macro-111130.jpg'
+
+  faPencili=faPencil
 
   province: String[] = ['Cosenza', 'Reggio Calabria', 'Vibo Valentia', 'Catanzaro', 'Crotone',
               'Napoli', 'Salerno', 'Avellino', 'Benevento', 'Caserta', 'Potenza', 'Matera' ]

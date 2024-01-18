@@ -32,10 +32,14 @@ html{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding-top: 100px;
+    padding-top: 10px;
     margin-left: 0px;
     width: 100%;
     background-color: black;
+}
+
+li{
+    padding-bottom: 20px;
 }
 
 .dashboard{
@@ -46,6 +50,7 @@ html{
     gap:5px;
     margin-left: 30px;
     margin-right: 30px;
+    margin-top: 10px;
     justify-content: center;
     box-shadow: 0px 10px 10px  rgba(0,0,0,1);
     border-radius: 11px;

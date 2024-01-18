@@ -78,7 +78,7 @@ export class ServizioAnnunciService implements OnInit {
 
 
   usernameUtente="utente1" 
-  annunci : Annunci[]=[/*{
+  annunci : Annunci[]=[{
     username: 'utente1',
     img:'../assets/soffione-doccia-rotto.png',
     titolo:"soffione Rotto",
@@ -123,7 +123,7 @@ export class ServizioAnnunciService implements OnInit {
     stato: "rifiutata",
     zona:"Vibo Valentia",
 
-  },*/
+  },
   {
     username: 'utente3',
     img:'https://material.angular.io/assets/img/examples/shiba2.jpg',
