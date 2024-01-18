@@ -80,6 +80,18 @@
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
+            <div>
+            <h4>zona di competenza</h4>
+                <mat-form-field >
+                <mat-label>Zona</mat-label>
+                    <mat-select formControlName="zona">
+                    <mat-option>None</mat-option>
+                    @for (pv of province; track pv) {
+                        <mat-option [value]="pv">{{pv}}</mat-option>
+                      }
+                    </mat-select>
+                </mat-form-field>
+            </div>
 
             <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="!isLavoratore() && !doingAccesso()">
                 <a  routerLink="/Annuncio">Registrati</a></button>

@@ -1,4 +1,4 @@
-
+<div class="container" #container>
 <form [formGroup]="nuovoAnnuncioForm" (ngSubmit)="onSubmit()" class="containerForm">
 
     <div class="contenitoreB">
@@ -7,21 +7,21 @@
     </div>
 
     <div class="contenitoreA">
-        <form class="example-form">
+        
             <h4>titolo dell'annuncio</h4>
             <mat-form-field class="matA"> 
-              <mat-label formControlName="titoloAnnuncio">Titolo dell'annuncio</mat-label>
-              <input matInput placeholder="Ex. Pizza" value="Sushi">
+              <mat-label >Titolo..</mat-label>
+              <input matInput placeholder="Ex. Pizza" value="Sushi" formControlName="titolo">
             </mat-form-field>
-        </form>
+       
         
     </div>
-    
-    <div class="contenitoreA">
+        
+        <div class="contenitoreA">
         <h4>Descrizione sul lavoro e sulle abilità  richieste (opzionale) </h4>    
         <mat-form-field class="matB">
         <mat-label style="width: 100%;">Textarea</mat-label>
-        <textarea matInput style></textarea>
+        <textarea matInput style formControlName="descrizione"></textarea>
         </mat-form-field>
     </div>
 
@@ -30,7 +30,7 @@
 
         <mat-form-field class="matA">
             <mat-label>Favorite food</mat-label>
-            <mat-select formControlName="zonaAnnuncio">
+            <mat-select formControlName="zona">
               @for (pv of province; track pv) {
                 <mat-option [value]="pv">{{pv}}</mat-option>
               }
@@ -43,7 +43,7 @@
         <h4>Ambito di lavoro</h4>
         <mat-form-field class="matA">
         <mat-label>Ambito</mat-label>
-        <mat-select formControlName="ambitoAnnuncio">
+        <mat-select formControlName="ambito" >
         <mat-option>None</mat-option>
         @for (ab of ambiti; track ab) {
             <mat-option [value]="ab">{{ab}}</mat-option>
@@ -66,14 +66,30 @@
 
     <div class="contenitoreA">
         <h4>Carica una foto dell'annuncio (Opzionale)</h4>
-        <input type="file" (change)="onSelectFile($event)" style="width: 250px">
-        <div class="divImg"><img [src]="url" style="margin-right: 10px;"></div>
+        <input type="file" (change)="onSelectFile($event)" style="width: 250px" >
+        <div class="divImg"><img [src]="url" style="margin-right: 10px;" formControlName="img"></div>
         
     </div>
 
 
     <div class="contenitoreB">
-        <button mat-raised-button type="submit" disabled="{{nuovoAnnuncioForm.valid}}" >Pubblica annuncio</button>
+        
+        <button mat-raised-button type="submit" [disabled]="!nuovoAnnuncioForm.valid"
+            [ngStyle]="{'background-color': nuovoAnnuncioForm.valid ? '' : 'grey'}">Pubblica annuncio</button>
     </div>
+
+    
     
 </form>
+
+    <div class="anteprimaAnnuncio">
+
+        <div class="descrizioneANDbutton">
+            <div class="descrizione"><h2>Questa è la card del tuo annuncio, i lavoratori navigando nel sito potranno visualizzarla,
+                 e scegliere di aiutarti nelle tue esigenze</h2></div>
+            <div class="buttons"><button mat-raised-button>Pubblica</button><button mat-raised-button (click)="eliminaAnteprima()">Modifica</button></div>
+        </div>
+        <div class="card"><app-cards-vetrina [annunci]="cardAnnuncio"></app-cards-vetrina></div>
+        
+    </div>
+</div>

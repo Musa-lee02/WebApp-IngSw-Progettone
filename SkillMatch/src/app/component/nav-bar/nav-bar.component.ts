@@ -37,7 +37,7 @@ export class NavBarComponent implements OnInit, AfterContentChecked{
      
       this.isHome=false
     }
-    console.log(this.router.url)
+   
   }
   ngOnInit(): void {
     

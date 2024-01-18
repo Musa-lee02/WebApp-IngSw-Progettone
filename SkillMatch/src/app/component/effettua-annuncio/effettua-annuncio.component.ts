@@ -1,9 +1,12 @@
-import { AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
+
+
+
 
  
 @Component({
@@ -28,6 +31,7 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
   ambitoForm:FormGroup
   arrowLeft=faArrowLeft
   minDate = new Date();
+
 
   constructor(private service: ServizioAnnunciService){
 
@@ -66,6 +70,7 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
   }  
 
   onSubmit(): void{
+    
 
   }
   onSelectFile(e: Event): void {

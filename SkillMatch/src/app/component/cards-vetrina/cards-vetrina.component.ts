@@ -30,7 +30,7 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
 
 
   ngAfterViewChecked(): void {
-
+    console.log(this.annunci)
   }
 
   ngOnInit(): void {

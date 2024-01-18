@@ -91,7 +91,7 @@ export class ServizioAnnunciService implements OnInit {
   },
   {
     username: 'utente1',
-    img:'../assets/imagedeafault.avif',
+    img:'../assets/imagedefault.avif',
     titolo:"Logo per azienda",
     descrizione:" Avrei bisogno di un logo per la mia startup che sto creando",
     ambito:"Tecnologia",
