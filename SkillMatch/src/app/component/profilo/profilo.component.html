@@ -1,11 +1,11 @@
 
-<div class="content">
-    <div class="header">
+
+    <!--<div class="header">
         <ul>
             <li><a routerLink="/Profilo">Profilo</a></li>
             <li><a routerLink="/Chat">Chat</a></li>
         </ul>
-    </div>
+    </div>-->
     <div class="dashboard">
         <div class="leftPart">
             <div class="picProfile">
@@ -41,7 +41,7 @@
             </div>
                 
             <div class="cronoChat">
-                <h2 style="align-self: flex-start;" *ngIf="entita==='Cliente'">I tuoi annunci</h2>
+                <h2 style="align-self: flex-start;">Annunci Finalizzati</h2>
                 <h2 style="align-self: flex-start;" *ngIf="entita==='Lavoratore'">Le tue proposte di lavoro</h2>
                 <div *ngFor="let annuncio of annunci; index as i">
         
@@ -63,25 +63,8 @@
             </div>
         </div>
 
-    <div class="pannelloTotale">
-    <h1>RECENSIONI</h1> 
-    <input class="recensioniBtn" id="recensioniBtn" type="checkbox">
-    <label for="recensioniBtn"style="float: right;"><fa-icon [icon]="ArrowDown" size="2x" style="margin-right: 30px;"></fa-icon></label>
-    <div class="pannelloRecensioni">
-        
-    <ng-container *ngFor="let annuncio of annunci">
-        <div class="containerRecensioni" *ngIf="annuncio.stato==='accettata'">
-            {{setPropostaAccettata(annuncio.id)}}
-            <div class="divImg"><img src={{getPropostaAccettataImg()}}></div>
-            <div class="recensioniArea">
-                <div class="divNome"><h1>{{getPropostaAccettataNome()}}</h1></div>
-                <div class="divRelativo"><h2>Relativo all'annuncio:{{annuncio.titolo}}</h2></div>
-                <div class="divRecensione"><textarea></textarea></div>
-                <div class="divButton"><h2>Lascia una recensione</h2><button mat-button>Invia</button></div>
-            </div>
-        </div>
-    </ng-container>
+        <app-recensioni></app-recensioni>
+
+    
 </div>
-</div>
-</div>
-</div>
+

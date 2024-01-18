@@ -93,6 +93,8 @@ export class ChatComponent{
 
     console.log(username,id)
     return this.service.setChatByUsernameAndId(username, id);//cancella
+    
+    
 
   }
 
@@ -106,7 +108,6 @@ export class ChatComponent{
 
     
     this.proposte=this.service.getLavoratoriByIdAnnuncio(id);
-    console.log(this.proposte)
 
   } 
   getAnnunciByUsernameLavoratore(){

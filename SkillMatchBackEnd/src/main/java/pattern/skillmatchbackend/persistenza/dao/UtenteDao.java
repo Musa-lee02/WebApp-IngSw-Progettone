@@ -12,6 +12,10 @@ public interface UtenteDao {
 
     public void saveOrUpdate(Utente utente);
 
+    public boolean isUsernameTaken(String username);
+    public boolean isEmailTaken(String email);
+
+
     public void delete(Utente utente);
 
 }

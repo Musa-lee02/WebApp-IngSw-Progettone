@@ -13,7 +13,7 @@ public interface AmbitoDao {
 
     public void delete(Ambito ambito);
 
-    public List<Ambito> findByNome(String nome);
+    public List<Ambito> findByLavoratore(long id);
 
 
 }

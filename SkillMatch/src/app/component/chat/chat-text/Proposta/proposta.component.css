@@ -1,0 +1,44 @@
+
+.propostaForm{
+
+    padding: 30px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    color: white;
+}
+.propostaForm span{
+    background-color: blueviolet;
+    padding: 10px;
+    border-radius: 20px;
+}
+.propostaForm h1{
+
+    font-size: 30px;
+    font-weight: 500;
+}
+.propostaForm h3{
+
+    font-size: 20px;
+}
+.propostaForm .descrizione{
+
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: rgb(68, 56, 110);
+    padding: 40px 0 40px 0;
+}
+.propostaForm .footer{
+    display: flex;
+    justify-content: space-between;
+}
+.propostaForm .button{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px
+}
+
+.button .icona{
+
+    transform: scale(1.7);
+}

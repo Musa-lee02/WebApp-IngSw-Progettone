@@ -1,6 +1,7 @@
 
 *{font-family: 'Montserrat', sans-serif I !important};
 
+
 .full-container{
 
     scroll-behavior: smooth;
@@ -14,11 +15,11 @@
     /*border-bottom: 2px solid black;
 */  
     background-image: linear-gradient(white, white ,white,white,white,white, rgb(79, 60, 143));
-    
     display: block;
     position: fixed;
-    padding-right: 10%;
-    padding-left: 10%;
+    padding-right: 3%;
+    padding-left: 3%;
+    padding-top: 10px;
     width: 100%;
     height: 80px;
     z-index: 999;
@@ -44,6 +45,7 @@
 
 
 .navBar ul {
+
     display: block;
     list-style-type: none;
     margin: 0;
@@ -52,7 +54,6 @@
     height: 100%;
     float: right;
   
-    
 }
 
   
@@ -72,6 +73,11 @@
     min-width: fit-content;
 
 }
+.navBar li .liImg{
+    display: inline-flex;
+    width: 100px;
+    justify-content: center;
+}
 .navBar ul li {
 
     
@@ -86,7 +92,7 @@
 .navBar li {
     top: 0;
     float: right;
-    padding: 10px;
+    padding: 0 10px 10px 10px;
     height: 100%;
     
 }
@@ -98,7 +104,8 @@
     width: 50px;
     height: 100px;
 }
-.navBar img{
+
+.navBar ul img{
     border-radius: 50%;
     height:50px;
     width: 50px;
@@ -155,7 +162,12 @@ li li a{
 
     color: black;
 }
-
+.content{
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 
 @media only screen and (max-width: 1024px){
@@ -168,7 +180,7 @@ li li a{
         border: 1px solid black;
         display: flex;
         flex-direction: column;
-        margin-right: 10%;
+        margin-right: 20%;
         margin-top: 80px;
         width: 300px;
         background-color: white;
@@ -234,7 +246,7 @@ li li a{
         padding: 28px 28px;
         position: relative;
         float: right;
-        margin: 10px;
+       
         cursor: pointer;
     }
     .navBar .menu-icon .nav-icon{

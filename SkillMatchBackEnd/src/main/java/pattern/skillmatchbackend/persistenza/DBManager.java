@@ -60,7 +60,8 @@ public class DBManager {
 
     public AmbitoDao getAmbitoDao() { return new AmbitoDaoPostgres(getConnection());}
     public ChatDao getChatDao() {return new ChatDaoPostgres(getConnection());}
-    private NotificaDao getNotificaDao() {return new NotificaDaoPostgres(getConnection());}
+    public NotificaDao getNotificaDao() {return new NotificaDaoPostgres(getConnection());}
+    public UtenteDao getUtenteDao() {return new UtenteDaoPostgres(getConnection());}
 
 
 

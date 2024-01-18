@@ -36,31 +36,7 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit{
 
   }
 
-  alertConferma(){
-    Swal.fire({
-      title: "Sei sicuro di voler accettare la proposta del lavoratore",
-      showCancelButton: true,
-      confirmButtonText: "Accetta",
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire("Proposta accettata con successo");
-      } 
-    });
-  }
-
-  alertRifiuta(){
-    Swal.fire({
-      title: "Sei sicuro di voler rifiutare la proposta del lavoratore",
-      showCancelButton: true,
-      confirmButtonText: "Si desidero rifiutare",
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire("Proposta rifiutata con successo");
-      } 
-    });
-  }
+  
   back(){
     this.tornaDietro.emit();
   }
@@ -68,6 +44,14 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit{
 
   ngOnInit(): void {
   
+  }
+
+  getProposta(){
+    if(this.chat)
+
+     return this.service.getPropostaVera(this.chat);
+
+     return
   }
   
 }
