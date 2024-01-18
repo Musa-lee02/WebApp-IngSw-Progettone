@@ -78,26 +78,36 @@ public class PropostaDaoPostgres implements PropostaDao {
     @Override
     public void saveOrUpdate(Proposta proposta) {
 
-        /*String query = "INSERT INTO PROPOSTA VALUES (?, ?, ?, ?, ?, ?, ?)";
+        /*String query = "INSERT INTO proposta (id_annuncio, id_lavoratore, titolo, descrizione, stato, prezzo_lavoro) VALUES (?, ?, ?, ?, ?, ?)";
 
-        /*if (findByPrimaryKey(proposta.getIdProposta()) != null)
-            query = "UPDATE PROPOSTA SET titolo = ?, " + "descrizione = ?, " + "stato = ?, " + "prezzo_lavoro = ?, " + "idAnnuncio = ?, " + "idLavoratore = ? " + "WHERE id = ?";
+        if (findByPrimaryKey(proposta.getId_annuncio(), proposta.getId_lavoratore()) != null)
+            query = "UPDATE proposta SET titolo = ?, descrizione = ?, stato = ?, prezzo_lavoro = ? WHERE id_annuncio = ? AND id_lavoratore = ?";
 
-            try {
-                PreparedStatement st = conn.prepareStatement(query);
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setLong(1, proposta.getId_annuncio());
+            st.setLong(2, proposta.getId_lavoratore());
+            st.setString(3, proposta.getTitolo());
+            st.setString(4, proposta.getDescrizione());
+            st.setString(5, proposta.getStato());
+            st.setBigDecimal(6, proposta.getPrezzo_lavoro());
 
-                st.setLong(1, proposta.getIdProposta());
-                st.setString(2, proposta.getTitolo());
-                st.setString(3, proposta.getDescrizione());
-                st.setString(4, proposta.getStato());
-                st.setFloat(5, proposta.getPrezzoLavoro());
-                st.setLong(6, proposta.getAnnuncioRelativo().getIdAnnuncio());
-                st.setString(7, proposta.getLavoratore().getUsername());
+            if (query.startsWith("UPDATE")) {
+                // If it's an update, set additional parameters
+                st.setString(7, proposta.getTitolo());
+                st.setString(8, proposta.getDescrizione());
+                st.setString(9, proposta.getStato());
+                st.setBigDecimal(10, proposta.getPrezzo_lavoro());
+                st.setLong(11, proposta.getId_annuncio());
+                st.setLong(12, proposta.getId_lavoratore());
+            }
 
-                st.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }*/
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+*/
 
 
     }
@@ -116,7 +126,7 @@ public class PropostaDaoPostgres implements PropostaDao {
     }
 
     @Override
-    public List<Proposta> findByByForeignKeyLavoratore(long id) {
+    public List<Proposta> findByForeignKeyLavoratore(long id) {
 
         List<Proposta> proposte = new LinkedList<>();
         String query = "SELECT * FROM proposta WHERE id_lavoratore = ?";

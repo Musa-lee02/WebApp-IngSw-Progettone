@@ -44,7 +44,7 @@ import { RiepilogoDatiComponent } from './component/accedi/riepilogo-dati/riepil
 import {HttpClientModule} from "@angular/common/http";
 
 
-import { AsyncPipe } from '@angular/common';
+import {AsyncPipe, CommonModule} from '@angular/common';
 import { RecuperoComponent } from './component/accedi/recupero/recupero.component';
 import { RinserisciPasswordComponent } from './component/accedi/rinserisci-password/rinserisci-password.component';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
@@ -63,6 +63,19 @@ import { RecensioniComponent } from './component/profilo/recensioni/recensioni.c
 
     EsploraComponent,
        //EffettuaAnnuncioComponent,
+    ProfiloComponent,
+    SceltaUtenteComponent,
+    ConfermaEmailComponent,
+    EffettuaAnnuncioComponent,
+    ChatComponent,
+    FormAnnuncioComponent,
+    NavBarComponent,
+    ChatTextComponent,
+    RiepilogoDatiComponent,
+    RinserisciPasswordComponent,
+    RecuperoComponent,
+
+
        ProfiloComponent,
        SceltaUtenteComponent,
        ConfermaEmailComponent,
@@ -78,7 +91,7 @@ import { RecensioniComponent } from './component/profilo/recensioni/recensioni.c
        RecuperoComponent,
        PropostaComponent,
        RecensioniComponent
-    
+
   ],
   imports: [
     BrowserModule,
@@ -99,7 +112,6 @@ import { RecensioniComponent } from './component/profilo/recensioni/recensioni.c
     AsyncPipe,
     MatTooltipModule,
     MatIconModule,
-
     HttpClientModule
   ],
   providers: [],

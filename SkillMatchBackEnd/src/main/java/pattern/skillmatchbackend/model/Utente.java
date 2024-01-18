@@ -19,6 +19,26 @@ public class  Utente {
     protected boolean registrato;
     protected Date dataRegistrazione;
 
+    public Utente() {
+    }
+
+    public Utente(Utente utente) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.via = via;
+        this.numeroCivico = numeroCivico;
+        this.cap = cap;
+        this.provincia = provincia;
+        this.citta = citta;
+        this.provinciaLavoro = provinciaLavoro;
+        this.imgProfilo = new Image(imgProfilo.getPath());
+        this.registrato = registrato;
+        this.dataRegistrazione = dataRegistrazione;
+    }
+
     public String getUsername() {
         return username;
     }

@@ -14,11 +14,8 @@ public interface ChatDao {
 
     public void delete(Chat chat);
 
-    //public Chat findByForeignKeyCliente(long id);
-    //public Chat findByForeignKeyLavoratore(long id);
-    public Chat findByPrimaryKey(Long id);
-
-    public void save(Chat chat);
-
+    public List<Chat> findByForeignKeyCliente(long id);
+    public List<Chat> findByForeignKeyLavoratore(long id);
+    public List<Chat> findByForeignKeyAnnuncio(long id);
 
 }

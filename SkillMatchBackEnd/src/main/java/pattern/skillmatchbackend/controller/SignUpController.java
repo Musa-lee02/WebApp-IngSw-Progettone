@@ -4,7 +4,9 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pattern.skillmatchbackend.model.Lavoratore;
+import pattern.skillmatchbackend.model.TokenManager;
 import pattern.skillmatchbackend.model.ValidationService;
+import pattern.skillmatchbackend.model.email.EmailSender;
 import pattern.skillmatchbackend.persistenza.DBManager;
 import pattern.skillmatchbackend.persistenza.dao.LavoratoreDao;
 import pattern.skillmatchbackend.persistenza.dao.postgres.LavoratoreDaoPostgres;
@@ -43,7 +45,7 @@ public class SignUpController {
         }
 
         session.setAttribute("lavoratore1", lavoratore);
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("checkExistence")
@@ -54,4 +56,15 @@ public class SignUpController {
         return false;
     }
 
+    @PostMapping("completeRegistration")
+    public boolean completeRegistration(@RequestBody Lavoratore lavoratore) {
+        DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
+        EmailSender emailSender = new EmailSender();
+        TokenManager tokenManager = new TokenManager();
+        String token = tokenManager.creaToken(lavoratore.getUsername());
+
+        emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount/" + token);
+        return true;
     }
+
+}

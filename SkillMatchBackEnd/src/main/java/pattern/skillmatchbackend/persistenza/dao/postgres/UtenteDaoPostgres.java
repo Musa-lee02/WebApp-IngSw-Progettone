@@ -1,7 +1,6 @@
 package pattern.skillmatchbackend.persistenza.dao.postgres;
 
 import pattern.skillmatchbackend.model.Image;
-import pattern.skillmatchbackend.model.Lavoratore;
 import pattern.skillmatchbackend.model.Utente;
 import pattern.skillmatchbackend.persistenza.dao.UtenteDao;
 
@@ -14,8 +13,8 @@ public class UtenteDaoPostgres implements UtenteDao {
 
     Connection conn;
 
-    public Connection getConn() {
-        return conn;
+    public UtenteDaoPostgres(Connection conn) {
+        this.conn = conn;
     }
 
     @Override
@@ -120,6 +119,34 @@ public class UtenteDaoPostgres implements UtenteDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isUsernameTaken(String username){
+        String query = "SELECT * FROM utente WHERE  username = ?";
+        try{
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            if(rs.next())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean isEmailTaken(String email){
+        String query = "SELECT * FROM utente WHERE  email = ?";
+        try{
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if(rs.next())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 

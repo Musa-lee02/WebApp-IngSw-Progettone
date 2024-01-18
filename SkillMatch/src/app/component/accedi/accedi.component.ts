@@ -1,4 +1,5 @@
 import {BackEndService} from "../../service/BackEndService";
+import {DatiRegistrazioneService} from "../../service/DatiRegistrazioneService";
 
 declare var google: any;
 declare var window: any;
@@ -43,7 +44,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   province: any
   ambiti:any
 
-  constructor(private service: ServizioAnnunciService, private backEndService: BackEndService ){}
+  constructor(private service: ServizioAnnunciService, private backEndService: BackEndService, private datiRegistrazione: DatiRegistrazioneService) {
+  }
 
 
   ngAfterViewChecked(): void {
@@ -77,7 +79,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.generalitaForm= new FormGroup({
       nome: new FormControl(null, Validators.required),
       cognome: new FormControl(null, Validators.required),
-      dataNascita: new FormControl(null,Validators.required)
+      dataNascita: new FormControl(null, Validators.required)
 
     })
 
@@ -136,8 +138,9 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     if(e.target.files){
       var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
-      reader.onload=(event:any)=>{
-        this.url=event.target.result;
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+        this.datiRegistrazione.setImmagineProfilo(e.target.files[0])
       }
 
     }
@@ -193,44 +196,60 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       console.log(this.riepilogoDati)
     }
 
-    if(this.generalitaForm.valid && this.isLavoratore()){
+    if (this.generalitaForm.valid && this.isLavoratore()) {
+      this.datiRegistrazione.setNome(this.generalitaForm.get("nome")?.value)
+      this.datiRegistrazione.setCognome(this.generalitaForm.get("cognome")?.value)
+      this.datiRegistrazione.setDataDiNascita(this.generalitaForm.get("dataNascita")?.value)
       this.container?.nativeElement.classList.add('ambito')
+      this.datiRegistrazione.setZonaDiCompetenza(this.ambitoForm.get("zona")?.value)
+      this.datiRegistrazione.setAmbiti(this.ambitoForm.get("ambito")?.value)
+
     }
 
     if(this.generalitaForm.valid && !this.isLavoratore()){
       this.container?.nativeElement.classList.add('emailConferma')
     }
 
-    if(this.credenzialiForm.valid){
+    if (this.credenzialiForm.valid) {
       const lavoratore = this.credenzialiForm.value
-      /*this.backEndService.postCheckRegistrationCredential(lavoratore).subscribe(
-        response =>{
+      this.backEndService.postCheckRegistrationCredential(lavoratore).subscribe(
+        (response) => {
           //console.log(response.message)
+          this.datiRegistrazione.setUsername(this.credenzialiForm.get("username")?.value)
+          this.datiRegistrazione.setEmail(this.credenzialiForm.get("email")?.value)
+
           this.container?.nativeElement.classList.add('generalita')
-        }, (error : HttpErrorResponse)=> {
-        console.log(error)
 
-          if (error.error==="Email già in uso")
-          alert("Email già in uso")
 
-          if (error.error==="Username già in uso")
-          alert("Username già in uso")
+        }, (error: HttpErrorResponse) => {
+          console.log(error)
 
-          if (error.error==="Password non valida (deve contenere almeno una lettera maiuscola)")
-          Swal.fire("Password non valida (deve contenere almeno una lettera maiuscola)")
+          if (error.error === "Email già in uso")
+            alert("Email già in uso")
 
-          if (error.error==="Password non valida (deve contenere almeno un numero)")
-          Swal.fire("Password non valida (deve contenere almeno un numero)")
+          else if (error.error === "Username già in uso")
+            alert("Username già in uso")
 
-          if (error.error==="Password non valida (deve contenere almeno 8 caratteri)")
-          Swal.fire("Password non valida (deve contenere almeno 8 caratteri)")
+          else if (error.error === "Password non valida (deve contenere almeno una lettera maiuscola)")
+            Swal.fire("Password non valida (deve contenere almeno una lettera maiuscola)")
 
-          if (error.error==="Password non valida (deve contenere almeno un carattere speciale)")
-          Swal.fire("Password non valida (deve contenere almeno un carattere speciale)")
+          else if (error.error === "Password non valida (deve contenere almeno un numero)")
+            Swal.fire("Password non valida (deve contenere almeno un numero)")
 
-        })*/
+          else if (error.error === "Password non valida (deve contenere almeno 8 caratteri)")
+            Swal.fire("Password non valida (deve contenere almeno 8 caratteri)")
 
-      this.container?.nativeElement.classList.add('generalita')
+          else if (error.error === "Password non valida (deve contenere almeno un carattere speciale)")
+            Swal.fire("Password non valida (deve contenere almeno un carattere speciale)")
+
+          else{
+            Swal.fire("Errore generico")
+          }
+
+
+        })
+
+      //this.container?.nativeElement.classList.add('generalita')
 
     }
 
@@ -239,45 +258,47 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   removeActive() {
 
-        if (this.container) {
+    if (this.container) {
 
-          this.container.nativeElement.classList.remove('active');
-        }
-
+      this.container.nativeElement.classList.remove('active');
     }
+
+  }
 
   addActive() {
     if (this.container) {
 
       this.container.nativeElement.classList.add('active');
 
-  }
-}
-checkPassword(form : FormGroup):boolean {
-
-
-    if(form.get("password")?.value===form.get("confermaPassword")?.value){
-      return true;
     }
-    else return false;
-}
+  }
 
-registrazioneGoogle(googleData : any){
+  checkPassword(form: FormGroup): boolean {
+
+
+    if (form.get("password")?.value === form.get("confermaPassword")?.value) {
+      return true;
+    } else return false;
+  }
+
+  registrazioneGoogle(googleData: any) {
     this.generalitaForm.patchValue({
       nome: googleData.given_name,
       cognome: googleData.family_name
     })
-   this.container?.nativeElement.classList.add('generalita')
-  if(this.generalitaForm.valid && this.isLavoratore()){
-    this.ambitoForm.patchValue({
-      foto: googleData.picture
+    this.container?.nativeElement.classList.add('generalita')
+    if (this.generalitaForm.valid && this.isLavoratore()) {
+      this.ambitoForm.patchValue({
+        foto: googleData.picture
 
-    })
-    console.log(this.ambitoForm.get("foto")?.value)
-    this.container?.nativeElement.classList.add('ambito')
+      })
+      console.log(this.ambitoForm.get("foto")?.value)
+      this.container?.nativeElement.classList.add('ambito')
+    }
+
   }
 
-}
-
-
+  backToGeneralita() {
+    this.container?.nativeElement.classList.add('generalita')
+  }
 }
