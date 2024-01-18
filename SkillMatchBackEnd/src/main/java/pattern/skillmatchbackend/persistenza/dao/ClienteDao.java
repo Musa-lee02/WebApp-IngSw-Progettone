@@ -8,7 +8,7 @@ public interface ClienteDao {
 
     public List<Cliente> findAll();
 
-    public Cliente findByPrimaryKey(long id);
+    public Cliente findByPrimaryKey(String username);
 
     public void saveOrUpdate(Cliente cliente);
 

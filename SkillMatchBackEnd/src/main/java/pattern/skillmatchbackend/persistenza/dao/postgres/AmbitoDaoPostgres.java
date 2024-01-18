@@ -92,14 +92,14 @@ public class AmbitoDaoPostgres implements AmbitoDao {
     }
 
     @Override
-    public List<Ambito> findByLavoratore(long id) {
+    public List<Ambito> findByLavoratore(String username) {
 
         List<Ambito> ambiti = new LinkedList<>();
         String query = "SELECT ambito.id_ambito,ambito.nome FROM ambito,competente,lavoratore WHERE competente.id_lavoratore = ? and lavoratore.id_lavoratore = competente.id_lavoratore and ambito.id_ambito = competente.id_ambito";
 
         try {
             PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1, id);
+            st.setString(1, username);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {

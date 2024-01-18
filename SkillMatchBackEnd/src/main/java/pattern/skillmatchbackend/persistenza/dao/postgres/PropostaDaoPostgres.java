@@ -33,7 +33,7 @@ public class PropostaDaoPostgres implements PropostaDao {
             while (rs.next()) {
                 proposta = new Proposta();
                 proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
-                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
+                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_clavoratore")));
                 proposta.setTitolo(rs.getString("titolo"));
                 proposta.setDescrizione(rs.getString("descrizione"));
                 proposta.setStato(rs.getString("stato"));
@@ -50,19 +50,19 @@ public class PropostaDaoPostgres implements PropostaDao {
     }
 
     @Override
-    public Proposta findByPrimaryKey(long idAnnuncio, long idLavoratore) {
+    public Proposta findByPrimaryKey(long idAnnuncio, String username) {
         Proposta proposta = null;
         String query = "SELECT * FROM proposta WHERE WHERE id_annuncio = ? and id_lavoratore = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, idAnnuncio);
-            st.setLong(2,idLavoratore);
+            st.setString(2,username);
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
                 proposta = new Proposta();
                 proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
-                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
+                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_clavoratore")));
                 proposta.setTitolo(rs.getString("titolo"));
                 proposta.setDescrizione(rs.getString("descrizione"));
                 proposta.setStato(rs.getString("stato"));
@@ -118,7 +118,7 @@ public class PropostaDaoPostgres implements PropostaDao {
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, proposta.getAnnuncioRelativo().getId());
-            st.setLong(2,proposta.getLavoratore().getId());
+            st.setString(2,proposta.getLavoratore().getUsername());
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -126,21 +126,21 @@ public class PropostaDaoPostgres implements PropostaDao {
     }
 
     @Override
-    public List<Proposta> findByForeignKeyLavoratore(long id) {
+    public List<Proposta> findByForeignKeyLavoratore(String username) {
 
         List<Proposta> proposte = new LinkedList<>();
-        String query = "SELECT * FROM proposta WHERE id_lavoratore = ?";
+        String query = "SELECT * FROM proposta WHERE username_lavoratore = ?";
 
         try {
 
             PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1, id);
+            st.setString(1, username);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 Proposta proposta = new Proposta();
                 proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
-                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
+                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_clavoratore")));
                 proposta.setTitolo(rs.getString("titolo"));
                 proposta.setDescrizione(rs.getString("descrizione"));
                 proposta.setStato(rs.getString("stato"));
@@ -156,7 +156,7 @@ public class PropostaDaoPostgres implements PropostaDao {
     }
 
     @Override
-    public Proposta findByForeignKeyAnnuncio(long id) {
+    public Proposta findByForeignKeyAnnuncio(Long id) {
         Proposta proposta = null;
         String query = "SELECT * FROM proposta WHERE WHERE id_annuncio = ?";
         try {
@@ -167,7 +167,7 @@ public class PropostaDaoPostgres implements PropostaDao {
             if (rs.next()) {
                 proposta = new Proposta();
                 proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
-                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
+                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_clavoratore")));
                 proposta.setTitolo(rs.getString("titolo"));
                 proposta.setDescrizione(rs.getString("descrizione"));
                 proposta.setStato(rs.getString("stato"));

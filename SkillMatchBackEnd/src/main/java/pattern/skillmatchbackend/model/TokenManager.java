@@ -14,6 +14,7 @@ public class TokenManager {
         Date now = new Date();
         Date expirationDate = new Date(now.getTime() + 2 * 24 * 60 * 60 * 1000); // Token valido per 2 giorni
 
+
         return Jwts.builder()
                 .setSubject(username)
                 .setExpiration(expirationDate)
