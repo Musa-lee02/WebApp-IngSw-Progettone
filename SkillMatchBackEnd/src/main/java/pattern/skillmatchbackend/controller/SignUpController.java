@@ -15,7 +15,7 @@ import pattern.skillmatchbackend.persistenza.dao.postgres.LavoratoreDaoPostgres;
 @CrossOrigin("http://localhost:4200")
 @RequestMapping("/lavoratore/signup")
 public class SignUpController {
-/*
+
     @PostMapping("/passo1")
     public ResponseEntity<String> registerStep1(@RequestBody Lavoratore lavoratore, HttpSession session) {
 
@@ -46,7 +46,7 @@ public class SignUpController {
 
         session.setAttribute("lavoratore1", lavoratore);
         return ResponseEntity.ok().build();
-    }*/
+    }
 
     @PostMapping("checkExistence")
     public boolean checkExistenceGoogleAccount(@RequestBody Lavoratore lavoratore) {
