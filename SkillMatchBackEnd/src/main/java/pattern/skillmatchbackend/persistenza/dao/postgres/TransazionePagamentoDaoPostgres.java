@@ -81,7 +81,7 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
 
 
         if (findByPrimaryKey(transazione.getId()) != null)
-            query = "UPDATE transazione_pagamento SET data_transazione = ?, " + "importo = ?, " + "idMittente = ?, " + "idDestinatario = ?, " + "metodo_pagamento = ? " + "WHERE id = ?";
+            query = "UPDATE transazione_pagamento SET data_transazione = ?, " + "importo = ?, " + "username_cliente = ?, " + "username_lavoratore = ?, " + "metodo_pagamento = ? " + "WHERE id = ?";
 
 
         try {

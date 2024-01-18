@@ -82,12 +82,12 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     @Override
     public void saveOrUpdate(Annuncio annuncio) {
 
-        String query = "\"INSERT INTO annuncio (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO annuncio (?, ?, ?, ?, ?, ?, ?, ?)";
 
         if (findByPrimaryKey(annuncio.getId()) != null)
             query =  "UPDATE annuncio " +
                     "SET titolo = ?, descrizione = ?, data_di_scadenza = ?, provincia_annuncio = ?, " +
-                    "img_annuncio = ?, id_cliente = ?, id_ambito = ? " +
+                    "img_annuncio = ?, username_cliente = ?, id_ambito = ? " +
                     "WHERE id_annuncio = ?";
 
             try {
@@ -129,7 +129,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     @Override
     public List<Annuncio> findByForeignKeyCliente(String username) {
         List<Annuncio> annunci = new LinkedList<>();
-        String query = "SELECT * FROM annuncio WHERE id_cliente = ?";
+        String query = "SELECT * FROM annuncio WHERE username_cliente = ?";
         try {
 
             PreparedStatement st = conn.prepareStatement(query);
@@ -158,9 +158,9 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     @Override
     public List<Annuncio> annunciPerMe(String provincia, String username) {
         List<Annuncio> annunci = new LinkedList<>();
-        String query = "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione,annuncio.data_di_scadenza,annuncio.provincia_annuncio,annuncio.img_annuncio,annuncio.id_cliente,annuncio.id_ambito " +
+        String query = "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione,annuncio.data_di_scadenza,annuncio.provincia_annuncio,annuncio.img_annuncio,annuncio.username_cliente,annuncio.id_ambito " +
                 "FROM annuncio,ambito,competente " +
-                "WHERE provincia_annuncio = ? and competente.id_lavoratore = ? and annuncio.id_ambito = ambito.id_ambito and competente.id_ambito = ambito.id_ambito ";
+                "WHERE provincia_annuncio = ? and competente.username_lavoratore = ? and annuncio.id_ambito = ambito.id_ambito and competente.id_ambito = ambito.id_ambito ";
         try {
             //TODO DATA DI SCADENZA E STATO
             PreparedStatement st = conn.prepareStatement(query);

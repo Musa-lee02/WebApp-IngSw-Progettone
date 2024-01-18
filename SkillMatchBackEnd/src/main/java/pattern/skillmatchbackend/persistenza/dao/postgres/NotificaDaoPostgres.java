@@ -125,7 +125,7 @@ public class NotificaDaoPostgres implements NotificaDao {
         List<Notifica> notifiche = new LinkedList<>();
         String query = "SELECT * " +
                 "FROM notifica,utente,"+profilo+
-                " WHERE "+profilo+".id_"+profilo+" = ? and notifica.username = utente.username and utente.username = "+profilo+".id_"+profilo;
+                " WHERE "+profilo+".username = ? and notifica.username = utente.username and utente.username = "+profilo+".username";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);

@@ -43,7 +43,7 @@ public class ChatDaoPostgres implements ChatDao {
     @Override
     public Chat findByPrimaryKey(long idAnnuncio,String username_cliente,String username_lavoratore) {
         Chat chat = null;
-        String query = "SELECT * FROM chat id_annuncio = ? and id_cliente = ? and id_lavoratore = ?";
+        String query = "SELECT * FROM chat id_annuncio = ? and username_cliente = ? and username_lavoratore = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, idAnnuncio);
@@ -140,7 +140,7 @@ public class ChatDaoPostgres implements ChatDao {
     private List<Chat> findByForeignKeyClienteOLavoratore(String username,String cosa) {
         List<Chat> chats = new LinkedList<>();
 
-        String query = "SELECT * FROM chat "+cosa+" = ?";
+        String query = "SELECT * FROM chat WHERE "+cosa+" = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);

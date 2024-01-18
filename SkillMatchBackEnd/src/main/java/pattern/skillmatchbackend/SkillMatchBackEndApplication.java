@@ -7,7 +7,7 @@ import pattern.skillmatchbackend.model.Utente;
 import pattern.skillmatchbackend.model.email.EmailSender;
 
 @SpringBootApplication
-//@ServletComponentScan //TODO Andrà scommentato per far funzionare le servelt. Finchè non ci saranno, darà errore
+@ServletComponentScan //TODO Andrà scommentato per far funzionare le servelt. Finchè non ci saranno, darà errore
 public class SkillMatchBackEndApplication {
 
 	public static void main(String[] args) {

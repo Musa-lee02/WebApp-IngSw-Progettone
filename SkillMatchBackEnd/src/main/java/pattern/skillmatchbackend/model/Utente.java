@@ -19,16 +19,16 @@ public class  Utente {
     }
 
     public Utente(Utente utente) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.nome = nome;
-        this.cognome = cognome;
-        this.provincia = provincia;
-        this.citta = citta;
+        this.username = utente.username;
+        this.password = utente.password;
+        this.email = utente.email;
+        this.nome = utente.nome;
+        this.cognome = utente.cognome;
+        this.provincia = utente.provincia;
+        this.citta = utente.citta;
         this.imgProfilo = new Image(imgProfilo.getPath());
-        this.registrato = registrato;
-        this.dataRegistrazione = dataRegistrazione;
+        this.registrato = utente.registrato;
+        this.dataRegistrazione = utente.dataRegistrazione;
     }
 
     public String getUsername() {

@@ -78,7 +78,7 @@ public class RecensioneDaoPostgres implements RecensioneDao {
 
         if (findByPrimaryKey(recensione.getIdRecensione()) != null)
             query = "UPDATE recensione " +
-                    "SET titolo = ?, descrizione = ?, punteggio = ?, id_cliente = ?, id_lavoratore = ? " +
+                    "SET titolo = ?, descrizione = ?, punteggio = ?, username_cliente = ?, username_lavoratore = ? " +
                     "WHERE id_recensione = ?";
 
         try {

@@ -87,7 +87,7 @@ public class MessaggioDaoPostgres implements MessaggioDao {
 
         if (findByPrimaryKey(messaggio.getId()) != null)
             query = "UPDATE Nome_Tua_Tabella SET "
-                    + "contenuto = ?, data = ?, visualizzato = ?, chi = ?, id_annuncio = ?, id_cliente = ?, id_lavoratore = ? "
+                    + "contenuto = ?, data = ?, visualizzato = ?, chi = ?, id_annuncio = ?, username_cliente = ?, username_lavoratore = ? "
                     + "WHERE id_messaggio = ?";
 
 
@@ -126,7 +126,7 @@ public class MessaggioDaoPostgres implements MessaggioDao {
 
     public List<Messaggio> findByForeignKeyChat(long idAnnuncio, String username_cliente, String username_lavoratore) {
         List<Messaggio> messaggi = new LinkedList<>();
-        String query = "SELECT * FROM messaggio WHERE id_annuncio = ? , id_cliente = ? , id_lavoratore = ?";
+        String query = "SELECT * FROM messaggio WHERE id_annuncio = ? , username_cliente = ? , username_lavoratore = ?";
         try {
 
             PreparedStatement st = conn.prepareStatement(query);
