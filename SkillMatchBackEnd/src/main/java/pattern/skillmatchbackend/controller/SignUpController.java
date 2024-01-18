@@ -54,4 +54,4 @@ public class SignUpController {
         return false;
     }
 
-    }
+}
