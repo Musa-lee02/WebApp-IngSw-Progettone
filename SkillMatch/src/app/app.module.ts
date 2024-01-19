@@ -49,7 +49,7 @@ import { RecuperoComponent } from './component/accedi/recupero/recupero.componen
 import { RinserisciPasswordComponent } from './component/accedi/rinserisci-password/rinserisci-password.component';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
 import { FooterComponent } from './component/footer/footer.component';
-import { PropostaComponent } from './component/chat/chat-text/proposta/proposta.component';
+import { PropostaComponent } from './component/chat/chat-text/Proposta/proposta.component';
 import { RecensioniComponent } from './component/profilo/recensioni/recensioni.component';
 
 @NgModule({

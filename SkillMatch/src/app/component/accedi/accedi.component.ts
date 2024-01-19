@@ -187,6 +187,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     return this.service.getSkipAutentication()
   }
+
+
   onSubmit(){
 
     if(this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid){

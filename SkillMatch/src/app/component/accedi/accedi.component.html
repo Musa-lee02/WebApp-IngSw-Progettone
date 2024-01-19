@@ -7,7 +7,7 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit() ">
             <h1>Accedi</h1>
 
-            <div id="g_id_onload"
+            <!--<div id="g_id_onload"
                    data-client_id="549457029113-7dcap37mikasnu6qociaelhp4bk8o691.apps.googleusercontent.com"
                    data-context="use"
                    data-ux_mode="popup"
@@ -22,7 +22,7 @@
                    data-theme="filled_black"
                    data-text="signin"
                    data-size="large">
-              </div>
+              </div>-->
 
             <span>Oppure usa la tua Email e password</span>
             <input type="email" placeholder="Email" formControlName="email">
@@ -80,10 +80,22 @@
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
+            <div>
+            <h4>zona di competenza</h4>
+                <mat-form-field >
+                <mat-label>Zona</mat-label>
+                    <mat-select formControlName="zona">
+                    <mat-option>None</mat-option>
+                    <!--@for (pv of province; track pv) {
+                        <mat-option [value]="pv">{{pv}}</mat-option>
+                      }-->
+                    </mat-select>
+                </mat-form-field>
+            </div>
 
             <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="!isLavoratore() && !doingAccesso()">
                 <a  routerLink="/Annuncio">Registrati</a></button>
-            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="!isLavoratore() && doingAccesso()">
+            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="!isLavoratore() && doingAccesso()" )>
                     <a  routerLink="/Profilo">Registrati</a></button>
             <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="isLavoratore()">Registrati</button>
 
@@ -106,7 +118,7 @@
             <div>
                 <h4>Foto Profilo(opzionale)</h4>
                 <img [src]="url" height="50px" width="50px" style="margin-right: 10px;">
-                <input type="file" (change)="onSelectFile($event)" style="width: 250px">
+                <input type="file" (change)="onSelectFile($event)" style="width: 250px" >
             </div>
 
             <div style="margin-right: 90px;">
@@ -115,9 +127,9 @@
                 <mat-label>Zona</mat-label>
                     <mat-select formControlName="zona">
                     <mat-option>None</mat-option>
-                    @for (pv of province; track pv) {
+                    <!--@for (pv of province; track pv) {
                         <mat-option [value]="pv">{{pv}}</mat-option>
-                      }
+                      }-->
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -129,9 +141,9 @@
                 <mat-form-field>
                     <mat-label>Ambiti</mat-label>
                     <mat-select formControlName="ambito" multiple>
-                      @for (ab of ambiti; track ab) {
+                      <!--@for (ab of ambiti; track ab) {
                         <mat-option [value]="ab">{{ab}}</mat-option>
-                      }
+                      }-->
                     </mat-select>
                   </mat-form-field>
 

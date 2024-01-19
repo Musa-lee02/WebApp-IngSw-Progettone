@@ -8,7 +8,7 @@ public class Messaggio {
     private String contenuto;
     private Timestamp data;
     private boolean letto;
-    private boolean chi;
+    private boolean isLavoratore;
     private Chat chat;
 
     public Long getId() {
@@ -43,12 +43,12 @@ public class Messaggio {
         this.letto = letto;
     }
 
-    public boolean isChi() {
-        return chi;
+    public boolean isLavoratore() {
+        return isLavoratore;
     }
 
-    public void setChi(boolean chi) {
-        this.chi = chi;
+    public void isLavoratore(boolean isLavoratore) {
+        this.isLavoratore = isLavoratore;
     }
 
     public Chat getChat() {

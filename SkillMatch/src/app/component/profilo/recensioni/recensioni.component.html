@@ -19,7 +19,20 @@
                 <div class="divNome"><h1>{{getPropostaAccettataNome()}}</h1></div>
                 <div class="divRelativo"><h2>Relativo all'annuncio:{{annuncio.titolo}}</h2></div>
                 <div class="divRecensione"><textarea></textarea></div>
-                <div class="divButton"><h2>Lascia una recensione</h2><button mat-button>Invia</button></div>
+                <div class="divButton">
+                    <div class="divStelle">
+                    <ng-container *ngFor="let voto of [5,4,3,2,1]">
+
+                        <input class="votoBtn" id="votoBtn{{voto}}" type="checkbox">
+                        <label for="votoBtn{{voto}}" class="starLabel" (click)="setStarsClicked(voto)">
+                        <img [src]="starImg" class="starImg">
+                        </label>
+                        
+                    
+                    </ng-container>
+                </div>
+
+                    <h2>Lascia una recensione</h2><button mat-button [disabled]="!isStarsClicked()">Invia</button></div>
             </div>
         </div>
     </ng-container>

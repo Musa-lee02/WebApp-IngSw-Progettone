@@ -60,16 +60,10 @@
   display: inline-block;
 }
   
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 800px) {
+   
     .main{
-        margin-top: 30px;
         display: flex;
-        flex-direction: column;
-        gap: 6px;
-        height: 200%;
-    }
-    .searchClass {
-        margin-top: 5%;
         justify-content: center;
       flex-direction: column;
       gap: 16px;
@@ -94,7 +88,7 @@
   }
 
 @media only screen and (max-width: 692px) {
-    .main{
+    /*.main{
         display: flex;
         flex-direction: column;
         gap: 4px;

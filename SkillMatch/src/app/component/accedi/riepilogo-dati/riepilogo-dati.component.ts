@@ -1,6 +1,5 @@
 import {Component, signal} from '@angular/core'
 
-import { LavoratoreSignUp} from "../../../SignUpLavoratore";
 
 import { DatiRegistrazioneService } from "../../../service/DatiRegistrazioneService";
 import Swal  from "sweetalert2";

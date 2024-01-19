@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { ActivatedRoute } from '@angular/router';
 import { CardsVetrinaComponent } from '../cards-vetrina/cards-vetrina.component';
@@ -9,7 +9,7 @@ import { CardsVetrinaComponent } from '../cards-vetrina/cards-vetrina.component'
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css'
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnDestroy {
 
   ambiti : any;
   province : any;
@@ -17,6 +17,9 @@ export class SearchBarComponent implements OnInit {
   selectedZona: string = ''; 
 
   constructor(private router: ActivatedRoute, private servizioAnnunci: ServizioAnnunciService){}
+  ngOnDestroy(): void {
+    console.log("suca")
+  }
 
   ngOnInit(): void {
     this.ambiti=this.servizioAnnunci.getAmbiti();
@@ -35,6 +38,7 @@ export class SearchBarComponent implements OnInit {
     } 
   }
 
+
   searchValid(){
     // Verifica se l'ambito e la zona sono validi
     if (this.servizioAnnunci.isAmbitoValid() && 
@@ -45,7 +49,7 @@ export class SearchBarComponent implements OnInit {
   }
   searchClicked(){
     if (this.searchValid()) {
-      this.servizioAnnunci.setAnnunci()
+      this.servizioAnnunci.buttonSearchClicked()
     }
   }
 
