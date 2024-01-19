@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
 import {Lavoratore, LavoratoreSignUp, LavoratoreSignUpGoogle} from "../model/Lavoratore";
 import { Cliente } from '../model/Cliente';
-import {Lavoratore, LavoratoreSignUp, LavoratoreSignUpGoogle} from "../SignUpLavoratore";
 import {DatiRegistrazioneService} from "./DatiRegistrazioneService";
 declare var window: any;
 
@@ -16,7 +15,7 @@ export class BackEndService{
 
   public postCheckRegistrationCredential(lavoratore : LavoratoreSignUp): Observable<string> {
     console.log(lavoratore);
-    return this.http.post<string>(this.url+"/lavoratore/signup/passo1", lavoratore,  );
+    return this.http.post<string>(this.url+"/lavoratore/signup/passo1", lavoratore );
   }
 
   public postSignupRegistrationWithGoogle(lavoratore : LavoratoreSignUpGoogle): Observable<boolean> {
@@ -28,9 +27,10 @@ export class BackEndService{
     return this.http.get<Lavoratore>(this.url+"/lavoratore/signin/infoprofilo"+username);
   }
 
-  public postSignUpCliente(cliente: Cliente){
+  public postSignUpCliente(){
 
-    return this.http.post<Cliente>(this.url+"/data/cliente/signUp", cliente);
+    console.log(this.url)
+    return this.http.post<string>(this.url+"/data/cliente/signUp","diobau");
   }
 
   public completeSignUp(datiRegistrazione : DatiRegistrazioneService): Observable<boolean> {

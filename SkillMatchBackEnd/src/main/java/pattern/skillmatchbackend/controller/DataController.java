@@ -1,8 +1,12 @@
 package pattern.skillmatchbackend.controller;
 
+import jakarta.servlet.http.HttpSession;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import pattern.skillmatchbackend.model.Cliente;
+import pattern.skillmatchbackend.model.Lavoratore;
+import pattern.skillmatchbackend.persistenza.DBManager;
 
 
 @RestController
@@ -11,13 +15,15 @@ import pattern.skillmatchbackend.model.Cliente;
 public class DataController {
 
 
-
-
-    @PostMapping("/cliente/signup")
+    /*@PostMapping("/cliente/signUp")
     public void insetCliente(@RequestBody Cliente cliente){
         System.out.println("ciao");
+    }*/
+    @PostMapping("/cliente/signUp")
+    public ResponseEntity<String> registerStep1(@RequestBody String cliente , HttpSession session) {
+
+        System.out.println("ciao");
+
+        return null;
     }
-
-
-
 }

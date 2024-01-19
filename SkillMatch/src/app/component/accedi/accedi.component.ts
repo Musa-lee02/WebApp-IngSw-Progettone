@@ -105,7 +105,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     })
 
     this.ambitoForm=new FormGroup({
-  
+
       zona: new FormControl(null,Validators.required),
       ambito: new FormControl(null,Validators.required),
     })
@@ -187,6 +187,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     return this.service.getSkipAutentication()
   }
+
+
   onSubmit(){
 
     if(this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid){

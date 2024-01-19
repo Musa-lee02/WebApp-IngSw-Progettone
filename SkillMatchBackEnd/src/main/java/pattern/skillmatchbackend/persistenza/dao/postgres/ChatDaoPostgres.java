@@ -77,7 +77,7 @@ public class ChatDaoPostgres implements ChatDao {
 
             st.setString(1, chat.getCliente().getUsername());
             st.setString(2, chat.getCliente().getUsername());
-            st.setLong(5, chat.getAnnuncio().getId());
+            st.setLong(3, chat.getAnnuncio().getId());
 
 
 
@@ -163,4 +163,4 @@ public class ChatDaoPostgres implements ChatDao {
 
 
 }
-}
+

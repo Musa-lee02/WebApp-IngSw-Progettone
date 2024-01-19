@@ -1,5 +1,5 @@
 
-*{font-family: 'Montserrat', sans-serif I !important};
+*{font-family: 'Montserrat', sans-serif I !important}
 
 
 .full-container{
@@ -15,7 +15,7 @@
 .navBar{
 
     /*border-bottom: 2px solid black;
-*/  
+*/
     background-image: linear-gradient(white, white ,white,white,white,white, rgb(79, 60, 143));
     display: block;
     position: fixed;
@@ -31,7 +31,7 @@
 .searchClass{
     gap: 6px;
     width: 560px;
-    background-color: white; 
+    background-color: white;
     height: 50px;
     display: inline-flex;
     flex-direction: column;
@@ -44,7 +44,7 @@
     border-radius: 45px;
     box-shadow: 0px 0px 1px 2px rgb(107, 62, 211);
     min-width: 250px;
-    
+
 }
 
 .navBar .menu-btn{
@@ -57,7 +57,7 @@
 
     width: 100%;
   }
-  
+
 .contentSfondo{
 
     padding-top: 180px;
@@ -77,19 +77,19 @@
     width: fit-content;
     height: 100%;
     float: right;
-  
+
 }
 
-  
+
 .navBar ul ul{
-    
+
     border-radius: 20px;
     border: 1px solid #000000;
     background-color: white;
     height: auto;
     display:none;
     position: absolute;
-    top: 100%; 
+    top: 100%;
     left: -50%;
     border-style: solid;
     border-color: black;
@@ -104,7 +104,7 @@
 }
 .navBar ul li {
 
-    
+
     display: inline-block;
     position: relative;
 }
@@ -118,11 +118,11 @@
     float: right;
     padding: 0 10px 10px 10px;
     height: 100%;
-    
+
 }
 
 .navBar .imgNavBar{
-    
+
     display: inline-block;
     padding: 10px 0;
     width: 50px;
@@ -136,7 +136,7 @@
 }
 ul li:hover ul{
     display: block;
-    
+
 }
 
 .navBar>ul >li{
@@ -146,20 +146,20 @@ ul li:hover ul{
 }
 .navBar ul li:hover{
 
-    
+
     background-image: linear-gradient( white 30%, #4f3c8f);
-    
+
 }
 .navBar ul li ul li:hover{
 
 }
 
 ul li li{
-   
+
     border-radius: 20px;
     width: 100%;
     text-align: center;
-    
+
 
 }
 
@@ -170,8 +170,8 @@ ul li li{
 }
 
 li a {
-    
-    
+
+
     text-decoration: none;
     display: block;
     color: black;
@@ -209,7 +209,7 @@ li li a{
 
 
 @media only screen and (max-width: 1300px){
-    
+
     .navBar>ul{
 
 
@@ -228,7 +228,7 @@ li li a{
         right: 30px;
     }
     .navBar ul  ul{
-    
+
         width: 100%;
         top: 80px;
         left: -100%;
@@ -236,17 +236,17 @@ li li a{
         z-index: 10;
     }
 
-    
+
     .navBar ul li:hover ul{
-        
-        
-    
+
+
+
     }
-    
+
     .navBar ul li:hover{
         background-image: none;
         background-color: rgba(79, 60, 143,0.2) ;
-    
+
     }
 
     .navBar ul li a{
@@ -255,10 +255,10 @@ li li a{
         color: black;
         font-size: 13px;
         float: right;
-        
+
     }
     .navBar ul li{
-        
+
         margin-left: 0 !important;
         box-sizing: border-box;
         border-radius: 20px;
@@ -268,28 +268,28 @@ li li a{
         height: 80px;
         position: relative;
     }
-   
+
     .navBar .menu-btn:checked ~ ul{
-        
+
         display: block;
-        
+
     }
-    
+
     .navBar .imgNavBar{
         float: right;
         margin-right: 20px;
     }
     .navBar .menu-icon{
-    
-        
+
+
         padding: 28px 28px;
         position: relative;
         float: right;
-       
+
         cursor: pointer;
     }
     .navBar .menu-icon .nav-icon{
-    
+
         background-color: black;
         display: block;
         width: 28px;
@@ -297,10 +297,10 @@ li li a{
         position: relative;
         transition: background-color .2s ease-out;
     }
-    
+
     .navBar .menu-icon .nav-icon::after,
     .navBar .menu-icon .nav-icon::before{
-    
+
         background-color: black;
         content: "";
         display: block;
@@ -315,7 +315,7 @@ li li a{
     .navBar .menu-icon .nav-icon::after{
         top:-10px;
     }
-    
+
     .navBar .menu-btn:checked ~ .menu-icon .nav-icon{
 
         background-color: transparent;
@@ -337,27 +337,27 @@ li li a{
             width: 180px;
         }
         .navBar> ul{
-           
+
         }
         .buttonResponsive{
-            
+
             display: inline-flex;
             gap: 10px;
             align-items: center;
             position: relative;
             pointer-events: none;
             left: 50px;
-            
+
         }
         .searchClass{
-            
+
             max-height: 0;
             position: absolute;
             top: 80px;
             left: 0;
             height: fit-content;
             transition: max-height 1s ease-in;
-            
+
         }
 
         .navBar .search-btn:checked ~ .searchClass{
@@ -370,7 +370,7 @@ li li a{
 }
 
 @media only screen and (max-width: 800px){
-     
+
     .searchClass{
         width: 50%;
         margin-left: calc(1vw + 50px);
