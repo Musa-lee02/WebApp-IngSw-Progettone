@@ -24,13 +24,13 @@ const routes: Routes = [
  {path: 'Esplora/:ambito/:zona', component: EsploraComponent},
  {path: 'Accedi', component: AccediComponent},
  {path: 'Profilo', component: ProfiloComponent},
- {path: 'Conferma', component: ConfermaEmailComponent},
+ {path: 'ConfermaAccount', component: ConfermaEmailComponent},
  {path: 'Annuncio', component: EffettuaAnnuncioComponent},
  {path: 'Recupero', component: RecuperoComponent},
  {path: 'Recupero/Reinserisci', component: RinserisciPasswordComponent},
  {path: 'search-bar', component: SearchBarComponent},
  {path: 'Footer', component: FooterComponent}
- 
+
 ];
 
 @NgModule({

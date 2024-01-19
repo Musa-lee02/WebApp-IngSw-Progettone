@@ -30,5 +30,9 @@ export class BackEndService{
     return this.http.post<boolean>(this.url+"/lavoratore/signup/completeRegistration", datiRegistrazione);
   }
 
-}
+  public verifyToken(token: string){
+    this.http.get(this.url+"ConfermaAccount",{params: {token: token}}).subscribe(data => {
+  })
 
+}
+}
