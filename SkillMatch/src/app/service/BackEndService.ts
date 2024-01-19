@@ -2,6 +2,7 @@ import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
 import {Lavoratore, LavoratoreSignUp, LavoratoreSignUpGoogle} from "../model/Lavoratore";
+import { Cliente } from '../model/Cliente';
 declare var window: any;
 
 @Injectable({
@@ -23,6 +24,11 @@ export class BackEndService{
 
   public retriveWorkerProfile(username: string): Observable<Lavoratore> {
     return this.http.get<Lavoratore>(this.url+"/lavoratore/signin/infoprofilo"+username);
+  }
+
+  public postSignUpCliente(cliente: Cliente){
+
+    return this.http.post<Cliente>(this.url+"/data/cliente/signUp", cliente);
   }
 
 }
