@@ -3,8 +3,6 @@ package pattern.skillmatchbackend.persistenza.dao;
 
 import pattern.skillmatchbackend.model.Annuncio;
 
-import pattern.skillmatchbackend.model.Ambito;
-
 
 import java.util.List;
 
@@ -17,7 +15,7 @@ public interface AnnuncioDao {
 
     public void delete(Annuncio annuncio);
 
-    public List<Annuncio> findByForeignKeyCliente(long id);
-    public List<Annuncio> annunciPerMe(String provincia, long id_ambito);
+    public List<Annuncio> findByForeignKeyCliente(String username);
+    public List<Annuncio> annunciPerMe(String provincia, String username);
 
 }

@@ -10,7 +10,7 @@ import pattern.skillmatchbackend.model.TokenManager;
 
 import java.io.IOException;
 
-
+/*
 @WebServlet("/RecuperoPassword")
 public class RecuperoPasswordServlet extends HttpServlet {
     @Override
@@ -40,11 +40,11 @@ public class RecuperoPasswordServlet extends HttpServlet {
                 else {
                     utente.setRegistrato(true);
                     DBManager.getInstance().getLavoratoreDao().saveOrUpdate(utente);
-                }*/
+                }
                 break;
 
         }
 
     }
 
-}
+}*/

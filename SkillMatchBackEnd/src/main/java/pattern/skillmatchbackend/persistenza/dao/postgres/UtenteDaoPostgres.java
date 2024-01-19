@@ -33,12 +33,7 @@ public class UtenteDaoPostgres implements UtenteDao {
                 utente.setEmail(rs.getString("email"));
                 utente.setNome(rs.getString("nome"));
                 utente.setCognome(rs.getString("cognome"));
-                utente.setVia(rs.getString("via"));
-                utente.setNumeroCivico(rs.getInt("numero_civico"));
-                utente.setCap(rs.getString("cap"));
                 utente.setProvincia(rs.getString("provincia"));
-                utente.setCitta(rs.getString("citta"));
-                utente.setProvinciaLavoro(rs.getString("provincia_lavoro"));
                 utente.setImgProfilo(new Image(rs.getString("img_profilo")));
                 utente.setRegistrato(rs.getBoolean("registrato"));
                 utente.setDataRegistrazione(rs.getDate("data_Registrazione"));
@@ -62,17 +57,13 @@ public class UtenteDaoPostgres implements UtenteDao {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
+                utente = new Utente();
                 utente.setUsername(rs.getString("username"));
                 utente.setPassword(rs.getString("password"));
                 utente.setEmail(rs.getString("email"));
                 utente.setNome(rs.getString("nome"));
                 utente.setCognome(rs.getString("cognome"));
-                utente.setVia(rs.getString("via"));
-                utente.setNumeroCivico(rs.getInt("numero_civico"));
-                utente.setCap(rs.getString("cap"));
                 utente.setProvincia(rs.getString("provincia"));
-                utente.setCitta(rs.getString("citta"));
-                utente.setProvinciaLavoro(rs.getString("provincia_lavoro"));
                 utente.setImgProfilo(new Image(rs.getString("img_profilo")));
                 utente.setRegistrato(rs.getBoolean("registrato"));
                 utente.setDataRegistrazione(rs.getDate("data_Registrazione"));
@@ -88,16 +79,17 @@ public class UtenteDaoPostgres implements UtenteDao {
     @Override
     public void saveOrUpdate(Utente utente) {
 
-        String query = "INSERT INTO Utenti "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO utente "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        if (findByPrimaryKey(utente.getUsername()) != null)
-            query  = "UPDATE Utenti SET "
-                    + "password = ?, email = ?, nome = ?, cognome = ?, via = ?, numero_civico = ?, cap = ?, provincia = ?, "
+        /*if (findByPrimaryKey(utente.getUsername()) != null)
+            query  = "UPDATE utente SET "
+                    + "password = ?, email = ?, nome = ?, cognome = ?, provincia = ?, "
                     + "citta = ?, provincia_lavoro = ?, img_profilo = ?, registrato = ?, data_registrazione = ? "
-                    + "WHERE username = ?";
+                    + "WHERE username = ?";*/
 
         try {
+            System.out.println("utrente registrato: " + utente.isRegistrato());
 
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, utente.getUsername());
@@ -105,15 +97,10 @@ public class UtenteDaoPostgres implements UtenteDao {
             st.setString(3, utente.getEmail());
             st.setString(4, utente.getNome());
             st.setString(5, utente.getCognome());
-            st.setString(6, utente.getVia());
-            st.setInt(7, utente.getNumeroCivico());
-            st.setString(8, utente.getCap());
-            st.setString(9, utente.getProvincia());
-            st.setString(10, utente.getCitta());
-            st.setString(11, utente.getProvinciaLavoro());
-            st.setString(12, utente.getImgProfilo().getPath());
-            st.setBoolean(13, utente.isRegistrato());
-            st.setDate(14, utente.getDataRegistrazione());
+            st.setString(6, utente.getProvincia());
+            st.setString(7, utente.getImgProfilo().getPath());
+            st.setBoolean(8, utente.isRegistrato());
+            st.setDate(9, utente.getDataRegistrazione());
             st.executeUpdate();
 
         } catch (SQLException e) {

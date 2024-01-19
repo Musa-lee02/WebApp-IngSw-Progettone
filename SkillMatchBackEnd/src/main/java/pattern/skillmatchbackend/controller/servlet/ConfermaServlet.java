@@ -11,13 +11,14 @@ import pattern.skillmatchbackend.model.TokenManager;
 import java.io.IOException;
 
 
-@WebServlet("/Conferma")
+@WebServlet("/ConfermaAccount")
 public class ConfermaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String token = req.getParameter("token");
         String tokenGenerato = TokenManager.verificaToken(token);
+        System.out.println(tokenGenerato);
 
         switch(tokenGenerato){
 

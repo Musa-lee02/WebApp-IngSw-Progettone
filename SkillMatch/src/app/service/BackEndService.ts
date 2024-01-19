@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
 import {Lavoratore, LavoratoreSignUp, LavoratoreSignUpGoogle} from "../model/Lavoratore";
 import { Cliente } from '../model/Cliente';
+import {Lavoratore, LavoratoreSignUp, LavoratoreSignUpGoogle} from "../SignUpLavoratore";
+import {DatiRegistrazioneService} from "./DatiRegistrazioneService";
 declare var window: any;
 
 @Injectable({
@@ -29,6 +31,10 @@ export class BackEndService{
   public postSignUpCliente(cliente: Cliente){
 
     return this.http.post<Cliente>(this.url+"/data/cliente/signUp", cliente);
+  }
+
+  public completeSignUp(datiRegistrazione : DatiRegistrazioneService): Observable<boolean> {
+    return this.http.post<boolean>(this.url+"/lavoratore/signup/completeRegistration", datiRegistrazione);
   }
 
 }

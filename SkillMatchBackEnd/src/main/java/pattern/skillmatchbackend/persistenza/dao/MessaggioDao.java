@@ -11,6 +11,6 @@ public interface MessaggioDao {
 
     public void delete(Messaggio messaggio);
 
-    public List<Messaggio> findByForeignKeyChat(long idAnnuncio, long idCliente,long idLavoratore);
+    public List<Messaggio> findByForeignKeyChat(long idAnnuncio, String username_cliente, String username_lavoratore);
 
 }

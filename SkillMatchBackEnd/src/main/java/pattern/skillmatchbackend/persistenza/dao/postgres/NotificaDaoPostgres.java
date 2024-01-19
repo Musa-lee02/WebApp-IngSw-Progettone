@@ -111,24 +111,24 @@ public class NotificaDaoPostgres implements NotificaDao {
     }
 
     @Override
-    public List<Notifica> findByForeignKeyCliente(long id) {
-        return findByForeignKeyClienteoLavoratore(id,"cliente");
+    public List<Notifica> findByForeignKeyCliente(String username) {
+        return findByForeignKeyClienteoLavoratore(username,"cliente");
     }
 
     @Override
-    public List<Notifica> findByForeignKeyLavoratore(long id) {
-        return findByForeignKeyClienteoLavoratore(id,"lavoratore");
+    public List<Notifica> findByForeignKeyLavoratore(String username) {
+        return findByForeignKeyClienteoLavoratore(username,"lavoratore");
     }
 
-    public List<Notifica> findByForeignKeyClienteoLavoratore(long id,String profilo) {
+    public List<Notifica> findByForeignKeyClienteoLavoratore(String username,String profilo) {
 
         List<Notifica> notifiche = new LinkedList<>();
         String query = "SELECT * " +
                 "FROM notifica,utente,"+profilo+
-                " WHERE "+profilo+".id_"+profilo+" = ? and notifica.username = utente.username and utente.username = "+profilo+".id_"+profilo;
+                " WHERE "+profilo+".username = ? and notifica.username = utente.username and utente.username = "+profilo+".username";
         try {
             PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1, id);
+            st.setString(1, username);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {

@@ -8,7 +8,10 @@ import java.util.List;
 
 public class Lavoratore extends Utente implements Observer {
 
-    private long id;
+
+    protected String provinciaLavoro;
+    private boolean notifica_email;
+    private int punteggio;
     private List<Recensione> recensioni = new LinkedList<>();
     private List<TransazionePagamento> transazionePagamento = new LinkedList<>();
     private List<Notifica> notifiche = new LinkedList<>();
@@ -24,12 +27,28 @@ public class Lavoratore extends Utente implements Observer {
     public Lavoratore(){}
 
 
-    public long getId() {
-        return id;
+    public String getProvinciaLavoro() {
+        return provinciaLavoro;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setProvinciaLavoro(String provinciaLavoro) {
+        this.provinciaLavoro = provinciaLavoro;
+    }
+
+    public boolean isNotifica_email() {
+        return notifica_email;
+    }
+
+    public void setNotifica_email(boolean notifica_email) {
+        this.notifica_email = notifica_email;
+    }
+
+    public int getPunteggio() {
+        return punteggio;
+    }
+
+    public void setPunteggio(int punteggio) {
+        this.punteggio = punteggio;
     }
 
     public List<Recensione> getRecensioni() {
@@ -92,7 +111,6 @@ public class Lavoratore extends Utente implements Observer {
     public void update(Annuncio annuncio) {
         if(annuncio.getProvinciaAnnuncio().equals(provincia) && ambiti.contains(annuncio.getAmbito())){
             new EmailSender().annuncioRelativo(this,annuncio);
-            //notifica
         }
     }
 }

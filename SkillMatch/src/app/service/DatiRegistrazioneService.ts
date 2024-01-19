@@ -13,10 +13,12 @@ export class DatiRegistrazioneService{
   cognome : string;
   dataDiNascita : Date;
 
+  provinciaDiResidenza: string
   immagineProfilo : File;
   zonaDiCompetenza : string;
   ambitiDiCompetenza : string;
-  password: string;
+  password: string
+  dataRegistrazione: Date;
 
 
 
@@ -90,4 +92,24 @@ export class DatiRegistrazioneService{
   getPassword() {
     return this.password;
   }
+
+  setProvincia(provinciaDiResidenza : string) : void{
+    this.provinciaDiResidenza = provinciaDiResidenza;
+  }
+
+  getProvincia() : string{
+    return this.provinciaDiResidenza;
+  }
+
+  setDataRegistrazione(dataRegistrazione : Date) : void{
+    this.dataRegistrazione = dataRegistrazione;
+  }
+
+  getDataRegistrazione() : Date{
+    return this.dataRegistrazione;
+  }
+
+
+
+
 }
