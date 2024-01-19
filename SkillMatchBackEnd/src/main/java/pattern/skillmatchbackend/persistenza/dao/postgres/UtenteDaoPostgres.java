@@ -78,18 +78,22 @@ public class UtenteDaoPostgres implements UtenteDao {
 
     @Override
     public void saveOrUpdate(Utente utente) {
+        String query;
 
-        String query = "INSERT INTO utente "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        /*if (findByPrimaryKey(utente.getUsername()) != null)
+        if (findByPrimaryKey(utente.getUsername()) != null) {
             query  = "UPDATE utente SET "
                     + "password = ?, email = ?, nome = ?, cognome = ?, provincia = ?, "
-                    + "citta = ?, provincia_lavoro = ?, img_profilo = ?, registrato = ?, data_registrazione = ? "
-                    + "WHERE username = ?";*/
+                    + "img_profilo = ?, registrato = ?, data_registrazione = ? "
+                    + "WHERE username = ?";
+        }
+        else {
 
+           query = "INSERT INTO utente "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        }
         try {
-            System.out.println("utrente registrato: " + utente.isRegistrato());
+            System.out.println("utente registrato: " + utente.isRegistrato());
 
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, utente.getUsername());

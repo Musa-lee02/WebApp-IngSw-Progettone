@@ -63,7 +63,7 @@ public class SignUpController {
         TokenManager tokenManager = new TokenManager();
         String token = tokenManager.creaToken(lavoratore.getUsername());
 
-        emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
+        emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token +"&username=" + lavoratore.getUsername());
         return true;
     }
 

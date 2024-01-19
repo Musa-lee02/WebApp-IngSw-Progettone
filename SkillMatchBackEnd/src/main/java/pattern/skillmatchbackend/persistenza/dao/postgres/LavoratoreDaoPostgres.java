@@ -95,6 +95,10 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
             st.setInt(4,lavoratore.getPunteggio());
             st.executeUpdate();
 
+            System.out.println(lavoratore.getAmbiti().size());
+
+
+
 
             for(Ambito ambito: lavoratore.getAmbiti()) {
                 query = "INSERT INTO competente VALUES (?,?)";

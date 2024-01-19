@@ -14,8 +14,9 @@ export class ConfermaEmailComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       const token = params['token'];
+      const username = params['username'];
       if(token){
-        this.service.verifyToken(token);
+        this.service.verifyToken(token, username);
       }
     })
   }

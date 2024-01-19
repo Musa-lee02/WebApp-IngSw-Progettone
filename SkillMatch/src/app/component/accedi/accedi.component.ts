@@ -105,7 +105,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     })
 
     this.ambitoForm=new FormGroup({
-      foto: new FormControl(null,Validators.required),
+      foto: new FormControl(),
       zona: new FormControl(null,Validators.required),
       ambito: new FormControl(null,Validators.required),
     })
@@ -299,6 +299,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   backToGeneralita() {
+    this.removeActive()
     this.container?.nativeElement.classList.add('generalita')
   }
 }

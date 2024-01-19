@@ -47,7 +47,7 @@ export class RiepilogoDatiComponent {
     this.datiRegistrazione.setDataRegistrazione(data);
     this.backEndService.completeSignUp(this.datiRegistrazione).subscribe(data => {
       if (data) {
-        this.router.navigate(['/accedi/account']);
+        this.router.navigate(['/Profilo']);
       } else {
         Swal.fire("Errore nella registrazione")
       }
