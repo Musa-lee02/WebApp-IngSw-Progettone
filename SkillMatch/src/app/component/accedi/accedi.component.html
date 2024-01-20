@@ -35,8 +35,8 @@
     <div class="form-container sign-up">
         <form [formGroup]="credenzialiForm " (ngSubmit)="onSubmit() ">
 
-            <h1 *ngIf="isLavoratore()">Crea Account Lavoratore</h1>
-            <h1 *ngIf="!isLavoratore()">Crea Account Cliente</h1>
+            <h1 *ngIf="scelta==='lavoratore'">Crea Account Lavoratore</h1>
+            <h1 *ngIf="scelta!=='lavoratore'">Crea Account Cliente</h1>
             <div class="social-icons">
 
               <div id="g_id_onload"
@@ -86,18 +86,18 @@
                 <mat-label>Zona</mat-label>
                     <mat-select formControlName="zona">
                     <mat-option>None</mat-option>
-                    <!--@for (pv of province; track pv) {
+                    @for (pv of province; track pv) {
                         <mat-option [value]="pv">{{pv}}</mat-option>
-                      }-->
+                      }
                     </mat-select>
                 </mat-form-field>
             </div>
 
-            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="!isLavoratore() && !doingAccesso()">
+            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="scelta!=='lavoratore' && !doingAccesso()">
                 <a  routerLink="/Annuncio">Registrati</a></button>
-            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="!isLavoratore() && doingAccesso()" )>
+            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="scelta!=='lavoratore' && doingAccesso()" )>
                     <a  routerLink="/Profilo">Registrati</a></button>
-            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="isLavoratore()">Registrati</button>
+            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="scelta==='lavoratore'">Registrati</button>
 
 
         </form>
@@ -105,7 +105,7 @@
     </div>
 
 
-    <div class="form-container ambitoClass" *ngIf="isLavoratore()">
+    <div class="form-container ambitoClass" *ngIf="scelta==='lavoratore'">
 
         <form [formGroup]="ambitoForm" (ngSubmit)="onSubmit()">
 
@@ -127,9 +127,9 @@
                 <mat-label>Zona</mat-label>
                     <mat-select formControlName="zona">
                     <mat-option>None</mat-option>
-                    <!--@for (pv of province; track pv) {
+                    @for (pv of province; track pv) {
                         <mat-option [value]="pv">{{pv}}</mat-option>
-                      }-->
+                    }
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -141,9 +141,9 @@
                 <mat-form-field>
                     <mat-label>Ambiti</mat-label>
                     <mat-select formControlName="ambito" multiple>
-                      <!--@for (ab of ambiti; track ab) {
+                      @for (ab of ambiti; track ab) {
                         <mat-option [value]="ab">{{ab}}</mat-option>
-                      }-->
+                      }
                     </mat-select>
                   </mat-form-field>
 
@@ -171,16 +171,16 @@
     <div class="toggle-container">
         <div class="toggle">
             <div class="toggle-panel toggle-left">
-              <h1 *ngIf="isLavoratore()">Benvenuto Lavoratore</h1>
-              <h1 *ngIf="!isLavoratore()">Benvenuto Cliente</h1>
+              <h1 *ngIf="scelta==='lavoratore'">Benvenuto Lavoratore</h1>
+              <h1 *ngIf="scelta!=='lavoratore'">Benvenuto Cliente</h1>
               <p class="hide">Inserisci i tuoi dati personali per registrarti e utilizzare il sito </p>
 
               <p class="switch" (click)="removeActive()">hai gia un account? effettua l'accesso da qui</p>
                 <button class="hidden" #login (click)="removeActive()">Login</button>
             </div>
             <div class="toggle-panel toggle-right">
-                <h1 *ngIf="isLavoratore()">Benvenuto Lavoratore</h1>
-                <h1 *ngIf="!isLavoratore()">Benvenuto Cliente</h1>
+                <h1 *ngIf="scelta==='lavoratore'">Benvenuto Lavoratore</h1>
+                <h1 *ngIf="scelta==='lavoratore'">Benvenuto Cliente</h1>
               <p class="hide">Inserisci i tuoi dati personali per usufruire del sito </p>
               <p class="switch" (click)="addActive()">non hai ancora un account? effetua la registrazione da qui</p>
                 <button class="hidden" #register (click)="addActive()">Registrati</button>
@@ -189,7 +189,9 @@
     </div>
 
 
-    <app-riepilogo-dati *ngIf="riepilogoDati"></app-riepilogo-dati>
+    <app-riepilogo-dati *ngIf="scelta==='lavoratore' && riepilogoDati"[utente]="lavoratore"[scelta]="'lavoratore'"></app-riepilogo-dati>
+  <app-riepilogo-dati *ngIf="scelta==='cliente' && riepilogoDati"[utente]="cliente" [scelta]="'lavoratore'"></app-riepilogo-dati>
+
 </div>
 </div>
 

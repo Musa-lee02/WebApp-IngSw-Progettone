@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {Lavoratore, LavoratoreSignUp, LavoratoreSignUpGoogle} from "../model/Lavoratore";
 import { Cliente } from '../model/Cliente';
 import {DatiRegistrazioneService} from "./DatiRegistrazioneService";
+import {Utente, UtenteCredenziali} from "../model/Utente";
 declare var window: any;
 
 @Injectable({
@@ -13,13 +14,12 @@ export class BackEndService{
   private url = "http://localhost:8080";
   constructor(private http: HttpClient) { }
 
-  public postCheckRegistrationCredential(lavoratore : LavoratoreSignUp): Observable<string> {
-    console.log(lavoratore);
-    return this.http.post<string>(this.url+"/lavoratore/signup/passo1", lavoratore );
+  public postCheckRegistrationCredential(utente : UtenteCredenziali): Observable<string> {
+    return this.http.post<string>(this.url+"/signup/passo1", utente);
   }
 
-  public postSignupRegistrationWithGoogle(lavoratore : LavoratoreSignUpGoogle): Observable<boolean> {
-    return this.http.post<boolean>(this.url+"/lavoratore/signup/google", lavoratore);
+  public CheckExistenceGoogleAccount(utente : Utente): Observable<boolean> {
+    return this.http.post<boolean>(this.url+"/signup/google/checkExistence", utente);
 
   }
 
@@ -33,12 +33,14 @@ export class BackEndService{
     return this.http.post<string>(this.url+"/data/cliente/signUp","diobau");
   }
 
-  public completeSignUp(datiRegistrazione : DatiRegistrazioneService): Observable<boolean> {
-    return this.http.post<boolean>(this.url+"/lavoratore/signup/completeRegistration", datiRegistrazione);
+  public completeSignUp(utente : Utente): Observable<boolean> {
+    return this.http.post<boolean>(this.url+"/signup/completeRegistration/Lavoratore", utente);
   }
 
+
+
   public verifyToken(token: string, username : string){
-    this.http.get(this.url+"/ConfermaAccount",{params: {token: token, username : username}}).subscribe(data => {
+    this.http.get(this.url+"/ConfermaAccount",{params: {token: token}}).subscribe(data => {
   })
 
 }
