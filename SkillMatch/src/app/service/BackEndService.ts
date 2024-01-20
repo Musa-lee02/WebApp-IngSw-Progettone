@@ -47,6 +47,21 @@ export class BackEndService{
 
   }
 
+  public addImage(image: File){
+
+
+    //const datiBlob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    const formData = new FormData();
+    //formData.append('dati', datiBlob);
+    formData.append('img', image);
+
+    console.log("Image sended")
+
+    return this.http.post<Boolean>(
+        this.url+"/images/annuncioImage",
+        formData
+    );
+  }
 
 
   public verifyToken(token: string, username : string){

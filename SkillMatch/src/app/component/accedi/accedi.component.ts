@@ -71,6 +71,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   url = ""
   scelta: string
 
+  image !: File
+
   constructor(private service: ServizioAnnunciService, private backEndService: BackEndService, private datiRegistrazione: DatiRegistrazioneService) {
   }
 
@@ -170,6 +172,12 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
         //this.datiRegistrazione.setImmagineProfilo(e.target.files[0])
         this.lavoratore.imgProfilo = e.target.files[0]*/
       }
+      /* per prendere l'immagine, basta questo, se si vuole utilizzare la variabile image:
+          if(e.target.files){
+            this.image = e.target.files[0]
+          }
+          //... altrimenti va bene il picProfile
+          */
 
     }
 

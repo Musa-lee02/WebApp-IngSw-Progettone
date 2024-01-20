@@ -7,7 +7,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 type Annunci ={
 
-  
+
   img: string
   descrizione: string
   ambito: string
@@ -18,7 +18,7 @@ type Annunci ={
 @Component({
   selector: 'app-form-annuncio',
   templateUrl: './form-annuncio.component.html',
-  styleUrls: ['./form-annuncio.component.css']  
+  styleUrls: ['./form-annuncio.component.css']
 })
 
 
@@ -32,7 +32,7 @@ export class FormAnnuncioComponent {
   arrowLeft=faArrowLeft
   @ViewChild('container') container: ElementRef | undefined;
   cardAnnuncio: any
-  
+
   constructor(private service: ServizioAnnunciService){
     this.minDate = new Date();
 
@@ -41,7 +41,7 @@ export class FormAnnuncioComponent {
 
   ngOnInit(): void {
     this.service.setRouterUrl("/Annuncio")
-    
+
     this.nuovoAnnuncioForm=new FormGroup({
       titolo: new FormControl(null,Validators.required),
       zona: new FormControl(null,Validators.required),
@@ -57,25 +57,38 @@ export class FormAnnuncioComponent {
   }
 
   onSubmit(): void{
-    
-    this.cardAnnuncio=[]
-   
 
-    let cardAnnuncio : Annunci={
+      this.backEndService.addImage(this.image).subscribe(
+        (response) => {
+          console.log(response)
+          console.log("Ok")
+        },
+        (error) => {
+          console.log(error)
+          console.log("errore")
+        }
+      );
 
-     
-      img: this.url,
-      titolo:this.nuovoAnnuncioForm.value.titolo ,
-      descrizione:this.nuovoAnnuncioForm.value.descrizione,
-      ambito: this.nuovoAnnuncioForm.value.ambito,
-      zona: this.nuovoAnnuncioForm.value.zona,
+      /* andrebbe scommentato poi. l'ho commentato per testare l'invio dell'immagine
+      this.cardAnnuncio=[]
 
+
+      let cardAnnuncio : Annunci={
+
+
+        img: this.url,
+        titolo:this.nuovoAnnuncioForm.value.titolo ,
+        descrizione:this.nuovoAnnuncioForm.value.descrizione,
+        ambito: this.nuovoAnnuncioForm.value.ambito,
+        zona: this.nuovoAnnuncioForm.value.zona,
+
+      }
+
+      this.cardAnnuncio.push(cardAnnuncio)
+
+      this.container?.nativeElement.classList.add("anteprimaAnnuncioActive")
+      */
     }
-
-    this.cardAnnuncio.push(cardAnnuncio)
-
-    this.container?.nativeElement.classList.add("anteprimaAnnuncioActive")
-  }
   eliminaAnteprima(){
 
     console.log("ciao")
@@ -84,16 +97,11 @@ export class FormAnnuncioComponent {
   }
   onSelectFile(e: any): void {
 
-    if(e.target.files){
-      var reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onload=(event:any)=>{
-        this.url=event.target.result;
+      if(e.target.files){
+        this.image = e.target.files[0]
       }
 
     }
-
-  }
   clickArrow() : void{
 
   }
