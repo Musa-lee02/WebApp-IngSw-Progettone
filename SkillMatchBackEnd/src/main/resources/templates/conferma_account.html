@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Conferma Account</title>
+    <link href="css/conferma_account.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<p>Pagina per la conferma dell'account</p>
+
+<a th:if="${session.status == 'errore'}">Errore</a>
+<a th:if="${session.status == 'scaduto'}">Scaduto</a>
+<a th:if="${session.status == 'default'}">Default</a>
+
+</body>
+</html>
