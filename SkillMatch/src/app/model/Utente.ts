@@ -5,12 +5,11 @@ export interface Utente{
   password : string
   nome: string
   cognome: string
-  dataNascita: Date
-
+  dataNascita: any
   provincia: string
   imgProfilo: File
   registrato: boolean
-  dataRegistrazione:Date
+  dataRegistrazione: any
 }
 
 

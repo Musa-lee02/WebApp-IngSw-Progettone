@@ -26,7 +26,7 @@ export class ProfiloComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    this.backEndService.getUtente()
+
     this.annunci=this.service.getAnnunci();
     console.log(this.annunci)
 

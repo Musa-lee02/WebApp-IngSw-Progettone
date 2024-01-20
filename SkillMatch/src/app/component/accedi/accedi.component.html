@@ -81,10 +81,10 @@
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
             <div>
-            <h4>zona di competenza</h4>
+            <h4>Provincia</h4>
                 <mat-form-field >
-                <mat-label>Zona</mat-label>
-                    <mat-select formControlName="zona">
+                <mat-label>provincia</mat-label>
+                    <mat-select formControlName="provincia">
                     <mat-option>None</mat-option>
                     @for (pv of province; track pv) {
                         <mat-option [value]="pv">{{pv}}</mat-option>

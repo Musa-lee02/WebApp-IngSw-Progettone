@@ -39,7 +39,7 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
 
   public goToAccount() {
     let data = new Date();
-    this.utente.dataRegistrazione = data;
+    //this.utente.dataRegistrazione = data;
     this.backEndService.completeSignUp(this.utente).subscribe(data => {
       if (data) {
         this.router.navigate(['/Profilo']);

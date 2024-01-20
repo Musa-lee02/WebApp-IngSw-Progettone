@@ -87,7 +87,7 @@ export class NavBarComponent implements OnInit, AfterContentChecked{
   }
 
   getPicProfile(){
-    return this.backEndService.postGetPicProfile();
+   
   }
 
 
