@@ -3,6 +3,7 @@ package pattern.skillmatchbackend.persistenza.dao.postgres;
 import pattern.skillmatchbackend.model.Messaggio;
 
 import pattern.skillmatchbackend.persistenza.DBManager;
+import pattern.skillmatchbackend.persistenza.IdBroker;
 import pattern.skillmatchbackend.persistenza.dao.MessaggioDao;
 
 import java.sql.*;
@@ -83,12 +84,14 @@ public class MessaggioDaoPostgres implements MessaggioDao {
     @Override
     public void saveOrUpdate(Messaggio messaggio) {
 
-        String query = "INSERT INTO MESSAGGIO VALUES (?, ?, ?, ?, ?, ?,?,?)";
+        String query = "INSERT INTO messaggio VALUES (?, ?, ?, ?, ?, ?,?,?)";
 
         if (findByPrimaryKey(messaggio.getId()) != null)
-            query = "UPDATE Nome_Tua_Tabella SET "
-                    + "contenuto = ?, data = ?, visualizzato = ?, chi = ?, id_annuncio = ?, username_cliente = ?, username_lavoratore = ? "
+            query = "UPDATE messaggio SET "
+                    + "id_messaggio = ?, contenuto = ?, data = ?, visualizzato = ?, chi = ?, id_annuncio = ?, username_cliente = ?, username_lavoratore = ? "
                     + "WHERE id_messaggio = ?";
+        else
+            messaggio.setId(IdBroker.getId(conn));
 
 
             try {
@@ -103,6 +106,9 @@ public class MessaggioDaoPostgres implements MessaggioDao {
                 st.setLong(6, messaggio.getChat().getAnnuncio().getId());
                 st.setString(7, messaggio.getChat().getCliente().getUsername());
                 st.setString(8, messaggio.getChat().getLavoratore().getUsername());
+
+                if(query.startsWith("UPDATE"))
+                    st.setLong(9, messaggio.getId());
 
                 st.executeUpdate();
 

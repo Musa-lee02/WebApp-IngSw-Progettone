@@ -36,7 +36,7 @@ public class UtenteDaoPostgres implements UtenteDao {
                 utente.setProvincia(rs.getString("provincia"));
                 utente.setImgProfilo(new Image(rs.getString("img_profilo")));
                 utente.setRegistrato(rs.getBoolean("registrato"));
-                utente.setDataRegistrazione(rs.getDate("data_Registrazione"));
+                utente.setDataRegistrazione(rs.getDate("data_registrazione"));
                 utenti.add(utente);
             }
 
@@ -66,7 +66,7 @@ public class UtenteDaoPostgres implements UtenteDao {
                 utente.setProvincia(rs.getString("provincia"));
                 utente.setImgProfilo(new Image(rs.getString("img_profilo")));
                 utente.setRegistrato(rs.getBoolean("registrato"));
-                utente.setDataRegistrazione(rs.getDate("data_Registrazione"));
+                utente.setDataRegistrazione(rs.getDate("data_registrazione"));
 
             }
 
@@ -78,20 +78,17 @@ public class UtenteDaoPostgres implements UtenteDao {
 
     @Override
     public void saveOrUpdate(Utente utente) {
-        String query;
 
+        String query = "INSERT INTO utente "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        if (findByPrimaryKey(utente.getUsername()) != null) {
+        if (findByPrimaryKey(utente.getUsername()) != null)
             query  = "UPDATE utente SET "
-                    + "password = ?, email = ?, nome = ?, cognome = ?, provincia = ?, "
-                    + "img_profilo = ?, registrato = ?, data_registrazione = ? "
+                    + "username = ?, password = ?, email = ?, nome = ?, cognome = ?, provincia = ?, "
+                    + "citta = ?, provincia_lavoro = ?, img_profilo = ?, registrato = ?, data_registrazione = ? "
                     + "WHERE username = ?";
-        }
-        else {
 
-           query = "INSERT INTO utente "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        }
+
         try {
             System.out.println("utente registrato: " + utente.isRegistrato());
 
@@ -105,6 +102,13 @@ public class UtenteDaoPostgres implements UtenteDao {
             st.setString(7, utente.getImgProfilo().getPath());
             st.setBoolean(8, utente.isRegistrato());
             st.setDate(9, utente.getDataRegistrazione());
+
+
+            if(query.startsWith("UPDATE"))
+                st.setString(10, utente.getUsername());
+
+
+
             st.executeUpdate();
 
         } catch (SQLException e) {
