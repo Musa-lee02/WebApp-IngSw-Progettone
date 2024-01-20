@@ -79,13 +79,6 @@ public class  Utente {
         this.provincia = provincia;
     }
 
-    public String getCitta() {
-        return citta;
-    }
-
-    public void setCitta(String citta) {
-        this.citta = citta;
-    }
 
     public Image getImgProfilo() {
         return imgProfilo;

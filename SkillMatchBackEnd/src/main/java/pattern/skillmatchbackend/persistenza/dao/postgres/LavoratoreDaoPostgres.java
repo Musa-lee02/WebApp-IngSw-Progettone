@@ -83,33 +83,51 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
         String query = "INSERT INTO lavoratore VALUES (?,?,?,?)";
 
         if (findByPrimaryKey(lavoratore.getUsername()) != null)
-            query  = "UPDATE lavoratore SET ";
+            query = "UPDATE lavoratore SET username = ? , provincia_lavoro = ?, notifica_email = ? , punteggio = ? WHERE username = ?";
 
         try {
 
             DBManager.getInstance().getUtenteDao().saveOrUpdate(lavoratore);
             PreparedStatement st = conn.prepareStatement(query);
-            st.setString(1,lavoratore.getUsername());
-            st.setString(2,lavoratore.getProvinciaLavoro());
-            st.setBoolean(3,lavoratore.isNotifica_email());
-            st.setInt(4,lavoratore.getPunteggio());
+
+
+            st.setString(1, lavoratore.getUsername());
+            st.setString(2, lavoratore.getProvinciaLavoro());
+            st.setBoolean(3, lavoratore.isNotifica_email());
+            st.setInt(4, lavoratore.getPunteggio());
+
+            if (query.startsWith("UPDATE"))
+                st.setString(5, lavoratore.getUsername());
+
+
             st.executeUpdate();
 
+            if (query.startsWith("INSERT")) {
 
-            for(Ambito ambito: lavoratore.getAmbiti()) {
-                query = "INSERT INTO competente VALUES (?,?)";
-                DBManager.getInstance().getUtenteDao().saveOrUpdate(lavoratore);
-                st = conn.prepareStatement(query);
-                st.setString(1, lavoratore.getUsername());
-                st.setLong(2, ambito.getId());
-                st.executeUpdate();
+                for (Ambito ambito : lavoratore.getAmbiti()) {
+
+                    if (query.startsWith("UPDATE"))
+                        query = "UPDATE competente set username_lavoratore = ? , id_ambito = ? WHERE username_lavoratore = ? , id_ambito = ?";
+                    else
+                        query = "INSERT INTO competente VALUES (?,?)";
+
+                    DBManager.getInstance().getUtenteDao().saveOrUpdate(lavoratore);
+                    st = conn.prepareStatement(query);
+                    st.setString(1, lavoratore.getUsername());
+                    st.setLong(2, ambito.getId());
+
+                    if (query.startsWith("UPDATE")) {
+                        st.setString(3, lavoratore.getUsername());
+                        st.setLong(4, ambito.getId());
+                    }
+                    st.executeUpdate();
+
+
+                }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override

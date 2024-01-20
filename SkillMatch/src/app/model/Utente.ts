@@ -1,14 +1,21 @@
-export interface Utente{
 
+export interface Utente{
+  username: string
+  email: string
+  password : string
   nome: string
   cognome: string
-  citta: string
+  dataNascita: Date
+
   provincia: string
-  imgProfilo: string
-  email: string
-  password: string
-  username: string
+  imgProfilo: File
   registrato: boolean
   dataRegistrazione:Date
+}
 
+
+export interface UtenteCredenziali{
+  username: string
+  email: string
+  password: string
 }

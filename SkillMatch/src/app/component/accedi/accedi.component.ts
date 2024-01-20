@@ -8,10 +8,12 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service'
-import { SceltaUtenteComponent } from './scelta-utente/scelta-utente.component';
 import Swal from 'sweetalert2';
 import {HttpErrorResponse} from "@angular/common/http";
-import {Lavoratore} from "../../SignUpLavoratore";
+import {Utente} from "../../model/Utente";
+import {Lavoratore} from "../../model/Lavoratore";
+import {elementSelectors} from "@angular/cdk/schematics";
+import {Cliente} from "../../model/Cliente";
 
 
 
@@ -32,6 +34,14 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     'Arkansas',
   ];
 
+  ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanica', 'Informatica', 'Altro']
+
+  province: string[] = ['Cosenza', 'Reggio Calabria', 'Vibo Valentia', 'Catanzaro', 'Crotone',
+    'Napoli', 'Salerno', 'Avellino', 'Benevento', 'Caserta', 'Potenza', 'Matera' ]
+
+  cliente : Cliente
+  utente : Utente
+  lavoratore : Lavoratore
 
 
   generalitaForm : FormGroup
@@ -42,9 +52,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   googleIcon=faGoogle
   riepilogoDati: boolean=false
   url=""
-  province: any
-  ambiti:any
-  scelta:string
+  scelta : string
 
   constructor(private service: ServizioAnnunciService, private backEndService: BackEndService, private datiRegistrazione: DatiRegistrazioneService) {
   }
@@ -109,7 +117,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     })
 
     this.ambitoForm=new FormGroup({
-
+      foto: new FormControl(),
       zona: new FormControl(null,Validators.required),
       ambito: new FormControl(null,Validators.required),
     })
@@ -144,25 +152,16 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event: any) => {
         this.url = event.target.result;
-        this.datiRegistrazione.setImmagineProfilo(e.target.files[0])
+        //this.datiRegistrazione.setImmagineProfilo(e.target.files[0])
+        this.lavoratore.imgProfilo=e.target.files[0]
       }
 
     }
 
   }
 
-  isLavoratore(){
-
-    return this.service.isLavoratore()
-  }
-
-
   onRiceviScelta(scelta: string){
-
     this.scelta=scelta
-
-    utente as Lavoratore
-
     this.componentScelta?.nativeElement.classList.add('remove')
 
   }
@@ -192,11 +191,45 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   onSubmit(){
 
-    if(this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid){
 
-      if(this.generalitaForm.valid && !this.isLavoratore()){
-          this.container?.nativeElement.classList.add('emailConferma')
+    if (this.generalitaForm.valid && this.scelta==="lavoratore") {
+      if (this.scelta === "lavoratore") {
+        //this.datiRegistrazione.setNome(this.generalitaForm.get("nome")?.value)
+        //this.datiRegistrazione.setCognome(this.generalitaForm.get("cognome")?.value)
+        //this.datiRegistrazione.setDataDiNascita(this.generalitaForm.get("dataNascita")?.value)
+        this.container?.nativeElement.classList.add('ambito')
+        //his.datiRegistrazione.setZonaDiCompetenza(this.ambitoForm.get("zona")?.value)
+        //this.datiRegistrazione.setAmbiti(this.ambitoForm.get("ambito")?.value
       }
+      else{
+        this.container?.nativeElement.classList.add('emailConferma')
+      }
+
+    if(this.generalitaForm.valid && this.credenzialiForm.valid){
+      if(this.ambitoForm.valid){
+        this.lavoratore.provincia_lavoro=this.ambitoForm.get("zona")?.value
+        this.lavoratore=this.ambitoForm.get("ambito")?.value
+        this.lavoratore.imgProfilo=this.ambitoForm.get("foto")?.value
+        this.lavoratore.username=this.credenzialiForm.get("username")?.value
+        this.lavoratore.email=this.credenzialiForm.get("email")?.value
+        this.lavoratore.password=this.credenzialiForm.get("password")?.value
+        this.lavoratore.nome=this.generalitaForm.get("nome")?.value
+        this.lavoratore.cognome=this.generalitaForm.get("cognome")?.value
+        this.lavoratore.dataNascita=this.generalitaForm.get("dataNascita")?.value
+        this.lavoratore.provincia=this.ambitoForm.get("zona")?.value
+      }
+
+      else{
+        this.cliente.username=this.credenzialiForm.get("username")?.value
+        this.cliente.email=this.credenzialiForm.get("email")?.value
+        this.cliente.password=this.credenzialiForm.get("password")?.value
+        this.cliente.nome=this.generalitaForm.get("nome")?.value
+        this.cliente.cognome=this.generalitaForm.get("cognome")?.value
+        this.cliente.dataNascita=this.generalitaForm.get("dataNascita")?.value
+        this.cliente.provincia=this.ambitoForm.get("zona")?.value
+      }
+
+
 
 
       this.container?.nativeElement.classList.add('emailConferma')
@@ -204,27 +237,16 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       console.log(this.riepilogoDati)
     }
 
-    if (this.generalitaForm.valid) {
-      this.datiRegistrazione.setNome(this.generalitaForm.get("nome")?.value)
-      this.datiRegistrazione.setCognome(this.generalitaForm.get("cognome")?.value)
-      this.datiRegistrazione.setDataDiNascita(this.generalitaForm.get("dataNascita")?.value)
-      if(this.isLavoratore()) {
-        this.container?.nativeElement.classList.add('ambito')
-        this.datiRegistrazione.setZonaDiCompetenza(this.ambitoForm.get("zona")?.value)
-        this.datiRegistrazione.setAmbiti(this.ambitoForm.get("ambito")?.value)
-      }
+
 
     }
-
-
-
-    /*if (this.credenzialiForm.valid) {
+    if (this.credenzialiForm.valid) {
       const utente = this.credenzialiForm.value
       this.backEndService.postCheckRegistrationCredential(utente).subscribe(
         (response) => {
           //console.log(response.message)
-          this.datiRegistrazione.setUsername(this.credenzialiForm.get("username")?.value)
-          this.datiRegistrazione.setEmail(this.credenzialiForm.get("email")?.value)
+          //this.datiRegistrazione.setUsername(this.credenzialiForm.get("username")?.value)
+          //this.datiRegistrazione.setEmail(this.credenzialiForm.get("email")?.value)
 
           this.container?.nativeElement.classList.add('generalita')
 
@@ -295,18 +317,18 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       cognome: googleData.family_name
     })
     this.container?.nativeElement.classList.add('generalita')
-    if (this.generalitaForm.valid && this.isLavoratore()) {
+    if (this.generalitaForm.valid && this.scelta === "lavoratore") {
       this.ambitoForm.patchValue({
         foto: googleData.picture
 
       })
-      console.log(this.ambitoForm.get("foto")?.value)
       this.container?.nativeElement.classList.add('ambito')
     }
 
   }
 
   backToGeneralita() {
+    this.removeActive()
     this.container?.nativeElement.classList.add('generalita')
   }
 }

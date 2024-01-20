@@ -3,9 +3,9 @@ import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
 //import {Lavoratore, LavoratoreSignUp, LavoratoreSignUpGoogle} from "../model/Lavoratore";
 import { Cliente } from '../model/Cliente';
-import { Utente } from '../model/Utente';
+import { Utente, UtenteCredenziali } from '../model/Utente';
 import {DatiRegistrazioneService} from "./DatiRegistrazioneService";
-import {SceltaUtenteComponent} from "../component/accedi/scelta-utente/scelta-utente.component";
+
 declare var window: any;
 
 @Injectable({
@@ -15,15 +15,14 @@ export class BackEndService{
   private url = "http://localhost:8080";
   constructor(private http: HttpClient) { }
 
-  /*public postCheckRegistrationCredential(utenteSignUp : UtenteSignUp): Observable<string> {
-    console.log(lavoratore);
-    return this.http.post<string>(this.url+"/lavoratore/signup/passo1", lavoratore );
-  }*/
+  public postCheckRegistrationCredential(utente : UtenteCredenziali): Observable<string> {
+    return this.http.post<string>(this.url+"/signup/passo1", utente);
+  }
 
- /* public postSignupRegistrationWithGoogle(lavoratore : LavoratoreSignUpGoogle): Observable<boolean> {
-    return this.http.post<boolean>(this.url+"/lavoratore/signup/google", lavoratore);
+  public CheckExistenceGoogleAccount(utente : Utente): Observable<boolean> {
+    return this.http.post<boolean>(this.url+"/signup/google/checkExistence", utente);
 
-  }*/
+  }
 
   public postGetPicProfile(utenteId: string): Observable<string>{
 
@@ -39,14 +38,15 @@ export class BackEndService{
     return this.http.post<string>(this.url+"/data/cliente/signUp",stringa);
   }
 
-  public completeSignUp(datiRegistrazione : DatiRegistrazioneService): Observable<boolean> {
-    return this.http.post<boolean>(this.url+"/lavoratore/signup/completeRegistration", datiRegistrazione);
+  public completeSignUp(utente : Utente): Observable<boolean> {
+    return this.http.post<boolean>(this.url+"/signup/completeRegistration/Lavoratore", utente);
   }
-e
-  public getUtenteByUsername(tipo: string, username: string): Observable<Utente>{
 
-   // return this.http.post<Utente>()
-  }
+
+
+  public verifyToken(token: string, username : string){
+    this.http.get(this.url+"/ConfermaAccount",{params: {token: token}}).subscribe(data => {
+  })
 
 }
-
+}

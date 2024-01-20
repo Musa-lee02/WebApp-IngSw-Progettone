@@ -1,12 +1,6 @@
-
 import {Utente} from "./Utente";
 
-export interface Lavoratore extends Utente{
-  zona:string
-  ambiti:string[]
-
-}
-/*export interface LavoratoreSignUp{
+export interface LavoratoreSignUp{
     username: string;
     password: string;
     confermaPassword: string;
@@ -17,7 +11,12 @@ export interface Lavoratore extends Utente{
     id: string;
     email: string;
   }
-  */
 
+  export interface Lavoratore extends Utente {
+    provincia_lavoro: string;
+    ambiti: string[];
+    notifica_email: boolean;
+    punteggio: number;
+  }
 
 
