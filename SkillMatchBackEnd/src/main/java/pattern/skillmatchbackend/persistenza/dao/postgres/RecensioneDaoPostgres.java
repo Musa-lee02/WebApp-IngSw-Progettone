@@ -3,6 +3,7 @@ package pattern.skillmatchbackend.persistenza.dao.postgres;
 import pattern.skillmatchbackend.model.Recensione;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
+import pattern.skillmatchbackend.persistenza.IdBroker;
 import pattern.skillmatchbackend.persistenza.dao.RecensioneDao;
 
 import java.sql.*;
@@ -78,19 +79,26 @@ public class RecensioneDaoPostgres implements RecensioneDao {
 
         if (findByPrimaryKey(recensione.getIdRecensione()) != null)
             query = "UPDATE recensione " +
-                    "SET titolo = ?, descrizione = ?, punteggio = ?, username_cliente = ?, username_lavoratore = ? " +
+                    "SET id_recensione = ?, titolo = ?, descrizione = ?, punteggio = ?, username_cliente = ?, username_lavoratore = ? " +
                     "WHERE id_recensione = ?";
+        else
+            recensione.setIdRecensione(IdBroker.getId(conn));
 
         try {
 
             PreparedStatement st = conn.prepareStatement(query);
 
-            st.setString(1, recensione.getTitolo());
-            st.setString(2, recensione.getDescrizione());
-            st.setInt(3, recensione.getPunteggio());
+            st.setLong(1,recensione.getIdRecensione());
+            st.setString(2, recensione.getTitolo());
+            st.setString(3, recensione.getDescrizione());
+            st.setInt(4, recensione.getPunteggio());
             st.setString(4, recensione.getRecensore().getUsername());
             st.setString(5, recensione.getRecensito().getUsername());
             st.setLong(6, recensione.getIdRecensione());
+
+            if(query.startsWith("UPDATE"))
+                st.setLong(7,recensione.getIdRecensione());
+
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

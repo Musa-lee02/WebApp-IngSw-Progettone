@@ -2,6 +2,7 @@ package pattern.skillmatchbackend.persistenza.dao.postgres;
 
 import pattern.skillmatchbackend.model.Notifica;
 import pattern.skillmatchbackend.persistenza.DBManager;
+import pattern.skillmatchbackend.persistenza.IdBroker;
 import pattern.skillmatchbackend.persistenza.dao.NotificaDao;
 
 import java.sql.*;
@@ -74,10 +75,12 @@ public class NotificaDaoPostgres implements NotificaDao {
     @Override
     public void saveOrUpdate(Notifica notifica) {
 
-        String query = "INSERT INTO notifica (id_notifica, contenuto, data, visualizzato, chi, username) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO notifica VALUES (?, ?, ?, ?, ?, ?)";
 
         if (findByPrimaryKey(notifica.getId()) != null)
-            query = "UPDATE notifica SET contenuto = ?, data = ?, visualizzato = ?, chi = ?, username = ? WHERE id_notifica = ?";
+            query = "UPDATE notifica SET id_notifica = ?. contenuto = ?, data = ?, visualizzato = ?, chi = ?, username = ? WHERE id_notifica = ?";
+        else
+            notifica.setId(IdBroker.getId(conn));
 
         try {
             PreparedStatement st = conn.prepareStatement(query);
@@ -87,6 +90,9 @@ public class NotificaDaoPostgres implements NotificaDao {
             st.setBoolean(4, notifica.isVisualizzato());
             st.setBoolean(5, notifica.isChi());
             st.setString(6, notifica.getUtente().getUsername());
+
+            if(query.startsWith("UPDDATE"))
+                st.setLong(7, notifica.getId());
 
             st.executeUpdate();
 

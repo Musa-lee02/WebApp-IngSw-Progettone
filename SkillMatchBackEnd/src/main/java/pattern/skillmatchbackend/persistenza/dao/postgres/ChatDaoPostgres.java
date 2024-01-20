@@ -69,16 +69,24 @@ public class ChatDaoPostgres implements ChatDao {
         String query = "INSERT INTO chat VALUES (?, ?, ?)";
 
         if (findByPrimaryKey(chat.getAnnuncio().getId(), chat.getCliente().getUsername(),chat.getLavoratore().getUsername()) != null)
-            query = "UPDATE chat SET + \"id_annuncio = ?, id_cliente = ?, id_lavoratore = ? \"\n" +
-                    "        + \"WHERE id_annuncio = ?, id_cliente = ?, id_lavoratore = ?= ?\";";
+            query = "UPDATE chat SET  id_annuncio = ?, username_cliente = ?, username_lavoratore = ? WHERE id_annuncio = ?, username_cliente = ?, username_lavoratore = ?";
 
         try {
             PreparedStatement st = conn.prepareStatement(query);
 
-            st.setString(1, chat.getCliente().getUsername());
-            st.setString(2, chat.getCliente().getUsername());
-            st.setLong(5, chat.getAnnuncio().getId());
+            st.setLong(1, chat.getAnnuncio().getId());
+            st.setString(3, chat.getCliente().getUsername());
+            st.setString(3, chat.getLavoratore().getUsername());
 
+            if(query.startsWith("UPDATE")) {
+
+                st.setLong(4, chat.getAnnuncio().getId());
+                st.setString(5, chat.getCliente().getUsername());
+                st.setString(6, chat.getLavoratore().getUsername());
+
+            }
+
+            st.executeUpdate();
 
 
         } catch (SQLException e) {

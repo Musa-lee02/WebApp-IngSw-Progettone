@@ -34,6 +34,9 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
 
             while (rs.next()) {
                 Lavoratore lavoratore = new Lavoratore(DBManager.getInstance().getUtenteDao().findByPrimaryKey(rs.getString("username")));
+                lavoratore.setProvinciaLavoro(rs.getString("provincia_lavoro"));
+                lavoratore.setNotifica_email(rs.getBoolean("notifica_email"));
+                lavoratore.setPunteggio(rs.getInt("punteggio"));
                 lavoratore.setProposte(DBManager.getInstance().getPropostaDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
                 lavoratore.setChats(DBManager.getInstance().getChatDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
                 lavoratore.setRecensioni(DBManager.getInstance().getRecensioneDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
@@ -62,6 +65,9 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
 
             if (rs.next()) {
                 lavoratore = new Lavoratore(DBManager.getInstance().getUtenteDao().findByPrimaryKey(rs.getString("username")));
+                lavoratore.setProvinciaLavoro(rs.getString("provincia_lavoro"));
+                lavoratore.setNotifica_email(rs.getBoolean("notifica_email"));
+                lavoratore.setPunteggio(rs.getInt("punteggio"));
                 lavoratore.setProposte(DBManager.getInstance().getPropostaDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
                 lavoratore.setChats(DBManager.getInstance().getChatDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
                 lavoratore.setRecensioni(DBManager.getInstance().getRecensioneDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
@@ -83,28 +89,50 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
         String query = "INSERT INTO lavoratore VALUES (?,?,?,?)";
 
         if (findByPrimaryKey(lavoratore.getUsername()) != null)
-            query  = "UPDATE lavoratore SET ";
+            query  = "UPDATE lavoratore SET username = ? , provincia_lavoro = ?, notifica_email = ? , punteggio = ? WHERE username = ?";
 
         try {
 
             DBManager.getInstance().getUtenteDao().saveOrUpdate(lavoratore);
             PreparedStatement st = conn.prepareStatement(query);
+
+
+
             st.setString(1,lavoratore.getUsername());
             st.setString(2,lavoratore.getProvinciaLavoro());
             st.setBoolean(3,lavoratore.isNotifica_email());
             st.setInt(4,lavoratore.getPunteggio());
+
+            if(query.startsWith("UPDATE"))
+                st.setString(5, lavoratore.getUsername());
+
+
+
             st.executeUpdate();
 
+            if(query.startsWith("INSERT")) {
 
-            for(Ambito ambito: lavoratore.getAmbiti()) {
-                query = "INSERT INTO competente VALUES (?,?)";
-                DBManager.getInstance().getUtenteDao().saveOrUpdate(lavoratore);
-                st = conn.prepareStatement(query);
-                st.setString(1, lavoratore.getUsername());
-                st.setLong(2, ambito.getId());
-                st.executeUpdate();
+                for (Ambito ambito : lavoratore.getAmbiti()) {
+
+                    if (query.startsWith("UPDATE"))
+                        query = "UPDATE competente set username_lavoratore = ? , id_ambito = ? WHERE username_lavoratore = ? , id_ambito = ?";
+                    else
+                        query = "INSERT INTO competente VALUES (?,?)";
+
+                    DBManager.getInstance().getUtenteDao().saveOrUpdate(lavoratore);
+                    st = conn.prepareStatement(query);
+                    st.setString(1, lavoratore.getUsername());
+                    st.setLong(2, ambito.getId());
+
+                    if (query.startsWith("UPDATE")) {
+                        st.setString(3, lavoratore.getUsername());
+                        st.setLong(4, ambito.getId());
+                    }
+                    st.executeUpdate();
+
+
+                }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

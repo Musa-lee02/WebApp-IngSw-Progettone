@@ -3,6 +3,7 @@ package pattern.skillmatchbackend.persistenza.dao.postgres;
 import pattern.skillmatchbackend.model.TransazionePagamento;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
+import pattern.skillmatchbackend.persistenza.IdBroker;
 import pattern.skillmatchbackend.persistenza.dao.TransazionePagamentoDao;
 
 import java.sql.Connection;
@@ -81,8 +82,9 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
 
 
         if (findByPrimaryKey(transazione.getId()) != null)
-            query = "UPDATE transazione_pagamento SET data_transazione = ?, " + "importo = ?, " + "username_cliente = ?, " + "username_lavoratore = ?, " + "metodo_pagamento = ? " + "WHERE id = ?";
-
+            query = "UPDATE transazione_pagamento SET id_transazione = ? , importo = ?, data = ?, metodo_pagamento = ?, username_cliente = ?, username_lavoratore = ? WHERE id_transazione = ?";
+        else
+            transazione.setId(IdBroker.getId(conn));
 
         try {
 
@@ -93,6 +95,10 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
             st.setString(4, transazione.getMetodoPagamento());
             st.setString(5, transazione.getMittente().getUsername());
             st.setString(6, transazione.getDestinatario().getUsername());
+
+            if(query.startsWith("UPDATE"))
+                st.setLong(7, transazione.getId());
+
             st.executeUpdate();
 
         } catch (SQLException e) {

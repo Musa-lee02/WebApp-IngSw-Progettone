@@ -3,6 +3,7 @@ package pattern.skillmatchbackend.persistenza.dao.postgres;
 
 import pattern.skillmatchbackend.model.Ambito;
 
+import pattern.skillmatchbackend.persistenza.IdBroker;
 import pattern.skillmatchbackend.persistenza.dao.AmbitoDao;
 import java.util.List;
 import java.sql.*;
@@ -65,13 +66,23 @@ public class AmbitoDaoPostgres implements AmbitoDao {
     public void saveOrUpdate(Ambito ambito) {
         String query = "INSERT INTO ambito VALUES (?, ?)";
 
+
+
+
         if (findByPrimaryKey(ambito.getId()) != null)
-            query = "UPDATE ambito SET nome = ? WHERE id_ambito = ?";
+            query = "UPDATE ambito SET id_ambito = ?, nome = ? WHERE id_ambito = ?";
+        else
+            ambito.setId(IdBroker.getId(conn));
 
         try {
+
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, ambito.getId());
             st.setString(2, ambito.getNome());
+
+            if(query.startsWith("UPDATE"))
+                st.setLong(3, ambito.getId());
+
             st.executeUpdate();
 
         } catch (SQLException e) {
