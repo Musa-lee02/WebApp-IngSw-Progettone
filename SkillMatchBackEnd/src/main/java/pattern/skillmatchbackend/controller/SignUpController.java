@@ -3,14 +3,13 @@ package pattern.skillmatchbackend.controller;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pattern.skillmatchbackend.model.Lavoratore;
-import pattern.skillmatchbackend.model.TokenManager;
-import pattern.skillmatchbackend.model.Utente;
-import pattern.skillmatchbackend.model.ValidationService;
+import pattern.skillmatchbackend.model.*;
 import pattern.skillmatchbackend.model.email.EmailSender;
 import pattern.skillmatchbackend.persistenza.DBManager;
 import pattern.skillmatchbackend.persistenza.dao.LavoratoreDao;
 import pattern.skillmatchbackend.persistenza.dao.postgres.LavoratoreDaoPostgres;
+
+import java.util.Objects;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
@@ -54,16 +53,28 @@ public class SignUpController {
        return presente;
     }
 
-    @PostMapping("completeRegistration/Lavoratore")
-    public boolean completeRegistration(@RequestBody Lavoratore lavoratore) {
-        DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
+    @PostMapping("/completeRegistration/Lavoratore")
+    public boolean completeRegistrationLavoratore(@RequestBody Lavoratore lavoratore) {
 
+            System.out.println("amo la madonna");
+            DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
+            EmailSender emailSender = new EmailSender();
+            TokenManager tokenManager = new TokenManager();
+            String token = tokenManager.creaToken(lavoratore.getUsername());
+            emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
 
+        return true;
+    }
+
+    @PostMapping("/completeRegistration/Cliente")
+    public boolean completeRegistrationCliente(@RequestBody Cliente cliente) {
+
+        DBManager.getInstance().getClienteDao().saveOrUpdate(cliente);
         EmailSender emailSender = new EmailSender();
         TokenManager tokenManager = new TokenManager();
-        String token = tokenManager.creaToken(lavoratore.getUsername());
+        String token = tokenManager.creaToken(cliente.getUsername());
+        emailSender.confermaLink(cliente, "http://localhost:4200/ConfermaAccount?token=" + token);
 
-        emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
         return true;
     }
 

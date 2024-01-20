@@ -215,7 +215,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.cliente={
           cognome:  this.generalitaForm.get("cognome")?.value,
           dataNascita: this.generalitaForm.get("dataNascita")?.value,
-          dataRegistrazione: undefined,
+          dataRegistrazione: new Date(),
           email: this.credenzialiForm.get("email")?.value,
           imgProfilo: this.picProfile,
           nome: this.generalitaForm.get("nome")?.value,
@@ -235,7 +235,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           ambiti: this.ambitoForm.get("ambito")?.value,
           cognome: this.generalitaForm.get("cognome")?.value,
           dataNascita: this.generalitaForm.get("dataNascita")?.value,
-          dataRegistrazione: undefined,
+          dataRegistrazione: new Date(),
           email: this.credenzialiForm.get("email")?.value,
           imgProfilo:this.picProfile,
           nome:this.generalitaForm.get("nome")?.value,

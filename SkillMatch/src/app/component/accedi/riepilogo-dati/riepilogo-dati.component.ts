@@ -38,10 +38,10 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
 
 
   public goToAccount() {
-    let data = new Date();
+    //let data =
     //this.utente.dataRegistrazione = data;
-    this.backEndService.completeSignUp(this.utente).subscribe(data => {
-      if (data) {
+    this.backEndService.completeSignUp(this.utente, this.scelta).subscribe(response => {
+      if (response) {
         this.router.navigate(['/Profilo']);
       } else {
         Swal.fire("Errore nella registrazione")

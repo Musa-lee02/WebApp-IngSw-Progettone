@@ -38,8 +38,13 @@ export class BackEndService{
     return this.http.post<string>(this.url+"/data/cliente/signUp",stringa);
   }
 
-  public completeSignUp(utente : Utente): Observable<boolean> {
-    return this.http.post<boolean>(this.url+"/signup/completeRegistration/Lavoratore", utente);
+  public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
+    if (scelta==="lavoratore") {
+      return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", utente);
+    }
+
+    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", utente);
+
   }
 
 
