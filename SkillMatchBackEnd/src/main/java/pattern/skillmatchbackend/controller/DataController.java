@@ -24,6 +24,6 @@ public class DataController {
 
         System.out.println("ciao");
 
-        return null;
+        return ResponseEntity.ok().body("ok");
     }
 }

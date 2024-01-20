@@ -1,10 +1,11 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
-import {Lavoratore, LavoratoreSignUp, LavoratoreSignUpGoogle} from "../model/Lavoratore";
+//import {Lavoratore, LavoratoreSignUp, LavoratoreSignUpGoogle} from "../model/Lavoratore";
 import { Cliente } from '../model/Cliente';
+import { Utente, UtenteCredenziali } from '../model/Utente';
 import {DatiRegistrazioneService} from "./DatiRegistrazioneService";
-import {Utente, UtenteCredenziali} from "../model/Utente";
+
 declare var window: any;
 
 @Injectable({
@@ -23,18 +24,27 @@ export class BackEndService{
 
   }
 
-  public retriveWorkerProfile(username: string): Observable<Lavoratore> {
-    return this.http.get<Lavoratore>(this.url+"/lavoratore/signin/infoprofilo"+username);
-  }
+  public postGetPicProfile(utenteId: string): Observable<string>{
 
-  public postSignUpCliente(){
+    return this.http.post<string> ( this.url+"/images/", utenteId );//da modificare
+  }
+  /*public retriveWorkerProfile(username: string): Observable<Lavoratore> {
+    return this.http.get<Lavoratore>(this.url+"/lavoratore/signin/infoprofilo"+username);
+  }*/
+
+  public postSignUpCliente(stringa :string):Observable<string>{
 
     console.log(this.url)
-    return this.http.post<string>(this.url+"/data/cliente/signUp","diobau");
+    return this.http.post<string>(this.url+"/data/cliente/signUp",stringa);
   }
 
-  public completeSignUp(utente : Utente): Observable<boolean> {
-    return this.http.post<boolean>(this.url+"/signup/completeRegistration/Lavoratore", utente);
+  public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
+    if (scelta==="lavoratore") {
+      return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", utente);
+    }
+
+    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", utente);
+
   }
 
 

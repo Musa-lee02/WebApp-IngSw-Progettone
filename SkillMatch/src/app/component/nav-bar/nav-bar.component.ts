@@ -78,7 +78,7 @@ export class NavBarComponent implements OnInit, AfterContentChecked{
   setCliente(){
 
 
-    this.backEndService.postSignUpCliente();
+
 
   }
   skipAutentication(bool: boolean){
@@ -87,9 +87,8 @@ export class NavBarComponent implements OnInit, AfterContentChecked{
   }
 
   getPicProfile(){
-    return this.service.getPicProfile();
+   
   }
-
 
 
 }

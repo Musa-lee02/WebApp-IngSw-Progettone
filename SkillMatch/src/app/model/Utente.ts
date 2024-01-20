@@ -6,11 +6,10 @@ export interface Utente{
   nome: string
   cognome: string
   dataNascita: Date
-
   provincia: string
   imgProfilo: File
   registrato: boolean
-  dataRegistrazione:Date
+  dataRegistrazione: Date
 }
 
 
