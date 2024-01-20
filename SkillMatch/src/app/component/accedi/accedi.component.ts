@@ -11,6 +11,7 @@ import { ServizioAnnunciService } from '../../service/servizio-annunci.service'
 import { SceltaUtenteComponent } from './scelta-utente/scelta-utente.component';
 import Swal from 'sweetalert2';
 import {HttpErrorResponse} from "@angular/common/http";
+import {Lavoratore} from "../../SignUpLavoratore";
 
 
 
@@ -43,6 +44,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   url=""
   province: any
   ambiti:any
+  scelta:string
 
   constructor(private service: ServizioAnnunciService, private backEndService: BackEndService, private datiRegistrazione: DatiRegistrazioneService) {
   }
@@ -69,6 +71,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
   }*/
 
+
   ngOnInit(): void {
       window['accediComponentRef'] = this;
       window['backEndServiceRef'] = this.backEndService;
@@ -79,7 +82,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.generalitaForm= new FormGroup({
       nome: new FormControl(null, Validators.required),
       cognome: new FormControl(null, Validators.required),
-      dataNascita: new FormControl(null, Validators.required)
+      dataNascita: new FormControl(null, Validators.required),
+      provincia: new FormControl(null, Validators.required)
 
     })
 
@@ -155,14 +159,11 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   onRiceviScelta(scelta: string){
 
+    this.scelta=scelta
 
-    if(scelta==="cliente"){
-      this.service.setlavoratoreBool(false)
-    }
-    else
-      this.service.setlavoratoreBool(true);
+    utente as Lavoratore
 
-      this.componentScelta?.nativeElement.classList.add('remove')
+    this.componentScelta?.nativeElement.classList.add('remove')
 
   }
   clickArrow(){
@@ -193,28 +194,33 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     if(this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid){
 
+      if(this.generalitaForm.valid && !this.isLavoratore()){
+          this.container?.nativeElement.classList.add('emailConferma')
+      }
+
+
       this.container?.nativeElement.classList.add('emailConferma')
       this.riepilogoDati=true
       console.log(this.riepilogoDati)
     }
 
-    if (this.generalitaForm.valid && this.isLavoratore()) {
+    if (this.generalitaForm.valid) {
       this.datiRegistrazione.setNome(this.generalitaForm.get("nome")?.value)
       this.datiRegistrazione.setCognome(this.generalitaForm.get("cognome")?.value)
       this.datiRegistrazione.setDataDiNascita(this.generalitaForm.get("dataNascita")?.value)
-      this.container?.nativeElement.classList.add('ambito')
-      this.datiRegistrazione.setZonaDiCompetenza(this.ambitoForm.get("zona")?.value)
-      this.datiRegistrazione.setAmbiti(this.ambitoForm.get("ambito")?.value)
+      if(this.isLavoratore()) {
+        this.container?.nativeElement.classList.add('ambito')
+        this.datiRegistrazione.setZonaDiCompetenza(this.ambitoForm.get("zona")?.value)
+        this.datiRegistrazione.setAmbiti(this.ambitoForm.get("ambito")?.value)
+      }
 
     }
 
-    if(this.generalitaForm.valid && !this.isLavoratore()){
-      this.container?.nativeElement.classList.add('emailConferma')
-    }
 
-    if (this.credenzialiForm.valid) {
-      const lavoratore = this.credenzialiForm.value
-      this.backEndService.postCheckRegistrationCredential(lavoratore).subscribe(
+
+    /*if (this.credenzialiForm.valid) {
+      const utente = this.credenzialiForm.value
+      this.backEndService.postCheckRegistrationCredential(utente).subscribe(
         (response) => {
           //console.log(response.message)
           this.datiRegistrazione.setUsername(this.credenzialiForm.get("username")?.value)
@@ -253,7 +259,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
       //this.container?.nativeElement.classList.add('generalita')
 
-    }
+    }*/
 
 
   }

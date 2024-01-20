@@ -1,4 +1,4 @@
-import {Component, signal} from '@angular/core'
+import {Component, Input, signal} from '@angular/core'
 
 
 import { DatiRegistrazioneService } from "../../../service/DatiRegistrazioneService";
@@ -8,13 +8,14 @@ import {Router } from "@angular/router";
 import {AccediComponent} from "../accedi.component";
 import {BackEndService} from "../../../service/BackEndService";
 import {error} from "@angular/compiler-cli/src/transformers/util";
+import {FormGroup} from "@angular/forms";
 @Component({
   selector: 'app-riepilogo-dati',
   templateUrl: './riepilogo-dati.component.html',
   styleUrls: ['./riepilogo-dati.component.css','../accedi.component.css']
 })
 export class RiepilogoDatiComponent {
-  username: string
+  /*username: string
   email: string
   password: string
   nome: string
@@ -22,13 +23,15 @@ export class RiepilogoDatiComponent {
   indirizzo: string
   dataDiNascita: Date
   ambito: string
-  zonaDiCompetenza: string
+  zonaDiCompetenza: string*/
+
+  @Input('utente') utente:any
 
   constructor(private datiRegistrazione: DatiRegistrazioneService, private router: Router, private accediComponent : AccediComponent, private backEndService: BackEndService) {
   }
 
   ngOnInit(): void {
-    this.username = this.datiRegistrazione.getUsername();
+    /*this.username = this.datiRegistrazione.getUsername();
     this.email = this.datiRegistrazione.getEmail();
     this.password = this.datiRegistrazione.getPassword();
 
@@ -37,7 +40,7 @@ export class RiepilogoDatiComponent {
 
     this.dataDiNascita = this.datiRegistrazione.getDataDiNascita();
     this.ambito = this.datiRegistrazione.getAmbiti();
-    this.zonaDiCompetenza = this.datiRegistrazione.getZonaDiCompetenza();
+    this.zonaDiCompetenza = this.datiRegistrazione.getZonaDiCompetenza();*/
   }
 
 

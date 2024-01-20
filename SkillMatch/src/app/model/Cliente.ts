@@ -1,14 +1,6 @@
-export interface Cliente{
+import {Utente} from "./Utente";
+export interface Cliente extends Utente{
 
-    nome: string
-    cognome: string
-    citta: string
-    provincia: string
-    imgProfilo: string
-    email: string
-    password: string
-    username: string
-    registrato: boolean
-    dataRegistrazione:Date
-    
+
+
 }

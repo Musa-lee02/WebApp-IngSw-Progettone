@@ -18,7 +18,4 @@ public class LavoratoreController {
         return DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(lavoratore.getUsername());
     }
 
-
-
-
 }
