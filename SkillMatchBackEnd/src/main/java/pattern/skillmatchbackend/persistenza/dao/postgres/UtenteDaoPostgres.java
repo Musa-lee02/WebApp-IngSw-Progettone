@@ -85,7 +85,7 @@ public class UtenteDaoPostgres implements UtenteDao {
         if (findByPrimaryKey(utente.getUsername()) != null)
             query  = "UPDATE utente SET "
                     + "username = ?, password = ?, email = ?, nome = ?, cognome = ?, provincia = ?, "
-                    + "citta = ?, provincia_lavoro = ?, img_profilo = ?, registrato = ?, data_registrazione = ? "
+                    + "img_profilo = ?, registrato = ?, data_registrazione = ? "
                     + "WHERE username = ?";
 
 
