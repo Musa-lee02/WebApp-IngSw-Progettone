@@ -61,8 +61,7 @@ public class SignUpController {
             }
             DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
             EmailSender emailSender = new EmailSender();
-            TokenManager tokenManager = new TokenManager();
-            String token = tokenManager.creaToken(lavoratore.getUsername());
+            String token = TokenManager.getInstance().creaToken(lavoratore.getUsername(), 2 * 24 * 60 * 60 * 1000);
             emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
 
         return true;
@@ -73,8 +72,7 @@ public class SignUpController {
 
         DBManager.getInstance().getClienteDao().saveOrUpdate(cliente);
         EmailSender emailSender = new EmailSender();
-        TokenManager tokenManager = new TokenManager();
-        String token = tokenManager.creaToken(cliente.getUsername());
+        String token = TokenManager.getInstance().creaToken(cliente.getUsername(), 2 * 24 * 60 * 60 * 1000);
         emailSender.confermaLink(cliente, "http://localhost:4200/ConfermaAccount?token=" + token);
 
         return true;

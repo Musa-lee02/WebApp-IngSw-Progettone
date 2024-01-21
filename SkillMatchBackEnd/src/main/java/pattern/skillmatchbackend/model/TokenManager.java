@@ -7,12 +7,25 @@ import io.jsonwebtoken.Jwts;
 import java.util.Date;
 
 public class TokenManager {
+
+    private static TokenManager instance;
+
+    private TokenManager() {
+    }
+
+    public static TokenManager getInstance() {
+        if (instance == null)
+            return new TokenManager();
+        return instance;
+    }
+
+
     private static final String SECRET_KEY = "SKILLMATCHBACKEND2024T569865V86586BTRIE53DXFSYLJHGopUYRX766K87TRC5BWEZ43QA8UJH0986RT63MJ7GV7NTDE";
 
-    public static String creaToken(String username) {
+    public static String creaToken(String username, Integer expirationTimeInMilliSeconds) {
 
         Date now = new Date();
-        Date expirationDate = new Date(now.getTime() + 2 * 24 * 60 * 60 * 1000); // Token valido per 2 giorni
+        Date expirationDate = new Date(now.getTime() + expirationTimeInMilliSeconds); // Token valido per 2 giorni
 
 
         return Jwts.builder()

@@ -79,6 +79,21 @@ public class UtenteDaoPostgres implements UtenteDao {
     }
 
     @Override
+    public boolean checkLogin(String username, String password) {
+        String query = "SELECT * FROM utente WHERE username = ? AND password = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, username);
+            st.setString(2, password);
+            ResultSet rs = st.executeQuery();
+            if (rs.next())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    @Override
     public void saveOrUpdate(Utente utente) {
 
         String query = "INSERT INTO utente "
