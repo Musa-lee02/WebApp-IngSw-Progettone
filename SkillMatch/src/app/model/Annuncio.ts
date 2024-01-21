@@ -9,7 +9,7 @@ export interface Annuncio{
     descrizione: string;
     dataDiScadenza: Date;
     provinciaAnnuncio: string;
-    image: Image;
+    //image: Image;
     cliente: Cliente;
     ambito: Ambito;
     proposta: Proposta;

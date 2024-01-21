@@ -14,6 +14,7 @@ import {Utente} from "../../model/Utente";
 import {Lavoratore} from "../../model/Lavoratore";
 import {elementSelectors} from "@angular/cdk/schematics";
 import {Cliente} from "../../model/Cliente";
+import {Ambito} from "../../model/Ambito";
 
 
 
@@ -34,7 +35,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     'Arkansas',
   ];
 
-  ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanica', 'Informatica', 'Altro']
+  ambiti: Ambito[]
 
   province: string[] = ['Cosenza', 'Reggio Calabria', 'Vibo Valentia', 'Catanzaro', 'Crotone',
     'Napoli', 'Salerno', 'Avellino', 'Benevento', 'Caserta', 'Potenza', 'Matera']
@@ -71,6 +72,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   url = ""
   scelta: string
 
+
   image !: File
 
   constructor(private service: ServizioAnnunciService, private backEndService: BackEndService, private datiRegistrazione: DatiRegistrazioneService) {
@@ -102,6 +104,13 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   ngOnInit(): void {
     window['accediComponentRef'] = this;
     window['backEndServiceRef'] = this.backEndService;
+
+    this.backEndService.getAmbiti().subscribe(
+      data => {
+        this.ambiti = data
+        console.log(this.ambiti)
+      }
+    )
 
 
     this.generalitaForm = new FormGroup({
@@ -142,7 +151,6 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.service.setDoingAccesso(true)
 
     this.province = this.service.getProvince()
-    this.ambiti = this.service.getAmbiti()
   }
 
   passwordMatchValidators(control: AbstractControl) {
@@ -256,6 +264,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           username: this.credenzialiForm.get("username")?.value
 
         }
+        console.log(this.lavoratore.ambiti)
         this.riepilogoDati = true
         return
 
@@ -267,8 +276,41 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 
     if (this.credenzialiForm.valid) {
+      const utente = this.credenzialiForm.value
+      this.backEndService.postCheckRegistrationCredential(utente).subscribe(
+        (response) => {
+          this.container?.nativeElement.classList.add('generalita')
 
-      this.container?.nativeElement.classList.add('generalita')
+          }, (error: HttpErrorResponse) => {
+          console.log(error)
+
+          if (error.error === "Email già in uso")
+            alert("Email già in uso")
+
+          else if (error.error === "Username già in uso")
+            alert("Username già in uso")
+
+          else if (error.error === "Password non valida (deve contenere almeno una lettera maiuscola)")
+            Swal.fire("Password non valida (deve contenere almeno una lettera maiuscola)")
+
+          else if (error.error === "Password non valida (deve contenere almeno un numero)")
+            Swal.fire("Password non valida (deve contenere almeno un numero)")
+
+          else if (error.error === "Password non valida (deve contenere almeno 8 caratteri)")
+            Swal.fire("Password non valida (deve contenere almeno 8 caratteri)")
+
+          else if (error.error === "Password non valida (deve contenere almeno un carattere speciale)")
+            Swal.fire("Password non valida (deve contenere almeno un carattere speciale)")
+
+          else {
+            Swal.fire("Errore generico")
+          }
+
+
+        })
+
+
+
 
       console.log("ciao")
     }
