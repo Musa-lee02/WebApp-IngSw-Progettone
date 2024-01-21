@@ -26,7 +26,7 @@ public class SkillMatchBackEndApplication {
 
 		}*/
 
-		DBManager.getInstance().getAmbitoDao().findAll().forEach(System.out::println);
+		//DBManager.getInstance().getAmbitoDao().findAll().forEach(System.out::println);
 
 
 	}
