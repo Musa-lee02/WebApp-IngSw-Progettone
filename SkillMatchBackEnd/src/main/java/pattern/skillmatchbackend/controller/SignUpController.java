@@ -53,6 +53,7 @@ public class SignUpController {
        return presente;
     }
 
+
     @PostMapping("/completeRegistration/Lavoratore")
     public boolean completeRegistrationLavoratore(@RequestBody Lavoratore lavoratore) {
 
@@ -77,5 +78,6 @@ public class SignUpController {
 
         return true;
     }
+
 
 }

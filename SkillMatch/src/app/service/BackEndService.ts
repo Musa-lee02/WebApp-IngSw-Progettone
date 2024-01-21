@@ -46,6 +46,11 @@ export class BackEndService{
     return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", utente);
 
   }
+  /*public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
+
+    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Utente", { params: { utente } });
+
+  }*/
 
 
 
