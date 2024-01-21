@@ -2,6 +2,7 @@ package pattern.skillmatchbackend.persistenza.dao.postgres;
 
 import pattern.skillmatchbackend.model.Annuncio;
 import pattern.skillmatchbackend.model.Image;
+import pattern.skillmatchbackend.persistenza.IdBroker;
 import pattern.skillmatchbackend.persistenza.dao.AnnuncioDao;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
@@ -89,6 +90,8 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                     "SET titolo = ?, descrizione = ?, data_di_scadenza = ?, provincia_annuncio = ?, " +
                     "img_annuncio = ?, username_cliente = ?, id_ambito = ? " +
                     "WHERE id_annuncio = ?";
+        else
+            annuncio.setId(IdBroker.getId(conn));
 
             try {
 
@@ -103,6 +106,9 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 st.setString(6, annuncio.getImage().getPath());
                 st.setString(7, annuncio.getCliente().getUsername());
                 st.setLong(8, annuncio.getAmbito().getId());
+
+                if(query.startsWith("UPDATE"))
+                    st.setLong(9, annuncio.getId());
 
                 st.executeUpdate();
             } catch (SQLException e) {

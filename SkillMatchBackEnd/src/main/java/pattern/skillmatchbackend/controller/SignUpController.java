@@ -57,7 +57,9 @@ public class SignUpController {
     @PostMapping("/completeRegistration/Lavoratore")
     public boolean completeRegistrationLavoratore(@RequestBody Lavoratore lavoratore) {
 
-            System.out.println("amo la madonna");
+            for (Ambito a : lavoratore.getAmbiti()) {
+                System.out.println("id:" + a.getId() + "nome:" + a.getNome());
+            }
             DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
             EmailSender emailSender = new EmailSender();
             TokenManager tokenManager = new TokenManager();

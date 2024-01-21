@@ -5,20 +5,20 @@ import java.sql.Date;
 
 public class Proposta {
 
-    private Date data_lavoro;
+    private Date dataLavoro;
     private String descrizione;
     private String stato;
-    private String stato_lavoro;
+    private String statoLavoro;
     private Float prezzoLavoro;
     private Annuncio annuncioRelativo;
     private Lavoratore lavoratore;
 
-    public Date getData_lavoro() {
-        return data_lavoro;
+    public Date getDataLavoro() {
+        return dataLavoro;
     }
 
-    public void setData_lavoro(Date data_lavoro) {
-        this.data_lavoro = data_lavoro;
+    public void setDataLavoro(Date dataLavoro) {
+        this.dataLavoro = dataLavoro;
     }
 
     public String getDescrizione() {
@@ -37,12 +37,12 @@ public class Proposta {
         this.stato = stato;
     }
 
-    public String getStato_lavoro() {
-        return stato_lavoro;
+    public String getStatoLavoro() {
+        return statoLavoro;
     }
 
-    public void setStato_lavoro(String stato_lavoro) {
-        this.stato_lavoro = stato_lavoro;
+    public void setStatoLavoro(String statoLavoro) {
+        this.statoLavoro = statoLavoro;
     }
 
     public Float getPrezzoLavoro() {

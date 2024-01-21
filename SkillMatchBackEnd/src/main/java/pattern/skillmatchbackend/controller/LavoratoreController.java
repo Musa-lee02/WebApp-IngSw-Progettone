@@ -1,10 +1,8 @@
 package pattern.skillmatchbackend.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pattern.skillmatchbackend.model.Lavoratore;
+import pattern.skillmatchbackend.model.Utente;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
 @RestController
@@ -14,8 +12,17 @@ public class LavoratoreController {
 
     //TODO da testare
     @GetMapping("/getLavoratoreByEmail")
-    public Lavoratore getLavoratoreByEmail(Lavoratore lavoratore){
+    public Lavoratore getLavoratoreByEmail(@RequestBody Lavoratore lavoratore){
         return DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(lavoratore.getUsername());
     }
+
+    //TODO da testare
+    @GetMapping("getLavoratorePunteggio")
+    public int getLavoratorePunteggio(@RequestBody Lavoratore lavoratore){
+        return DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(lavoratore.getUsername()).getPunteggio();
+    }
+
+
+
 
 }

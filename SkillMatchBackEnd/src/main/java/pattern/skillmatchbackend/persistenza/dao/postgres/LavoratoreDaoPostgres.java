@@ -34,6 +34,9 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
 
             while (rs.next()) {
                 Lavoratore lavoratore = new Lavoratore(DBManager.getInstance().getUtenteDao().findByPrimaryKey(rs.getString("username")));
+                lavoratore.setProvinciaLavoro(rs.getString("provincia_lavoro"));
+                lavoratore.setNotifica_email(rs.getBoolean("notifica_email"));
+                lavoratore.setPunteggio(rs.getInt("punteggio"));
                 lavoratore.setProposte(DBManager.getInstance().getPropostaDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
                 lavoratore.setChats(DBManager.getInstance().getChatDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
                 lavoratore.setRecensioni(DBManager.getInstance().getRecensioneDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
@@ -62,6 +65,9 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
 
             if (rs.next()) {
                 lavoratore = new Lavoratore(DBManager.getInstance().getUtenteDao().findByPrimaryKey(rs.getString("username")));
+                lavoratore.setProvinciaLavoro(rs.getString("provincia_lavoro"));
+                lavoratore.setNotifica_email(rs.getBoolean("notifica_email"));
+                lavoratore.setPunteggio(rs.getInt("punteggio"));
                 lavoratore.setProposte(DBManager.getInstance().getPropostaDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
                 lavoratore.setChats(DBManager.getInstance().getChatDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
                 lavoratore.setRecensioni(DBManager.getInstance().getRecensioneDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
@@ -83,7 +89,7 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
         String query = "INSERT INTO lavoratore VALUES (?,?,?,?)";
 
         if (findByPrimaryKey(lavoratore.getUsername()) != null)
-            query = "UPDATE lavoratore SET username = ? , provincia_lavoro = ?, notifica_email = ? , punteggio = ? WHERE username = ?";
+            query  = "UPDATE lavoratore SET username = ? , provincia_lavoro = ?, notifica_email = ? , punteggio = ? WHERE username = ?";
 
         try {
 
@@ -91,18 +97,20 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
             PreparedStatement st = conn.prepareStatement(query);
 
 
-            st.setString(1, lavoratore.getUsername());
-            st.setString(2, lavoratore.getProvinciaLavoro());
-            st.setBoolean(3, lavoratore.isNotifica_email());
-            st.setInt(4, lavoratore.getPunteggio());
 
-            if (query.startsWith("UPDATE"))
+            st.setString(1,lavoratore.getUsername());
+            st.setString(2,lavoratore.getProvinciaLavoro());
+            st.setBoolean(3,lavoratore.isNotifica_email());
+            st.setInt(4,lavoratore.getPunteggio());
+
+            if(query.startsWith("UPDATE"))
                 st.setString(5, lavoratore.getUsername());
+
 
 
             st.executeUpdate();
 
-            if (query.startsWith("INSERT")) {
+            if(query.startsWith("INSERT")) {
 
                 for (Ambito ambito : lavoratore.getAmbiti()) {
 
@@ -128,6 +136,8 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
     }
 
     @Override

@@ -19,7 +19,7 @@ public class ClienteDaoPostgres  implements ClienteDao {
     @Override
     public List<Cliente> findAll() {
         List<Cliente> clienti = new LinkedList<>();
-        String query = "SELECT id_cliente, username FROM cliente";
+        String query = "SELECT * FROM cliente";
         try {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
@@ -65,16 +65,20 @@ public class ClienteDaoPostgres  implements ClienteDao {
 
     @Override
     public void saveOrUpdate(Cliente cliente) {
-        String query = "INSERT INTO cliente VALUES (?,?)";
+        String query = "INSERT INTO cliente VALUES (?)";
 
         if (findByPrimaryKey(cliente.getUsername()) != null)
-            query = "UPDATE cliente SET id_cliente = ? , username = ? ";
+            query = "UPDATE cliente SET username = ? WHERE username = ?";
 
         try {
+
             DBManager.getInstance().getUtenteDao().saveOrUpdate(cliente);
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, cliente.getUsername());
-            st.setString(2, cliente.getUsername());
+
+            if(query.startsWith("UPDATE"))
+                st.setString(1, cliente.getUsername());
+
             st.executeUpdate();
 
         } catch (SQLException e) {
