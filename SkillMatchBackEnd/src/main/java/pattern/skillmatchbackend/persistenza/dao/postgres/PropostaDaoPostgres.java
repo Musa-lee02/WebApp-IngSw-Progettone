@@ -53,7 +53,7 @@ public class PropostaDaoPostgres implements PropostaDao {
     @Override
     public Proposta findByPrimaryKey(long idAnnuncio, String username) {
         Proposta proposta = null;
-        String query = "SELECT * FROM proposta WHERE WHERE id_annuncio = ? and username_lavoratore = ?";
+        String query = "SELECT * FROM proposta WHERE id_annuncio = ? and username_lavoratore = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, idAnnuncio);
@@ -156,7 +156,7 @@ public class PropostaDaoPostgres implements PropostaDao {
     @Override
     public Proposta findByForeignKeyAnnuncio(Long id) {
         Proposta proposta = null;
-        String query = "SELECT * FROM proposta WHERE WHERE id_annuncio = ?";
+        String query = "SELECT * FROM proposta WHERE id_annuncio = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, id);
@@ -179,6 +179,34 @@ public class PropostaDaoPostgres implements PropostaDao {
         }
         return proposta;
 
+    }
+
+    @Override
+    public Proposta findByAnnuncioEUsernameLavoratore(long idAnnuncio, String username) {
+        Proposta proposta = null;
+        String query = "SELECT * FROM proposta WHERE id_annuncio = ? and  username_lavoratore = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setLong(1, idAnnuncio);
+            st.setString(2,username);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                proposta = new Proposta();
+                proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
+                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
+                proposta.setDataLavoro(rs.getDate("data_lavoro"));
+                proposta.setStato(rs.getString("stato"));
+                proposta.setStatoLavoro(rs.getString("stato_lavoro"));
+                proposta.setDescrizione(rs.getString("descrizione"));
+                proposta.setStato(rs.getString("stato"));
+                proposta.setPrezzoLavoro(rs.getFloat("prezzo_lavoro"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return proposta;
     }
 
 }

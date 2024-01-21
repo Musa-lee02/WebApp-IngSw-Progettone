@@ -1,9 +1,12 @@
 package pattern.skillmatchbackend.controller;
 
 import org.springframework.web.bind.annotation.*;
+import pattern.skillmatchbackend.model.Annuncio;
 import pattern.skillmatchbackend.model.Lavoratore;
 import pattern.skillmatchbackend.model.Proposta;
 import pattern.skillmatchbackend.persistenza.DBManager;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
@@ -26,5 +29,13 @@ public class PropostaController {
         return DBManager.getInstance().getPropostaDao().findByForeignKeyLavoratore(lavoratore.getUsername()).getStatus();
     }
      */
+
+    //non so se si possono mettere 2 parametri requestbody e non so come generare http per 2 parametri
+    @PostMapping("/getPropostaByAnnuncioEUsernameLavoratore")
+    public Proposta getPropostaByAnnuncioEUsernameLavoratore(@RequestBody Annuncio annuncio, @RequestBody Lavoratore lavoratore){
+
+        return DBManager.getInstance().getPropostaDao().findByAnnuncioEUsernameLavoratore(annuncio.getId(),lavoratore.getUsername());
+
+    }
 
 }

@@ -16,6 +16,8 @@ public interface PropostaDao {
     public List<Proposta> findByForeignKeyLavoratore(String username);
     public Proposta findByForeignKeyAnnuncio(Long id);
 
+    public Proposta findByAnnuncioEUsernameLavoratore(long idAnnuncio,String username);
+
 
 
 }
