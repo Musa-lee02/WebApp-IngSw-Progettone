@@ -1,29 +1,36 @@
 package pattern.skillmatchbackend.config;
 
-// path/filename: src/main/java/com/example/security/SecurityConfiguration.java
 
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-    private final JwtRequestFilter jwtRequestFilter;
-
-    public SecurityConfiguration(JwtRequestFilter jwtRequestFilter) {
-        this.jwtRequestFilter = jwtRequestFilter;
+    // Define the JwtRequestFilter bean here if you haven't already
+    @Bean
+    public JwtRequestFilter jwtRequestFilter() {
+        return new JwtRequestFilter();
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/login", "/register").permitAll() // Public endpoints
-                .anyRequest().authenticated() // All other endpoints are secured
-                .and()
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        // ... (other configurations like session management)
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable() // Disable CSRF if you're using JWTs as it is typically not needed
+                .authorizeRequests(authorize -> authorize
+                        .antMatchers("/login", "/register").permitAll() // Public endpoints
+                        .anyRequest().authenticated() // All other endpoints require authentication
+                )
+                .addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class); // Add your JWT filter
+
+        // You can also configure CORS, session management, etc., here if necessary
+
+        return http.build();
     }
 }
