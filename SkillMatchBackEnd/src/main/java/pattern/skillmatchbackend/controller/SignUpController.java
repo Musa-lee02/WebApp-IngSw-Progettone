@@ -59,7 +59,9 @@ public class SignUpController {
 
             for (Ambito a : lavoratore.getAmbiti()) {
                 System.out.println("id:" + a.getId() + "nome:" + a.getNome());
-            }
+
+            };
+            System.out.println("provincia_lavoro"+ lavoratore.getProvinciaLavoro());
             DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
             EmailSender emailSender = new EmailSender();
             TokenManager tokenManager = new TokenManager();

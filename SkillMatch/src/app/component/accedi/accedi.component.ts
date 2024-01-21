@@ -110,6 +110,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.ambiti = data
         console.log(this.ambiti)
       }
+
     )
 
 
@@ -220,7 +221,9 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     return this.service.getSkipAutentication()
   }
 
+  doLogin(){
 
+  }
   onSubmit() {
 
     if (this.scelta === "cliente") {
@@ -258,13 +261,14 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           notifica_email: false,
           password: this.credenzialiForm.get("password")?.value,
           provincia: this.generalitaForm.get("provincia")?.value,
-          provincia_lavoro: this.ambitoForm.get("zona")?.value,
+          provinciaLavoro: this.ambitoForm.get("zona")?.value,
           punteggio: 0,
           registrato: false,
           username: this.credenzialiForm.get("username")?.value
 
         }
         console.log(this.lavoratore.ambiti)
+
         this.riepilogoDati = true
         return
 

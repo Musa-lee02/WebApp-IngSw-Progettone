@@ -6,6 +6,7 @@ import { Cliente } from '../model/Cliente';
 import { Utente, UtenteCredenziali } from '../model/Utente';
 import {DatiRegistrazioneService} from "./DatiRegistrazioneService";
 import {Ambito} from "../model/Ambito";
+import {Lavoratore} from "../model/Lavoratore";
 
 declare var window: any;
 
@@ -41,10 +42,12 @@ export class BackEndService{
 
   public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
     if (scelta==="lavoratore") {
-      return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", utente);
+
+      console.log((<Lavoratore>utente).provinciaLavoro)
+      return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", (<Lavoratore>utente));
     }
 
-    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", utente);
+    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", (<Cliente>utente));
 
   }
   /*public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {

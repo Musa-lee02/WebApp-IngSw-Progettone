@@ -4,7 +4,7 @@
         <app-scelta-utente (mandaSceltaUtente)="onRiceviScelta($event)"></app-scelta-utente>
     </div>
     <div class="form-container sign-in">
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit() ">
+        <form [formGroup]="loginForm" (ngSubmit)="doLogin() ">
             <h1>Accedi</h1>
 
             <!--<div id="g_id_onload"
@@ -141,7 +141,9 @@
                 <mat-form-field>
                     <mat-label>Ambiti</mat-label>
                     <mat-select formControlName="ambito" multiple>
-                      <mat-option *ngFor="let ab of ambiti" [value]="ab.idAmbito">{{ab.nome}}</mat-option>
+                        @for (ab of ambiti; track ab) {
+                        <mat-option [value]="ab">{{ab.nome}}</mat-option>
+                        }
                     </mat-select>
                   </mat-form-field>
 

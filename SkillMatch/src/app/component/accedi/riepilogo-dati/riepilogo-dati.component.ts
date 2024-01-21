@@ -38,14 +38,16 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
   }
 
   public getZona() : string{
-    return (<Lavoratore>this.utente).provincia_lavoro
+    return (<Lavoratore>this.utente).provinciaLavoro
   }
 
 
   public goToAccount() {
-    console.log("sdssda")
+    console.log((<Lavoratore>this.utente).provinciaLavoro )
     //let data =
     //this.utente.dataRegistrazione = data;
+
+
     this.backEndService.completeSignUp(this.utente, this.scelta).subscribe(response => {
       if (response) {
         this.router.navigate(['/Profilo']);
