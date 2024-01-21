@@ -38,6 +38,7 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
 
 
   public goToAccount() {
+    console.log("sdssda")
     //let data =
     //this.utente.dataRegistrazione = data;
     this.backEndService.completeSignUp(this.utente, this.scelta).subscribe(response => {

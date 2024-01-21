@@ -33,7 +33,7 @@ export class FormAnnuncioComponent {
   @ViewChild('container') container: ElementRef | undefined;
   cardAnnuncio: any
 
-  constructor(private service: ServizioAnnunciService){
+  constructor(private service: ServizioAnnunciService ){
     this.minDate = new Date();
 
     //this.minDate.setDate(this.minDate.getDate() + 1);
@@ -58,7 +58,7 @@ export class FormAnnuncioComponent {
 
   onSubmit(): void{
 
-      this.backEndService.addImage(this.image).subscribe(
+      /*this.backEndService.addImage(this.image).subscribe(
         (response) => {
           console.log(response)
           console.log("Ok")
@@ -97,9 +97,9 @@ export class FormAnnuncioComponent {
   }
   onSelectFile(e: any): void {
 
-      if(e.target.files){
+      /*if(e.target.files){
         this.image = e.target.files[0]
-      }
+      }*/
 
     }
   clickArrow() : void{
