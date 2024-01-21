@@ -1,4 +1,4 @@
-/*package pattern.skillmatchbackend.controller.servlet;
+package pattern.skillmatchbackend.controller.servlet;
 
 
 import jakarta.servlet.ServletException;
@@ -10,7 +10,7 @@ import pattern.skillmatchbackend.model.TokenManager;
 
 import java.io.IOException;
 
-
+/*
 @WebServlet("/RecuperoPassword")
 public class RecuperoPasswordServlet extends HttpServlet {
     @Override

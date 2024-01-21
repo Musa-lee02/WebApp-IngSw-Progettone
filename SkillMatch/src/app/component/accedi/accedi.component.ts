@@ -8,9 +8,13 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service'
-import { SceltaUtenteComponent } from './scelta-utente/scelta-utente.component';
 import Swal from 'sweetalert2';
 import {HttpErrorResponse} from "@angular/common/http";
+import {Utente} from "../../model/Utente";
+import {Lavoratore} from "../../model/Lavoratore";
+import {elementSelectors} from "@angular/cdk/schematics";
+import {Cliente} from "../../model/Cliente";
+import {Ambito} from "../../model/Ambito";
 
 
 
@@ -31,18 +35,45 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     'Arkansas',
   ];
 
+  ambiti: Ambito[]
+
+  province: string[] = ['Cosenza', 'Reggio Calabria', 'Vibo Valentia', 'Catanzaro', 'Crotone',
+    'Napoli', 'Salerno', 'Avellino', 'Benevento', 'Caserta', 'Potenza', 'Matera']
+
+  cliente: Cliente
+  utente: Utente
+  lavoratore: Lavoratore
+  /*lavoratore: Lavoratore={
+    ambiti: [],
+    cognome: "",
+    dataNascita: '0-0-0',
+    dataRegistrazione:'' ,
+    email: "",
+    imgProfilo: null,
+    nome: "",
+    notifica_email: false,
+    password: "",
+    provincia: "",
+    provincia_lavoro: "",
+    punteggio: 0,
+    registrato: false,
+    username: ""
+  }*/
 
 
-  generalitaForm : FormGroup
-  credenzialiForm : FormGroup
-  loginForm:FormGroup
-  ambitoForm:FormGroup
-  arrowLeft=faArrowLeft
-  googleIcon=faGoogle
-  riepilogoDati: boolean=false
-  url=""
-  province: any
-  ambiti:any
+  picProfile: any
+  generalitaForm: FormGroup
+  credenzialiForm: FormGroup
+  loginForm: FormGroup
+  ambitoForm: FormGroup
+  arrowLeft = faArrowLeft
+  googleIcon = faGoogle
+  riepilogoDati: boolean = false
+  url = ""
+  scelta: string
+
+
+  image !: File
 
   constructor(private service: ServizioAnnunciService, private backEndService: BackEndService, private datiRegistrazione: DatiRegistrazioneService) {
   }
@@ -69,103 +100,104 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
   }*/
 
+
   ngOnInit(): void {
-      window['accediComponentRef'] = this;
-      window['backEndServiceRef'] = this.backEndService;
+    window['accediComponentRef'] = this;
+    window['backEndServiceRef'] = this.backEndService;
+
+    this.backEndService.getAmbiti().subscribe(
+      data => {
+        this.ambiti = data
+        console.log(this.ambiti)
+      }
+    )
 
 
-
-
-    this.generalitaForm= new FormGroup({
+    this.generalitaForm = new FormGroup({
       nome: new FormControl(null, Validators.required),
       cognome: new FormControl(null, Validators.required),
-      dataNascita: new FormControl(null, Validators.required)
+      dataNascita: new FormControl(null, Validators.required),
+      provincia: new FormControl(null, Validators.required)
 
     })
 
-    this.credenzialiForm=new FormGroup({
+    this.credenzialiForm = new FormGroup({
 
       username: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null,[Validators.required,
+      password: new FormControl(null, [Validators.required,
         Validators.minLength(8),
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+-=]).{8,}$/)
       ]),
-      confermaPassword: new FormControl(null,[Validators.required,
+      confermaPassword: new FormControl(null, [Validators.required,
         Validators.minLength(8),
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+-=]).{8,}$/)
       ])
 
-    }, { validators: this.passwordMatchValidators });
+    }, {validators: this.passwordMatchValidators});
 
-    this.loginForm=new FormGroup ({
+    this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null,Validators.required),
+      password: new FormControl(null, Validators.required),
 
     })
 
-    this.ambitoForm=new FormGroup({
-      foto: new FormControl(null,Validators.required),
-      zona: new FormControl(null,Validators.required),
-      ambito: new FormControl(null,Validators.required),
+    this.ambitoForm = new FormGroup({
+      foto: new FormControl(),
+      zona: new FormControl(null, Validators.required),
+      ambito: new FormControl(null, Validators.required),
     })
 
     this.service.setDoingAccesso(true)
 
-    this.province=this.service.getProvince()
-    this.ambiti=this.service.getAmbiti()
+    this.province = this.service.getProvince()
   }
 
   passwordMatchValidators(control: AbstractControl) {
     const password = control.get('password')?.value;
     const ripetiPassword = control.get('confermaPassword')?.value;
 
-    return password === ripetiPassword ? null : { mismatch: true };
+    return password === ripetiPassword ? null : {mismatch: true};
   }
 
   ngOnDestroy(): void {
 
 
-    if(this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid){
+    if (this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid) {
       Swal.fire("Ricora di confermare l'email se vuoi pubblicare o proporti per un annuncio")
       this.service.setAutenticato(true)
     }
   }
 
 
-
-  onSelectFile(e:any){
-    if(e.target.files){
-      var reader = new FileReader();
+  onSelectFile(e: any) {
+    if (e.target.files) {
+      this.picProfile=e.target.files[0]
+      /*var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event: any) => {
         this.url = event.target.result;
-        this.datiRegistrazione.setImmagineProfilo(e.target.files[0])
+        //this.datiRegistrazione.setImmagineProfilo(e.target.files[0])
+        this.lavoratore.imgProfilo = e.target.files[0]*/
       }
+      /* per prendere l'immagine, basta questo, se si vuole utilizzare la variabile image:
+          if(e.target.files){
+            this.image = e.target.files[0]
+          }
+          //... altrimenti va bene il picProfile
+          */
 
     }
 
-  }
+  //}
 
-  isLavoratore(){
-
-    return this.service.isLavoratore()
-  }
-
-
-  onRiceviScelta(scelta: string){
-
-
-    if(scelta==="cliente"){
-      this.service.setlavoratoreBool(false)
-    }
-    else
-      this.service.setlavoratoreBool(true);
-
-      this.componentScelta?.nativeElement.classList.add('remove')
+  onRiceviScelta(scelta: string) {
+    this.scelta = scelta
+    this.componentScelta?.nativeElement.classList.add('remove')
 
   }
-  clickArrow(){
+
+  clickArrow() {
 
     console.log(this.generalitaForm)
     this.container?.nativeElement.classList.remove('generalita')
@@ -177,48 +209,143 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     console.log(this.generalitaForm)
   }
 
-  doingAccesso(){
+  doingAccesso() {
 
     return this.service.doingAccesso
 
   }
 
-  skipAutentication(){
+  skipAutentication() {
 
     return this.service.getSkipAutentication()
   }
-  onSubmit(){
 
-    if(this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid){
 
-      this.container?.nativeElement.classList.add('emailConferma')
-      this.riepilogoDati=true
-      console.log(this.riepilogoDati)
+  onSubmit() {
+
+    if (this.scelta === "cliente") {
+
+
+      if (this.generalitaForm.valid && this.credenzialiForm.valid) {
+
+        this.cliente={
+          cognome:  this.generalitaForm.get("cognome")?.value,
+          dataNascita: this.generalitaForm.get("dataNascita")?.value,
+          dataRegistrazione: new Date(),
+          email: this.credenzialiForm.get("email")?.value,
+          imgProfilo: this.picProfile,
+          nome: this.generalitaForm.get("nome")?.value,
+          password: this.credenzialiForm.get("password")?.value,
+          provincia: this.ambitoForm.get("zona")?.value,
+          registrato: false,
+          username: this.credenzialiForm.get("username")?.value
+
+        }
+
+      }
+    } else {
+      if (this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid) {
+
+
+        this.lavoratore={
+          ambiti: this.ambitoForm.get("ambito")?.value,
+          cognome: this.generalitaForm.get("cognome")?.value,
+          dataNascita: this.generalitaForm.get("dataNascita")?.value,
+          dataRegistrazione: new Date(),
+          email: this.credenzialiForm.get("email")?.value,
+          imgProfilo:this.picProfile,
+          nome:this.generalitaForm.get("nome")?.value,
+          notifica_email: false,
+          password: this.credenzialiForm.get("password")?.value,
+          provincia: this.generalitaForm.get("provincia")?.value,
+          provincia_lavoro: this.ambitoForm.get("zona")?.value,
+          punteggio: 0,
+          registrato: false,
+          username: this.credenzialiForm.get("username")?.value
+
+        }
+        console.log(this.lavoratore.ambiti)
+        this.riepilogoDati = true
+        return
+
+      } else if (this.generalitaForm.valid && this.credenzialiForm.valid) {
+        this.container?.nativeElement.classList.add('ambito')
+        return
+      }
     }
 
-    if (this.generalitaForm.valid && this.isLavoratore()) {
-      this.datiRegistrazione.setNome(this.generalitaForm.get("nome")?.value)
-      this.datiRegistrazione.setCognome(this.generalitaForm.get("cognome")?.value)
-      this.datiRegistrazione.setDataDiNascita(this.generalitaForm.get("dataNascita")?.value)
-      this.container?.nativeElement.classList.add('ambito')
-      this.datiRegistrazione.setZonaDiCompetenza(this.ambitoForm.get("zona")?.value)
-      this.datiRegistrazione.setAmbiti(this.ambitoForm.get("ambito")?.value)
-
-    }
-
-    if(this.generalitaForm.valid && !this.isLavoratore()){
-      this.container?.nativeElement.classList.add('emailConferma')
-    }
 
     if (this.credenzialiForm.valid) {
-      const lavoratore = this.credenzialiForm.value
-      this.backEndService.postCheckRegistrationCredential(lavoratore).subscribe(
+      const utente = this.credenzialiForm.value
+      this.backEndService.postCheckRegistrationCredential(utente).subscribe(
+        (response) => {
+          this.container?.nativeElement.classList.add('generalita')
+
+          }, (error: HttpErrorResponse) => {
+          console.log(error)
+
+          if (error.error === "Email già in uso")
+            alert("Email già in uso")
+
+          else if (error.error === "Username già in uso")
+            alert("Username già in uso")
+
+          else if (error.error === "Password non valida (deve contenere almeno una lettera maiuscola)")
+            Swal.fire("Password non valida (deve contenere almeno una lettera maiuscola)")
+
+          else if (error.error === "Password non valida (deve contenere almeno un numero)")
+            Swal.fire("Password non valida (deve contenere almeno un numero)")
+
+          else if (error.error === "Password non valida (deve contenere almeno 8 caratteri)")
+            Swal.fire("Password non valida (deve contenere almeno 8 caratteri)")
+
+          else if (error.error === "Password non valida (deve contenere almeno un carattere speciale)")
+            Swal.fire("Password non valida (deve contenere almeno un carattere speciale)")
+
+          else {
+            Swal.fire("Errore generico")
+          }
+
+
+        })
+
+
+
+
+      console.log("ciao")
+    }
+  }
+
+    /*else {
+
+        //this.container?.nativeElement.classList.add('emailConferma')
+      }
+
+      if (this.generalitaForm.valid && this.credenzialiForm.valid) {
+        if (this.ambitoForm.valid) {
+
+        }
+        else {
+
+        }
+
+
+        //this.container?.nativeElement.classList.add('emailConferma')
+
+        console.log(this.riepilogoDati)
+      }
+
+
+    }
+    if (this.credenzialiForm.valid) {
+      const utente = this.credenzialiForm.value
+      this.backEndService.postCheckRegistrationCredential(utente).subscribe(
         (response) => {
           //console.log(response.message)
-          this.datiRegistrazione.setUsername(this.credenzialiForm.get("username")?.value)
-          this.datiRegistrazione.setEmail(this.credenzialiForm.get("email")?.value)
+          //this.datiRegistrazione.setUsername(this.credenzialiForm.get("username")?.value)
+          //this.datiRegistrazione.setEmail(this.credenzialiForm.get("email")?.value)
 
-          this.container?.nativeElement.classList.add('generalita')
+
 
 
         }, (error: HttpErrorResponse) => {
@@ -242,7 +369,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           else if (error.error === "Password non valida (deve contenere almeno un carattere speciale)")
             Swal.fire("Password non valida (deve contenere almeno un carattere speciale)")
 
-          else{
+          else {
             Swal.fire("Errore generico")
           }
 
@@ -253,8 +380,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     }
 
-
-  }
+  }*/
 
   removeActive() {
 
@@ -287,18 +413,19 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       cognome: googleData.family_name
     })
     this.container?.nativeElement.classList.add('generalita')
-    if (this.generalitaForm.valid && this.isLavoratore()) {
+    if (this.generalitaForm.valid && this.scelta === "lavoratore") {
       this.ambitoForm.patchValue({
         foto: googleData.picture
 
       })
-      console.log(this.ambitoForm.get("foto")?.value)
       this.container?.nativeElement.classList.add('ambito')
     }
 
   }
 
   backToGeneralita() {
+    this.removeActive()
     this.container?.nativeElement.classList.add('generalita')
   }
+
 }

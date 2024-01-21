@@ -3,6 +3,7 @@ package pattern.skillmatchbackend.persistenza.dao.postgres;
 import pattern.skillmatchbackend.model.Recensione;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
+import pattern.skillmatchbackend.persistenza.IdBroker;
 import pattern.skillmatchbackend.persistenza.dao.RecensioneDao;
 
 import java.sql.*;
@@ -34,8 +35,8 @@ public class RecensioneDaoPostgres implements RecensioneDao {
                 recensione.setTitolo(rs.getString("titolo"));
                 recensione.setDescrizione(rs.getString("descrizione"));
                 recensione.setPunteggio(rs.getInt("punteggio"));
-                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong(("id_cliente"))));
-                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong(("id_lavoratore"))));
+                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
                 recensioni.add(recensione);
             }
 
@@ -61,8 +62,8 @@ public class RecensioneDaoPostgres implements RecensioneDao {
                 recensione.setTitolo(rs.getString("titolo"));
                 recensione.setDescrizione(rs.getString("descrizione"));
                 recensione.setPunteggio(rs.getInt("punteggio"));
-                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong("id_cliente")));
-                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong(("id_lavoratore"))));
+                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
             }
 
         } catch (SQLException e) {
@@ -78,19 +79,26 @@ public class RecensioneDaoPostgres implements RecensioneDao {
 
         if (findByPrimaryKey(recensione.getIdRecensione()) != null)
             query = "UPDATE recensione " +
-                    "SET titolo = ?, descrizione = ?, punteggio = ?, id_cliente = ?, id_lavoratore = ? " +
+                    "SET id_recensione = ?, titolo = ?, descrizione = ?, punteggio = ?, username_cliente = ?, username_lavoratore = ? " +
                     "WHERE id_recensione = ?";
+        else
+            recensione.setIdRecensione(IdBroker.getId(conn));
 
         try {
 
             PreparedStatement st = conn.prepareStatement(query);
 
-            st.setString(1, recensione.getTitolo());
-            st.setString(2, recensione.getDescrizione());
-            st.setInt(3, recensione.getPunteggio());
-            st.setLong(4, recensione.getRecensore().getId());
-            st.setLong(5, recensione.getRecensito().getId());
+            st.setLong(1,recensione.getIdRecensione());
+            st.setString(2, recensione.getTitolo());
+            st.setString(3, recensione.getDescrizione());
+            st.setInt(4, recensione.getPunteggio());
+            st.setString(4, recensione.getRecensore().getUsername());
+            st.setString(5, recensione.getRecensito().getUsername());
             st.setLong(6, recensione.getIdRecensione());
+
+            if(query.startsWith("UPDATE"))
+                st.setLong(7,recensione.getIdRecensione());
+
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -111,17 +119,17 @@ public class RecensioneDaoPostgres implements RecensioneDao {
     }
 
     @Override
-    public List<Recensione> findByForeignKeyLavoratore(long id) {
-        return findByForeignKeyClienteoLavoratore(id,"id_lavoratore");
+    public List<Recensione> findByForeignKeyLavoratore(String username) {
+        return findByForeignKeyClienteoLavoratore(username,"username_lavoratore");
     }
 
     @Override
-    public List<Recensione> findByForeignKeyCliente(long id) {
-        return findByForeignKeyClienteoLavoratore(id,"id_cliente");
+    public List<Recensione> findByForeignKeyCliente(String username) {
+        return findByForeignKeyClienteoLavoratore(username,"username_cliente");
     }
 
 
-    public List<Recensione> findByForeignKeyClienteoLavoratore(Long id, String profilo) {
+    public List<Recensione> findByForeignKeyClienteoLavoratore(String username, String profilo) {
 
         List <Recensione> recensioni = new LinkedList<>();
         String query = "SELECT * FROM recensione WHERE "+profilo+" = ?";
@@ -129,7 +137,7 @@ public class RecensioneDaoPostgres implements RecensioneDao {
         try {
 
             PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1, id);
+            st.setString(1, username);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -138,8 +146,8 @@ public class RecensioneDaoPostgres implements RecensioneDao {
                 recensione.setTitolo(rs.getString("titolo"));
                 recensione.setDescrizione(rs.getString("descrizione"));
                 recensione.setPunteggio(rs.getInt("punteggio"));
-                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong("id_cliente")));
-                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
+                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
                 recensioni.add(recensione);
             }
 

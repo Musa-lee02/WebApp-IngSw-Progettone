@@ -1,4 +1,63 @@
 
+.anteprimaAnnuncio{
+    display: none;
+}
+.anteprimaAnnuncioActive .anteprimaAnnuncio{
+
+    width: 100%;
+    height: 600px;
+    position: relative;
+    bottom: 600px;
+    display: flex;
+    background-color: white;
+    border: 1px solid black;
+
+
+}
+
+.descrizioneANDbutton{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+}
+
+.descrizioneANDbutton .descrizione{
+
+    display: flex;
+    width: 100%;
+    height: 50%;
+    align-items: center;
+}
+
+.descrizioneANDbutton .buttons{
+
+    height: 50%;
+    width: 100%;
+   
+
+}
+.descrizioneANDbutton button{
+    
+    background-color: rgb(157, 130, 221);
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px; 
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-right: 20px;
+    
+
+}
+
+.card{
+    width: 60%;
+}
 .containerForm{
 
     display: flex;
@@ -6,12 +65,17 @@
 }
 
 
-  .matA{
+.matA{
     border-radius:40px;
     height: 80px;
-
 }
 
+.matB{
+
+    height: 150px;
+    width: 100% !important;
+    border-radius: 40px;
+}
 .contenitoreB button{
     
     background-color: rgb(106, 171, 211);

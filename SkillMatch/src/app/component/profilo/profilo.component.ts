@@ -3,6 +3,7 @@ import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import {BackEndService} from "../../service/BackEndService";
 
 @Component({
   selector: 'app-profilo',
@@ -12,20 +13,19 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 export class ProfiloComponent implements OnInit {
 
 
-  
+
   annunci:any
   pencil=faPencil
- 
+
   entita:string
   propostaAccettata: any
 
   url:string;
-  constructor(private service: ServizioAnnunciService, private route: ActivatedRoute){
-
-    this.service.setAutenticato(true);
+  constructor(private service: ServizioAnnunciService, private route: ActivatedRoute, private backEndService: BackEndService){
 
   }
   ngOnInit(): void {
+
 
     this.annunci=this.service.getAnnunci();
     console.log(this.annunci)
@@ -39,7 +39,7 @@ export class ProfiloComponent implements OnInit {
         this.entita=="Lavoratore";
     }
 
-    
+
   }
 
   onSelectFile(e:any){
@@ -52,8 +52,8 @@ export class ProfiloComponent implements OnInit {
       }
 
     }
-  
-    
+
+
 
   }
 
@@ -64,6 +64,6 @@ export class ProfiloComponent implements OnInit {
 
 
 
-  
+
 
 }

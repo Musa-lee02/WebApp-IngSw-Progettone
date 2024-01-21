@@ -9,12 +9,8 @@ public class  Utente {
     protected String email;
     protected String nome;
     protected String cognome;
-    protected String via;
-    protected int numeroCivico;
-    protected String cap;
     protected String provincia;
-    protected String citta;
-    protected String provinciaLavoro;
+    protected String  citta;
     protected Image imgProfilo = new Image();
     protected boolean registrato;
     protected Date dataRegistrazione;
@@ -23,20 +19,16 @@ public class  Utente {
     }
 
     public Utente(Utente utente) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.nome = nome;
-        this.cognome = cognome;
-        this.via = via;
-        this.numeroCivico = numeroCivico;
-        this.cap = cap;
-        this.provincia = provincia;
-        this.citta = citta;
-        this.provinciaLavoro = provinciaLavoro;
+        this.username = utente.username;
+        this.password = utente.password;
+        this.email = utente.email;
+        this.nome = utente.nome;
+        this.cognome = utente.cognome;
+        this.provincia = utente.provincia;
+        this.citta = utente.citta;
         this.imgProfilo = new Image(imgProfilo.getPath());
-        this.registrato = registrato;
-        this.dataRegistrazione = dataRegistrazione;
+        this.registrato = utente.registrato;
+        this.dataRegistrazione = utente.dataRegistrazione;
     }
 
     public String getUsername() {
@@ -79,30 +71,6 @@ public class  Utente {
         this.cognome = cognome;
     }
 
-    public String getVia() {
-        return via;
-    }
-
-    public void setVia(String via) {
-        this.via = via;
-    }
-
-    public int getNumeroCivico() {
-        return numeroCivico;
-    }
-
-    public void setNumeroCivico(int numeroCivico) {
-        this.numeroCivico = numeroCivico;
-    }
-
-    public String getCap() {
-        return cap;
-    }
-
-    public void setCap(String cap) {
-        this.cap = cap;
-    }
-
     public String getProvincia() {
         return provincia;
     }
@@ -111,21 +79,6 @@ public class  Utente {
         this.provincia = provincia;
     }
 
-    public String getCitta() {
-        return citta;
-    }
-
-    public void setCitta(String citta) {
-        this.citta = citta;
-    }
-
-    public String getProvinciaLavoro() {
-        return provinciaLavoro;
-    }
-
-    public void setProvinciaLavoro(String provinciaLavoro) {
-        this.provinciaLavoro = provinciaLavoro;
-    }
 
     public Image getImgProfilo() {
         return imgProfilo;

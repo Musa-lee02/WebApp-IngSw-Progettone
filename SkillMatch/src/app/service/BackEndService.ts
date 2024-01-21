@@ -1,7 +1,12 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
-import {Lavoratore, LavoratoreSignUp, LavoratoreSignUpGoogle} from "../SignUpLavoratore";
+//import {Lavoratore, LavoratoreSignUp, LavoratoreSignUpGoogle} from "../model/Lavoratore";
+import { Cliente } from '../model/Cliente';
+import { Utente, UtenteCredenziali } from '../model/Utente';
+import {DatiRegistrazioneService} from "./DatiRegistrazioneService";
+import {Ambito} from "../model/Ambito";
+
 declare var window: any;
 
 @Injectable({
@@ -11,19 +16,61 @@ export class BackEndService{
   private url = "http://localhost:8080";
   constructor(private http: HttpClient) { }
 
-  public postCheckRegistrationCredential(lavoratore : LavoratoreSignUp): Observable<string> {
-    console.log(lavoratore);
-    return this.http.post<string>(this.url+"/lavoratore/signup/passo1", lavoratore,  );
+  public postCheckRegistrationCredential(utente : UtenteCredenziali): Observable<string> {
+    return this.http.post<string>(this.url+"/signup/passo1", utente);
   }
 
-  public postSignupRegistrationWithGoogle(lavoratore : LavoratoreSignUpGoogle): Observable<boolean> {
-    return this.http.post<boolean>(this.url+"/lavoratore/signup/google", lavoratore);
+  public CheckExistenceGoogleAccount(utente : Utente): Observable<boolean> {
+    return this.http.post<boolean>(this.url+"/signup/google/checkExistence", utente);
 
   }
 
-  public retriveWorkerProfile(username: string): Observable<Lavoratore> {
+  public postGetPicProfile(utenteId: string): Observable<string>{
+
+    return this.http.post<string> ( this.url+"/images/", utenteId );//da modificare
+  }
+  /*public retriveWorkerProfile(username: string): Observable<Lavoratore> {
     return this.http.get<Lavoratore>(this.url+"/lavoratore/signin/infoprofilo"+username);
+  }*/
+
+  public postSignUpCliente(stringa :string):Observable<string>{
+
+    console.log(this.url)
+    return this.http.post<string>(this.url+"/data/cliente/signUp",stringa);
   }
+
+  public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
+    if (scelta==="lavoratore") {
+      return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", utente);
+    }
+
+    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", utente);
+
+  }
+
+  public addImage(image: File){
+
+
+    //const datiBlob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    const formData = new FormData();
+    //formData.append('dati', datiBlob);
+    formData.append('img', image);
+
+    console.log("Image sended")
+
+    return this.http.post<Boolean>(
+        this.url+"/images/annuncioImage",
+        formData
+    );
+  }
+
+
+  public verifyToken(token: string, username : string){
+    this.http.get(this.url+"/ConfermaAccount",{params: {token: token}}).subscribe(data => {
+  })}
+
+    public getAmbiti(): Observable<Ambito[]>{
+      return this.http.get<Ambito[]>(this.url+"/ambito/getAmbiti");
+    }
 
 }
-

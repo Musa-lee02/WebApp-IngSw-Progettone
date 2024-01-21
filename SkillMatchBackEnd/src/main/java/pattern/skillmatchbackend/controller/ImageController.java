@@ -23,7 +23,7 @@ public class ImageController {
 
     //TODO controllare se avere la classe 'Image' è utile
 
-    private final String relativePath = "src/main/resources/image/";
+    private final String relativePath = "SkillMatchBackEnd/src/main/resources/image/";
 
 
     //TODO da testare
@@ -82,11 +82,13 @@ public class ImageController {
     }
 
 
-    //TODO da testare
+    //TODO da modificare
     @PostMapping("/annuncioImage")
-    public ResponseEntity<Boolean> insertAnnuncioImage(@RequestBody Annuncio annuncio, MultipartFile img){
+    public ResponseEntity<Boolean> insertAnnuncioImage(@RequestBody MultipartFile img){//Annuncio annuncio,
 
-        Annuncio a = DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(annuncio.getId()); // Check if annuncio is in DB
+        //Le cose commentate servono tutte, solo che richiedono il backend
+
+        //Annuncio a = DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(annuncio.getId()); // Check if annuncio is in DB
 
         try {
             String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
@@ -94,7 +96,7 @@ public class ImageController {
             if (!new File(realPathToUploads).exists()) { //If the directory "image" is not existent
                 new File(realPathToUploads).mkdir();     //Create a directory
             }
-
+/*
             if(a.getImage().getPath() != null) {                                  //If the User has already a photo
                 String oldFilePath = realPathToUploads + a.getImage().getPath();  //"\\"+
                 File fileToDelete = new File(oldFilePath);                  //Go to the path the old photo
@@ -105,15 +107,18 @@ public class ImageController {
                 }
             }
 
+
+ */
+
             String orgName = FileUtil.assignProgressiveName(img);
             String filePath = realPathToUploads + orgName; //"\\"+
 
             File dest = new File(filePath);
             img.transferTo(dest);
 
-            a.getImage().setPath(orgName);
+            //a.getImage().setPath(orgName);
 
-            DBManager.getInstance().getAnnuncioDao().saveOrUpdate(a);
+            //DBManager.getInstance().getAnnuncioDao().saveOrUpdate(a);
 
             return ResponseEntity.ok(true);
         }catch (Exception e){ return ResponseEntity.ok(false); }

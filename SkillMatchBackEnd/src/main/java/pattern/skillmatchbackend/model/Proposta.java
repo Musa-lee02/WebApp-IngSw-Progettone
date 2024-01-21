@@ -1,31 +1,32 @@
 package pattern.skillmatchbackend.model;
 
 
+import java.sql.Date;
+
 public class Proposta {
 
-    private String titolo;
-
+    private Date dataLavoro;
     private String descrizione;
-
     private String stato;
+    private String statoLavoro;
     private Float prezzoLavoro;
     private Annuncio annuncioRelativo;
     private Lavoratore lavoratore;
 
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
+    public Date getDataLavoro() {
+        return dataLavoro;
     }
 
-    public String getTitolo() {
-        return titolo;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+    public void setDataLavoro(Date dataLavoro) {
+        this.dataLavoro = dataLavoro;
     }
 
     public String getDescrizione() {
         return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
     }
 
     public String getStato() {
@@ -34,6 +35,14 @@ public class Proposta {
 
     public void setStato(String stato) {
         this.stato = stato;
+    }
+
+    public String getStatoLavoro() {
+        return statoLavoro;
+    }
+
+    public void setStatoLavoro(String statoLavoro) {
+        this.statoLavoro = statoLavoro;
     }
 
     public Float getPrezzoLavoro() {

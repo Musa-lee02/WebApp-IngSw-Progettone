@@ -1,61 +1,65 @@
-import {Component, signal} from '@angular/core'
+import {AfterContentChecked, AfterViewChecked, Component, Input, signal} from '@angular/core'
 
-import { LavoratoreSignUp} from "../../../SignUpLavoratore";
 
 import { DatiRegistrazioneService } from "../../../service/DatiRegistrazioneService";
+import Swal  from "sweetalert2";
 
 import {Router } from "@angular/router";
 import {AccediComponent} from "../accedi.component";
+import {BackEndService} from "../../../service/BackEndService";
+import {error} from "@angular/compiler-cli/src/transformers/util";
+import {Utente} from "../../../model/Utente";
+import {Lavoratore} from "../../../model/Lavoratore";
+import {withInterceptorsFromDi} from "@angular/common/http";
+import {Ambito} from "../../../model/Ambito";
+import {Cliente} from "../../../model/Cliente";
 @Component({
   selector: 'app-riepilogo-dati',
   templateUrl: './riepilogo-dati.component.html',
   styleUrls: ['./riepilogo-dati.component.css','../accedi.component.css']
 })
-export class RiepilogoDatiComponent {
-  username: string
-  email: string
-  password: string
-  nome: string
-  cognome: string
-  indirizzo: string
-  dataDiNascita: Date
-  ambito: string
-  zonaDiCompetenza: string
+export class RiepilogoDatiComponent implements AfterContentChecked{
+  @Input("utente") utente : Lavoratore | Cliente
+  @Input("scelta") scelta : string
 
-  constructor(private datiRegistrazione: DatiRegistrazioneService, private router: Router, private accediComponent : AccediComponent) {
+
+
+  constructor(private router: Router, private accediComponent : AccediComponent, private backEndService: BackEndService) {
   }
 
   ngOnInit(): void {
-    this.username = this.datiRegistrazione.getUsername();
-    this.email = this.datiRegistrazione.getEmail();
-    this.password = this.datiRegistrazione.getPassword();
 
-    this.nome = this.datiRegistrazione.getNome();
-    this.cognome = this.datiRegistrazione.getCognome();
-    //this.indirizzo = this.datiRegistrazione.getIndirizzo();
-    this.dataDiNascita = this.datiRegistrazione.getDataDiNascita();
-    this.ambito = this.datiRegistrazione.getAmbiti();
-    this.zonaDiCompetenza = this.datiRegistrazione.getZonaDiCompetenza();
+  }
+
+  public getAmbiti() : string[]{
+    console.log((<Lavoratore>(this.utente)).ambiti)
+    return (<Lavoratore>this.utente).ambiti.map(a => a.nome)
+
+  }
+
+  public getZona() : string{
+    return (<Lavoratore>this.utente).provincia_lavoro
   }
 
 
   public goToAccount() {
-    const formData = new FormData();
-    formData.append('username', this.username);
-    formData.append('email', this.email);
-    formData.append('password', this.password);
-    formData.append('nome', this.nome);
-    formData.append('cognome', this.cognome);
-    formData.append('dataDiNascita', this.dataDiNascita.toString());
-    formData.append('ambito', this.ambito);
-    formData.append('zonaDiCompetenza', this.zonaDiCompetenza);
-    //formData.append('indirizzo', this.indirizzo);
-
-
+    //let data =
+    //this.utente.dataRegistrazione = data;
+    this.backEndService.completeSignUp(this.utente, this.scelta).subscribe(response => {
+      if (response) {
+        this.router.navigate(['/Profilo']);
+      } else {
+        Swal.fire("Errore nella registrazione")
+      }
+    })
   }
 
   public goToAccess() {
     this.accediComponent.backToGeneralita()
+  }
+
+  ngAfterContentChecked(): void {
+    this.utente as Lavoratore
   }
 }
 

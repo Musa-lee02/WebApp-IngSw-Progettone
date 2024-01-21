@@ -3,67 +3,80 @@ package pattern.skillmatchbackend.controller;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pattern.skillmatchbackend.model.Lavoratore;
-import pattern.skillmatchbackend.model.TokenManager;
-import pattern.skillmatchbackend.model.ValidationService;
+import pattern.skillmatchbackend.model.*;
 import pattern.skillmatchbackend.model.email.EmailSender;
 import pattern.skillmatchbackend.persistenza.DBManager;
 import pattern.skillmatchbackend.persistenza.dao.LavoratoreDao;
 import pattern.skillmatchbackend.persistenza.dao.postgres.LavoratoreDaoPostgres;
 
+import java.util.Objects;
+
 @RestController
 @CrossOrigin("http://localhost:4200")
-@RequestMapping("/lavoratore/signup")
+@RequestMapping("/signup")
 public class SignUpController {
-/*
-    @PostMapping("/passo1")
-    public ResponseEntity<String> registerStep1(@RequestBody Lavoratore lavoratore, HttpSession session) {
 
-        if (DBManager.getInstance().getLavoratoreDao().isEmailTaken(lavoratore.getEmail())) {
+    @PostMapping("/passo1")
+    public ResponseEntity<String> registerStep1(@RequestBody Utente utente, HttpSession session) {
+
+        if (DBManager.getInstance().getUtenteDao().isEmailTaken(utente.getEmail())) {
             return ResponseEntity.badRequest().body("Email già in uso");
         }
 
-        if (DBManager.getInstance().getLavoratoreDao().isUsernameTaken(lavoratore.getUsername())) {
+        if (DBManager.getInstance().getUtenteDao().isUsernameTaken(utente.getUsername())) {
             return ResponseEntity.badRequest().body("Username già in uso");
         }
 
 
-        if(ValidationService.validatePasswordUpperLetter(lavoratore.getPassword())) {
+        if(ValidationService.validatePasswordUpperLetter(utente.getPassword())) {
             return ResponseEntity.badRequest().body("Password non valida (deve contenere almeno una lettera maiuscola)");
         }
 
-        if(ValidationService.validatePasswordNumber(lavoratore.getPassword())) {
+        if(ValidationService.validatePasswordNumber(utente.getPassword())) {
             return ResponseEntity.badRequest().body("Password non valida (deve contenere almeno un numero)");
         }
 
-        if(ValidationService.validatePasswordSpecialChar(lavoratore.getPassword())) {
+        if(ValidationService.validatePasswordSpecialChar(utente.getPassword())) {
             return ResponseEntity.badRequest().body("Password non valida (deve contenere almeno un carattere speciale)");
         }
 
-        if(ValidationService.validatePasswordLength(lavoratore.getPassword())) {
+        if(ValidationService.validatePasswordLength(utente.getPassword())) {
             return ResponseEntity.badRequest().body("Password non valida (deve contenere almeno 8 caratteri)");
         }
 
-        session.setAttribute("lavoratore1", lavoratore);
         return ResponseEntity.ok().build();
-    }*/
-
-    @PostMapping("checkExistence")
-    public boolean checkExistenceGoogleAccount(@RequestBody Lavoratore lavoratore) {
-        boolean presente = DBManager.getInstance().getLavoratoreDao().isEmailTaken(lavoratore.getEmail());
-        if (presente)
-            return true;
-        return false;
     }
 
-    @PostMapping("completeRegistration")
-    public boolean completeRegistration(@RequestBody Lavoratore lavoratore) {
-        DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
+    @PostMapping("/google/checkExistence")
+    public boolean checkExistenceGoogleAccount(@RequestBody Utente utente) {
+        boolean presente = DBManager.getInstance().getUtenteDao().isEmailTaken(utente.getEmail());
+       return presente;
+    }
+
+    @PostMapping("/completeRegistration/Lavoratore")
+    public boolean completeRegistrationLavoratore(@RequestBody Lavoratore lavoratore) {
+
+            for (Ambito a : lavoratore.getAmbiti()) {
+                System.out.println("id:" + a.getId() + "nome:" + a.getNome());
+            }
+            DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
+            EmailSender emailSender = new EmailSender();
+            TokenManager tokenManager = new TokenManager();
+            String token = tokenManager.creaToken(lavoratore.getUsername());
+            emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
+
+        return true;
+    }
+
+    @PostMapping("/completeRegistration/Cliente")
+    public boolean completeRegistrationCliente(@RequestBody Cliente cliente) {
+
+        DBManager.getInstance().getClienteDao().saveOrUpdate(cliente);
         EmailSender emailSender = new EmailSender();
         TokenManager tokenManager = new TokenManager();
-        String token = tokenManager.creaToken(lavoratore.getUsername());
+        String token = tokenManager.creaToken(cliente.getUsername());
+        emailSender.confermaLink(cliente, "http://localhost:4200/ConfermaAccount?token=" + token);
 
-        emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount/" + token);
         return true;
     }
 

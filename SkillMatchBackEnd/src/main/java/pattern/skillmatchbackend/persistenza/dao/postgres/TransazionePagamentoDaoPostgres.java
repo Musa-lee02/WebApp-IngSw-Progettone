@@ -3,6 +3,7 @@ package pattern.skillmatchbackend.persistenza.dao.postgres;
 import pattern.skillmatchbackend.model.TransazionePagamento;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
+import pattern.skillmatchbackend.persistenza.IdBroker;
 import pattern.skillmatchbackend.persistenza.dao.TransazionePagamentoDao;
 
 import java.sql.Connection;
@@ -36,8 +37,8 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
                 transazione.setImporto(rs.getFloat("importo"));
                 transazione.setDataTransazione(rs.getTimestamp("data"));
                 transazione.setMetodoPagamento(rs.getString("metodo_di_pagamento"));
-                transazione.setMittente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong("id_cliente")));
-                transazione.setDestinatario(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
+                transazione.setMittente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                transazione.setDestinatario(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
                 transazioni.add(transazione);
             }
 
@@ -64,8 +65,8 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
                 transazione.setImporto(rs.getFloat("importo"));
                 transazione.setDataTransazione(rs.getTimestamp("data"));
                 transazione.setMetodoPagamento(rs.getString("metodo_di_pagamento"));
-                transazione.setMittente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong("id_cliente")));
-                transazione.setDestinatario(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
+                transazione.setMittente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                transazione.setDestinatario(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
             }
 
         } catch (SQLException e) {
@@ -81,8 +82,9 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
 
 
         if (findByPrimaryKey(transazione.getId()) != null)
-            query = "UPDATE transazione_pagamento SET data_transazione = ?, " + "importo = ?, " + "idMittente = ?, " + "idDestinatario = ?, " + "metodo_pagamento = ? " + "WHERE id = ?";
-
+            query = "UPDATE transazione_pagamento SET id_transazione = ? , importo = ?, data = ?, metodo_pagamento = ?, username_cliente = ?, username_lavoratore = ? WHERE id_transazione = ?";
+        else
+            transazione.setId(IdBroker.getId(conn));
 
         try {
 
@@ -91,8 +93,12 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
             st.setFloat(2, transazione.getImporto());
             st.setTimestamp(3, transazione.getDataTransazione());
             st.setString(4, transazione.getMetodoPagamento());
-            st.setLong(5, transazione.getMittente().getId());
-            st.setLong(6, transazione.getDestinatario().getId());
+            st.setString(5, transazione.getMittente().getUsername());
+            st.setString(6, transazione.getDestinatario().getUsername());
+
+            if(query.startsWith("UPDATE"))
+                st.setLong(7, transazione.getId());
+
             st.executeUpdate();
 
         } catch (SQLException e) {
@@ -114,21 +120,21 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
     }
 
     @Override
-    public List<TransazionePagamento> findByForeignKeyLavoratore(long id) {
-        return findByForeignKeyClienteoLavoratore(id,"id_cliente");
+    public List<TransazionePagamento> findByForeignKeyLavoratore(String username) {
+        return findByForeignKeyClienteoLavoratore(username,"username_cliente");
     }
 
     @Override
-    public List<TransazionePagamento> findByForeignKeyCliente(long id) {
-        return findByForeignKeyClienteoLavoratore(id,"id_cliente");
+    public List<TransazionePagamento> findByForeignKeyCliente(String username) {
+        return findByForeignKeyClienteoLavoratore(username,"username_cliente");
     }
 
-    public List<TransazionePagamento> findByForeignKeyClienteoLavoratore(Long id, String profilo) {
+    public List<TransazionePagamento> findByForeignKeyClienteoLavoratore(String username, String profilo) {
         List<TransazionePagamento> transazioni = new LinkedList<>();
         String query = "SELECT * FROM transazione_pagamento WHERE "+profilo+" = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1, id);
+            st.setString(1, username);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -137,8 +143,8 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
                 transazione.setImporto(rs.getFloat("importo"));
                 transazione.setDataTransazione(rs.getTimestamp("data"));
                 transazione.setMetodoPagamento(rs.getString("metodo_di_pagamento"));
-                transazione.setMittente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong("id_cliente")));
-                transazione.setDestinatario(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
+                transazione.setMittente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                transazione.setDestinatario(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
                 transazioni.add(transazione);
             }
 

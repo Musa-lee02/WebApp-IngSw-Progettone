@@ -28,9 +28,9 @@ public class ChatDaoPostgres implements ChatDao {
             while (rs.next()) {
                 Chat chat = new Chat();
                 chat.setAnnuncio(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
-                chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong("id_clliente")));
-                chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
-                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getId(),chat.getLavoratore().getId()));
+                chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
+                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getUsername(),chat.getLavoratore().getUsername()));
                 chats.add(chat);
             }
 
@@ -41,21 +41,21 @@ public class ChatDaoPostgres implements ChatDao {
     }
 
     @Override
-    public Chat findByPrimaryKey(long idAnnuncio, long idCliente,long idLavoratore) {
+    public Chat findByPrimaryKey(long idAnnuncio,String username_cliente,String username_lavoratore) {
         Chat chat = null;
-        String query = "SELECT * FROM chat id_annuncio = ? and id_cliente = ? and id_lavoratore = ?";
+        String query = "SELECT * FROM chat id_annuncio = ? and username_cliente = ? and username_lavoratore = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, idAnnuncio);
-            st.setLong(2, idCliente);
-            st.setLong(3,idCliente);
+            st.setString(2, username_cliente);
+            st.setString(3,username_lavoratore);
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
                 chat.setAnnuncio(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
-                chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong("id_clliente")));
-                chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
-                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getId(),chat.getLavoratore().getId()));
+                chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
+                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getUsername(),chat.getLavoratore().getUsername()));
             }
 
         } catch (SQLException e) {
@@ -68,17 +68,25 @@ public class ChatDaoPostgres implements ChatDao {
     public void saveOrUpdate(Chat chat) {
         String query = "INSERT INTO chat VALUES (?, ?, ?)";
 
-        if (findByPrimaryKey(chat.getAnnuncio().getId(), chat.getCliente().getId(),chat.getLavoratore().getId()) != null)
-            query = "UPDATE chat SET + \"id_annuncio = ?, id_cliente = ?, id_lavoratore = ? \"\n" +
-                    "        + \"WHERE id_annuncio = ?, id_cliente = ?, id_lavoratore = ?= ?\";";
+        if (findByPrimaryKey(chat.getAnnuncio().getId(), chat.getCliente().getUsername(),chat.getLavoratore().getUsername()) != null)
+            query = "UPDATE chat SET  id_annuncio = ?, username_cliente = ?, username_lavoratore = ? WHERE id_annuncio = ?, username_cliente = ?, username_lavoratore = ?";
 
         try {
             PreparedStatement st = conn.prepareStatement(query);
 
-            st.setLong(1, chat.getCliente().getId());
-            st.setLong(2, chat.getCliente().getId());
-            st.setLong(5, chat.getAnnuncio().getId());
+            st.setLong(1, chat.getAnnuncio().getId());
+            st.setString(3, chat.getCliente().getUsername());
+            st.setString(3, chat.getLavoratore().getUsername());
 
+            if(query.startsWith("UPDATE")) {
+
+                st.setLong(4, chat.getAnnuncio().getId());
+                st.setString(5, chat.getCliente().getUsername());
+                st.setString(6, chat.getLavoratore().getUsername());
+
+            }
+
+            st.executeUpdate();
 
 
         } catch (SQLException e) {
@@ -92,8 +100,8 @@ public class ChatDaoPostgres implements ChatDao {
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, chat.getAnnuncio().getId());
-            st.setLong(2,chat.getCliente().getId());
-            st.setLong(3,chat.getLavoratore().getId());
+            st.setString(2,chat.getCliente().getUsername());
+            st.setString(3,chat.getLavoratore().getUsername());
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,24 +109,21 @@ public class ChatDaoPostgres implements ChatDao {
     }
 
     @Override
-    public List<Chat> findByForeignKeyCliente(long id) {
-        return findByForeignKeyAnnunciooClienteOLavoratore(id,"id_cliente");
+    public List<Chat> findByForeignKeyCliente(String username) {
+        return findByForeignKeyClienteOLavoratore(username,"username_cliente");
     }
 
     @Override
-    public List<Chat> findByForeignKeyLavoratore(long id) {
-        return findByForeignKeyAnnunciooClienteOLavoratore(id,"id_lavoratore");
+    public List<Chat> findByForeignKeyLavoratore(String username) {
+        return findByForeignKeyClienteOLavoratore(username,"username_lavoratore");
     }
 
     @Override
     public List<Chat> findByForeignKeyAnnuncio(long id) {
-        return findByForeignKeyAnnunciooClienteOLavoratore(id,"id_annuncio");
-    }
 
-    public List<Chat> findByForeignKeyAnnunciooClienteOLavoratore(long id,String cosa) {
         List<Chat> chats = new LinkedList<>();
 
-        String query = "SELECT * FROM chat "+cosa+" = ?";
+        String query = "SELECT * FROM chat id_annuncio = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, id);
@@ -127,9 +132,34 @@ public class ChatDaoPostgres implements ChatDao {
             while (rs.next()) {
                 Chat chat = new Chat();
                 chat.setAnnuncio(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
-                chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getLong("id_clliente")));
-                chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getLong("id_lavoratore")));
-                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getId(),chat.getLavoratore().getId()));
+                chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
+                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getUsername(),chat.getLavoratore().getUsername()));
+                chats.add(chat);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return chats;
+
+    }
+
+    private List<Chat> findByForeignKeyClienteOLavoratore(String username,String cosa) {
+        List<Chat> chats = new LinkedList<>();
+
+        String query = "SELECT * FROM chat WHERE "+cosa+" = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Chat chat = new Chat();
+                chat.setAnnuncio(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
+                chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
+                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getUsername(),chat.getLavoratore().getUsername()));
                 chats.add(chat);
             }
 
@@ -141,3 +171,4 @@ public class ChatDaoPostgres implements ChatDao {
 
 
 }
+

@@ -1,23 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ServizioAnnunciService } from '../../../service/servizio-annunci.service';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import {BackEndService} from "../../../service/BackEndService";
 
+
+
+type Annunci ={
+
+
+  img: string
+  descrizione: string
+  ambito: string
+  titolo: string
+  zona:string
+
+}
 @Component({
   selector: 'app-form-annuncio',
   templateUrl: './form-annuncio.component.html',
-  styleUrls: ['./form-annuncio.component.css']  
+  styleUrls: ['./form-annuncio.component.css']
 })
+
+
 export class FormAnnuncioComponent {
 
   ambiti : any
   province : any
   minDate: Date;
-  url = 'https://www.felicinabiorci.com/wp/wp-content/uploads/2019/01/diet-food-macro-111130.jpg'
-  ambitoForm:FormGroup
+  url = '../../assets/imagedefault.avif'
+  nuovoAnnuncioForm:FormGroup
   arrowLeft=faArrowLeft
-  
-  constructor(private service: ServizioAnnunciService){
+  @ViewChild('container') container: ElementRef | undefined;
+  cardAnnuncio: any
+
+  constructor(private service: ServizioAnnunciService, private backEndService: BackEndService){
     this.minDate = new Date();
 
     //this.minDate.setDate(this.minDate.getDate() + 1);
@@ -25,12 +42,15 @@ export class FormAnnuncioComponent {
 
   ngOnInit(): void {
     this.service.setRouterUrl("/Annuncio")
-    
-    this.ambitoForm=new FormGroup({
-      nomeAnnuncio: new FormControl(null,Validators.required),
-      zonaAnnuncio: new FormControl(null,Validators.required),
-      ambitoAnnucnio: new FormControl(null,Validators.required),
+
+    this.nuovoAnnuncioForm=new FormGroup({
+      titolo: new FormControl(null,Validators.required),
+      zona: new FormControl(null,Validators.required),
+      ambito: new FormControl(null,Validators.required),
       dataScadenza: new FormControl(null,Validators.required),
+      img: new FormControl,
+      descrizione: new FormControl,
+
     })
 
     this.province=this.service.getProvince()
@@ -39,19 +59,50 @@ export class FormAnnuncioComponent {
 
   onSubmit(): void{
 
+      /*this.backEndService.addImage(this.image).subscribe(
+        (response) => {
+          console.log(response)
+          console.log("Ok")
+        },
+        (error) => {
+          console.log(error)
+          console.log("errore")
+        }
+      );*/
+
+      /* andrebbe scommentato poi. l'ho commentato per testare l'invio dell'immagine
+      this.cardAnnuncio=[]
+
+
+      let cardAnnuncio : Annunci={
+
+
+        img: this.url,
+        titolo:this.nuovoAnnuncioForm.value.titolo ,
+        descrizione:this.nuovoAnnuncioForm.value.descrizione,
+        ambito: this.nuovoAnnuncioForm.value.ambito,
+        zona: this.nuovoAnnuncioForm.value.zona,
+
+      }
+
+      this.cardAnnuncio.push(cardAnnuncio)
+
+      this.container?.nativeElement.classList.add("anteprimaAnnuncioActive")
+      */
+    }
+  eliminaAnteprima(){
+
+    console.log("ciao")
+    this.container?.nativeElement.classList.remove("anteprimaAnnuncioActive")
+
   }
   onSelectFile(e: any): void {
 
-    if(e.target.files){
-      var reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onload=(event:any)=>{
-        this.url=event.target.result;
-      }
+      /*if(e.target.files){
+        this.image = e.target.files[0]
+      }*/
 
     }
-
-  }
   clickArrow() : void{
 
   }

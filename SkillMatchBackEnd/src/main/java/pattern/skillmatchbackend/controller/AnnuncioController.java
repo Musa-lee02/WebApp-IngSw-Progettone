@@ -23,6 +23,6 @@ public class AnnuncioController {
         DBManager.getInstance().getAnnuncioDao().saveOrUpdate(annuncio);
     }
 
-    //TODO manca il controller "annunciPerMe" che si trova in AnnuncioDaoPostgres
+
 
 }

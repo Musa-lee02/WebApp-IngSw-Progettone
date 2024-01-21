@@ -2,11 +2,11 @@ export interface LavoratoreSignUp{
   username: string;
   email : string;
   password: string;
-  confermaPassword: string;
   nome: string;
   cognome: string;
   dataNascita: string;
   fotoProfilo : string
+  provinciaDiResidenza: string;
   zonaCompotenza: string;
   ambitoDiLavoro: string;
   descrizione: string;

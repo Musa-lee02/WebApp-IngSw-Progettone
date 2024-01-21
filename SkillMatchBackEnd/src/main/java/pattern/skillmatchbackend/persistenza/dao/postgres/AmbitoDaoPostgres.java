@@ -3,6 +3,7 @@ package pattern.skillmatchbackend.persistenza.dao.postgres;
 
 import pattern.skillmatchbackend.model.Ambito;
 
+import pattern.skillmatchbackend.persistenza.IdBroker;
 import pattern.skillmatchbackend.persistenza.dao.AmbitoDao;
 import java.util.List;
 import java.sql.*;
@@ -65,13 +66,23 @@ public class AmbitoDaoPostgres implements AmbitoDao {
     public void saveOrUpdate(Ambito ambito) {
         String query = "INSERT INTO ambito VALUES (?, ?)";
 
+
+
+
         if (findByPrimaryKey(ambito.getId()) != null)
-            query = "UPDATE ambito SET nome = ? WHERE id_ambito = ?";
+            query = "UPDATE ambito SET id_ambito = ?, nome = ? WHERE id_ambito = ?";
+        else
+            ambito.setId(IdBroker.getId(conn));
 
         try {
+
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, ambito.getId());
             st.setString(2, ambito.getNome());
+
+            if(query.startsWith("UPDATE"))
+                st.setLong(3, ambito.getId());
+
             st.executeUpdate();
 
         } catch (SQLException e) {
@@ -92,14 +103,14 @@ public class AmbitoDaoPostgres implements AmbitoDao {
     }
 
     @Override
-    public List<Ambito> findByLavoratore(long id) {
+    public List<Ambito> findByLavoratore(String username) {
 
         List<Ambito> ambiti = new LinkedList<>();
-        String query = "SELECT ambito.id_ambito,ambito.nome FROM ambito,competente,lavoratore WHERE competente.id_lavoratore = ? and lavoratore.id_lavoratore = competente.id_lavoratore and ambito.id_ambito = competente.id_ambito";
+        String query = "SELECT ambito.id_ambito,ambito.nome FROM ambito,competente,lavoratore WHERE competente.username_lavoratore = ? and lavoratore.username = competente.username_lavoratore and ambito.id_ambito = competente.id_ambito";
 
         try {
             PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1, id);
+            st.setString(1, username);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {

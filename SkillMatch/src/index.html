@@ -20,11 +20,11 @@
     function handleOauthResponse(response){
       const responsePayload = decodeJWTToken(response.credential)
       console.log(responsePayload)
-      const lavoratore = {
+      const utente = {
         id: responsePayload.sub,
         email: responsePayload.email
       }
-      let res  = window['backEndServiceRef'].postSignupRegistrationWithGoogle(lavoratore)
+      let res  = window['backEndServiceRef'].CheckExistenceGoogleAccount(utente)
       if(res){
         console.log("ciao")
         window.location.href = "http://localhost:4200/Profilo"

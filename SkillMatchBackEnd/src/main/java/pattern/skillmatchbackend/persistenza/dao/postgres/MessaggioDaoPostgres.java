@@ -3,6 +3,7 @@ package pattern.skillmatchbackend.persistenza.dao.postgres;
 import pattern.skillmatchbackend.model.Messaggio;
 
 import pattern.skillmatchbackend.persistenza.DBManager;
+import pattern.skillmatchbackend.persistenza.IdBroker;
 import pattern.skillmatchbackend.persistenza.dao.MessaggioDao;
 
 import java.sql.*;
@@ -39,8 +40,8 @@ public class MessaggioDaoPostgres implements MessaggioDao {
                 messaggio.setContenuto(rs.getString("contenuto"));
                 messaggio.setData(rs.getTimestamp("data"));
                 messaggio.setLetto(rs.getBoolean("visualizzato"));
-                messaggio.setChi(rs.getBoolean("chi"));
-                messaggio.setChat(DBManager.getInstance().getChatDao().findByPrimaryKey(rs.getLong("id_annuncio"),rs.getLong("id_cliente"),rs.getLong("id_lavoratore")));
+               // messaggio.setChi(rs.getBoolean("chi"));
+                messaggio.setChat(DBManager.getInstance().getChatDao().findByPrimaryKey(rs.getLong("id_annuncio"),rs.getString("username_cliente"),rs.getString("username_lavoratore")));
                 messaggi.add(messaggio);
 
             }
@@ -68,8 +69,8 @@ public class MessaggioDaoPostgres implements MessaggioDao {
                 messaggio.setContenuto(rs.getString("contenuto"));
                 messaggio.setData(rs.getTimestamp("data"));
                 messaggio.setLetto(rs.getBoolean("visualizzato"));
-                messaggio.setChi(rs.getBoolean("chi"));
-                messaggio.setChat(DBManager.getInstance().getChatDao().findByPrimaryKey(rs.getLong("id_annuncio"),rs.getLong("id_cliente"),rs.getLong("id_lavoratore")));
+                //messaggio.setChi(rs.getBoolean("chi"));
+                messaggio.setChat(DBManager.getInstance().getChatDao().findByPrimaryKey(rs.getLong("id_annuncio"),rs.getString("username_cliente"),rs.getString("username_lavoratore")));
             }
 
         } catch (SQLException e) {
@@ -83,12 +84,14 @@ public class MessaggioDaoPostgres implements MessaggioDao {
     @Override
     public void saveOrUpdate(Messaggio messaggio) {
 
-        String query = "INSERT INTO MESSAGGIO VALUES (?, ?, ?, ?, ?, ?,?,?)";
+        String query = "INSERT INTO messaggio VALUES (?, ?, ?, ?, ?, ?,?,?)";
 
         if (findByPrimaryKey(messaggio.getId()) != null)
-            query = "UPDATE Nome_Tua_Tabella SET "
-                    + "contenuto = ?, data = ?, visualizzato = ?, chi = ?, id_annuncio = ?, id_cliente = ?, id_lavoratore = ? "
+            query = "UPDATE messaggio SET "
+                    + "id_messaggio = ?, contenuto = ?, data = ?, visualizzato = ?, chi = ?, id_annuncio = ?, username_cliente = ?, username_lavoratore = ? "
                     + "WHERE id_messaggio = ?";
+        else
+            messaggio.setId(IdBroker.getId(conn));
 
 
             try {
@@ -99,10 +102,13 @@ public class MessaggioDaoPostgres implements MessaggioDao {
                 st.setString(2, messaggio.getContenuto());
                 st.setTimestamp(3, messaggio.getData());
                 st.setBoolean(4, messaggio.isLetto());
-                st.setBoolean(5, messaggio.isChi());
+                //st.setBoolean(5, messaggio.isChi());
                 st.setLong(6, messaggio.getChat().getAnnuncio().getId());
-                st.setLong(7, messaggio.getChat().getCliente().getId());
-                st.setLong(8, messaggio.getChat().getLavoratore().getId());
+                st.setString(7, messaggio.getChat().getCliente().getUsername());
+                st.setString(8, messaggio.getChat().getLavoratore().getUsername());
+
+                if(query.startsWith("UPDATE"))
+                    st.setLong(9, messaggio.getId());
 
                 st.executeUpdate();
 
@@ -124,15 +130,15 @@ public class MessaggioDaoPostgres implements MessaggioDao {
         }
     }
 
-    public List<Messaggio> findByForeignKeyChat(long idAnnuncio, long idCliente,long idLavoratore) {
+    public List<Messaggio> findByForeignKeyChat(long idAnnuncio, String username_cliente, String username_lavoratore) {
         List<Messaggio> messaggi = new LinkedList<>();
-        String query = "SELECT * FROM messaggio WHERE id_annuncio = ? , id_cliente = ? , id_lavoratore = ?";
+        String query = "SELECT * FROM messaggio WHERE id_annuncio = ? , username_cliente = ? , username_lavoratore = ?";
         try {
 
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, idAnnuncio);
-            st.setLong(2, idCliente);
-            st.setLong(3,idCliente);
+            st.setString(2, username_cliente);
+            st.setString(3, username_cliente);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -143,8 +149,8 @@ public class MessaggioDaoPostgres implements MessaggioDao {
                 messaggio.setContenuto(rs.getString("contenuto"));
                 messaggio.setData(rs.getTimestamp("data"));
                 messaggio.setLetto(rs.getBoolean("visualizzato"));
-                messaggio.setChi(rs.getBoolean("chi"));
-                messaggio.setChat(DBManager.getInstance().getChatDao().findByPrimaryKey(rs.getLong("id_annuncio"),rs.getLong("id_cliente"),rs.getLong("id_lavoratore")));
+                //messaggio.setChi(rs.getBoolean("chi"));
+                messaggio.setChat(DBManager.getInstance().getChatDao().findByPrimaryKey(rs.getLong("id_annuncio"),rs.getString("username_cliente"),rs.getString("username_lavoratore")));
                 messaggi.add(messaggio);
 
             }
