@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Cliente } from '../model/Cliente';
 import { Utente, UtenteCredenziali } from '../model/Utente';
 import {DatiRegistrazioneService} from "./DatiRegistrazioneService";
+import {Ambito} from "../model/Ambito";
 
 declare var window: any;
 
@@ -71,7 +72,10 @@ export class BackEndService{
 
   public verifyToken(token: string, username : string){
     this.http.get(this.url+"/ConfermaAccount",{params: {token: token}}).subscribe(data => {
-  })
+  })}
 
-}
+    public getAmbiti(): Observable<Ambito[]>{
+      return this.http.get<Ambito[]>(this.url+"/ambito/getAmbiti");
+    }
+
 }
