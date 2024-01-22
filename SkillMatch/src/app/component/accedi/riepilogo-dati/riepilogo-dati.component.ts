@@ -19,7 +19,7 @@ import {Cliente} from "../../../model/Cliente";
   styleUrls: ['./riepilogo-dati.component.css','../accedi.component.css']
 })
 export class RiepilogoDatiComponent implements AfterContentChecked{
-  @Input("utente") utente : Lavoratore | Cliente
+  @Input("utente") utente : Cliente | Lavoratore
   @Input("scelta") scelta : string
 
 

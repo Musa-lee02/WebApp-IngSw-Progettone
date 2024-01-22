@@ -93,11 +93,8 @@
                 </mat-form-field>
             </div>
 
-            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="scelta!=='lavoratore' && !doingAccesso()">
-                <a  routerLink="/Annuncio">Registrati</a></button>
-            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="scelta!=='lavoratore' && doingAccesso()" )>
-                    <a  routerLink="/Profilo">Registrati</a></button>
-            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="scelta==='lavoratore'">Registrati</button>
+
+            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}">Registrati</button>
 
 
         </form>
@@ -180,7 +177,7 @@
             </div>
             <div class="toggle-panel toggle-right">
                 <h1 *ngIf="scelta==='lavoratore'">Benvenuto Lavoratore</h1>
-                <h1 *ngIf="scelta==='lavoratore'">Benvenuto Cliente</h1>
+                <h1 *ngIf="scelta!=='lavoratore'">Benvenuto Cliente</h1>
               <p class="hide">Inserisci i tuoi dati personali per usufruire del sito </p>
               <p class="switch" (click)="addActive()">non hai ancora un account? effetua la registrazione da qui</p>
                 <button class="hidden" #register (click)="addActive()">Registrati</button>
@@ -189,8 +186,8 @@
     </div>
 
 
-    <app-riepilogo-dati *ngIf="scelta==='lavoratore' && riepilogoDati"[utente]="lavoratore"[scelta]="'lavoratore'"></app-riepilogo-dati>
-  <app-riepilogo-dati *ngIf="scelta==='cliente' && riepilogoDati"[utente]="cliente" [scelta]="'lavoratore'"></app-riepilogo-dati>
+    <app-riepilogo-dati *ngIf="riepilogoDati" [utente]="utente" [scelta]="scelta"></app-riepilogo-dati>
+
 
 </div>
 </div>

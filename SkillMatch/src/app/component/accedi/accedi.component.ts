@@ -40,9 +40,9 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   province: string[] = ['Cosenza', 'Reggio Calabria', 'Vibo Valentia', 'Catanzaro', 'Crotone',
     'Napoli', 'Salerno', 'Avellino', 'Benevento', 'Caserta', 'Potenza', 'Matera']
 
-  cliente: Cliente
-  utente: Utente
-  lavoratore: Lavoratore
+
+  utente: Cliente | Lavoratore
+
   /*lavoratore: Lavoratore={
     ambiti: [],
     cognome: "",
@@ -267,7 +267,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       if (this.generalitaForm.valid && this.credenzialiForm.valid) {
 
         if (this.scelta === "cliente") {
-        this.cliente = {
+        this.utente = {
           cognome: this.generalitaForm.get("cognome")?.value,
           dataNascita: this.generalitaForm.get("dataNascita")?.value,
           dataRegistrazione: new Date(),
@@ -279,7 +279,10 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           registrato: false,
           username: this.credenzialiForm.get("username")?.value
 
+
         }
+          this.riepilogoDati = true
+          return
 
       }else if(this.scelta==="lavoratore"){
           this.container?.nativeElement.classList.add('ambito')
@@ -293,7 +296,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       if (this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid) {
 
 
-        this.lavoratore={
+        this.utente={
           ambiti: this.ambitoForm.get("ambito")?.value,
           cognome: this.generalitaForm.get("cognome")?.value,
           dataNascita: this.generalitaForm.get("dataNascita")?.value,
@@ -310,7 +313,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           username: this.credenzialiForm.get("username")?.value
 
         }
-        console.log(this.lavoratore.ambiti)
+        console.log(this.utente.ambiti)
 
         this.riepilogoDati = true
         return
