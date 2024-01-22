@@ -189,8 +189,8 @@
     </div>
 
 
-    <app-riepilogo-dati *ngIf="scelta==='lavoratore' && riepilogoDati"[utente]="lavoratore"[scelta]="'lavoratore'"></app-riepilogo-dati>
-  <app-riepilogo-dati *ngIf="scelta==='cliente' && riepilogoDati"[utente]="cliente" [scelta]="'lavoratore'"></app-riepilogo-dati>
+    <app-riepilogo-dati *ngIf="scelta==='lavoratore' && riepilogoDati"[utente]="lavoratore"[scelta]="'lavoratore'"[image]="image"></app-riepilogo-dati>
+  <app-riepilogo-dati *ngIf="scelta==='cliente' && riepilogoDati"[utente]="cliente" [scelta]="'lavoratore'"[image]="undefined"></app-riepilogo-dati>
 
 </div>
 </div>

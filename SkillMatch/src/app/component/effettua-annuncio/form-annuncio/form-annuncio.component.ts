@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ServizioAnnunciService } from '../../../service/servizio-annunci.service';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import {BackEndService} from "../../../service/BackEndService";
+import { Annuncio } from '../../../model/Annuncio';
 
 
 
@@ -33,7 +34,10 @@ export class FormAnnuncioComponent {
   arrowLeft=faArrowLeft
   @ViewChild('container') container: ElementRef | undefined;
   cardAnnuncio: any
-
+  
+  annuncio: Annuncio
+  image!: File
+  
   constructor(private service: ServizioAnnunciService, private backEndService: BackEndService){
     this.minDate = new Date();
 
@@ -58,8 +62,20 @@ export class FormAnnuncioComponent {
   }
 
   onSubmit(): void{
-
-      /*this.backEndService.addImage(this.image).subscribe(
+    if(this.nuovoAnnuncioForm.valid){
+    const annuncio = this.nuovoAnnuncioForm.value
+    this.backEndService.insertAnnuncio(annuncio, this.image).subscribe(
+      (response) => {
+        console.log(response)
+        console.log("Ok. da modificare")
+      },
+      (error) => {
+        console.log(error)
+        console.log("errore. da modificare")
+      });
+    
+/*
+      this.backEndService.addImage(this.image).subscribe(
         (response) => {
           console.log(response)
           console.log("Ok")
@@ -68,8 +84,8 @@ export class FormAnnuncioComponent {
           console.log(error)
           console.log("errore")
         }
-      );*/
-
+      );
+*/
       /* andrebbe scommentato poi. l'ho commentato per testare l'invio dell'immagine
       this.cardAnnuncio=[]
 
@@ -90,6 +106,7 @@ export class FormAnnuncioComponent {
       this.container?.nativeElement.classList.add("anteprimaAnnuncioActive")
       */
     }
+  }
   eliminaAnteprima(){
 
     console.log("ciao")
@@ -98,9 +115,9 @@ export class FormAnnuncioComponent {
   }
   onSelectFile(e: any): void {
 
-      /*if(e.target.files){
+      if(e.target.files){
         this.image = e.target.files[0]
-      }*/
+      }
 
     }
   clickArrow() : void{

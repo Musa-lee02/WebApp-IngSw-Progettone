@@ -6,6 +6,9 @@ import { Cliente } from '../model/Cliente';
 import { Utente, UtenteCredenziali } from '../model/Utente';
 import {DatiRegistrazioneService} from "./DatiRegistrazioneService";
 import {Ambito} from "../model/Ambito";
+import { Lavoratore } from '../SignUpLavoratore';
+import { Annuncio } from '../model/Annuncio';
+
 
 declare var window: any;
 
@@ -19,6 +22,8 @@ export class BackEndService{
   public postCheckRegistrationCredential(utente : UtenteCredenziali): Observable<string> {
     return this.http.post<string>(this.url+"/signup/passo1", utente);
   }
+
+
 
   public CheckExistenceGoogleAccount(utente : Utente): Observable<boolean> {
     return this.http.post<boolean>(this.url+"/signup/google/checkExistence", utente);
@@ -39,17 +44,43 @@ export class BackEndService{
     return this.http.post<string>(this.url+"/data/cliente/signUp",stringa);
   }
 
-  public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
-    if (scelta==="lavoratore") {
-      return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", utente);
+  public completeSignUp(utente : Lavoratore | Cliente, scelta: string, image: File | undefined): Observable<boolean> {
+
+    const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
+    const formData = new FormData();
+    formData.append('utente', utenteBlob);
+    
+    if(image != undefined){
+      formData.append('img', image);
     }
 
-    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", utente);
+    if (scelta==="lavoratore") {
+      return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", formData);
+    }
+
+    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", formData);
 
   }
 
-  public addImage(image: File){
+  public insertAnnuncio(annuncio: Annuncio, image: File){
+    
+    const annuncioBlob = new Blob([JSON.stringify(annuncio)], { type: 'application/json' });
+    const formData = new FormData();
+    formData.append('annuncio', annuncioBlob);
+    if(image != null){
+      formData.append('img', image);
+    }
+    console.log("Annuncio & Image sended")
 
+    return this.http.post<Boolean>(
+        this.url+"/annuncio/insertNewAnnuncio",
+        formData
+    );
+
+  }
+
+/*
+  public addImage(image: File){
 
     //const datiBlob = new Blob([JSON.stringify(data)], { type: 'application/json' });
     const formData = new FormData();
@@ -63,7 +94,7 @@ export class BackEndService{
         formData
     );
   }
-
+*/
 
   public verifyToken(token: string, username : string){
     this.http.get(this.url+"/ConfermaAccount",{params: {token: token}}).subscribe(data => {

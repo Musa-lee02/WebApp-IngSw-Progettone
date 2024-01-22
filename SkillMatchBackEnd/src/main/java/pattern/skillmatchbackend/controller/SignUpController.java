@@ -3,6 +3,9 @@ package pattern.skillmatchbackend.controller;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import pattern.skillmatchbackend.data.service.ImageServiceImpl;
+import pattern.skillmatchbackend.data.service.interf.ImageService;
 import pattern.skillmatchbackend.model.*;
 import pattern.skillmatchbackend.model.email.EmailSender;
 import pattern.skillmatchbackend.persistenza.DBManager;
@@ -15,6 +18,8 @@ import java.util.Objects;
 @CrossOrigin("http://localhost:4200")
 @RequestMapping("/signup")
 public class SignUpController {
+
+    private final ImageServiceImpl imageService = new ImageServiceImpl();
 
     @PostMapping("/passo1")
     public ResponseEntity<String> registerStep1(@RequestBody Utente utente, HttpSession session) {
@@ -53,31 +58,39 @@ public class SignUpController {
        return presente;
     }
 
+    //TODO da testare con DB (senza DB le immagini funzionano)
     @PostMapping("/completeRegistration/Lavoratore")
-    public boolean completeRegistrationLavoratore(@RequestBody Lavoratore lavoratore) {
+    public boolean completeRegistrationLavoratore(@RequestPart("lavoratore") Lavoratore lavoratore, @RequestPart("img") MultipartFile img) {
 
-            for (Ambito a : lavoratore.getAmbiti()) {
-                System.out.println("id:" + a.getId() + "nome:" + a.getNome());
-            }
-            DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
+        for (Ambito a : lavoratore.getAmbiti()) {
+            System.out.println("id:" + a.getId() + "nome:" + a.getNome());
+        }
+
+        if(imageService.insertNewLavoratoreAccountAndImage(lavoratore, img)){
+            //DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
+
             EmailSender emailSender = new EmailSender();
             TokenManager tokenManager = new TokenManager();
             String token = tokenManager.creaToken(lavoratore.getUsername());
             emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
 
-        return true;
+            return true;
+        }else{ return false; }
     }
 
     @PostMapping("/completeRegistration/Cliente")
-    public boolean completeRegistrationCliente(@RequestBody Cliente cliente) {
+    public boolean completeRegistrationCliente(@RequestPart("cliente") Cliente cliente) {
 
-        DBManager.getInstance().getClienteDao().saveOrUpdate(cliente);
-        EmailSender emailSender = new EmailSender();
-        TokenManager tokenManager = new TokenManager();
-        String token = tokenManager.creaToken(cliente.getUsername());
-        emailSender.confermaLink(cliente, "http://localhost:4200/ConfermaAccount?token=" + token);
+        if(imageService.insertNewClienteAccountAndImage(cliente)) {
+            //DBManager.getInstance().getClienteDao().saveOrUpdate(cliente);
 
-        return true;
+            EmailSender emailSender = new EmailSender();
+            TokenManager tokenManager = new TokenManager();
+            String token = tokenManager.creaToken(cliente.getUsername());
+            emailSender.confermaLink(cliente, "http://localhost:4200/ConfermaAccount?token=" + token);
+
+            return true;
+        }else{ return false; }
     }
 
 }
