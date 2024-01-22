@@ -1,6 +1,6 @@
 import {BackEndService} from "../../service/BackEndService";
 import {DatiRegistrazioneService} from "../../service/DatiRegistrazioneService";
-
+import { HttpClient } from '@angular/common/http';
 declare var google: any;
 declare var window: any;
 import { AfterViewChecked, Component, ComponentFactoryResolver, ComponentRef, ElementRef, NgZone, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
@@ -15,6 +15,7 @@ import {Lavoratore} from "../../model/Lavoratore";
 import {elementSelectors} from "@angular/cdk/schematics";
 import {Cliente} from "../../model/Cliente";
 import {Ambito} from "../../model/Ambito";
+import {Province} from "../../model/Province";
 
 
 
@@ -37,11 +38,11 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ambiti: Ambito[]
 
-  province: string[] = ['Cosenza', 'Reggio Calabria', 'Vibo Valentia', 'Catanzaro', 'Crotone',
-    'Napoli', 'Salerno', 'Avellino', 'Benevento', 'Caserta', 'Potenza', 'Matera']
+  province: Province[]
 
 
-  utente: Cliente | Lavoratore
+
+  utente: Lavoratore | Cliente
 
   /*lavoratore: Lavoratore={
     ambiti: [],
@@ -75,7 +76,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   image !: File
 
-  constructor(private service: ServizioAnnunciService, private backEndService: BackEndService, private datiRegistrazione: DatiRegistrazioneService) {
+  constructor(private httpClient: HttpClient, private service: ServizioAnnunciService, private backEndService: BackEndService, private datiRegistrazione: DatiRegistrazioneService) {
   }
 
 
@@ -111,6 +112,13 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
         console.log(this.ambiti)
       }
 
+    )
+
+    this.httpClient.get<Province[]>('http://mobilio.altervista.org').subscribe( data =>
+      {
+        console.log(data[0].nome)
+        this.province=data
+      }
     )
 
 
@@ -151,7 +159,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.service.setDoingAccesso(true)
 
-    this.province = this.service.getProvince()
+
   }
 
   passwordMatchValidators(control: AbstractControl) {
@@ -422,6 +430,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       nome: googleData.given_name,
       cognome: googleData.family_name
     })
+    console.log("sasa")
     this.container?.nativeElement.classList.add('generalita')
     if (this.generalitaForm.valid && this.scelta === "lavoratore") {
       this.ambitoForm.patchValue({

@@ -1,4 +1,5 @@
 
+
 export interface Utente{
   username: string
   email: string
@@ -10,6 +11,7 @@ export interface Utente{
   imgProfilo: File
   registrato: boolean
   dataRegistrazione: Date
+
 }
 
 

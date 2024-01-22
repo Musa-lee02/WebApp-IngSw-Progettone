@@ -94,11 +94,11 @@ public class UtenteDaoPostgres implements UtenteDao {
         try {
             System.out.println("utente registrato: " + utente.isRegistrato());
 
+            String passC = utente.getPassword();
+            utente.setPassword(encode(passC));
+
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, utente.getUsername());
-            String passC = utente.getPassword();
-
-            utente.setPassword(encode(passC));
             st.setString(2, utente.getPassword());
             st.setString(3, utente.getEmail());
             st.setString(4, utente.getNome());

@@ -43,7 +43,7 @@ export class BackEndService{
   public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
     if (scelta==="lavoratore") {
 
-      console.log((<Lavoratore>utente).provinciaLavoro)
+      console.log((<Lavoratore>utente))
       return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", (<Lavoratore>utente));
     }
 

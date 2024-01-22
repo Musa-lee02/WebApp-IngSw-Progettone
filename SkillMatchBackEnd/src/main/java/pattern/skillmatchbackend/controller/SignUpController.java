@@ -49,7 +49,9 @@ public class SignUpController {
 
     @PostMapping("/google/checkExistence")
     public boolean checkExistenceGoogleAccount(@RequestBody Utente utente) {
+
         boolean presente = DBManager.getInstance().getUtenteDao().isEmailTaken(utente.getEmail());
+        System.out.println(presente);
        return presente;
     }
 
@@ -61,12 +63,12 @@ public class SignUpController {
                 System.out.println("id:" + a.getId() + "nome:" + a.getNome());
 
             };
-            System.out.println("provincia_lavoro"+ lavoratore.getProvinciaLavoro());
+
             DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
             EmailSender emailSender = new EmailSender();
             TokenManager tokenManager = new TokenManager();
             String token = tokenManager.creaToken(lavoratore.getUsername());
-            emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
+            //emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
 
         return true;
     }
