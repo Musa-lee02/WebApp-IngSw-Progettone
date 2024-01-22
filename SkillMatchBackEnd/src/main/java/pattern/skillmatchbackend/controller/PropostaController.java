@@ -27,4 +27,14 @@ public class PropostaController {
     }
      */
 
+    //non so se si possono mettere 2 parametri requestbody e non so come generare http per 2 parametri
+    @PostMapping("/getPropostaByAnnuncioEUsernameLavoratore")
+    public Proposta getPropostaByAnnuncioEUsernameLavoratore(@RequestBody Annuncio annuncio, @RequestBody Lavoratore lavoratore){
+
+        return DBManager.getInstance().getPropostaDao().findByAnnuncioEUsernameLavoratore(annuncio.getId(),lavoratore.getUsername());
+
+    }
+
+    ///
+
 }
