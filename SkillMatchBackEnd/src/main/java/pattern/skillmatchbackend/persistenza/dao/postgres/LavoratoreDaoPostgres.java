@@ -44,6 +44,31 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
                 lavoratore.setAmbiti(DBManager.getInstance().getAmbitoDao().findByLavoratore(lavoratore.getUsername()));
                 lavoratore.setTransazionePagamento(DBManager.getInstance().getTransazionePagamentoDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
                 lavoratore.setNotifiche(DBManager.getInstance().getNotificaDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
+                lavoratori.add(lavoratore);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lavoratori;
+    }
+
+    @Override
+    public List<Lavoratore> findAllLazy() {
+
+        List<Lavoratore> lavoratori = new LinkedList<>();
+        String query = "SELECT * FROM lavoratore";
+        try {
+
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                Lavoratore lavoratore = new LavoratoreProxy(DBManager.getInstance().getUtenteDao().findByPrimaryKey(rs.getString("username")),conn);
+                lavoratore.setProvinciaLavoro(rs.getString("provincia_lavoro"));
+                lavoratore.setNotifica_email(rs.getBoolean("notifica_email"));
+                lavoratore.setPunteggio(rs.getInt("punteggio"));
+                lavoratori.add(lavoratore);
             }
 
         } catch (SQLException e) {

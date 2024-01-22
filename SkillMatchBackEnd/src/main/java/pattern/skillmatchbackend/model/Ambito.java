@@ -5,8 +5,6 @@ public class Ambito {
     private long id;
     private String nome;
 
-    public Ambito() {
-    }
 
 
     public long getId() {
