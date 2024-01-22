@@ -29,7 +29,7 @@ public class SkillMatchBackEndApplication {
 
 		//DBManager.getInstance().getAmbitoDao().findAll().forEach(System.out::println);
 
-		Observer observer = new Lavoratore();
+
 
 	}
 

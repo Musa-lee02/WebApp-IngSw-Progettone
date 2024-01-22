@@ -82,6 +82,7 @@ public class ImageController {
     }
 
 
+
     //TODO da modificare
     @PostMapping("/annuncioImage")
     public ResponseEntity<Boolean> insertAnnuncioImage(@RequestBody MultipartFile img){//Annuncio annuncio,
@@ -96,8 +97,8 @@ public class ImageController {
             if (!new File(realPathToUploads).exists()) { //If the directory "image" is not existent
                 new File(realPathToUploads).mkdir();     //Create a directory
             }
-/*
-            if(a.getImage().getPath() != null) {                                  //If the User has already a photo
+
+        /*    if(a.getImage().getPath() != null) {                                  //If the User has already a photo
                 String oldFilePath = realPathToUploads + a.getImage().getPath();  //"\\"+
                 File fileToDelete = new File(oldFilePath);                  //Go to the path the old photo
                 if (fileToDelete.exists()) {                                //Check if the photo exists
@@ -107,8 +108,8 @@ public class ImageController {
                 }
             }
 
+        */
 
- */
 
             String orgName = FileUtil.assignProgressiveName(img);
             String filePath = realPathToUploads + orgName; //"\\"+
@@ -119,6 +120,8 @@ public class ImageController {
             //a.getImage().setPath(orgName);
 
             //DBManager.getInstance().getAnnuncioDao().saveOrUpdate(a);
+
+            System.out.println("immagine");
 
             return ResponseEntity.ok(true);
         }catch (Exception e){ return ResponseEntity.ok(false); }
