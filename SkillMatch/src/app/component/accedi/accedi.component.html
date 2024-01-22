@@ -33,7 +33,7 @@
     </div>
 
     <div class="form-container sign-up">
-        <form [formGroup]="credenzialiForm " (ngSubmit)="onSubmit() ">
+        <form [formGroup]="credenzialiForm " (ngSubmit)="onSubmitCredenziali() ">
 
             <h1 *ngIf="scelta==='lavoratore'">Crea Account Lavoratore</h1>
             <h1 *ngIf="scelta!=='lavoratore'">Crea Account Cliente</h1>
@@ -68,7 +68,7 @@
 
 
     <div class="form-container generalitaForm">
-        <form [formGroup]="generalitaForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="generalitaForm" (ngSubmit)="onSubmitGeneralita()">
 
             <div><fa-icon style="display: inline; padding: 10px;" [icon]="arrowLeft" (click)="clickArrow()"></fa-icon> <h1 style="display: inline-block;">Registrati</h1></div>
             <input  placeholder="Nome" formControlName="nome">

@@ -13,7 +13,7 @@ library.add(faStar);
 })
 export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterContentChecked{
 
-  @Input() annunci : any;
+  @Input('annunci') annunci : any;
  
   ambito: string;
   starImg: string = "../../assets/star.jpg";

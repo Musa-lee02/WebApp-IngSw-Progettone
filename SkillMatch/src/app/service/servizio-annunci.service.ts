@@ -12,6 +12,7 @@ type Annunci ={
   id:string
   stato: string
   zona:string
+  dataDiScadenza: Date
 
 }
 
@@ -87,6 +88,7 @@ export class ServizioAnnunciService implements OnInit {
     id:"12",
     stato: "accettata", 
     zona:"Cosenza",
+    dataDiScadenza:new Date("2023/11/10")
   
   },
   {
@@ -98,7 +100,7 @@ export class ServizioAnnunciService implements OnInit {
     id:"13",
     stato: "rifiutata",
     zona:"Vibo Valentia",
-   
+    dataDiScadenza:new Date("2023/11/10")
   },
   {
     username: 'utente2',
@@ -109,7 +111,7 @@ export class ServizioAnnunciService implements OnInit {
     id:"12",
     stato: "rifiutata",
     zona:"Reggio Calabria",
-
+    dataDiScadenza:new Date("2023/11/10")
   },
 
 
@@ -122,7 +124,7 @@ export class ServizioAnnunciService implements OnInit {
     id:"12",
     stato: "rifiutata",
     zona:"Vibo Valentia",
-
+    dataDiScadenza:new Date("2023/11/10")
   },
   {
     username: 'utente3',
@@ -135,7 +137,7 @@ export class ServizioAnnunciService implements OnInit {
     id:"13",
     stato: "InCorso",
     zona:"Reggio Calabria",
-
+    dataDiScadenza:new Date("2023/11/10")
   },
 
   ]

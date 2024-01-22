@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ServizioAnnunciService } from '../../../service/servizio-annunci.service';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -14,6 +14,7 @@ type Annunci ={
   ambito: string
   titolo: string
   zona:string
+  dataDiScadenza: Date
 
 }
 @Component({
@@ -23,7 +24,7 @@ type Annunci ={
 })
 
 
-export class FormAnnuncioComponent {
+export class FormAnnuncioComponent implements AfterViewChecked{
 
   ambiti : any
   province : any
@@ -32,6 +33,9 @@ export class FormAnnuncioComponent {
   nuovoAnnuncioForm:FormGroup
   arrowLeft=faArrowLeft
   @ViewChild('container') container: ElementRef | undefined;
+  @Input('annuncio') annuncioScelto: any
+  @Input ('isModifica') isModifica: boolean
+
   cardAnnuncio: any
 
   constructor(private service: ServizioAnnunciService, private backEndService: BackEndService){
@@ -39,6 +43,11 @@ export class FormAnnuncioComponent {
 
     //this.minDate.setDate(this.minDate.getDate() + 1);
   }
+  ngAfterViewChecked(): void {
+    
+  }
+
+  
 
   ngOnInit(): void {
     this.service.setRouterUrl("/Annuncio")
@@ -70,7 +79,7 @@ export class FormAnnuncioComponent {
         }
       );*/
 
-      /* andrebbe scommentato poi. l'ho commentato per testare l'invio dell'immagine
+      
       this.cardAnnuncio=[]
 
 
@@ -82,14 +91,17 @@ export class FormAnnuncioComponent {
         descrizione:this.nuovoAnnuncioForm.value.descrizione,
         ambito: this.nuovoAnnuncioForm.value.ambito,
         zona: this.nuovoAnnuncioForm.value.zona,
+        dataDiScadenza: this.nuovoAnnuncioForm.value.dataScadenza
 
       }
 
       this.cardAnnuncio.push(cardAnnuncio)
 
       this.container?.nativeElement.classList.add("anteprimaAnnuncioActive")
-      */
+      
     }
+
+
   eliminaAnteprima(){
 
     console.log("ciao")

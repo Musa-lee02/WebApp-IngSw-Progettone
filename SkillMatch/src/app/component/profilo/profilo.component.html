@@ -10,10 +10,10 @@
         <div class="leftPart">
             <div class="picProfile">
                 <img src={{getPicProfile()}}>
-            
+
             <label for="fileInput">
             <fa-icon [icon]="pencil" size="2x" (click)="onSelectFile($event)"> </fa-icon>
-            </label>  
+            </label>
             </div>
             <input type="file" id="fileInput" (change)="onSelectFile($event)">
             <div class="data">
@@ -25,8 +25,6 @@
                         <li *ngIf="entita==='Lavoratore'">Zona di competenza:</li>
                         <li *ngIf="entita==='Lavoratore'">Ambiti:</li>
                         <li *ngIf="entita==='Lavoratore'">Altre informazioni</li>
-                        
-                     
 
                     </ul>
             </div>
@@ -39,17 +37,17 @@
                 </div>
 
             </div>
-                
+
             <div class="cronoChat">
                 <h2 style="align-self: flex-start;">Annunci Finalizzati</h2>
                 <h2 style="align-self: flex-start;" *ngIf="entita==='Lavoratore'">Le tue proposte di lavoro</h2>
                 <div *ngFor="let annuncio of annunci; index as i">
-        
+
                     <div class="cardAnnuncio">
-                        
+
                         <input class="proposteBtn" id="proposteBtn{{i}}" type="checkbox">
                         <label for="proposteBtn{{i}}" class="cardAnnuncio">
-        
+
                         <div class="imgCard" ><img src="{{annuncio.img}}"></div>
                         <div class="titoloDesc">
                             <div class="titoloCard">{{annuncio.titolo}}</div>
@@ -57,14 +55,14 @@
                         </div>
                         </label>
                         </div>
-                </div>         
+                </div>
 
-            
+
             </div>
         </div>
 
         <app-recensioni></app-recensioni>
 
-    
+
 </div>
 

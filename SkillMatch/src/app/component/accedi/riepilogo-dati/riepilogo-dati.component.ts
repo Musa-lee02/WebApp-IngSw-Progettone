@@ -57,7 +57,7 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
     })
   }
 
-  public goToAccess() {
+  public modify() {
     this.accediComponent.backToGeneralita()
   }
 

@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -26,12 +26,15 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
 
   ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica', 'Letteratura', 'Cinema', 'Teatro', 'Moda', 'Altro']
 
+  @ViewChild('container') container : ElementRef
+
   annunci:any 
   proposte:any
   ambitoForm:FormGroup
   arrowLeft=faArrowLeft
   minDate = new Date();
-
+  annuncioScelto: any
+  isModifica: boolean=false;
 
   constructor(private service: ServizioAnnunciService){
 
@@ -69,8 +72,26 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
    
   }  
 
-  onSubmit(): void{
-    
+  setAnnuncioScelto(annuncio: any){
+
+    this.annuncioScelto=annuncio
+    this.isModifica=true
+    this.container.nativeElement.classList.add("annuncioSceltoActiveContainer")
+    this.container.nativeElement.classList.remove("matita")
+    this.container.nativeElement.classList.remove("linguettaRovesciata")
+    console.log(this.annuncioScelto)
+
+  }
+  crea(){
+    this.container.nativeElement.classList.add("matita")
+    this.container.nativeElement.classList.remove("annuncioSceltoActiveContainer")
+    this.container.nativeElement.classList.remove("linguettaRovesciata")
+  }
+  chiudiScheda(){
+
+    this.container.nativeElement.classList.add("linguettaRovesciata")
+    this.container.nativeElement.classList.remove("matita")
+    this.container.nativeElement.classList.remove("annuncioSceltoActiveContainer")
 
   }
   onSelectFile(e: Event): void {
