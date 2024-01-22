@@ -47,7 +47,7 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
     //this.utente.dataRegistrazione = data;
 
 
-    this.backEndService.completeSignUp(this.utente, this.scelta).subscribe(response => {
+    this.backEndService.completeSignUp(this.utente, this.scelta, this.image).subscribe(response => {
       if (response) {
         if (this.scelta === "cliente") {
           this.router.navigate(['/Profilo/Cliente']);

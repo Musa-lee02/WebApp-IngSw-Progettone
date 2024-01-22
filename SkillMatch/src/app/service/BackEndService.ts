@@ -7,7 +7,6 @@ import { Utente, UtenteCredenziali } from '../model/Utente';
 import {DatiRegistrazioneService} from "./DatiRegistrazioneService";
 import {Ambito} from "../model/Ambito";
 import {Lavoratore} from "../model/Lavoratore";
-import { Lavoratore } from '../SignUpLavoratore';
 import { Annuncio } from '../model/Annuncio';
 
 
