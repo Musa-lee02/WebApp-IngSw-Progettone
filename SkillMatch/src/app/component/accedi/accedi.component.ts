@@ -40,9 +40,9 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   province: string[] = ['Cosenza', 'Reggio Calabria', 'Vibo Valentia', 'Catanzaro', 'Crotone',
     'Napoli', 'Salerno', 'Avellino', 'Benevento', 'Caserta', 'Potenza', 'Matera']
 
-  cliente: Cliente
-  utente: Utente
-  lavoratore: Lavoratore
+
+  utente: Cliente | Lavoratore
+
   /*lavoratore: Lavoratore={
     ambiti: [],
     cognome: "",
@@ -72,7 +72,8 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   url = ""
   scelta: string
 
-  image !: File //
+
+  image !: File
 
   constructor(private service: ServizioAnnunciService, private backEndService: BackEndService, private datiRegistrazione: DatiRegistrazioneService) {
   }
@@ -172,7 +173,6 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   onSelectFile(e: any) {
     if (e.target.files) {
       this.picProfile=e.target.files[0]
-      this.image=e.target.files[0] //
       /*var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event: any) => {
@@ -204,8 +204,9 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.container?.nativeElement.classList.remove('ambito')
     this.ambitoForm.clearValidators();
     this.generalitaForm.clearValidators();
-
     this.generalitaForm.reset();
+    this.ambitoForm.reset();
+
     console.log(this.generalitaForm)
   }
 
@@ -220,67 +221,18 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     return this.service.getSkipAutentication()
   }
 
+  doLogin(){
 
-  onSubmit() {
+  }
 
-    if (this.scelta === "cliente") {
-
-
-      if (this.generalitaForm.valid && this.credenzialiForm.valid) {
-
-        this.cliente={
-          cognome:  this.generalitaForm.get("cognome")?.value,
-          dataNascita: this.generalitaForm.get("dataNascita")?.value,
-          dataRegistrazione: new Date(),
-          email: this.credenzialiForm.get("email")?.value,
-          imgProfilo: this.picProfile,
-          nome: this.generalitaForm.get("nome")?.value,
-          password: this.credenzialiForm.get("password")?.value,
-          provincia: this.ambitoForm.get("zona")?.value,
-          registrato: false,
-          username: this.credenzialiForm.get("username")?.value
-        }
-
-      }
-    } else {
-      if (this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid) {
-
-
-        this.lavoratore={
-          ambiti: this.ambitoForm.get("ambito")?.value,
-          cognome: this.generalitaForm.get("cognome")?.value,
-          dataNascita: this.generalitaForm.get("dataNascita")?.value,
-          dataRegistrazione: new Date(),
-          email: this.credenzialiForm.get("email")?.value,
-          imgProfilo:this.picProfile,
-          nome:this.generalitaForm.get("nome")?.value,
-          notifica_email: false,
-          password: this.credenzialiForm.get("password")?.value,
-          provincia: this.generalitaForm.get("provincia")?.value,
-          provincia_lavoro: this.ambitoForm.get("zona")?.value,
-          punteggio: 0,
-          registrato: false,
-          username: this.credenzialiForm.get("username")?.value
-
-        }
-        console.log(this.lavoratore.ambiti)
-        this.riepilogoDati = true
-        return
-
-      } else if (this.generalitaForm.valid && this.credenzialiForm.valid) {
-        this.container?.nativeElement.classList.add('ambito')
-        return
-      }
-    }
-
-
+  onSubmitCredenziali(){
     if (this.credenzialiForm.valid) {
       const utente = this.credenzialiForm.value
       this.backEndService.postCheckRegistrationCredential(utente).subscribe(
         (response) => {
           this.container?.nativeElement.classList.add('generalita')
 
-          }, (error: HttpErrorResponse) => {
+        }, (error: HttpErrorResponse) => {
           console.log(error)
 
           if (error.error === "Email già in uso")
@@ -307,13 +259,71 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 
         })
-
-
-
-
-      console.log("ciao")
     }
   }
+  onSubmitGeneralita(){
+
+      if (this.generalitaForm.valid && this.credenzialiForm.valid) {
+
+        if (this.scelta === "cliente") {
+        this.utente = {
+          cognome: this.generalitaForm.get("cognome")?.value,
+          dataNascita: this.generalitaForm.get("dataNascita")?.value,
+          dataRegistrazione: new Date(),
+          email: this.credenzialiForm.get("email")?.value,
+          imgProfilo: this.picProfile,
+          nome: this.generalitaForm.get("nome")?.value,
+          password: this.credenzialiForm.get("password")?.value,
+          provincia: this.ambitoForm.get("zona")?.value,
+          registrato: false,
+          username: this.credenzialiForm.get("username")?.value
+
+
+        }
+          this.riepilogoDati = true
+          return
+
+      }else if(this.scelta==="lavoratore"){
+          this.container?.nativeElement.classList.add('ambito')
+        }
+    }
+
+
+  }
+  onSubmit() {
+
+      if (this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid) {
+
+
+        this.utente={
+          ambiti: this.ambitoForm.get("ambito")?.value,
+          cognome: this.generalitaForm.get("cognome")?.value,
+          dataNascita: this.generalitaForm.get("dataNascita")?.value,
+          dataRegistrazione: new Date(),
+          email: this.credenzialiForm.get("email")?.value,
+          imgProfilo:this.picProfile,
+          nome:this.generalitaForm.get("nome")?.value,
+          notificaEmail: false,
+          password: this.credenzialiForm.get("password")?.value,
+          provincia: this.generalitaForm.get("provincia")?.value,
+          provinciaLavoro: this.ambitoForm.get("zona")?.value,
+          punteggio: 0,
+          registrato: false,
+          username: this.credenzialiForm.get("username")?.value
+
+        }
+        console.log(this.utente.ambiti)
+
+        this.riepilogoDati = true
+        return
+
+      } /*else if (this.generalitaForm.valid && this.credenzialiForm.valid) {
+        this.container?.nativeElement.classList.add('ambito')
+        return*/
+    console.log("ciao")
+      }
+
+
 
     /*else {
 
@@ -423,8 +433,11 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   backToGeneralita() {
-    this.removeActive()
-    this.container?.nativeElement.classList.add('generalita')
+    this.riepilogoDati=false
+    this.container?.nativeElement.classList.remove('generalita')
+    this.container?.nativeElement.classList.remove('ambito')
+    this.ambitoForm.clearValidators();
+    this.generalitaForm.clearValidators();
   }
 
 }

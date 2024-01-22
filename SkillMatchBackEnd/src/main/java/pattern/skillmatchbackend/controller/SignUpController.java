@@ -58,7 +58,6 @@ public class SignUpController {
        return presente;
     }
 
-    //TODO da testare con DB (senza DB le immagini funzionano)
     @PostMapping("/completeRegistration/Lavoratore")
     public boolean completeRegistrationLavoratore(@RequestPart("lavoratore") Lavoratore lavoratore, @RequestPart("img") MultipartFile img) {
 
@@ -68,7 +67,6 @@ public class SignUpController {
 
         if(imageService.insertNewLavoratoreAccountAndImage(lavoratore, img)){
             DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
-
             EmailSender emailSender = new EmailSender();
             String token = TokenManager.getInstance().creaToken(lavoratore.getUsername(), 2 * 24 * 60 * 60 * 1000);
             emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
@@ -88,6 +86,7 @@ public class SignUpController {
         EmailSender emailSender = new EmailSender();
         String token = TokenManager.getInstance().creaToken(cliente.getUsername(), 2 * 24 * 60 * 60 * 1000);
         emailSender.confermaLink(cliente, "http://localhost:4200/ConfermaAccount?token=" + token);
+
         return true;
         }
         return false;

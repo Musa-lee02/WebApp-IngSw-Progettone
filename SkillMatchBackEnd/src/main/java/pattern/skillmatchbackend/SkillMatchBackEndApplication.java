@@ -17,14 +17,14 @@ public class SkillMatchBackEndApplication {
 
 		SpringApplication.run(SkillMatchBackEndApplication.class, args);
 
-		/*String[] ambiti = {"Cucina", "Tecnologia", "Edilizia", "Elettronica", "Meccanica", "Informatica", "Altro"};
+		String[] ambiti = {"Cucina", "Tecnologia", "Edilizia", "Elettronica", "Meccanica", "Informatica", "Altro"};
 		for (int i = 0; i < ambiti.length; i++) {
 
 			Ambito ambito = new Ambito();
 			ambito.setNome(ambiti[i]);
 			DBManager.getInstance().getAmbitoDao().saveOrUpdate(ambito);
 
-		}*/
+		}
 
 		//DBManager.getInstance().getAmbitoDao().findAll().forEach(System.out::println);
 

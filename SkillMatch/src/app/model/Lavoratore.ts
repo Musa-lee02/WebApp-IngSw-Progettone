@@ -14,9 +14,9 @@ export interface LavoratoreSignUp{
   }
 
   export interface Lavoratore extends Utente {
-    provincia_lavoro: string;
+    provinciaLavoro: string;
     ambiti: Ambito[];
-    notifica_email: boolean;
+    notificaEmail: boolean;
     punteggio: number;
   }
 

@@ -19,7 +19,7 @@ import {Cliente} from "../../../model/Cliente";
   styleUrls: ['./riepilogo-dati.component.css','../accedi.component.css']
 })
 export class RiepilogoDatiComponent implements AfterContentChecked{
-  @Input("utente") utente : Lavoratore | Cliente
+  @Input("utente") utente : Cliente | Lavoratore
   @Input("scelta") scelta : string
   @Input("image") image!: File | undefined
 
@@ -37,24 +37,30 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
   }
 
   public getZona() : string{
-    return (<Lavoratore>this.utente).provincia_lavoro
+    return (<Lavoratore>this.utente).provinciaLavoro
   }
 
 
   public goToAccount() {
+    console.log((<Lavoratore>this.utente).provinciaLavoro )
     //let data =
     //this.utente.dataRegistrazione = data;
-    
-    this.backEndService.completeSignUp(this.utente, this.scelta, this.image).subscribe(response => {
+
+
+    this.backEndService.completeSignUp(this.utente, this.scelta).subscribe(response => {
       if (response) {
-        this.router.navigate(['/Profilo']);
+        if (this.scelta === "cliente") {
+          this.router.navigate(['/Profilo/Cliente']);
+        }else {
+        this.router.navigate(['/Profilo/Lavoratore']);
+        }
       } else {
         Swal.fire("Errore nella registrazione")
       }
     })
   }
 
-  public goToAccess() {
+  public modify() {
     this.accediComponent.backToGeneralita()
   }
 

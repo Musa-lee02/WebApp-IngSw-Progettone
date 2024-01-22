@@ -6,6 +6,7 @@ import { Cliente } from '../model/Cliente';
 import { Utente, UtenteCredenziali } from '../model/Utente';
 import {DatiRegistrazioneService} from "./DatiRegistrazioneService";
 import {Ambito} from "../model/Ambito";
+import {Lavoratore} from "../model/Lavoratore";
 import { Lavoratore } from '../SignUpLavoratore';
 import { Annuncio } from '../model/Annuncio';
 
@@ -49,21 +50,27 @@ export class BackEndService{
     const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
     const formData = new FormData();
     formData.append('utente', utenteBlob);
-    
+
     if(image != undefined){
       formData.append('img', image);
     }
 
     if (scelta==="lavoratore") {
-      return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", formData);
+
+      console.log((<Lavoratore>utente).provinciaLavoro)
+      return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", (<Lavoratore>utente));
     }
 
-    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", formData);
+    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", (<Cliente>utente));
 
   }
+  /*public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
 
+    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Utente", { params: { utente } });
+
+  }*/
   public insertAnnuncio(annuncio: Annuncio, image: File){
-    
+
     const annuncioBlob = new Blob([JSON.stringify(annuncio)], { type: 'application/json' });
     const formData = new FormData();
     formData.append('annuncio', annuncioBlob);
@@ -76,11 +83,10 @@ export class BackEndService{
         this.url+"/annuncio/insertNewAnnuncio",
         formData
     );
-
   }
 
-/*
   public addImage(image: File){
+
 
     //const datiBlob = new Blob([JSON.stringify(data)], { type: 'application/json' });
     const formData = new FormData();
@@ -94,7 +100,7 @@ export class BackEndService{
         formData
     );
   }
-*/
+
 
   public verifyToken(token: string, username : string){
     this.http.get(this.url+"/ConfermaAccount",{params: {token: token}}).subscribe(data => {
