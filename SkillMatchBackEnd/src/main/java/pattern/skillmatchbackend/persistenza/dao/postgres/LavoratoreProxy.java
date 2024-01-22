@@ -3,21 +3,18 @@ package pattern.skillmatchbackend.persistenza.dao.postgres;
 import pattern.skillmatchbackend.model.*;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
-import java.sql.Connection;
 import java.util.List;
 
 public class LavoratoreProxy extends Lavoratore {
 
-    Connection conn;
+    
 
-    public LavoratoreProxy(Connection conn) {
+    public LavoratoreProxy() {
         super();
-        this.conn = conn;
     }
 
-    public LavoratoreProxy(Utente utente,Connection conn) {
+    public LavoratoreProxy(Utente utente) {
         super(utente);
-        this.conn = conn;
     }
 
     @Override
