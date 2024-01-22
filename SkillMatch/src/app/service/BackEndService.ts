@@ -71,17 +71,17 @@ export class BackEndService{
   }*/
   public insertAnnuncio(annuncio: Annuncio, image: File){
 
-    const annuncioBlob = new Blob([JSON.stringify(annuncio)], { type: 'application/json' });
+    const annuncioBlob = new Blob([JSON.stringify(annuncio)], {type: 'application/json'});
     const formData = new FormData();
     formData.append('annuncio', annuncioBlob);
-    if(image != null){
+    if (image != null) {
       formData.append('img', image);
     }
     console.log("Annuncio & Image sended")
 
     return this.http.post<Boolean>(
-        this.url+"/annuncio/insertNewAnnuncio",
-        formData
+      this.url + "/annuncio/insertNewAnnuncio",
+      formData
     );
   }
 

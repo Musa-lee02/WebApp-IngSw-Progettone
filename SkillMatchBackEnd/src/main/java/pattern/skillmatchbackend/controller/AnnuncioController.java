@@ -1,5 +1,6 @@
 package pattern.skillmatchbackend.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pattern.skillmatchbackend.model.Ambito;
 import org.springframework.web.multipart.MultipartFile;
@@ -7,6 +8,7 @@ import pattern.skillmatchbackend.data.service.ImageServiceImpl;
 import pattern.skillmatchbackend.model.Annuncio;
 import pattern.skillmatchbackend.model.Cliente;
 import pattern.skillmatchbackend.persistenza.DBManager;
+
 
 import java.util.List;
 
