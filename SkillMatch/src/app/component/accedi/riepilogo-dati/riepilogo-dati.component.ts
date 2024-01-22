@@ -21,8 +21,7 @@ import {Cliente} from "../../../model/Cliente";
 export class RiepilogoDatiComponent implements AfterContentChecked{
   @Input("utente") utente : Lavoratore | Cliente
   @Input("scelta") scelta : string
-
-
+  @Input("image") image!: File | undefined
 
   constructor(private router: Router, private accediComponent : AccediComponent, private backEndService: BackEndService) {
   }
@@ -45,7 +44,8 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
   public goToAccount() {
     //let data =
     //this.utente.dataRegistrazione = data;
-    this.backEndService.completeSignUp(this.utente, this.scelta).subscribe(response => {
+    
+    this.backEndService.completeSignUp(this.utente, this.scelta, this.image).subscribe(response => {
       if (response) {
         this.router.navigate(['/Profilo']);
       } else {

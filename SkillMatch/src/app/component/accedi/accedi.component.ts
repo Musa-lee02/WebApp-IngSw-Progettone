@@ -72,8 +72,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   url = ""
   scelta: string
 
-
-  image !: File
+  image !: File //
 
   constructor(private service: ServizioAnnunciService, private backEndService: BackEndService, private datiRegistrazione: DatiRegistrazioneService) {
   }
@@ -173,6 +172,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   onSelectFile(e: any) {
     if (e.target.files) {
       this.picProfile=e.target.files[0]
+      this.image=e.target.files[0] //
       /*var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event: any) => {
@@ -239,7 +239,6 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           provincia: this.ambitoForm.get("zona")?.value,
           registrato: false,
           username: this.credenzialiForm.get("username")?.value
-
         }
 
       }

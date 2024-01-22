@@ -10,7 +10,6 @@ public class  Utente {
     protected String nome;
     protected String cognome;
     protected String provincia;
-    protected String  citta;
     protected Image imgProfilo = new Image();
     protected boolean registrato;
     protected Date dataRegistrazione;
@@ -25,7 +24,6 @@ public class  Utente {
         this.nome = utente.nome;
         this.cognome = utente.cognome;
         this.provincia = utente.provincia;
-        this.citta = utente.citta;
         this.imgProfilo = new Image(imgProfilo.getPath());
         this.registrato = utente.registrato;
         this.dataRegistrazione = utente.dataRegistrazione;

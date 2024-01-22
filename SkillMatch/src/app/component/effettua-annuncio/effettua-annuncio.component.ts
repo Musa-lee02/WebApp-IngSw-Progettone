@@ -5,10 +5,6 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
-
-
-
- 
 @Component({
   selector: 'app-effettua-annuncio',
   templateUrl: './effettua-annuncio.component.html',
