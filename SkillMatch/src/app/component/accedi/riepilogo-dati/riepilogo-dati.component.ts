@@ -33,7 +33,7 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
 
   public getAmbiti() : string[]{
     console.log((<Lavoratore>(this.utente)).ambiti)
-    return (<Lavoratore>this.utente).ambiti.map(a => a.nome);
+    return (<Lavoratore>this.utente).ambiti.map(a => a.nome)
 
   }
 

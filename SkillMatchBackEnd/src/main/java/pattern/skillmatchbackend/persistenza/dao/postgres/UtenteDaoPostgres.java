@@ -8,6 +8,8 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import static pattern.skillmatchbackend.config.PasswordCrypt.encode;
+
 public class UtenteDaoPostgres implements UtenteDao {
 
 
@@ -94,6 +96,9 @@ public class UtenteDaoPostgres implements UtenteDao {
 
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, utente.getUsername());
+            String passC = utente.getPassword();
+
+            utente.setPassword(encode(passC));
             st.setString(2, utente.getPassword());
             st.setString(3, utente.getEmail());
             st.setString(4, utente.getNome());
