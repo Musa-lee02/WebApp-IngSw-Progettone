@@ -21,10 +21,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable() // Disable CSRF if you're using JWTs as it is typically not needed
-                .authorizeRequests(authorize -> authorize
-                        .antMatchers("/login", "/register").permitAll() // Public endpoints
+        http.authorizeRequests().antMatchers("/login", "/register").permitAll() // Public endpoints
                         .anyRequest().authenticated() // All other endpoints require authentication
                 )
                 .addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class); // Add your JWT filter
