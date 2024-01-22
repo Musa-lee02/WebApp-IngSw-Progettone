@@ -64,7 +64,7 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                Lavoratore lavoratore = new LavoratoreProxy(DBManager.getInstance().getUtenteDao().findByPrimaryKey(rs.getString("username")),conn);
+                Lavoratore lavoratore = new LavoratoreProxy(DBManager.getInstance().getUtenteDao().findByPrimaryKey(rs.getString("username")));
                 lavoratore.setProvinciaLavoro(rs.getString("provincia_lavoro"));
                 lavoratore.setNotifica_email(rs.getBoolean("notifica_email"));
                 lavoratore.setPunteggio(rs.getInt("punteggio"));
