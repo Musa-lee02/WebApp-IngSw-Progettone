@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import pattern.skillmatchbackend.model.Lavoratore;
 import pattern.skillmatchbackend.model.Ambito;
+import pattern.skillmatchbackend.model.Observer;
 import pattern.skillmatchbackend.model.Utente;
 import pattern.skillmatchbackend.model.email.EmailSender;
 import pattern.skillmatchbackend.persistenza.DBManager;
@@ -42,6 +43,7 @@ public class SkillMatchBackEndApplication {
 		}
 
 		//DBManager.getInstance().getAmbitoDao().findAll().forEach(System.out::println);
+
 
 
 	}

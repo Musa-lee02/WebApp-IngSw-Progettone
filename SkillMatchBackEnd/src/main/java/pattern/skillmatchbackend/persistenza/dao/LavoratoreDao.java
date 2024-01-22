@@ -7,6 +7,8 @@ public interface LavoratoreDao {
 
     public List<Lavoratore> findAll();
 
+    public List<Lavoratore> findAllLazy();
+
     public Lavoratore findByPrimaryKey(String username);
 
     public void saveOrUpdate(Lavoratore lavoratore);
