@@ -50,7 +50,11 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
 
     this.backEndService.completeSignUp(this.utente, this.scelta).subscribe(response => {
       if (response) {
-        this.router.navigate(['/Profilo']);
+        if (this.scelta === "cliente") {
+          this.router.navigate(['/Profilo/Cliente']);
+        }else {
+        this.router.navigate(['/Profilo/Lavoratore']);
+        }
       } else {
         Swal.fire("Errore nella registrazione")
       }

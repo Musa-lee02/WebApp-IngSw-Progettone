@@ -1,7 +1,9 @@
 package pattern.skillmatchbackend.controller;
 
 import org.springframework.web.bind.annotation.*;
+import pattern.skillmatchbackend.model.Ambito;
 import pattern.skillmatchbackend.model.Annuncio;
+import pattern.skillmatchbackend.model.Cliente;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
 import java.util.List;
@@ -25,7 +27,7 @@ public class AnnuncioController {
 
     //non so se si possono mettere 2 parametri requestbody e non so come generare http per 2 parametri
     @PostMapping("/getAnnunciByAmbitoEZona")
-    public List<Annuncio> getAnnunciByAmbitoEZona(@RequestBody Ambito ambito,@RequestBody String provincia){
+    public List<Annuncio> getAnnunciByAmbitoEZona(@RequestBody Ambito ambito, @RequestBody String provincia){
 
         System.out.println(ambito.getNome());
         System.out.println(provincia);
@@ -40,7 +42,7 @@ public class AnnuncioController {
     }
 
     @PostMapping("/getAnnunciByUsernameCliente")
-    public List<Annuncio> getAnnunciByUsernameCliente(@RequestBody  Cliente cliente){
+    public List<Annuncio> getAnnunciByUsernameCliente(@RequestBody Cliente cliente){
 
         return DBManager.getInstance().getAnnuncioDao().findByForeignKeyCliente(cliente.getUsername());
     }

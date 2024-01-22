@@ -1,7 +1,7 @@
 import { Annuncio } from "./Annuncio";
 import { Cliente } from "./Cliente";
 import { Lavoratore } from "./Lavoratore";
-import { Messaggio } from "./messaggio";
+import { Messaggio } from "./Messaggio";
 
 export interface Chat{
 
