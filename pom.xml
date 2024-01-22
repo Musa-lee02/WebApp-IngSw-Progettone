@@ -30,14 +30,6 @@
             <version>42.7.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-            <version>3.2.2</version>
-        </dependency>
-
-
-
         <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
         <dependency>
             <groupId>javax.mail</groupId>
@@ -52,28 +44,6 @@
             <artifactId>spring-security-core</artifactId>
             <version>6.2.1</version>
         </dependency>
-
-
-        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>6.2.1</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>6.2.1</version>
-        </dependency>
-
-
-
-
-
-
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

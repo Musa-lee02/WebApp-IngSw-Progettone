@@ -16,7 +16,7 @@ public class SkillMatchBackEndApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(SkillMatchBackEndApplication.class, args);
-
+/*
 		String[] ambiti = {"Cucina", "Tecnologia", "Edilizia", "Elettronica", "Meccanica", "Informatica", "Altro"};
 		for (int i = 0; i < ambiti.length; i++) {
 
@@ -25,6 +25,8 @@ public class SkillMatchBackEndApplication {
 			DBManager.getInstance().getAmbitoDao().saveOrUpdate(ambito);
 
 		}
+
+ */
 
 		//DBManager.getInstance().getAmbitoDao().findAll().forEach(System.out::println);
 

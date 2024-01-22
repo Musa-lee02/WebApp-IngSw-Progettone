@@ -15,9 +15,6 @@ import static pattern.skillmatchbackend.config.PasswordCrypt.encode;
 @RequestMapping("/retriveData")
 public class SignInController {
 
-
-
-
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody Utente utente){
         if(DBManager.getInstance().getUtenteDao().checkLogin(utente.getUsername(), encode(utente.getPassword()))){
@@ -27,15 +24,7 @@ public class SignInController {
         }else{
             return ResponseEntity.badRequest().body("Username o password errati");
         }
-
-
     }
-
-
-
-
-
-
     //TODO ho scritto la stessa classe in Lavoratore controller, perché in teoria andrebbe lì, però può andare bene pure qui. Non so se ancora dovevi finire di scrivere qualcosa in questa funzione
     @GetMapping("/infoProfilo")
     public Lavoratore getLavoratore(@RequestBody Lavoratore lavoratore) {
