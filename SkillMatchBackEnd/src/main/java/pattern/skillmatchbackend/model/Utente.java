@@ -10,7 +10,7 @@ public class  Utente {
     protected String nome;
     protected String cognome;
     protected String provincia;
-    protected Image imgProfilo = new Image();
+    protected Image imgProfilo;
     protected boolean registrato;
     protected Date dataRegistrazione;
 

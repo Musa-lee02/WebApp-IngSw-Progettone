@@ -43,22 +43,21 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
 
   public goToAccount() {
 
-    this.backEndService.completeSignUp(this.utente, this.scelta, this.utente.imgProfilo).subscribe(response => {
+    this.backEndService.completeSignUp(this.utente, this.scelta).subscribe(response => {
       if (response) {
         const utenteCredenziali : UtenteCredenziali ={
           password: this.utente.password,
           username: this.utente.username
         }
         if (this.scelta === "cliente") {
+          
+          this.backEndService.loginCliente(utenteCredenziali)
 
-          this.backEndService.login(utenteCredenziali)
-
-          //this.router.navigate(['/Profilo/Cliente']);
         }else {
+          
           console.log(utenteCredenziali)
-          this.backEndService.login(utenteCredenziali)
-
-        //this.router.navigate(['/Profilo/Lavoratore']);
+          this.backEndService.loginLavoratore(utenteCredenziali)
+        
         }
       } else {
         Swal.fire("Errore nella registrazione")

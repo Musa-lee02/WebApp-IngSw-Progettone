@@ -44,12 +44,7 @@ export class ProfiloComponent implements OnInit {
     }
 
     console.log(this.backEndService.getToken())
-    this.backEndService.getUtente().subscribe(
-      data => {
-        this.utente = data
-
-      }
-    )
+    
   }
 
 
@@ -63,17 +58,17 @@ export class ProfiloComponent implements OnInit {
       }
 
     }
-
-
-
   }
 
   getPicProfile(){
-
-    return this.service.getPicProfile()
+    return this.getUtente().imgProfilo;
   }
 
 
+  getUtente() : Utente{
+    var utenteLogged = localStorage.getItem("utente");
+    return JSON.parse(utenteLogged!);
+  }
 
 
 

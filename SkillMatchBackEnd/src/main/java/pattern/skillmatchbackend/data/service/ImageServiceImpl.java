@@ -57,6 +57,8 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Boolean insertNewLavoratoreAccountAndImage(Lavoratore lavoratore, MultipartFile img){
 
+
+
         try {
             String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
 
@@ -71,6 +73,7 @@ public class ImageServiceImpl implements ImageService {
             img.transferTo(dest);
 
             lavoratore.getImgProfilo().setPath(orgName);
+
 
             DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
 

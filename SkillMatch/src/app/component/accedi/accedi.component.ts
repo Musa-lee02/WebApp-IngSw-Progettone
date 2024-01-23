@@ -72,9 +72,6 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   url = ""
   scelta: string
 
-
-  image !: File
-
   constructor(private httpClient: HttpClient, private service: ServizioAnnunciService, private backEndService: BackEndService) {
   }
 
@@ -235,7 +232,12 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       username: username
     }
     console.log(utenteCredenziali)
-    this.backEndService.login(utenteCredenziali)
+    if(this.scelta === "lavoratore"){
+      this.backEndService.loginLavoratore(utenteCredenziali)
+    }
+    else{
+      this.backEndService.loginCliente(utenteCredenziali)
+    }
   }
 
   onSubmitCredenziali(){

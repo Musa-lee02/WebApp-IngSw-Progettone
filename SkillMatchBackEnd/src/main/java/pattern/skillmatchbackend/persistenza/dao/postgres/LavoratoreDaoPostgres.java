@@ -117,11 +117,8 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
             query  = "UPDATE lavoratore SET username = ? , provincia_lavoro = ?, notifica_email = ? , punteggio = ? WHERE username = ?";
 
         try {
-
             DBManager.getInstance().getUtenteDao().saveOrUpdate(lavoratore);
             PreparedStatement st = conn.prepareStatement(query);
-
-
 
             st.setString(1,lavoratore.getUsername());
             st.setString(2,lavoratore.getProvinciaLavoro());
@@ -131,12 +128,9 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
             if(query.startsWith("UPDATE"))
                 st.setString(5, lavoratore.getUsername());
 
-
-
             st.executeUpdate();
 
             if(query.startsWith("INSERT")) {
-
                 for (Ambito ambito : lavoratore.getAmbiti()) {
 
                     if (query.startsWith("UPDATE"))
@@ -154,8 +148,6 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
                         st.setLong(4, ambito.getId());
                     }
                     st.executeUpdate();
-
-
                 }
             }
         } catch (SQLException e) {

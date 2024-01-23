@@ -8,6 +8,8 @@ import {Ambito} from "../model/Ambito";
 import {Lavoratore} from "../model/Lavoratore";
 import {Router} from "@angular/router";
 import { Annuncio } from '../model/Annuncio';
+import { LoginLavoratoreDto } from '../model/LoginLavoratoreDto';
+import { LoginClienteDto } from '../model/LoginClienteDto';
 
 
 declare var window: any;
@@ -55,15 +57,41 @@ export class BackEndService{
   isAuthenticated(){
     return this.getToken() != undefined;
   }
+  /*
 
   public login(utente : UtenteCredenziali){
     this.http.post<AuthToken>(this.url + "/login",utente,{withCredentials: true})
       .subscribe(response => {
         this.setToken(response.token);
         console.log(this.getToken())
+        
+      });
+  }
+  */
+
+  public loginLavoratore(utente : UtenteCredenziali){
+    this.http.post<LoginLavoratoreDto>(this.url + "/loginLavoratore",utente,{withCredentials: true})
+      .subscribe(response => {
+        this.setToken(response.token);
+        localStorage.setItem("utente", JSON.stringify(response.lavoratore));
+        console.log(this.getToken())
+        console.log(localStorage.getItem("utente"))
         this.router.navigate(["/Profilo/Lavoratore"]);
       });
   }
+
+  public loginCliente(utente : UtenteCredenziali){
+    this.http.post<LoginClienteDto>(this.url + "/loginCliente",utente,{withCredentials: true})
+      .subscribe(response => {
+        this.setToken(response.token);
+        localStorage.setItem("utente", JSON.stringify(response.cliente));
+        console.log(this.getToken())
+        console.log(localStorage.getItem("utente"))
+        this.router.navigate(["/Profilo/Cliente"]);
+      });
+  }
+  
+
   logout(){
     this.http.post<AuthToken>(this.url + "/logout",
       {"Authorization":"Basic " + this.token}, {withCredentials: true}).subscribe(
@@ -105,14 +133,14 @@ export class BackEndService{
     return this.http.post<string>(this.url+"/data/cliente/signUp",stringa);
   }
 
-  public completeSignUp(utente : Lavoratore | Cliente, scelta: string, image: File | undefined): Observable<boolean> {
+  public completeSignUp(utente : Lavoratore | Cliente, scelta: string): Observable<boolean> {
 
     const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
     const formData = new FormData();
     formData.append('lavoratore', utenteBlob);
 
-    if(image != undefined){
-      formData.append('img', image);
+    if(utente.imgProfilo != undefined){
+      formData.append('img', utente.imgProfilo);
     }
 
     if (scelta==="lavoratore") {
@@ -137,6 +165,7 @@ export class BackEndService{
     if (image != null) {
       formData.append('img', image);
     }
+
     console.log("Annuncio & Image sended")
 
     return this.http.post<Boolean>(
@@ -144,23 +173,6 @@ export class BackEndService{
       formData
     );
   }
-
-  public addImage(image: File){
-
-
-    //const datiBlob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-    const formData = new FormData();
-    //formData.append('dati', datiBlob);
-    formData.append('img', image);
-
-    console.log("Image sended")
-
-    return this.http.post<Boolean>(
-        this.url+"/images/annuncioImage",
-        formData
-    );
-  }
-
 
   public verifyToken(token: string, username : string){
     this.http.get(this.url+"/ConfermaAccount",{params: {token: token}}).subscribe(data => {

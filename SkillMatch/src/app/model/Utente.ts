@@ -9,10 +9,9 @@ export interface Utente{
   cognome: string
   dataNascita: Date
   provincia: string
-  imgProfilo: File
+  imgProfilo: File | string
   registrato: boolean
   dataRegistrazione: Date
-
 }
 
 
