@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pattern.skillmatchbackend.model.Utente;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
+import pattern.skillmatchbackend.config.PasswordCrypt;
+
 import java.util.Base64;
 
 @RestController
@@ -37,10 +39,13 @@ public class LoginController {
 
         String username = utente.getUsername();
         String password = utente.getPassword();
+        System.out.println(username);
+        System.out.println(password);
         String concat = username + ":" + password;
         String token = codificaBase64(concat);
         utente = getUserByToken(token);
         if (utente != null){
+            System.out.println("sto settando il token");
             HttpSession session = req.getSession();
             session.setAttribute("user", utente);
             AuthToken auth = new AuthToken();
@@ -74,10 +79,14 @@ public class LoginController {
         if (token != null) {
             String decod = decodificaBase64(token);
             String username = decod.split(":")[0];
-            String password = decod.split(":")[1];
+            CharSequence password = decod.split(":")[1];
             Utente utente = DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(username);
             if (utente != null) {
-                if (utente.getPassword().equals(password)) {
+                System.out.println(" hashed password chiamata in getUserByToken " + utente.getPassword());
+                System.out.println(" clear password chiamata in getUserByToken " + password);
+                if (PasswordCrypt.matches(password, utente.getPassword())) {
+                    System.out.println("utente restituito");
+
                     return utente;
                 }
             }

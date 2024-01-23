@@ -1,5 +1,4 @@
 import {BackEndService} from "../../service/BackEndService";
-import {DatiRegistrazioneService} from "../../service/DatiRegistrazioneService";
 import { HttpClient } from '@angular/common/http';
 declare var google: any;
 declare var window: any;
@@ -76,7 +75,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   image !: File
 
-  constructor(private httpClient: HttpClient, private service: ServizioAnnunciService, private backEndService: BackEndService, private datiRegistrazione: DatiRegistrazioneService) {
+  constructor(private httpClient: HttpClient, private service: ServizioAnnunciService, private backEndService: BackEndService) {
   }
 
 
@@ -180,13 +179,11 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   onSelectFile(e: any) {
     if (e.target.files) {
-      this.picProfile=e.target.files[0]
-      /*var reader = new FileReader();
+      this.picProfile = e.target.files[0]
+      var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event: any) => {
         this.url = event.target.result;
-        //this.datiRegistrazione.setImmagineProfilo(e.target.files[0])
-        this.lavoratore.imgProfilo = e.target.files[0]*/
       }
       /* per prendere l'immagine, basta questo, se si vuole utilizzare la variabile image:
           if(e.target.files){
@@ -194,10 +191,10 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           }
           //... altrimenti va bene il picProfile
           */
-
     }
+  }
 
-  //}
+
 
   onRiceviScelta(scelta: string) {
     this.scelta = scelta
@@ -297,6 +294,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
         }
 
+
           this.riepilogoDati = true
           return
 
@@ -330,84 +328,16 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
         }
 
-        console.log(this.generalitaForm.get("provincia")?.value)
+
 
         this.riepilogoDati = true
         return
 
-      } /*else if (this.generalitaForm.valid && this.credenzialiForm.valid) {
-        this.container?.nativeElement.classList.add('ambito')
-        return*/
-    console.log("ciao")
+      }
       }
 
 
 
-    /*else {
-
-        //this.container?.nativeElement.classList.add('emailConferma')
-      }
-
-      if (this.generalitaForm.valid && this.credenzialiForm.valid) {
-        if (this.ambitoForm.valid) {
-
-        }
-        else {
-
-        }
-
-
-        //this.container?.nativeElement.classList.add('emailConferma')
-
-        console.log(this.riepilogoDati)
-      }
-
-
-    }
-    if (this.credenzialiForm.valid) {
-      const utente = this.credenzialiForm.value
-      this.backEndService.postCheckRegistrationCredential(utente).subscribe(
-        (response) => {
-          //console.log(response.message)
-          //this.datiRegistrazione.setUsername(this.credenzialiForm.get("username")?.value)
-          //this.datiRegistrazione.setEmail(this.credenzialiForm.get("email")?.value)
-
-
-
-
-        }, (error: HttpErrorResponse) => {
-          console.log(error)
-
-          if (error.error === "Email già in uso")
-            alert("Email già in uso")
-
-          else if (error.error === "Username già in uso")
-            alert("Username già in uso")
-
-          else if (error.error === "Password non valida (deve contenere almeno una lettera maiuscola)")
-            Swal.fire("Password non valida (deve contenere almeno una lettera maiuscola)")
-
-          else if (error.error === "Password non valida (deve contenere almeno un numero)")
-            Swal.fire("Password non valida (deve contenere almeno un numero)")
-
-          else if (error.error === "Password non valida (deve contenere almeno 8 caratteri)")
-            Swal.fire("Password non valida (deve contenere almeno 8 caratteri)")
-
-          else if (error.error === "Password non valida (deve contenere almeno un carattere speciale)")
-            Swal.fire("Password non valida (deve contenere almeno un carattere speciale)")
-
-          else {
-            Swal.fire("Errore generico")
-          }
-
-
-        })
-
-      //this.container?.nativeElement.classList.add('generalita')
-
-    }
-
-  }*/
 
   removeActive() {
 

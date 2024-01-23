@@ -1,14 +1,14 @@
 import {AfterContentChecked, AfterViewChecked, Component, Input, signal} from '@angular/core'
 
 
-import { DatiRegistrazioneService } from "../../../service/DatiRegistrazioneService";
+
 import Swal  from "sweetalert2";
 
 import {Router } from "@angular/router";
 import {AccediComponent} from "../accedi.component";
 import {BackEndService} from "../../../service/BackEndService";
 import {error} from "@angular/compiler-cli/src/transformers/util";
-import {Utente} from "../../../model/Utente";
+import {Utente, UtenteCredenziali} from "../../../model/Utente";
 import {Lavoratore} from "../../../model/Lavoratore";
 import {withInterceptorsFromDi} from "@angular/common/http";
 import {Ambito} from "../../../model/Ambito";
@@ -21,7 +21,7 @@ import {Cliente} from "../../../model/Cliente";
 export class RiepilogoDatiComponent implements AfterContentChecked{
   @Input("utente") utente : Cliente | Lavoratore
   @Input("scelta") scelta : string
-  @Input("image") image!: File | undefined
+
 
   constructor(private router: Router, private accediComponent : AccediComponent, private backEndService: BackEndService) {
   }
@@ -42,17 +42,23 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
 
 
   public goToAccount() {
-    console.log((<Lavoratore>this.utente).provinciaLavoro )
-    //let data =
-    //this.utente.dataRegistrazione = data;
 
-
-    this.backEndService.completeSignUp(this.utente, this.scelta, this.image).subscribe(response => {
+    this.backEndService.completeSignUp(this.utente, this.scelta, this.utente.imgProfilo).subscribe(response => {
       if (response) {
+        const utenteCredenziali : UtenteCredenziali ={
+          password: this.utente.password,
+          username: this.utente.username
+        }
         if (this.scelta === "cliente") {
-          this.router.navigate(['/Profilo/Cliente']);
+
+          this.backEndService.login(utenteCredenziali)
+
+          //this.router.navigate(['/Profilo/Cliente']);
         }else {
-        this.router.navigate(['/Profilo/Lavoratore']);
+          console.log(utenteCredenziali)
+          this.backEndService.login(utenteCredenziali)
+
+        //this.router.navigate(['/Profilo/Lavoratore']);
         }
       } else {
         Swal.fire("Errore nella registrazione")

@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 //import {Lavoratore, LavoratoreSignUp, LavoratoreSignUpGoogle} from "../model/Lavoratore";
 import { Cliente } from '../model/Cliente';
 import {AuthToken, Utente, UtenteCredenziali} from '../model/Utente';
-import {DatiRegistrazioneService} from "./DatiRegistrazioneService";
 import {Ambito} from "../model/Ambito";
 import {Lavoratore} from "../model/Lavoratore";
 import {Router} from "@angular/router";
@@ -61,6 +60,7 @@ export class BackEndService{
     this.http.post<AuthToken>(this.url + "/login",utente,{withCredentials: true})
       .subscribe(response => {
         this.setToken(response.token);
+        console.log(this.getToken())
         this.router.navigate(["/Profilo/Lavoratore"]);
       });
   }
@@ -109,7 +109,7 @@ export class BackEndService{
 
     const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
     const formData = new FormData();
-    formData.append('utente', utenteBlob);
+    formData.append('lavoratore', utenteBlob);
 
     if(image != undefined){
       formData.append('img', image);
@@ -118,10 +118,10 @@ export class BackEndService{
     if (scelta==="lavoratore") {
 
       console.log((<Lavoratore>utente))
-      return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", (<Lavoratore>utente));
+      return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", formData);
     }
 
-    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", (<Cliente>utente));
+    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", <Cliente>utente);
 
   }
   /*public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {

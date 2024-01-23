@@ -62,15 +62,15 @@ public class SignUpController {
     @PostMapping("/completeRegistration/Lavoratore")
     public boolean completeRegistrationLavoratore(@RequestPart("lavoratore") Lavoratore lavoratore, @RequestPart("img") MultipartFile img) {
 
-        for (Ambito a : lavoratore.getAmbiti()) {
+        /*for (Ambito a : lavoratore.getAmbiti()) {
             System.out.println("id:" + a.getId() + "nome:" + a.getNome());
-        }
+        }*/
 
         if(imageService.insertNewLavoratoreAccountAndImage(lavoratore, img)){
             DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
             EmailSender emailSender = new EmailSender();
             String token = TokenManager.getInstance().creaToken(lavoratore.getUsername(), 2 * 24 * 60 * 60 * 1000);
-            emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
+            //emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
 
             return true;
         }
@@ -86,7 +86,7 @@ public class SignUpController {
         DBManager.getInstance().getClienteDao().saveOrUpdate(cliente);
         EmailSender emailSender = new EmailSender();
         String token = TokenManager.getInstance().creaToken(cliente.getUsername(), 2 * 24 * 60 * 60 * 1000);
-        emailSender.confermaLink(cliente, "http://localhost:4200/ConfermaAccount?token=" + token);
+        //emailSender.confermaLink(cliente, "http://localhost:4200/ConfermaAccount?token=" + token);
 
         return true;
         }

@@ -1,5 +1,7 @@
 package pattern.skillmatchbackend.persistenza.dao.postgres;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import pattern.skillmatchbackend.config.PasswordCrypt;
 import pattern.skillmatchbackend.model.Image;
 import pattern.skillmatchbackend.model.Utente;
 import pattern.skillmatchbackend.persistenza.dao.UtenteDao;
@@ -9,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static pattern.skillmatchbackend.config.PasswordCrypt.encode;
+
 
 public class UtenteDaoPostgres implements UtenteDao {
 
@@ -99,18 +102,23 @@ public class UtenteDaoPostgres implements UtenteDao {
         String query = "INSERT INTO utente "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        if (findByPrimaryKey(utente.getUsername()) != null)
+        Utente res = findByPrimaryKey(utente.getUsername());
+        if (res != null){
             query  = "UPDATE utente SET "
                     + "username = ?, password = ?, email = ?, nome = ?, cognome = ?, provincia = ?, "
                     + "img_profilo = ?, registrato = ?, data_registrazione = ? "
                     + "WHERE username = ?";
+        }
 
 
         try {
             System.out.println("utente registrato: " + utente.isRegistrato());
+            System.out.println(utente.getPassword());
 
-            String passC = utente.getPassword();
-            utente.setPassword(encode(passC));
+            if (res == null) {
+                String passC = utente.getPassword();
+                utente.setPassword(PasswordCrypt.encode(passC));
+            }
 
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, utente.getUsername());
