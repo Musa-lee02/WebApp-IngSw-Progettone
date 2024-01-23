@@ -1,3 +1,4 @@
+import {Province} from "./Province";
 
 
 export interface Utente{
@@ -17,6 +18,10 @@ export interface Utente{
 
 export interface UtenteCredenziali{
   username: string
-  email: string
   password: string
+}
+
+export interface AuthToken{
+
+  token: string
 }

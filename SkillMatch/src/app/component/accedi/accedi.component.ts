@@ -10,7 +10,7 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service'
 import Swal from 'sweetalert2';
 import {HttpErrorResponse} from "@angular/common/http";
-import {Utente} from "../../model/Utente";
+import {Utente, UtenteCredenziali} from "../../model/Utente";
 import {Lavoratore} from "../../model/Lavoratore";
 import {elementSelectors} from "@angular/cdk/schematics";
 import {Cliente} from "../../model/Cliente";
@@ -116,7 +116,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.httpClient.get<Province[]>('http://mobilio.altervista.org').subscribe( data =>
       {
-        console.log(data[0].nome)
+        console.log(data)
         this.province=data
       }
     )
@@ -146,7 +146,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     }, {validators: this.passwordMatchValidators});
 
     this.loginForm = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
+      username: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
 
     })
@@ -232,6 +232,14 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   doLogin(){
 
+    const username: string=this.loginForm.value.username
+    const password: string=this.loginForm.value.password
+    const utenteCredenziali : UtenteCredenziali ={
+      password: password,
+      username: username
+    }
+    console.log(utenteCredenziali)
+    this.backEndService.login(utenteCredenziali)
   }
 
   onSubmitCredenziali(){
@@ -283,12 +291,13 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           imgProfilo: this.picProfile,
           nome: this.generalitaForm.get("nome")?.value,
           password: this.credenzialiForm.get("password")?.value,
-          provincia: this.ambitoForm.get("zona")?.value,
+          provincia: this.generalitaForm.get("provincia")?.value.nome,
           registrato: false,
           username: this.credenzialiForm.get("username")?.value
 
 
         }
+
           this.riepilogoDati = true
           return
 
@@ -314,14 +323,15 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           nome:this.generalitaForm.get("nome")?.value,
           notificaEmail: false,
           password: this.credenzialiForm.get("password")?.value,
-          provincia: this.generalitaForm.get("provincia")?.value,
-          provinciaLavoro: this.ambitoForm.get("zona")?.value,
+          provincia: this.generalitaForm.get("provincia")?.value.nome,
+          provinciaLavoro: this.ambitoForm.get("zona")?.value.nome,
           punteggio: 0,
           registrato: false,
           username: this.credenzialiForm.get("username")?.value
 
         }
-        console.log(this.utente.ambiti)
+
+        console.log(this.generalitaForm.get("provincia")?.value)
 
         this.riepilogoDati = true
         return

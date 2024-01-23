@@ -1,5 +1,6 @@
 import {Utente} from "./Utente";
 import {Ambito} from "./Ambito";
+import {Province} from "./Province";
 
 export interface LavoratoreSignUp{
     username: string;
