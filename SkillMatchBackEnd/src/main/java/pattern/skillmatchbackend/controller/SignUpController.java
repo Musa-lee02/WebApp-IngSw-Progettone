@@ -58,6 +58,7 @@ public class SignUpController {
        return presente;
     }
 
+
     @PostMapping("/completeRegistration/Lavoratore")
     public boolean completeRegistrationLavoratore(@RequestPart("lavoratore") Lavoratore lavoratore, @RequestPart("img") MultipartFile img) {
 
@@ -91,5 +92,6 @@ public class SignUpController {
         }
         return false;
     }
+
 
 }

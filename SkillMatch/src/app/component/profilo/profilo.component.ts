@@ -4,6 +4,10 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import {BackEndService} from "../../service/BackEndService";
+import {Cliente} from "../../model/Cliente";
+import {Lavoratore} from "../../model/Lavoratore";
+import {Utente} from "../../model/Utente";
+
 
 @Component({
   selector: 'app-profilo',
@@ -16,7 +20,7 @@ export class ProfiloComponent implements OnInit {
 
   annunci:any
   pencil=faPencil
-
+  utente : Lavoratore
   entita:string
   propostaAccettata: any
 
@@ -27,20 +31,27 @@ export class ProfiloComponent implements OnInit {
   ngOnInit(): void {
 
 
-    this.annunci=this.service.getAnnunci();
+    this.annunci = this.service.getAnnunci();
     console.log(this.annunci)
 
-    if(this.route.snapshot.paramMap.get('Entita')){
+    if (this.route.snapshot.paramMap.get('Entita')) {
 
-      this.entita=this.route.snapshot.paramMap.get('Entita')!;
-      if(this.entita==="Cliente")
-        this.entita=="Cliente";
-      if(this.entita==="Lavoratore")
-        this.entita=="Lavoratore";
+      this.entita = this.route.snapshot.paramMap.get('Entita')!;
+      if (this.entita === "Cliente")
+        this.entita == "Cliente";
+      if (this.entita === "Lavoratore")
+        this.entita == "Lavoratore";
     }
 
+    console.log(this.backEndService.getToken())
+    this.backEndService.getUtente().subscribe(
+      data => {
+        this.utente = data
 
+      }
+    )
   }
+
 
   onSelectFile(e:any){
     if(e.target.files){

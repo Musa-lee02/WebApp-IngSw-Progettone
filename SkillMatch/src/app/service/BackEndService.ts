@@ -3,10 +3,11 @@ import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
 //import {Lavoratore, LavoratoreSignUp, LavoratoreSignUpGoogle} from "../model/Lavoratore";
 import { Cliente } from '../model/Cliente';
-import { Utente, UtenteCredenziali } from '../model/Utente';
+import {AuthToken, Utente, UtenteCredenziali} from '../model/Utente';
 import {DatiRegistrazioneService} from "./DatiRegistrazioneService";
 import {Ambito} from "../model/Ambito";
 import {Lavoratore} from "../model/Lavoratore";
+import {Router} from "@angular/router";
 import { Annuncio } from '../model/Annuncio';
 
 
@@ -17,13 +18,73 @@ declare var window: any;
 })
 export class BackEndService{
   private url = "http://localhost:8080";
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient , private router: Router) { }
+
+  public token?:string | null;
+
+  getToken(){
+    if (this.token == undefined){
+      this.token = localStorage.getItem("user-token");
+    }
+    return this.token;
+  }
+
+  setToken(token:string){
+    this.token = token;
+    localStorage.setItem("user-token", token);
+
+  }
+
+  removeToken(){
+    this.token = undefined;
+    localStorage.removeItem("user-token");
+  }
+
+
+
+  checkAuthentication(){
+    this.http.post<AuthToken>(this.url + "/isAuthenticated",
+      {"Authorization":"Basic " + this.token}, {withCredentials: true}).subscribe(
+      res => {
+        if (!res){
+          this.removeToken();
+        }
+      }
+    );
+  }
+
+  isAuthenticated(){
+    return this.getToken() != undefined;
+  }
+
+  public login(utente : UtenteCredenziali){
+    this.http.post<AuthToken>(this.url + "/login",utente,{withCredentials: true})
+      .subscribe(response => {
+        this.setToken(response.token);
+        this.router.navigate(["/Profilo/Lavoratore"]);
+      });
+  }
+  logout(){
+    this.http.post<AuthToken>(this.url + "/logout",
+      {"Authorization":"Basic " + this.token}, {withCredentials: true}).subscribe(
+      res => {
+        if (res){
+          this.removeToken();
+        }
+        /*this.router.navigate(["/"]);*/
+      }
+    );
+  }
+
+  public getUtente(): Observable<Lavoratore>{
+
+        return this.http.get<Lavoratore>(this.url + "/lavoratore/getLavoratoreByUsername?token=" + this.getToken());
+
+  }
 
   public postCheckRegistrationCredential(utente : UtenteCredenziali): Observable<string> {
     return this.http.post<string>(this.url+"/signup/passo1", utente);
   }
-
-
 
   public CheckExistenceGoogleAccount(utente : Utente): Observable<boolean> {
     return this.http.post<boolean>(this.url+"/signup/google/checkExistence", utente);
@@ -56,7 +117,7 @@ export class BackEndService{
 
     if (scelta==="lavoratore") {
 
-      console.log((<Lavoratore>utente).provinciaLavoro)
+      console.log((<Lavoratore>utente))
       return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", (<Lavoratore>utente));
     }
 
