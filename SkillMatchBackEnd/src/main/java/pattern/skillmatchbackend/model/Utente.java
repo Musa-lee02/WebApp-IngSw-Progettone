@@ -10,7 +10,7 @@ public class  Utente {
     protected String nome;
     protected String cognome;
     protected String provincia;
-    protected Image imgProfilo;
+    protected String imgProfilo;
     protected boolean registrato;
     protected Date dataRegistrazione;
 
@@ -24,7 +24,7 @@ public class  Utente {
         this.nome = utente.nome;
         this.cognome = utente.cognome;
         this.provincia = utente.provincia;
-        this.imgProfilo = new Image(imgProfilo.getPath());
+        this.imgProfilo = utente.imgProfilo;
         this.registrato = utente.registrato;
         this.dataRegistrazione = utente.dataRegistrazione;
     }
@@ -78,11 +78,11 @@ public class  Utente {
     }
 
 
-    public Image getImgProfilo() {
+    public String getImgProfilo() {
         return imgProfilo;
     }
 
-    public void setImgProfilo(Image imgProfilo) {
+    public void setImgProfilo(String imgProfilo) {
         this.imgProfilo = imgProfilo;
     }
 

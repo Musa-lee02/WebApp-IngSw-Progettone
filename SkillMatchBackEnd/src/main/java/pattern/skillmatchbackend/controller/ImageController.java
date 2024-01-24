@@ -56,8 +56,8 @@ public class ImageController {
                 new File(realPathToUploads).mkdir();     //Create a directory
             }
 
-            if(u.getImgProfilo().getPath() != null) {                                  //If the User has already a photo
-                String oldFilePath = realPathToUploads + u.getImgProfilo().getPath();  //"\\"+
+            if(u.getImgProfilo() != null) {                                  //If the User has already a photo
+                String oldFilePath = realPathToUploads + u.getImgProfilo();  //"\\"+
                 File fileToDelete = new File(oldFilePath);                  //Go to the path the old photo
                 if (fileToDelete.exists()) {                                //Check if the photo exists
                     if (fileToDelete.delete()) {                            //delete old photo
@@ -72,7 +72,7 @@ public class ImageController {
             File dest = new File(filePath);
             img.transferTo(dest);
 
-            u.getImgProfilo().setPath(orgName);
+            u.setImgProfilo(orgName);
 
             DBManager.getInstance().getUtenteDao().saveOrUpdate(u);
 

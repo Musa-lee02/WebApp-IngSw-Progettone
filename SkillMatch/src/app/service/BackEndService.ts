@@ -70,24 +70,29 @@ export class BackEndService{
   */
 
   public loginLavoratore(utente : UtenteCredenziali){
-    this.http.post<LoginLavoratoreDto>(this.url + "/loginLavoratore",utente,{withCredentials: true})
+    this.http.post<LoginLavoratoreDto>(this.url + "/retriveData/loginLavoratore",utente)
       .subscribe(response => {
         this.setToken(response.token);
         localStorage.setItem("utente", JSON.stringify(response.lavoratore));
         console.log(this.getToken())
         console.log(localStorage.getItem("utente"))
         this.router.navigate(["/Profilo/Lavoratore"]);
+      },(error) =>{
+        console.log("errore da gestire?: (password od username non valide)" + error) //TODO
       });
+      
   }
 
   public loginCliente(utente : UtenteCredenziali){
-    this.http.post<LoginClienteDto>(this.url + "/loginCliente",utente,{withCredentials: true})
+    this.http.post<LoginClienteDto>(this.url + "/retriveData/loginCliente",utente,{withCredentials: true})
       .subscribe(response => {
         this.setToken(response.token);
         localStorage.setItem("utente", JSON.stringify(response.cliente));
         console.log(this.getToken())
         console.log(localStorage.getItem("utente"))
         this.router.navigate(["/Profilo/Cliente"]);
+      },(error) =>{
+        console.log("errore da gestire?: (password od username non valide)" + error) //TODO
       });
   }
   

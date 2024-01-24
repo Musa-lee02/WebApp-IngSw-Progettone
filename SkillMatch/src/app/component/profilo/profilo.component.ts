@@ -60,8 +60,8 @@ export class ProfiloComponent implements OnInit {
     }
   }
 
-  getPicProfile(){
-    return this.getUtente().imgProfilo;
+  getPicProfile(): string{
+    return "http://localhost:8080/images/"+this.getUtente().imgProfilo;
   }
 
 

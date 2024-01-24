@@ -29,8 +29,8 @@ public class ImageServiceImpl implements ImageService {
                 new File(realPathToUploads).mkdir();     //Create a directory
             }
 
-            if(a.getImage().getPath() != null) {                                  //If the User has already a photo
-                String oldFilePath = realPathToUploads + a.getImage().getPath();  //"\\"+
+            if(a.getImage() != null) {                                  //If the User has already a photo
+                String oldFilePath = realPathToUploads + a.getImage();  //"\\"+
                 File fileToDelete = new File(oldFilePath);                  //Go to the path the old photo
                 if (fileToDelete.exists()) {                                //Check if the photo exists
                     if (fileToDelete.delete()) {                            //delete old photo
@@ -45,7 +45,7 @@ public class ImageServiceImpl implements ImageService {
             File dest = new File(filePath);
             img.transferTo(dest);
 
-            a.getImage().setPath(orgName);
+            a.setImage(orgName);
 
             DBManager.getInstance().getAnnuncioDao().saveOrUpdate(a);
 
@@ -72,7 +72,7 @@ public class ImageServiceImpl implements ImageService {
             File dest = new File(filePath);
             img.transferTo(dest);
 
-            lavoratore.getImgProfilo().setPath(orgName);
+            lavoratore.setImgProfilo(orgName);
 
 
             DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
@@ -92,7 +92,7 @@ public class ImageServiceImpl implements ImageService {
                 new File(realPathToUploads).mkdir();     //Create a directory
             }
 
-            cliente.getImgProfilo().setPath("default.jpg");
+            cliente.setImgProfilo("default.jpg");
 
             DBManager.getInstance().getClienteDao().saveOrUpdate(cliente);
 

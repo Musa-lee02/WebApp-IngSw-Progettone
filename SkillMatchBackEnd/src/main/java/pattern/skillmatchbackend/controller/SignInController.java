@@ -5,12 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pattern.skillmatchbackend.dto.LoginClienteDto;
 import pattern.skillmatchbackend.dto.LoginLavoratoreDto;
-import pattern.skillmatchbackend.model.Lavoratore;
-import pattern.skillmatchbackend.model.TokenManager;
-import pattern.skillmatchbackend.model.Utente;
+import pattern.skillmatchbackend.model.*;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
 import static pattern.skillmatchbackend.config.PasswordCrypt.encode;
+import static pattern.skillmatchbackend.config.PasswordCrypt.matches;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
@@ -18,36 +17,38 @@ import static pattern.skillmatchbackend.config.PasswordCrypt.encode;
 public class SignInController {
 
     @PostMapping("/loginLavoratore")
-    public ResponseEntity<?> loginLavoratore(@RequestBody Utente utente){
-        if(DBManager.getInstance().getUtenteDao().checkLogin(utente.getUsername(), encode(utente.getPassword()))){
+    public ResponseEntity<?> loginLavoratore(@RequestBody UtenteCredenziali utenteCredenziali){
+        Lavoratore lavoratore = DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(utenteCredenziali.getUsername());
+
+        if(lavoratore != null && matches(utenteCredenziali.getPassword(), lavoratore.getPassword())){
 
             LoginLavoratoreDto lavoratoreDto = new LoginLavoratoreDto();
 
-            String AuthToken = TokenManager.getInstance().creaToken(utente.getUsername(),  100 * 60 * 60 * 24 * 30 * 6);
+            String AuthToken = TokenManager.getInstance().creaToken(utenteCredenziali.getUsername(),  100 * 60 * 60 * 24 * 30 * 6);
 
             lavoratoreDto.setToken(AuthToken);
-            // So che questa è un'altra chiamata al db
-            lavoratoreDto.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(utente.getUsername()));
+            lavoratoreDto.setLavoratore(lavoratore);
 
-            return ResponseEntity.ok().body(AuthToken);
+            return ResponseEntity.ok().body(lavoratoreDto);
         }else{
             return ResponseEntity.badRequest().body("Username o password errati");
         }
     }
 
     @PostMapping("/loginCliente")
-    public ResponseEntity<?> loginCliente(@RequestBody Utente utente){
-        if(DBManager.getInstance().getUtenteDao().checkLogin(utente.getUsername(), encode(utente.getPassword()))){
+    public ResponseEntity<?> loginCliente(@RequestBody UtenteCredenziali utenteCredenziali){
+        Cliente cliente = DBManager.getInstance().getClienteDao().findByPrimaryKey(utenteCredenziali.getUsername());
+
+        if(cliente != null && matches(utenteCredenziali.getPassword(), cliente.getPassword())){
 
             LoginClienteDto clienteDto = new LoginClienteDto();
 
-            String AuthToken = TokenManager.getInstance().creaToken(utente.getUsername(),  100 * 60 * 60 * 24 * 30 * 6);
+            String AuthToken = TokenManager.getInstance().creaToken(utenteCredenziali.getUsername(),  100 * 60 * 60 * 24 * 30 * 6);
 
             clienteDto.setToken(AuthToken);
-            // So che questa è un'altra chiamata al db
-            clienteDto.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(utente.getUsername()));
+            clienteDto.setCliente(cliente);
 
-            return ResponseEntity.ok().body(AuthToken);
+            return ResponseEntity.ok().body(clienteDto);
         }else{
             return ResponseEntity.badRequest().body("Username o password errati");
         }

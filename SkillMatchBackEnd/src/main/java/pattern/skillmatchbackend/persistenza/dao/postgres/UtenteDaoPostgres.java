@@ -39,7 +39,7 @@ public class UtenteDaoPostgres implements UtenteDao {
                 utente.setNome(rs.getString("nome"));
                 utente.setCognome(rs.getString("cognome"));
                 utente.setProvincia(rs.getString("provincia"));
-                utente.setImgProfilo(new Image(rs.getString("img_profilo")));
+                utente.setImgProfilo(rs.getString("img_profilo"));
                 utente.setRegistrato(rs.getBoolean("registrato"));
                 utente.setDataRegistrazione(rs.getDate("data_registrazione"));
                 utenti.add(utente);
@@ -69,7 +69,7 @@ public class UtenteDaoPostgres implements UtenteDao {
                 utente.setNome(rs.getString("nome"));
                 utente.setCognome(rs.getString("cognome"));
                 utente.setProvincia(rs.getString("provincia"));
-                utente.setImgProfilo(new Image(rs.getString("img_profilo")));
+                utente.setImgProfilo(rs.getString("img_profilo"));
                 utente.setRegistrato(rs.getBoolean("registrato"));
                 utente.setDataRegistrazione(rs.getDate("data_registrazione"));
 
@@ -127,7 +127,7 @@ public class UtenteDaoPostgres implements UtenteDao {
             st.setString(4, utente.getNome());
             st.setString(5, utente.getCognome());
             st.setString(6, utente.getProvincia());
-            st.setString(7, utente.getImgProfilo().getPath());
+            st.setString(7, utente.getImgProfilo());
             st.setBoolean(8, utente.isRegistrato());
             st.setDate(9, utente.getDataRegistrazione());
 

@@ -36,7 +36,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setDescrizione(rs.getString("descrizione"));
                 annuncio.setDataDiScadenza(rs.getDate("data_di_scadenza"));
                 annuncio.setProvinciaAnnuncio(rs.getString("provincia_annuncio"));
-                annuncio.setImage(new Image(rs.getString("img_annuncio")));
+                annuncio.setImage(rs.getString("img_annuncio"));
                 annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
                 annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
@@ -67,7 +67,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setDescrizione(rs.getString("descrizione"));
                 annuncio.setDataDiScadenza(rs.getDate("data_di_scadenza"));
                 annuncio.setProvinciaAnnuncio(rs.getString("provincia_annuncio"));
-                annuncio.setImage(new Image(rs.getString("img_annuncio")));
+                annuncio.setImage(rs.getString("img_annuncio"));
                 annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
                 annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
@@ -103,7 +103,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 st.setString(3, annuncio.getDescrizione());
                 st.setDate(4,   annuncio.getDataDiScadenza());
                 st.setString(5, annuncio.getProvinciaAnnuncio());
-                st.setString(6, annuncio.getImage().getPath());
+                st.setString(6, annuncio.getImage());
                 st.setString(7, annuncio.getCliente().getUsername());
                 st.setLong(8, annuncio.getAmbito().getId());
 
@@ -149,7 +149,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setDescrizione(rs.getString("descrizione"));
                 annuncio.setDataDiScadenza(rs.getDate("data_di_scadenza"));
                 annuncio.setProvinciaAnnuncio(rs.getString("provincia_annuncio"));
-                annuncio.setImage(new Image(rs.getString("img_annuncio")));
+                annuncio.setImage(rs.getString("img_annuncio"));
                 annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
                 annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
@@ -181,7 +181,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setDescrizione(rs.getString("descrizione"));
                 annuncio.setDataDiScadenza(rs.getDate("data_di_scadenza"));
                 annuncio.setProvinciaAnnuncio(rs.getString("provincia_annuncio"));
-                annuncio.setImage(new Image(rs.getString("img_annuncio")));
+                annuncio.setImage(rs.getString("img_annuncio"));
                 annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
                 annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
