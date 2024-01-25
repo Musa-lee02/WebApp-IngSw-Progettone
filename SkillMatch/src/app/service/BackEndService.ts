@@ -73,9 +73,12 @@ export class BackEndService{
     this.http.post<LoginLavoratoreDto>(this.url + "/retriveData/loginLavoratore",utente)
       .subscribe(response => {
         this.setToken(response.token);
+        response.lavoratore.password = ""; // Rimuovi la password. è un modo bruttissimo, ma fa quello che deve
         localStorage.setItem("utente", JSON.stringify(response.lavoratore));
+
         console.log(this.getToken())
         console.log(localStorage.getItem("utente"))
+        
         this.router.navigate(["/Profilo/Lavoratore"]);
       },(error) =>{
         console.log("errore da gestire?: (password od username non valide)" + error) //TODO
@@ -87,9 +90,12 @@ export class BackEndService{
     this.http.post<LoginClienteDto>(this.url + "/retriveData/loginCliente",utente,{withCredentials: true})
       .subscribe(response => {
         this.setToken(response.token);
+        response.cliente.password = ""; // Rimuovi la password. è un modo bruttissimo, ma fa quello che deve
         localStorage.setItem("utente", JSON.stringify(response.cliente));
+
         console.log(this.getToken())
         console.log(localStorage.getItem("utente"))
+        
         this.router.navigate(["/Profilo/Cliente"]);
       },(error) =>{
         console.log("errore da gestire?: (password od username non valide)" + error) //TODO
@@ -124,10 +130,13 @@ export class BackEndService{
 
   }
 
+  /*
+  //Non serve, non si prendono in questo modo le immagini (es. di come si prende un'immagine: http://localhost:8080/images/default.jpg)
   public postGetPicProfile(utenteId: string): Observable<string>{
 
     return this.http.post<string> ( this.url+"/images/", utenteId );//da modificare
   }
+  */
   /*public retriveWorkerProfile(username: string): Observable<Lavoratore> {
     return this.http.get<Lavoratore>(this.url+"/lavoratore/signin/infoprofilo"+username);
   }*/
@@ -162,7 +171,7 @@ export class BackEndService{
     return this.http.post<boolean>(this.url + "/signup/completeRegistration/Utente", { params: { utente } });
 
   }*/
-  public insertAnnuncio(annuncio: Annuncio, image: File){
+  public insertAnnuncio(annuncio: Annuncio, image: File){ 
 
     const annuncioBlob = new Blob([JSON.stringify(annuncio)], {type: 'application/json'});
     const formData = new FormData();

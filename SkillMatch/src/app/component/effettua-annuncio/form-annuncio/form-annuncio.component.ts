@@ -71,6 +71,7 @@ export class FormAnnuncioComponent implements AfterViewChecked{
   }
 
   onSubmit(): void{
+
     if(this.nuovoAnnuncioForm.valid){
     const annuncio = this.nuovoAnnuncioForm.value
     this.backEndService.insertAnnuncio(annuncio, this.image).subscribe(
@@ -82,19 +83,6 @@ export class FormAnnuncioComponent implements AfterViewChecked{
         console.log(error)
         console.log("errore. da modificare")
       });
-
-/*
-      this.backEndService.addImage(this.image).subscribe(
-        (response) => {
-          console.log(response)
-          console.log("Ok")
-        },
-        (error) => {
-          console.log(error)
-          console.log("errore")
-        }
-      );*/
-
 
       this.cardAnnuncio=[]
 

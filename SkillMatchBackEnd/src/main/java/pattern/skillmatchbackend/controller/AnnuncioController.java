@@ -30,8 +30,6 @@ public class AnnuncioController {
     public ResponseEntity<Boolean> insertNewAnnuncio(@RequestPart("annuncio") Annuncio annuncio, @RequestPart("img") MultipartFile img){
 
         return ResponseEntity.ok(imageService.insertAnnuncioAndImage(annuncio, img));
-
-        //DBManager.getInstance().getAnnuncioDao().saveOrUpdate(annuncio);
     }
 
     //TODO da testare
