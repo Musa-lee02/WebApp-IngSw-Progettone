@@ -16,11 +16,11 @@ public class ImageServiceImpl implements ImageService {
     private final String relativePath = "SkillMatchBackEnd/src/main/resources/image/";
 
     @Override
-    public Boolean insertAnnuncioAndImage(Annuncio a, MultipartFile img){
+    public Boolean insertAnnuncioAndImage(Annuncio annuncio, MultipartFile img){
 
-        Annuncio annuncio = DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(a.getId()); // Check if annuncio is in DB
+        Annuncio a = DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(annuncio.getId()); // Check if annuncio is in DB
 
-        if(annuncio == null) {
+        if(a == null) {
 
             try {
                 String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
@@ -56,11 +56,11 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Boolean insertNewLavoratoreAccountAndImage(Lavoratore l, MultipartFile img){
+    public Boolean insertNewLavoratoreAccountAndImage(Lavoratore lavoratore, MultipartFile img){
 
-        Lavoratore lavoratore = DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(l.getUsername()); // Check if lavoratore is in DB
+        Lavoratore l = DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(lavoratore.getUsername()); // Check if lavoratore is in DB
 
-        if(lavoratore == null) {
+        if(l == null) {
 
             try {
                 String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
@@ -86,11 +86,11 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Boolean insertNewClienteAccountAndImage(Cliente c){
+    public Boolean insertNewClienteAccountAndImage(Cliente cliente){
 
-        Cliente cliente = DBManager.getInstance().getClienteDao().findByPrimaryKey(c.getUsername()); // Check if cliente is in DB
+        Cliente c = DBManager.getInstance().getClienteDao().findByPrimaryKey(cliente.getUsername()); // Check if cliente is in DB
 
-        if(cliente == null) {
+        if(c == null) {
 
             try {
                 String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;

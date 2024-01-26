@@ -26,7 +26,7 @@ public class ImageController {
     private final String relativePath = "SkillMatchBackEnd/src/main/resources/image/";
 
 
-    //TODO da testare
+    //Testato
     @GetMapping("/{imageName}")
     public ResponseEntity<Resource> getImageById(@PathVariable("imageName") String imageName) {
 
@@ -42,7 +42,7 @@ public class ImageController {
         }
     }
 
-
+/*
     //TODO da testare
     @PostMapping("/utenteAccountImage")
     public ResponseEntity<Boolean> insertUtenteAccountImage(@RequestBody Utente utente, MultipartFile img){
@@ -110,7 +110,7 @@ public class ImageController {
 
         */
 
-
+/*
             String orgName = FileUtil.assignProgressiveName(img);
             String filePath = realPathToUploads + orgName; //"\\"+
 
@@ -127,5 +127,7 @@ public class ImageController {
         }catch (Exception e){ return ResponseEntity.ok(false); }
 
     }
+
+ */
 }
 

@@ -20,7 +20,7 @@ export class ProfiloComponent implements OnInit {
 
   annunci:any
   pencil=faPencil
-  utente : Lavoratore
+  utente : Lavoratore | Cliente
   entita:string
   propostaAccettata: any
 
@@ -32,6 +32,7 @@ export class ProfiloComponent implements OnInit {
 
 
     this.annunci = this.service.getAnnunci();
+    this.utente = this.getUtente();
     console.log(this.annunci)
 
     if (this.route.snapshot.paramMap.get('Entita')) {
@@ -65,7 +66,7 @@ export class ProfiloComponent implements OnInit {
   }
 
 
-  getUtente() : Utente{
+  getUtente() : Lavoratore | Cliente{
     var utenteLogged = localStorage.getItem("utente");
     return JSON.parse(utenteLogged!);
   }
