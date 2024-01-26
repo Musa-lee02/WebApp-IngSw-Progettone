@@ -18,41 +18,40 @@ public class ImageServiceImpl implements ImageService {
 
         Cliente cliente = DBManager.getInstance().getClienteDao().findByPrimaryKey(TokenManager.verificaToken(token));
 
-        //Annuncio a = DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(annuncio.getId()); // Check if annuncio is in DB
-
         if(cliente != null) {
 
-            try {
-                String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
+                if(img != null) {
+                    try {
+                        String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
 
-                if (!new File(realPathToUploads).exists()) { //If the directory "image" is not existent
-                    new File(realPathToUploads).mkdir();     //Create a directory
-                }
-
-                if (annuncio.getImage() != null) {                                  //If the User has already a photo
-                    String oldFilePath = realPathToUploads + annuncio.getImage();  //"\\"+
-                    File fileToDelete = new File(oldFilePath);                  //Go to the path the old photo
-                    if (fileToDelete.exists()) {                                //Check if the photo exists
-                        if (fileToDelete.delete()) {                            //delete old photo
-                            System.out.println("The file has been deleted successfully");
+                        if (!new File(realPathToUploads).exists()) { //If the directory "image" is not existent
+                            new File(realPathToUploads).mkdir();     //Create a directory
                         }
-                    }
+
+                        if (annuncio.getImage() != null) {                                  //If the User has already a photo
+                            String oldFilePath = realPathToUploads + annuncio.getImage();  //"\\"+
+                            File fileToDelete = new File(oldFilePath);                  //Go to the path the old photo
+                            if (fileToDelete.exists()) {                                //Check if the photo exists
+                                if (fileToDelete.delete()) {                            //delete old photo
+                                    System.out.println("The file has been deleted successfully");
+                                }
+                            }
+                        }
+
+                        String orgName = FileUtil.assignProgressiveName(img);
+                        String filePath = realPathToUploads + orgName;
+
+                        File dest = new File(filePath);
+                        img.transferTo(dest);
+
+                        annuncio.setImage(orgName);
+                    } catch (Exception e) { return false; }
                 }
-
-                String orgName = FileUtil.assignProgressiveName(img);
-                String filePath = realPathToUploads + orgName;
-
-                File dest = new File(filePath);
-                img.transferTo(dest);
-
-                annuncio.setImage(orgName);
                 annuncio.setCliente(cliente);
-
                 DBManager.getInstance().getAnnuncioDao().saveOrUpdate(annuncio);
 
                 return true;
-            } catch (Exception e) { return false; }
-        }else{ return false; }
+            } else{ return false; }
 
     }
 
@@ -90,8 +89,6 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Boolean insertNewClienteAccountAndImage(Cliente cliente){
-
-        System.out.println(cliente.getUsername() + cliente.getNome());
 
         Cliente c = DBManager.getInstance().getClienteDao().findByPrimaryKey(cliente.getUsername()); // Check if cliente is in DB
 
