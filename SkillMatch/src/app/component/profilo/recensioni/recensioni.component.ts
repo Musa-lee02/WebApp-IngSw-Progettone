@@ -40,7 +40,7 @@ export class RecensioniComponent implements OnInit {
 
   getPropostaAccettataImg(){
 
-    console.log(this.propostaAccettata)
+
     if(this.propostaAccettata){
 
       return this.propostaAccettata.img
@@ -60,11 +60,11 @@ export class RecensioniComponent implements OnInit {
     if(this.starsClicked){
       this.starsClicked=false
       voto=0
-      console.log(voto)
+
     }
     else
     this.starsClicked=true
-    console.log(voto)
+
   }
   isStarsClicked(){
 

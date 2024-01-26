@@ -46,11 +46,7 @@ export class ProfiloComponent implements OnInit {
     }
 
     console.log(this.backEndService.getToken())
-    this.backEndService.getUtente().subscribe(
-      data => {
-        this.utente = data
-
-      });
+    this.getUtente()
       console.log("img:" + this.utente.imgProfilo);
       console.log("data di nascita: " + this.utente.dataNascita);
   }

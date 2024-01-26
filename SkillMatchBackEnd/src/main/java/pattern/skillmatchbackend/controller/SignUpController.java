@@ -79,11 +79,9 @@ public class SignUpController {
     }
 
     @PostMapping("/completeRegistration/Cliente")
-    public boolean completeRegistrationCliente(@RequestPart("cliente") Cliente cliente) {
+    public boolean completeRegistrationCliente(@RequestBody Cliente cliente) {
 
         if(imageService.insertNewClienteAccountAndImage(cliente)) {
-            String passC = cliente.getPassword();
-            cliente.setPassword(PasswordCrypt.encode(passC));
 
         DBManager.getInstance().getClienteDao().saveOrUpdate(cliente);
         EmailSender emailSender = new EmailSender();
