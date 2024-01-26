@@ -22,7 +22,7 @@ export class ProfiloComponent implements OnInit {
   annunci:any
   pencil=faPencil
   utente : Lavoratore | Cliente
-  entita:string
+  entita:string | null
   propostaAccettata: any
 
   url:string;
@@ -36,14 +36,7 @@ export class ProfiloComponent implements OnInit {
     this.utente = this.getUtente();
     console.log(this.annunci)
 
-    if (this.route.snapshot.paramMap.get('Entita')) {
-
-      this.entita = this.route.snapshot.paramMap.get('Entita')!;
-      if (this.entita === "Cliente")
-        this.entita == "Cliente";
-      if (this.entita === "Lavoratore")
-        this.entita == "Lavoratore";
-    }
+    this.entita=localStorage.getItem("scelta")
 
     console.log(this.backEndService.getToken())
     this.getUtente()

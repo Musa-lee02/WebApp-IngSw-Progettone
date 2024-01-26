@@ -70,15 +70,15 @@ export class NavBarComponent implements OnInit, AfterContentChecked{
   }
   isAutenticato(){
 
-    return this.service.isAutenticato()
+    return this.backEndService.isAuthenticated()
   }
   _isEsplora(){
     return this.isEsplora
   }
-  setCliente(){
+  doLogout(){
 
 
-
+    this.backEndService.removeToken()
 
   }
   skipAutentication(bool: boolean){
@@ -87,7 +87,7 @@ export class NavBarComponent implements OnInit, AfterContentChecked{
   }
 
   getPicProfile(){
-   
+
   }
 
 

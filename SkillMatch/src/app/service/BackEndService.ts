@@ -39,6 +39,8 @@ export class BackEndService{
   removeToken(){
     this.token = undefined;
     localStorage.removeItem("user-token");
+    localStorage.removeItem("scelta");
+    localStorage.removeItem("utente")
   }
 
 
@@ -75,11 +77,12 @@ export class BackEndService{
         this.setToken(response.token);
         response.lavoratore.password = ""; // Rimuovi la password. è un modo bruttissimo, ma fa quello che deve
         localStorage.setItem("utente", JSON.stringify(response.lavoratore));
-
+        localStorage.setItem("scelta", "lavoratore")
         console.log(this.getToken())
         console.log(localStorage.getItem("utente"))
 
-        this.router.navigate(["/Profilo/Lavoratore"]);
+
+        this.router.navigate(["/Profilo"]);
       },(error) =>{
         console.log("errore da gestire?: (password od username non valide)" + error) //TODO
       });
@@ -92,11 +95,12 @@ export class BackEndService{
         this.setToken(response.token);
         response.cliente.password = ""; // Rimuovi la password. è un modo bruttissimo, ma fa quello che deve
         localStorage.setItem("utente", JSON.stringify(response.cliente));
+        localStorage.setItem("scelta", "cliente")
 
         console.log(this.getToken())
         console.log(localStorage.getItem("utente"))
 
-        this.router.navigate(["/Profilo/Cliente"]);
+        this.router.navigate(["/Profilo"]);
       },(error) =>{
         console.log("errore da gestire?: (password od username non valide)" + error) //TODO
       });
@@ -151,7 +155,7 @@ export class BackEndService{
 
     if (scelta==="lavoratore") {
 
-      const formData = new FormData();    
+      const formData = new FormData();
       const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
 
       formData.append('lavoratore', utenteBlob);

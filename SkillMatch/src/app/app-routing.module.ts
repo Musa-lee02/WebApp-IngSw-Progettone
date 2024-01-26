@@ -24,7 +24,7 @@ const routes: Routes = [
  {path: 'Chat', component: ChatComponent },
  {path: 'Esplora/:ambito/:zona', component: EsploraComponent},
  {path: 'Accedi', component: AccediComponent},
- {path: 'Profilo/:Entita', component: ProfiloComponent},
+ {path: 'Profilo', component: ProfiloComponent},
  {path: 'ConfermaAccount', component: ConfermaEmailComponent},
  {path: 'Annuncio', component: EffettuaAnnuncioComponent},
  {path: 'Recupero', component: RecuperoComponent},

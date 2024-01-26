@@ -22,9 +22,9 @@
                         <li>Cognome: {{utente.cognome}}</li>
                         <li>Data di nascita: {{utente.dataNascita}}</li>
                         <li>Indirizzo: {{utente.provincia}}</li>
-                        <li *ngIf="entita==='Lavoratore'">Zona di competenza: {{getZona()}}</li>
-                        <li *ngIf="entita==='Lavoratore'">Ambiti: {{getAmbiti()}}</li>
-                        <li *ngIf="entita==='Lavoratore'">Altre informazioni</li>
+                        <li *ngIf="entita==='lavoratore'">Zona di competenza: {{getZona()}}</li>
+                        <li *ngIf="entita==='lavoratore'">Ambiti: {{getAmbiti()}}</li>
+                        <li *ngIf="entita==='lavoratore'">Altre informazioni</li>
 
                     </ul>
             </div>
@@ -39,8 +39,8 @@
             </div>
 
             <div class="cronoChat">
-                <h2 style="align-self: flex-start;" *ngIf="entita==='Cliente'">Annunci Finalizzati</h2>
-                <h2 style="align-self: flex-start;" *ngIf="entita==='Lavoratore'">Le tue proposte di lavoro</h2>
+                <h2 style="align-self: flex-start;" *ngIf="entita==='cliente'">Annunci Finalizzati</h2>
+                <h2 style="align-self: flex-start;" *ngIf="entita==='lavoratore'">Le tue proposte di lavoro</h2>
                 <div *ngFor="let annuncio of annunci; index as i">
 
                     <div class="cardAnnuncio">
