@@ -64,7 +64,7 @@ export class BackEndService{
       .subscribe(response => {
         this.setToken(response.token);
         console.log(this.getToken())
-        
+
       });
   }
   */
@@ -78,12 +78,12 @@ export class BackEndService{
 
         console.log(this.getToken())
         console.log(localStorage.getItem("utente"))
-        
+
         this.router.navigate(["/Profilo/Lavoratore"]);
       },(error) =>{
         console.log("errore da gestire?: (password od username non valide)" + error) //TODO
       });
-      
+
   }
 
   public loginCliente(utente : UtenteCredenziali){
@@ -95,13 +95,13 @@ export class BackEndService{
 
         console.log(this.getToken())
         console.log(localStorage.getItem("utente"))
-        
+
         this.router.navigate(["/Profilo/Cliente"]);
       },(error) =>{
         console.log("errore da gestire?: (password od username non valide)" + error) //TODO
       });
   }
-  
+
 
   logout(){
     this.http.post<AuthToken>(this.url + "/logout",
@@ -147,7 +147,7 @@ export class BackEndService{
     return this.http.post<string>(this.url+"/data/cliente/signUp",stringa);
   }
 
-  public completeSignUp(utente : Lavoratore | Cliente, scelta: string): Observable<boolean> {
+  public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
 
     const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
     const formData = new FormData();
@@ -171,7 +171,7 @@ export class BackEndService{
     return this.http.post<boolean>(this.url + "/signup/completeRegistration/Utente", { params: { utente } });
 
   }*/
-  public insertAnnuncio(annuncio: Annuncio, image: File){ 
+  public insertAnnuncio(annuncio: Annuncio, image: File){
 
     const annuncioBlob = new Blob([JSON.stringify(annuncio)], {type: 'application/json'});
     const formData = new FormData();

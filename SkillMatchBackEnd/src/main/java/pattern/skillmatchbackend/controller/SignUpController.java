@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pattern.skillmatchbackend.config.PasswordCrypt;
 import pattern.skillmatchbackend.data.service.ImageServiceImpl;
 import pattern.skillmatchbackend.data.service.interf.ImageService;
 import pattern.skillmatchbackend.model.*;
@@ -60,13 +61,16 @@ public class SignUpController {
 
 
     @PostMapping("/completeRegistration/Lavoratore")
-    public boolean completeRegistrationLavoratore(@RequestPart("lavoratore") Lavoratore lavoratore, @RequestPart("img") MultipartFile img) {
+    public boolean completeRegistrationLavoratore(@RequestPart("lavoratore") Lavoratore lavoratore, @RequestPart(value = "img", required = false) MultipartFile img) {
 
         /*for (Ambito a : lavoratore.getAmbiti()) {
             System.out.println("id:" + a.getId() + "nome:" + a.getNome());
         }*/
 
         if(imageService.insertNewLavoratoreAccountAndImage(lavoratore, img)){
+            String passC = lavoratore.getPassword();
+            lavoratore.setPassword(PasswordCrypt.encode(passC));
+            DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
             EmailSender emailSender = new EmailSender();
             String token = TokenManager.getInstance().creaToken(lavoratore.getUsername(), 2 * 24 * 60 * 60 * 1000);
             //emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
@@ -80,7 +84,10 @@ public class SignUpController {
     public boolean completeRegistrationCliente(@RequestPart("cliente") Cliente cliente) {
 
         if(imageService.insertNewClienteAccountAndImage(cliente)) {
+            String passC = cliente.getPassword();
+            cliente.setPassword(PasswordCrypt.encode(passC));
 
+        DBManager.getInstance().getClienteDao().saveOrUpdate(cliente);
         EmailSender emailSender = new EmailSender();
         String token = TokenManager.getInstance().creaToken(cliente.getUsername(), 2 * 24 * 60 * 60 * 1000);
         //emailSender.confermaLink(cliente, "http://localhost:4200/ConfermaAccount?token=" + token);

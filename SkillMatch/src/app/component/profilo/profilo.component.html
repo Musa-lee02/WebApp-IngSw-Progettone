@@ -22,8 +22,8 @@
                         <li>Cognome: {{utente.cognome}}</li>
                         <li>Data di nascita: {{utente.dataNascita}}</li>
                         <li>Indirizzo: {{utente.provincia}}</li>
-                        <li *ngIf="entita==='Lavoratore'">Zona di competenza:</li>
-                        <li *ngIf="entita==='Lavoratore'">Ambiti:</li>
+                        <li *ngIf="entita==='Lavoratore'">Zona di competenza: {{getZona()}}</li>
+                        <li *ngIf="entita==='Lavoratore'">Ambiti: {{getAmbiti()}}</li>
                         <li *ngIf="entita==='Lavoratore'">Altre informazioni</li>
 
                     </ul>

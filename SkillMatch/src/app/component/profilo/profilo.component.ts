@@ -7,6 +7,7 @@ import {BackEndService} from "../../service/BackEndService";
 import {Cliente} from "../../model/Cliente";
 import {Lavoratore} from "../../model/Lavoratore";
 import {Utente} from "../../model/Utente";
+import {LavoratoreFieldService} from "../../service/LavoratoreFieldService";
 
 
 @Component({
@@ -25,9 +26,9 @@ export class ProfiloComponent implements OnInit {
   propostaAccettata: any
 
   url:string;
-  constructor(private service: ServizioAnnunciService, private route: ActivatedRoute, private backEndService: BackEndService){
+  constructor(private service: ServizioAnnunciService, private route: ActivatedRoute, private backEndService: BackEndService, private lavoratoreService : LavoratoreFieldService) { }
 
-  }
+
   ngOnInit(): void {
 
 
@@ -45,7 +46,13 @@ export class ProfiloComponent implements OnInit {
     }
 
     console.log(this.backEndService.getToken())
-    
+    this.backEndService.getUtente().subscribe(
+      data => {
+        this.utente = data
+
+      });
+      console.log("img:" + this.utente.imgProfilo);
+      console.log("data di nascita: " + this.utente.dataNascita);
   }
 
 
@@ -61,7 +68,8 @@ export class ProfiloComponent implements OnInit {
     }
   }
 
-  getPicProfile(): string{
+  getPicProfile(){
+
     return "http://localhost:8080/images/"+this.getUtente().imgProfilo;
   }
 
@@ -70,6 +78,17 @@ export class ProfiloComponent implements OnInit {
     var utenteLogged = localStorage.getItem("utente");
     return JSON.parse(utenteLogged!);
   }
+
+  public getAmbiti() : string[]{
+    return this.lavoratoreService.getAmbiti(this.utente)
+
+  }
+
+  public getZona() : string{
+    return this.lavoratoreService.getZona(this.utente)
+  }
+
+
 
 
 

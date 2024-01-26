@@ -251,10 +251,10 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           console.log(error)
 
           if (error.error === "Email già in uso")
-            alert("Email già in uso")
+            Swal.fire("Email già in uso")
 
           else if (error.error === "Username già in uso")
-            alert("Username già in uso")
+            Swal.fire("Username già in uso")
 
           else if (error.error === "Password non valida (deve contenere almeno una lettera maiuscola)")
             Swal.fire("Password non valida (deve contenere almeno una lettera maiuscola)")

@@ -116,8 +116,7 @@ public class UtenteDaoPostgres implements UtenteDao {
             System.out.println(utente.getPassword());
 
             if (res == null) {
-                String passC = utente.getPassword();
-                utente.setPassword(PasswordCrypt.encode(passC));
+
             }
 
             PreparedStatement st = conn.prepareStatement(query);

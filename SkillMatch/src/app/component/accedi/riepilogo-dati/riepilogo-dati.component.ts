@@ -13,17 +13,18 @@ import {Lavoratore} from "../../../model/Lavoratore";
 import {withInterceptorsFromDi} from "@angular/common/http";
 import {Ambito} from "../../../model/Ambito";
 import {Cliente} from "../../../model/Cliente";
+import {LavoratoreFieldService} from "../../../service/LavoratoreFieldService";
 @Component({
   selector: 'app-riepilogo-dati',
   templateUrl: './riepilogo-dati.component.html',
   styleUrls: ['./riepilogo-dati.component.css','../accedi.component.css']
 })
 export class RiepilogoDatiComponent implements AfterContentChecked{
-  @Input("utente") utente : Cliente | Lavoratore
+  @Input("utente") utente : Utente
   @Input("scelta") scelta : string
 
 
-  constructor(private router: Router, private accediComponent : AccediComponent, private backEndService: BackEndService) {
+  constructor(private router: Router, private accediComponent : AccediComponent, private backEndService: BackEndService, private lavoratoreService : LavoratoreFieldService) {
   }
 
   ngOnInit(): void {
@@ -31,17 +32,18 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
   }
 
   public getAmbiti() : string[]{
-    console.log((<Lavoratore>(this.utente)).ambiti)
-    return (<Lavoratore>this.utente).ambiti.map(a => a.nome)
+   return this.lavoratoreService.getAmbiti(this.utente)
 
   }
 
   public getZona() : string{
-    return (<Lavoratore>this.utente).provinciaLavoro
+    return this.lavoratoreService.getZona(this.utente)
   }
 
 
   public goToAccount() {
+
+    console.log(this.utente)
 
     this.backEndService.completeSignUp(this.utente, this.scelta).subscribe(response => {
       if (response) {
@@ -50,14 +52,14 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
           username: this.utente.username
         }
         if (this.scelta === "cliente") {
-          
+
           this.backEndService.loginCliente(utenteCredenziali)
 
         }else {
-          
+
           console.log(utenteCredenziali)
           this.backEndService.loginLavoratore(utenteCredenziali)
-        
+
         }
       } else {
         Swal.fire("Errore nella registrazione")
