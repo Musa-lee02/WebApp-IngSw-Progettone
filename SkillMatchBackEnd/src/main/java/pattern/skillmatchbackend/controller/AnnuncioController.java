@@ -26,7 +26,7 @@ public class AnnuncioController {
         return DBManager.getInstance().getAnnuncioDao().findAll();
     }
 
-    //Funzionano, più o meno...
+    //Funziona
     @PostMapping("/insertNewAnnuncio")
     public ResponseEntity<Boolean> insertNewAnnuncio(@RequestPart("annuncio") Annuncio annuncio, @RequestPart(value = "img", required = false) MultipartFile img, @RequestPart(value = "token") String token){
         return ResponseEntity.ok(imageService.insertAnnuncioAndImage(annuncio, img, token));
@@ -56,7 +56,6 @@ public class AnnuncioController {
 
     @PostMapping("/getAnnunciByUsernameCliente")
     public List<Annuncio> getAnnunciByUsernameCliente(@RequestBody Cliente cliente){
-
         return DBManager.getInstance().getAnnuncioDao().findByForeignKeyCliente(cliente.getUsername());
     }
 

@@ -46,7 +46,7 @@ public class ImageServiceImpl implements ImageService {
 
                         annuncio.setImage(orgName);
                     } catch (Exception e) { return false; }
-                }
+                }else{ annuncio.setImage("imagedefault.avif"); }
                 annuncio.setCliente(cliente);
                 DBManager.getInstance().getAnnuncioDao().saveOrUpdate(annuncio);
 

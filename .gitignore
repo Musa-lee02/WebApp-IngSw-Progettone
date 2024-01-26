@@ -4,3 +4,4 @@
 /target/
 /SkillMatchBackEnd/src/main/resources/image/*
 !/SkillMatchBackEnd/src/main/resources/image/default.jpg
+!/SkillMatchBackEnd/src/main/resources/image/imagedefault.avif
