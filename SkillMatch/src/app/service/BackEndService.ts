@@ -71,6 +71,7 @@ export class BackEndService{
   }
   */
 
+  //Funziona
   public loginLavoratore(utente : UtenteCredenziali){
     this.http.post<LoginLavoratoreDto>(this.url + "/retriveData/loginLavoratore",utente)
       .subscribe(response => {
@@ -89,6 +90,7 @@ export class BackEndService{
 
   }
 
+  //Funziona
   public loginCliente(utente : UtenteCredenziali){
     this.http.post<LoginClienteDto>(this.url + "/retriveData/loginCliente",utente)
       .subscribe(response => {
@@ -151,6 +153,7 @@ export class BackEndService{
     return this.http.post<string>(this.url+"/data/cliente/signUp",stringa);
   }
 
+  //Funziona
   public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
 
     if (scelta==="lavoratore") {
@@ -181,6 +184,8 @@ export class BackEndService{
     return this.http.post<boolean>(this.url + "/signup/completeRegistration/Utente", { params: { utente } });
 
   }*/
+
+  //Funziona
   public insertAnnuncio(annuncio: Annuncio, image: File){
 
     const annuncioBlob = new Blob([JSON.stringify(annuncio)], {type: 'application/json'});
@@ -191,12 +196,18 @@ export class BackEndService{
     }
     formData.append('token', this.getToken()!);
 
-    console.log("Annuncio & Image sended")
-
     return this.http.post<Boolean>(
       this.url + "/annuncio/insertNewAnnuncio",
       formData
     );
+  }
+
+  //Da testare
+  public getAnnunciWithToken(): Observable<Annuncio[]>{
+    return this.http.post<Annuncio[]>(
+      this.url+"/annuncio/getAnnunciWithToken",
+      this.getToken()
+      );
   }
 
   public verifyToken(token: string, username : string){

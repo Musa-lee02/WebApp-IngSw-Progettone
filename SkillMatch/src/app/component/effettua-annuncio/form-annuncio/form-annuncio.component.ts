@@ -85,10 +85,7 @@ export class FormAnnuncioComponent implements AfterViewChecked{
     if(this.nuovoAnnuncioForm.valid){
       const ambito: Ambito = {
         id: this.nuovoAnnuncioForm.value.ambito.id,
-        nome: this.nuovoAnnuncioForm.value.ambito.nome,
-        icona: "",
-        annunci: [],
-        lavoratori: []
+        nome: this.nuovoAnnuncioForm.value.ambito.nome
       };
     const annuncio: Annuncio = this.nuovoAnnuncioForm.value
     annuncio.ambito = ambito

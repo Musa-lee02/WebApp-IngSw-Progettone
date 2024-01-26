@@ -26,9 +26,12 @@ public class AnnuncioController {
         return DBManager.getInstance().getAnnuncioDao().findAll();
     }
 
-    //Funzionano, più o meno...
+    //Funziona
     @PostMapping("/insertNewAnnuncio")
     public ResponseEntity<Boolean> insertNewAnnuncio(@RequestPart("annuncio") Annuncio annuncio, @RequestPart(value = "img", required = false) MultipartFile img, @RequestPart(value = "token") String token){
+        System.out.println("token is:" + token);
+        System.out.println("token is:" + TokenManager.verificaToken(token));
+
         return ResponseEntity.ok(imageService.insertAnnuncioAndImage(annuncio, img, token));
     }
 
@@ -54,9 +57,16 @@ public class AnnuncioController {
 
     }
 
+    @PostMapping("/getAnnunciWithToken")
+    public List<Annuncio> getAnnunciWithToken(String token){
+        System.out.println(token);
+        System.out.println(TokenManager.verificaToken(token));
+        return DBManager.getInstance().getAnnuncioDao().findByForeignKeyCliente(TokenManager.verificaToken(token));
+    }
+
+    // In teoria andrebbe fatto col token
     @PostMapping("/getAnnunciByUsernameCliente")
     public List<Annuncio> getAnnunciByUsernameCliente(@RequestBody Cliente cliente){
-
         return DBManager.getInstance().getAnnuncioDao().findByForeignKeyCliente(cliente.getUsername());
     }
 

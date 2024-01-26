@@ -2,10 +2,8 @@ package pattern.skillmatchbackend.model;
 
 public class Ambito {
 
-    private long id;
+    private Long id;
     private String nome;
-
-
 
     public long getId() {
         return id;

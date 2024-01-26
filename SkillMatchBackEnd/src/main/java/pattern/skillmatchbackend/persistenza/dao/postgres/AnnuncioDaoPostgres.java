@@ -83,7 +83,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     @Override
     public void saveOrUpdate(Annuncio annuncio) {
 
-        String query = "INSERT INTO annuncio (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO annuncio VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         if (annuncio.getId() != null && findByPrimaryKey(annuncio.getId()) != null) {
             query = "UPDATE annuncio " +
@@ -92,8 +92,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                     "WHERE id_annuncio = ?";
         }
         else {
-            //annuncio.setId(IdBroker.getId(conn)); //TODO
-            annuncio.setId(2L);
+            annuncio.setId(IdBroker.getId(conn));
         }
             try {
 
@@ -102,7 +101,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 st.setLong(1, annuncio.getId());
                 st.setString(2, annuncio.getTitolo());
                 st.setString(3, annuncio.getDescrizione());
-                st.setDate(4,   annuncio.getDataDiScadenza());
+                st.setDate(4, annuncio.getDataDiScadenza());
                 st.setString(5, annuncio.getProvinciaAnnuncio());
                 st.setString(6, annuncio.getImage());
                 st.setString(7, annuncio.getCliente().getUsername());
@@ -111,6 +110,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 if(query.startsWith("UPDATE")) {
                     st.setLong(9, annuncio.getId());
                 }
+
                 st.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
