@@ -2,6 +2,7 @@ package pattern.skillmatchbackend.data.service;
 
 import org.springframework.web.multipart.MultipartFile;
 import pattern.skillmatchbackend.config.FileUtil;
+import pattern.skillmatchbackend.config.PasswordCrypt;
 import pattern.skillmatchbackend.data.service.interf.ImageService;
 import pattern.skillmatchbackend.model.Annuncio;
 import pattern.skillmatchbackend.model.Cliente;
@@ -75,6 +76,8 @@ public class ImageServiceImpl implements ImageService {
                 File dest = new File(filePath);
                 img.transferTo(dest);
 
+                String passC = lavoratore.getPassword();
+                lavoratore.setPassword(PasswordCrypt.encode(passC));
                 lavoratore.setImgProfilo(orgName);
 
                 DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
@@ -99,6 +102,8 @@ public class ImageServiceImpl implements ImageService {
                     new File(realPathToUploads).mkdir();     //Create a directory
                 }
 
+                String passC = cliente.getPassword();
+                cliente.setPassword(PasswordCrypt.encode(passC));
                 cliente.setImgProfilo("default.jpg");
 
                 DBManager.getInstance().getClienteDao().saveOrUpdate(cliente);

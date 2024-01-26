@@ -149,13 +149,15 @@ export class BackEndService{
 
   public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
 
-    const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
     const formData = new FormData();
-    formData.append('lavoratore', utenteBlob);
-
     if(utente.imgProfilo != undefined){
       formData.append('img', utente.imgProfilo);
+      utente.imgProfilo = undefined
     }
+
+    const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
+    
+    formData.append('lavoratore', utenteBlob);
 
     if (scelta==="lavoratore") {
 
