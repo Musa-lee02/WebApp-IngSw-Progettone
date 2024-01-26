@@ -1,5 +1,6 @@
 package pattern.skillmatchbackend.persistenza.dao.postgres;
 
+import pattern.skillmatchbackend.model.Annuncio;
 import pattern.skillmatchbackend.model.Proposta;
 
 import pattern.skillmatchbackend.persistenza.DBManager;
@@ -154,16 +155,16 @@ public class PropostaDaoPostgres implements PropostaDao {
     }
 
     @Override
-    public Proposta findByForeignKeyAnnuncio(Long id) {
-        Proposta proposta = null;
-        String query = "SELECT * FROM proposta WHERE WHERE id_annuncio = ?";
+    public List<Proposta> findByForeignKeyAnnuncio(Long id) {
+        List<Proposta> proposte = new LinkedList<>();
+        String query = "SELECT * FROM proposta WHERE id_annuncio = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, id);
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                proposta = new Proposta();
+                Proposta proposta = new Proposta();
                 proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
                 proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
                 proposta.setDataLavoro(rs.getDate("data_lavoro"));
@@ -172,12 +173,14 @@ public class PropostaDaoPostgres implements PropostaDao {
                 proposta.setDescrizione(rs.getString("descrizione"));
                 proposta.setStato(rs.getString("stato"));
                 proposta.setPrezzoLavoro(rs.getFloat("prezzo_lavoro"));
+
+                proposte.add(proposta);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return proposta;
+        return proposte;
 
     }
 

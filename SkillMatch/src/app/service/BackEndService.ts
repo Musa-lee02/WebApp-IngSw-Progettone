@@ -198,12 +198,10 @@ export class BackEndService{
     );
   }
 
-  //Da testare
+  // Funziona
   public getAnnunciWithToken(): Observable<Annuncio[]>{
-    return this.http.post<Annuncio[]>(
-      this.url+"/annuncio/getAnnunciWithToken",
-      this.getToken()
-      );
+    return this.http.get<Annuncio[]>(
+      this.url+"/annuncio/getAnnunciWithToken/"+this.getToken());
   }
 
   public verifyToken(token: string, username : string){

@@ -2,6 +2,7 @@ package pattern.skillmatchbackend.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.RequestScope;
 import pattern.skillmatchbackend.model.Ambito;
 import org.springframework.web.multipart.MultipartFile;
 import pattern.skillmatchbackend.data.service.ImageServiceImpl;
@@ -57,10 +58,8 @@ public class AnnuncioController {
 
     }
 
-    @PostMapping("/getAnnunciWithToken")
-    public List<Annuncio> getAnnunciWithToken(String token){
-        System.out.println(token);
-        System.out.println(TokenManager.verificaToken(token));
+    @GetMapping("/getAnnunciWithToken/{token}")
+    public List<Annuncio> getAnnunciWithToken(@PathVariable("token") String token){
         return DBManager.getInstance().getAnnuncioDao().findByForeignKeyCliente(TokenManager.verificaToken(token));
     }
 
