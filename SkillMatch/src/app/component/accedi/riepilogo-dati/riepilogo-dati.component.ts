@@ -43,9 +43,10 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
 
   public goToAccount() {
 
-    console.log(this.utente)
+    console.log("UTENTE: " +this.utente)
 
     this.backEndService.completeSignUp(this.utente, this.scelta).subscribe(response => {
+      console.log("response is :" + response)
       if (response) {
         const utenteCredenziali : UtenteCredenziali ={
           password: this.utente.password,

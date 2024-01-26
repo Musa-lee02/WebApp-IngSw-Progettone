@@ -87,7 +87,7 @@ export class BackEndService{
   }
 
   public loginCliente(utente : UtenteCredenziali){
-    this.http.post<LoginClienteDto>(this.url + "/retriveData/loginCliente",utente,{withCredentials: true})
+    this.http.post<LoginClienteDto>(this.url + "/retriveData/loginCliente",utente)
       .subscribe(response => {
         this.setToken(response.token);
         response.cliente.password = ""; // Rimuovi la password. è un modo bruttissimo, ma fa quello che deve
@@ -149,23 +149,27 @@ export class BackEndService{
 
   public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
 
-    const formData = new FormData();
-    if(utente.imgProfilo != undefined){
-      formData.append('img', utente.imgProfilo);
-      utente.imgProfilo = undefined
-    }
-
-    const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
-    
-    formData.append('lavoratore', utenteBlob);
-
     if (scelta==="lavoratore") {
+
+      const formData = new FormData();    
+      const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
+
+      formData.append('lavoratore', utenteBlob);
+
+      if(utente.imgProfilo != undefined){
+        formData.append('img', utente.imgProfilo);
+        utente.imgProfilo = undefined
+      }
 
       console.log((<Lavoratore>utente))
       return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", formData);
     }
 
-    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", <Cliente>utente);
+    const cliente : Cliente = utente
+
+    console.log("cliente is: " + cliente.cognome + "" + cliente.nome)
+
+    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", cliente);
 
   }
   /*public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
@@ -181,6 +185,7 @@ export class BackEndService{
     if (image != null) {
       formData.append('img', image);
     }
+    formData.append('token', this.getToken()!);
 
     console.log("Annuncio & Image sended")
 

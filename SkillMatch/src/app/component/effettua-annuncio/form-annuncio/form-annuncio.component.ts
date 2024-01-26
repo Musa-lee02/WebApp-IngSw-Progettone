@@ -4,6 +4,7 @@ import { ServizioAnnunciService } from '../../../service/servizio-annunci.servic
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import {BackEndService} from "../../../service/BackEndService";
 import { Annuncio } from '../../../model/Annuncio';
+import { Ambito } from '../../../model/Ambito';
 
 
 
@@ -73,7 +74,15 @@ export class FormAnnuncioComponent implements AfterViewChecked{
   onSubmit(): void{
 
     if(this.nuovoAnnuncioForm.valid){
+      const ambito: Ambito = {
+        idAmbito: null,
+        nome: this.nuovoAnnuncioForm.value.ambito,
+        icona: "",
+        annunci: [],
+        lavoratori: []
+    };
     const annuncio = this.nuovoAnnuncioForm.value
+    annuncio.ambito = ambito
     this.backEndService.insertAnnuncio(annuncio, this.image).subscribe(
       (response) => {
         console.log(response)

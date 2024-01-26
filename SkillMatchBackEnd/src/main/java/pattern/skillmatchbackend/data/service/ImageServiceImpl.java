@@ -4,10 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pattern.skillmatchbackend.config.FileUtil;
 import pattern.skillmatchbackend.config.PasswordCrypt;
 import pattern.skillmatchbackend.data.service.interf.ImageService;
-import pattern.skillmatchbackend.model.Annuncio;
-import pattern.skillmatchbackend.model.Cliente;
-import pattern.skillmatchbackend.model.Lavoratore;
-import pattern.skillmatchbackend.model.Utente;
+import pattern.skillmatchbackend.model.*;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
 import java.io.File;
@@ -17,11 +14,13 @@ public class ImageServiceImpl implements ImageService {
     private final String relativePath = "SkillMatchBackEnd/src/main/resources/image/";
 
     @Override
-    public Boolean insertAnnuncioAndImage(Annuncio annuncio, MultipartFile img){
+    public Boolean insertAnnuncioAndImage(Annuncio annuncio, MultipartFile img, String token){
 
-        Annuncio a = DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(annuncio.getId()); // Check if annuncio is in DB
+        Cliente cliente = DBManager.getInstance().getClienteDao().findByPrimaryKey(TokenManager.verificaToken(token));
 
-        if(a == null) {
+        //Annuncio a = DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(annuncio.getId()); // Check if annuncio is in DB
+
+        if(cliente != null) {
 
             try {
                 String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
@@ -47,6 +46,7 @@ public class ImageServiceImpl implements ImageService {
                 img.transferTo(dest);
 
                 annuncio.setImage(orgName);
+                annuncio.setCliente(cliente);
 
                 DBManager.getInstance().getAnnuncioDao().saveOrUpdate(annuncio);
 
@@ -90,6 +90,8 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Boolean insertNewClienteAccountAndImage(Cliente cliente){
+
+        System.out.println(cliente.getUsername() + cliente.getNome());
 
         Cliente c = DBManager.getInstance().getClienteDao().findByPrimaryKey(cliente.getUsername()); // Check if cliente is in DB
 

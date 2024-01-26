@@ -79,16 +79,15 @@ public class SignUpController {
     }
 
     @PostMapping("/completeRegistration/Cliente")
-    public boolean completeRegistrationCliente(@RequestPart("cliente") Cliente cliente) {
+    public boolean completeRegistrationCliente(@RequestBody Cliente cliente) {
+        System.out.println("helo");
+        System.out.println("1" + cliente.getUsername() + cliente.getNome());
 
         if(imageService.insertNewClienteAccountAndImage(cliente)) {
-            String passC = cliente.getPassword();
-            cliente.setPassword(PasswordCrypt.encode(passC));
 
-        DBManager.getInstance().getClienteDao().saveOrUpdate(cliente);
-        EmailSender emailSender = new EmailSender();
-        String token = TokenManager.getInstance().creaToken(cliente.getUsername(), 2 * 24 * 60 * 60 * 1000);
-        //emailSender.confermaLink(cliente, "http://localhost:4200/ConfermaAccount?token=" + token);
+            EmailSender emailSender = new EmailSender();
+            String token = TokenManager.getInstance().creaToken(cliente.getUsername(), 2 * 24 * 60 * 60 * 1000);
+            //emailSender.confermaLink(cliente, "http://localhost:4200/ConfermaAccount?token=" + token);
 
         return true;
         }
