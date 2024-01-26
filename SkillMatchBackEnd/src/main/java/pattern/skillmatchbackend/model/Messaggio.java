@@ -58,4 +58,14 @@ public class Messaggio {
     public void setChat(Chat chat) {
         this.chat = chat;
     }
+
+    @Override
+    public String toString() {
+        return "Messaggio{" +
+                ", contenuto='" + contenuto + '\'' +
+                ", data=" + data +
+                ", letto=" + letto +
+                ", isLavoratore=" + isLavoratore +
+                '}';
+    }
 }
