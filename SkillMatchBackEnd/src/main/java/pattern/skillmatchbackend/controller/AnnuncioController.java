@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pattern.skillmatchbackend.data.service.ImageServiceImpl;
 import pattern.skillmatchbackend.model.Annuncio;
 import pattern.skillmatchbackend.model.Cliente;
+import pattern.skillmatchbackend.model.TokenManager;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
 
@@ -25,10 +26,9 @@ public class AnnuncioController {
         return DBManager.getInstance().getAnnuncioDao().findAll();
     }
 
-    //TODO da testare
+    //Funzionano, più o meno...
     @PostMapping("/insertNewAnnuncio")
     public ResponseEntity<Boolean> insertNewAnnuncio(@RequestPart("annuncio") Annuncio annuncio, @RequestPart(value = "img", required = false) MultipartFile img, @RequestPart(value = "token") String token){
-
         return ResponseEntity.ok(imageService.insertAnnuncioAndImage(annuncio, img, token));
     }
 

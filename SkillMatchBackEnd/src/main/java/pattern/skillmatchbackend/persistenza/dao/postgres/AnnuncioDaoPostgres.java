@@ -85,19 +85,20 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
 
         String query = "INSERT INTO annuncio (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        if (findByPrimaryKey(annuncio.getId()) != null)
-            query =  "UPDATE annuncio " +
+        if (annuncio.getId() != null && findByPrimaryKey(annuncio.getId()) != null) {
+            query = "UPDATE annuncio " +
                     "SET titolo = ?, descrizione = ?, data_di_scadenza = ?, provincia_annuncio = ?, " +
                     "img_annuncio = ?, username_cliente = ?, id_ambito = ? " +
                     "WHERE id_annuncio = ?";
-        else
-            annuncio.setId(IdBroker.getId(conn));
-
+        }
+        else {
+            //annuncio.setId(IdBroker.getId(conn)); //TODO
+            annuncio.setId(2L);
+        }
             try {
 
                 PreparedStatement st = conn.prepareStatement(query);
 
-                st.setLong(1, annuncio.getId());
                 st.setLong(1, annuncio.getId());
                 st.setString(2, annuncio.getTitolo());
                 st.setString(3, annuncio.getDescrizione());
@@ -107,9 +108,9 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 st.setString(7, annuncio.getCliente().getUsername());
                 st.setLong(8, annuncio.getAmbito().getId());
 
-                if(query.startsWith("UPDATE"))
+                if(query.startsWith("UPDATE")) {
                     st.setLong(9, annuncio.getId());
-
+                }
                 st.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
