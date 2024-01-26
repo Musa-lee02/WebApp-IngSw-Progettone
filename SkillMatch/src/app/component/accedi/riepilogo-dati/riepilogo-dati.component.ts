@@ -1,30 +1,30 @@
 import {AfterContentChecked, AfterViewChecked, Component, Input, signal} from '@angular/core'
 
 
-import { DatiRegistrazioneService } from "../../../service/DatiRegistrazioneService";
+
 import Swal  from "sweetalert2";
 
 import {Router } from "@angular/router";
 import {AccediComponent} from "../accedi.component";
 import {BackEndService} from "../../../service/BackEndService";
 import {error} from "@angular/compiler-cli/src/transformers/util";
-import {Utente} from "../../../model/Utente";
+import {Utente, UtenteCredenziali} from "../../../model/Utente";
 import {Lavoratore} from "../../../model/Lavoratore";
 import {withInterceptorsFromDi} from "@angular/common/http";
 import {Ambito} from "../../../model/Ambito";
 import {Cliente} from "../../../model/Cliente";
+import {LavoratoreFieldService} from "../../../service/LavoratoreFieldService";
 @Component({
   selector: 'app-riepilogo-dati',
   templateUrl: './riepilogo-dati.component.html',
   styleUrls: ['./riepilogo-dati.component.css','../accedi.component.css']
 })
 export class RiepilogoDatiComponent implements AfterContentChecked{
-  @Input("utente") utente : Lavoratore | Cliente
+  @Input("utente") utente : Utente
   @Input("scelta") scelta : string
 
 
-
-  constructor(private router: Router, private accediComponent : AccediComponent, private backEndService: BackEndService) {
+  constructor(private router: Router, private accediComponent : AccediComponent, private backEndService: BackEndService, private lavoratoreService : LavoratoreFieldService) {
   }
 
   ngOnInit(): void {
@@ -32,29 +32,42 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
   }
 
   public getAmbiti() : string[]{
-    console.log((<Lavoratore>(this.utente)).ambiti)
-    return (<Lavoratore>this.utente).ambiti.map(a => a.nome)
+   return this.lavoratoreService.getAmbiti(this.utente)
 
   }
 
   public getZona() : string{
-    return (<Lavoratore>this.utente).provincia_lavoro
+    return this.lavoratoreService.getZona(this.utente)
   }
 
 
   public goToAccount() {
-    //let data =
-    //this.utente.dataRegistrazione = data;
+
+    console.log(this.utente)
+
     this.backEndService.completeSignUp(this.utente, this.scelta).subscribe(response => {
       if (response) {
-        this.router.navigate(['/Profilo']);
+        const utenteCredenziali : UtenteCredenziali ={
+          password: this.utente.password,
+          username: this.utente.username
+        }
+        if (this.scelta === "cliente") {
+
+          this.backEndService.loginCliente(utenteCredenziali)
+
+        }else {
+
+          console.log(utenteCredenziali)
+          this.backEndService.loginLavoratore(utenteCredenziali)
+
+        }
       } else {
         Swal.fire("Errore nella registrazione")
       }
     })
   }
 
-  public goToAccess() {
+  public modify() {
     this.accediComponent.backToGeneralita()
   }
 

@@ -10,10 +10,13 @@ import pattern.skillmatchbackend.persistenza.DBManager;
 @RequestMapping("/lavoratore")
 public class LavoratoreController {
 
+    LoginController decodifica = new LoginController();
     //TODO da testare
-    @GetMapping("/getLavoratoreByEmail")
-    public Lavoratore getLavoratoreByEmail(@RequestBody Lavoratore lavoratore){
-        return DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(lavoratore.getUsername());
+    @GetMapping("/getLavoratoreByUsername")
+    public Lavoratore getLavoratoreByEmail(@RequestParam String token){
+
+        System.out.println(token);
+        return DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(decodifica.getUserByToken(token).getUsername());
     }
 
     //TODO da testare

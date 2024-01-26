@@ -10,6 +10,7 @@ public interface UtenteDao {
 
     public Utente findByPrimaryKey(String username);
 
+    public boolean checkLogin(String username, String password);
     public void saveOrUpdate(Utente utente);
 
     public boolean isUsernameTaken(String username);

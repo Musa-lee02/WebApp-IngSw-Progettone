@@ -30,13 +30,20 @@
             <version>42.7.1</version>
         </dependency>
 
-
         <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
             <version>1.6.2</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.stripe/stripe-java -->
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>24.13.0-beta.1</version>
+        </dependency>
+
 
 
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
@@ -45,9 +52,6 @@
             <artifactId>spring-security-core</artifactId>
             <version>6.2.1</version>
         </dependency>
-
-
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

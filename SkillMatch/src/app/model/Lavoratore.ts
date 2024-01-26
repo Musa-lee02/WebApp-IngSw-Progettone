@@ -1,5 +1,6 @@
 import {Utente} from "./Utente";
 import {Ambito} from "./Ambito";
+import {Province} from "./Province";
 
 export interface LavoratoreSignUp{
     username: string;
@@ -14,10 +15,9 @@ export interface LavoratoreSignUp{
   }
 
   export interface Lavoratore extends Utente {
-    provincia_lavoro: string;
+    provinciaLavoro: string;
     ambiti: Ambito[];
-    notifica_email: boolean;
+    notificaEmail: boolean;
     punteggio: number;
   }
-
 

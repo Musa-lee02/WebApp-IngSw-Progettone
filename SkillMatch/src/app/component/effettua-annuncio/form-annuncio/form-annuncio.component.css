@@ -58,6 +58,10 @@
 .card{
     width: 60%;
 }
+.card2{
+    width: 60%;
+    background-color: aquamarine;
+}
 .containerForm{
 
     display: flex;
@@ -75,6 +79,9 @@
     height: 150px;
     width: 100% !important;
     border-radius: 40px;
+}
+.matB textarea{
+    height: 100px;
 }
 .contenitoreB button{
     

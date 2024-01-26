@@ -44,6 +44,31 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
                 lavoratore.setAmbiti(DBManager.getInstance().getAmbitoDao().findByLavoratore(lavoratore.getUsername()));
                 lavoratore.setTransazionePagamento(DBManager.getInstance().getTransazionePagamentoDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
                 lavoratore.setNotifiche(DBManager.getInstance().getNotificaDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
+                lavoratori.add(lavoratore);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lavoratori;
+    }
+
+    @Override
+    public List<Lavoratore> findAllLazy() {
+
+        List<Lavoratore> lavoratori = new LinkedList<>();
+        String query = "SELECT * FROM lavoratore";
+        try {
+
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                Lavoratore lavoratore = new LavoratoreProxy(DBManager.getInstance().getUtenteDao().findByPrimaryKey(rs.getString("username")));
+                lavoratore.setProvinciaLavoro(rs.getString("provincia_lavoro"));
+                lavoratore.setNotifica_email(rs.getBoolean("notifica_email"));
+                lavoratore.setPunteggio(rs.getInt("punteggio"));
+                lavoratori.add(lavoratore);
             }
 
         } catch (SQLException e) {
@@ -92,11 +117,8 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
             query  = "UPDATE lavoratore SET username = ? , provincia_lavoro = ?, notifica_email = ? , punteggio = ? WHERE username = ?";
 
         try {
-
             DBManager.getInstance().getUtenteDao().saveOrUpdate(lavoratore);
             PreparedStatement st = conn.prepareStatement(query);
-
-
 
             st.setString(1,lavoratore.getUsername());
             st.setString(2,lavoratore.getProvinciaLavoro());
@@ -106,12 +128,9 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
             if(query.startsWith("UPDATE"))
                 st.setString(5, lavoratore.getUsername());
 
-
-
             st.executeUpdate();
 
             if(query.startsWith("INSERT")) {
-
                 for (Ambito ambito : lavoratore.getAmbiti()) {
 
                     if (query.startsWith("UPDATE"))
@@ -129,8 +148,6 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
                         st.setLong(4, ambito.getId());
                     }
                     st.executeUpdate();
-
-
                 }
             }
         } catch (SQLException e) {

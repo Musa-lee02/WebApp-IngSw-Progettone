@@ -4,6 +4,11 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import {BackEndService} from "../../service/BackEndService";
+import {Cliente} from "../../model/Cliente";
+import {Lavoratore} from "../../model/Lavoratore";
+import {Utente} from "../../model/Utente";
+import {LavoratoreFieldService} from "../../service/LavoratoreFieldService";
+
 
 @Component({
   selector: 'app-profilo',
@@ -16,31 +21,40 @@ export class ProfiloComponent implements OnInit {
 
   annunci:any
   pencil=faPencil
-
+  utente : Lavoratore | Cliente
   entita:string
   propostaAccettata: any
 
   url:string;
-  constructor(private service: ServizioAnnunciService, private route: ActivatedRoute, private backEndService: BackEndService){
+  constructor(private service: ServizioAnnunciService, private route: ActivatedRoute, private backEndService: BackEndService, private lavoratoreService : LavoratoreFieldService) { }
 
-  }
+
   ngOnInit(): void {
 
 
-    this.annunci=this.service.getAnnunci();
+    this.annunci = this.service.getAnnunci();
+    this.utente = this.getUtente();
     console.log(this.annunci)
 
-    if(this.route.snapshot.paramMap.get('Entita')){
+    if (this.route.snapshot.paramMap.get('Entita')) {
 
-      this.entita=this.route.snapshot.paramMap.get('Entita')!;
-      if(this.entita==="Cliente")
-        this.entita=="Cliente";
-      if(this.entita==="Lavoratore")
-        this.entita=="Lavoratore";
+      this.entita = this.route.snapshot.paramMap.get('Entita')!;
+      if (this.entita === "Cliente")
+        this.entita == "Cliente";
+      if (this.entita === "Lavoratore")
+        this.entita == "Lavoratore";
     }
 
+    console.log(this.backEndService.getToken())
+    this.backEndService.getUtente().subscribe(
+      data => {
+        this.utente = data
 
+      });
+      console.log("img:" + this.utente.imgProfilo);
+      console.log("data di nascita: " + this.utente.dataNascita);
   }
+
 
   onSelectFile(e:any){
     if(e.target.files){
@@ -52,14 +66,26 @@ export class ProfiloComponent implements OnInit {
       }
 
     }
-
-
-
   }
 
   getPicProfile(){
 
-    return this.service.getPicProfile()
+    return "http://localhost:8080/images/"+this.getUtente().imgProfilo;
+  }
+
+
+  getUtente() : Lavoratore | Cliente{
+    var utenteLogged = localStorage.getItem("utente");
+    return JSON.parse(utenteLogged!);
+  }
+
+  public getAmbiti() : string[]{
+    return this.lavoratoreService.getAmbiti(this.utente)
+
+  }
+
+  public getZona() : string{
+    return this.lavoratoreService.getZona(this.utente)
   }
 
 

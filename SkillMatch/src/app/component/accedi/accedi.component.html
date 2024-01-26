@@ -4,10 +4,10 @@
         <app-scelta-utente (mandaSceltaUtente)="onRiceviScelta($event)"></app-scelta-utente>
     </div>
     <div class="form-container sign-in">
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit() ">
+        <form [formGroup]="loginForm" (ngSubmit)="doLogin() ">
             <h1>Accedi</h1>
 
-            <!--<div id="g_id_onload"
+            <div id="g_id_onload"
                    data-client_id="549457029113-7dcap37mikasnu6qociaelhp4bk8o691.apps.googleusercontent.com"
                    data-context="use"
                    data-ux_mode="popup"
@@ -22,10 +22,10 @@
                    data-theme="filled_black"
                    data-text="signin"
                    data-size="large">
-              </div>-->
+              </div>
 
             <span>Oppure usa la tua Email e password</span>
-            <input type="email" placeholder="Email" formControlName="email">
+            <input type="email" placeholder="Email" formControlName="username">
             <input type="password" placeholder="Password" formControlName="password" >
             <a href="Recupero" style="color: black"><span>password dimenticata? Recuperala da qui</span></a>
             <a routerLink="/Profilo"></a><button type="submit"  [ngStyle]="{'background': loginForm.valid ? '#512da8':'grey'}">Accedi</button>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="form-container sign-up">
-        <form [formGroup]="credenzialiForm " (ngSubmit)="onSubmit() ">
+        <form [formGroup]="credenzialiForm " (ngSubmit)="onSubmitCredenziali() ">
 
             <h1 *ngIf="scelta==='lavoratore'">Crea Account Lavoratore</h1>
             <h1 *ngIf="scelta!=='lavoratore'">Crea Account Cliente</h1>
@@ -68,7 +68,7 @@
 
 
     <div class="form-container generalitaForm">
-        <form [formGroup]="generalitaForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="generalitaForm" (ngSubmit)="onSubmitGeneralita()">
 
             <div><fa-icon style="display: inline; padding: 10px;" [icon]="arrowLeft" (click)="clickArrow()"></fa-icon> <h1 style="display: inline-block;">Registrati</h1></div>
             <input  placeholder="Nome" formControlName="nome">
@@ -87,17 +87,14 @@
                     <mat-select formControlName="provincia">
                     <mat-option>None</mat-option>
                     @for (pv of province; track pv) {
-                        <mat-option [value]="pv">{{pv}}</mat-option>
+                        <mat-option [value]="pv">{{pv.nome}}</mat-option>
                       }
                     </mat-select>
                 </mat-form-field>
             </div>
 
-            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="scelta!=='lavoratore' && !doingAccesso()">
-                <a  routerLink="/Annuncio">Registrati</a></button>
-            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="scelta!=='lavoratore' && doingAccesso()" )>
-                    <a  routerLink="/Profilo">Registrati</a></button>
-            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}" *ngIf="scelta==='lavoratore'">Registrati</button>
+
+            <button type="submit"  [ngStyle]="{'background': generalitaForm.valid ? '#512da8':'grey'}">Registrati</button>
 
 
         </form>
@@ -128,7 +125,7 @@
                     <mat-select formControlName="zona">
                     <mat-option>None</mat-option>
                     @for (pv of province; track pv) {
-                        <mat-option [value]="pv">{{pv}}</mat-option>
+                        <mat-option [value]="pv">{{pv.nome}}</mat-option>
                     }
                     </mat-select>
                 </mat-form-field>
@@ -141,9 +138,9 @@
                 <mat-form-field>
                     <mat-label>Ambiti</mat-label>
                     <mat-select formControlName="ambito" multiple>
-                      @for (ab of ambiti; track ab.idAmbito){
-                      <mat-option [value]="ab">{{ab.nome}}</mat-option>
-                      }
+                        @for (ab of ambiti; track ab) {
+                        <mat-option [value]="ab">{{ab.nome}}</mat-option>
+                        }
                     </mat-select>
                   </mat-form-field>
 
@@ -180,7 +177,7 @@
             </div>
             <div class="toggle-panel toggle-right">
                 <h1 *ngIf="scelta==='lavoratore'">Benvenuto Lavoratore</h1>
-                <h1 *ngIf="scelta==='lavoratore'">Benvenuto Cliente</h1>
+                <h1 *ngIf="scelta!=='lavoratore'">Benvenuto Cliente</h1>
               <p class="hide">Inserisci i tuoi dati personali per usufruire del sito </p>
               <p class="switch" (click)="addActive()">non hai ancora un account? effetua la registrazione da qui</p>
                 <button class="hidden" #register (click)="addActive()">Registrati</button>
@@ -189,8 +186,8 @@
     </div>
 
 
-    <app-riepilogo-dati *ngIf="scelta==='lavoratore' && riepilogoDati"[utente]="lavoratore"[scelta]="'lavoratore'"></app-riepilogo-dati>
-  <app-riepilogo-dati *ngIf="scelta==='cliente' && riepilogoDati"[utente]="cliente" [scelta]="'lavoratore'"></app-riepilogo-dati>
+    <app-riepilogo-dati *ngIf="riepilogoDati" [utente]="utente" [scelta]="scelta"></app-riepilogo-dati>
+
 
 </div>
 </div>

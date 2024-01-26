@@ -1,6 +1,5 @@
 import {BackEndService} from "../../service/BackEndService";
-import {DatiRegistrazioneService} from "../../service/DatiRegistrazioneService";
-
+import { HttpClient } from '@angular/common/http';
 declare var google: any;
 declare var window: any;
 import { AfterViewChecked, Component, ComponentFactoryResolver, ComponentRef, ElementRef, NgZone, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
@@ -10,11 +9,12 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service'
 import Swal from 'sweetalert2';
 import {HttpErrorResponse} from "@angular/common/http";
-import {Utente} from "../../model/Utente";
+import {Utente, UtenteCredenziali} from "../../model/Utente";
 import {Lavoratore} from "../../model/Lavoratore";
 import {elementSelectors} from "@angular/cdk/schematics";
 import {Cliente} from "../../model/Cliente";
 import {Ambito} from "../../model/Ambito";
+import {Province} from "../../model/Province";
 
 
 
@@ -37,12 +37,12 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ambiti: Ambito[]
 
-  province: string[] = ['Cosenza', 'Reggio Calabria', 'Vibo Valentia', 'Catanzaro', 'Crotone',
-    'Napoli', 'Salerno', 'Avellino', 'Benevento', 'Caserta', 'Potenza', 'Matera']
+  province: Province[]
 
-  cliente: Cliente
-  utente: Utente
-  lavoratore: Lavoratore
+
+
+  utente: Lavoratore | Cliente
+
   /*lavoratore: Lavoratore={
     ambiti: [],
     cognome: "",
@@ -72,10 +72,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   url = ""
   scelta: string
 
-
-  image !: File
-
-  constructor(private service: ServizioAnnunciService, private backEndService: BackEndService, private datiRegistrazione: DatiRegistrazioneService) {
+  constructor(private httpClient: HttpClient, private service: ServizioAnnunciService, private backEndService: BackEndService) {
   }
 
 
@@ -112,6 +109,13 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       }
     )
 
+    this.httpClient.get<Province[]>('http://mobilio.altervista.org').subscribe( data =>
+      {
+        console.log(data)
+        this.province=data
+      }
+    )
+
 
     this.generalitaForm = new FormGroup({
       nome: new FormControl(null, Validators.required),
@@ -137,7 +141,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     }, {validators: this.passwordMatchValidators});
 
     this.loginForm = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
+      username: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
 
     })
@@ -150,7 +154,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.service.setDoingAccesso(true)
 
-    this.province = this.service.getProvince()
+
   }
 
   passwordMatchValidators(control: AbstractControl) {
@@ -172,13 +176,11 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   onSelectFile(e: any) {
     if (e.target.files) {
-      this.picProfile=e.target.files[0]
-      /*var reader = new FileReader();
+      this.picProfile = e.target.files[0]
+      var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event: any) => {
         this.url = event.target.result;
-        //this.datiRegistrazione.setImmagineProfilo(e.target.files[0])
-        this.lavoratore.imgProfilo = e.target.files[0]*/
       }
       /* per prendere l'immagine, basta questo, se si vuole utilizzare la variabile image:
           if(e.target.files){
@@ -186,10 +188,10 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           }
           //... altrimenti va bene il picProfile
           */
-
     }
+  }
 
-  //}
+
 
   onRiceviScelta(scelta: string) {
     this.scelta = scelta
@@ -204,8 +206,9 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.container?.nativeElement.classList.remove('ambito')
     this.ambitoForm.clearValidators();
     this.generalitaForm.clearValidators();
-
     this.generalitaForm.reset();
+    this.ambitoForm.reset();
+
     console.log(this.generalitaForm)
   }
 
@@ -220,34 +223,96 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     return this.service.getSkipAutentication()
   }
 
+  doLogin(){
 
-  onSubmit() {
+    const username: string=this.loginForm.value.username
+    const password: string=this.loginForm.value.password
+    const utenteCredenziali : UtenteCredenziali ={
+      password: password,
+      username: username
+    }
+    console.log(utenteCredenziali)
+    if(this.scelta === "lavoratore"){
+      this.backEndService.loginLavoratore(utenteCredenziali)
+    }
+    else{
+      this.backEndService.loginCliente(utenteCredenziali)
+    }
+  }
 
-    if (this.scelta === "cliente") {
+  onSubmitCredenziali(){
+    if (this.credenzialiForm.valid) {
+      const utente = this.credenzialiForm.value
+      this.backEndService.postCheckRegistrationCredential(utente).subscribe(
+        (response) => {
+          this.container?.nativeElement.classList.add('generalita')
 
+        }, (error: HttpErrorResponse) => {
+          console.log(error)
+
+          if (error.error === "Email già in uso")
+            Swal.fire("Email già in uso")
+
+          else if (error.error === "Username già in uso")
+            Swal.fire("Username già in uso")
+
+          else if (error.error === "Password non valida (deve contenere almeno una lettera maiuscola)")
+            Swal.fire("Password non valida (deve contenere almeno una lettera maiuscola)")
+
+          else if (error.error === "Password non valida (deve contenere almeno un numero)")
+            Swal.fire("Password non valida (deve contenere almeno un numero)")
+
+          else if (error.error === "Password non valida (deve contenere almeno 8 caratteri)")
+            Swal.fire("Password non valida (deve contenere almeno 8 caratteri)")
+
+          else if (error.error === "Password non valida (deve contenere almeno un carattere speciale)")
+            Swal.fire("Password non valida (deve contenere almeno un carattere speciale)")
+
+          else {
+            Swal.fire("Errore generico")
+          }
+
+
+        })
+    }
+  }
+  onSubmitGeneralita(){
 
       if (this.generalitaForm.valid && this.credenzialiForm.valid) {
 
-        this.cliente={
-          cognome:  this.generalitaForm.get("cognome")?.value,
+        if (this.scelta === "cliente") {
+        this.utente = {
+          cognome: this.generalitaForm.get("cognome")?.value,
           dataNascita: this.generalitaForm.get("dataNascita")?.value,
           dataRegistrazione: new Date(),
           email: this.credenzialiForm.get("email")?.value,
           imgProfilo: this.picProfile,
           nome: this.generalitaForm.get("nome")?.value,
           password: this.credenzialiForm.get("password")?.value,
-          provincia: this.ambitoForm.get("zona")?.value,
+          provincia: this.generalitaForm.get("provincia")?.value.nome,
           registrato: false,
           username: this.credenzialiForm.get("username")?.value
 
+
         }
 
-      }
-    } else {
+
+          this.riepilogoDati = true
+          return
+
+      }else if(this.scelta==="lavoratore"){
+          this.container?.nativeElement.classList.add('ambito')
+        }
+    }
+
+
+  }
+  onSubmit() {
+
       if (this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid) {
 
 
-        this.lavoratore={
+        this.utente={
           ambiti: this.ambitoForm.get("ambito")?.value,
           cognome: this.generalitaForm.get("cognome")?.value,
           dataNascita: this.generalitaForm.get("dataNascita")?.value,
@@ -255,132 +320,26 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           email: this.credenzialiForm.get("email")?.value,
           imgProfilo:this.picProfile,
           nome:this.generalitaForm.get("nome")?.value,
-          notifica_email: false,
+          notificaEmail: false,
           password: this.credenzialiForm.get("password")?.value,
-          provincia: this.generalitaForm.get("provincia")?.value,
-          provincia_lavoro: this.ambitoForm.get("zona")?.value,
+          provincia: this.generalitaForm.get("provincia")?.value.nome,
+          provinciaLavoro: this.ambitoForm.get("zona")?.value.nome,
           punteggio: 0,
           registrato: false,
           username: this.credenzialiForm.get("username")?.value
 
         }
-        console.log(this.lavoratore.ambiti)
+
+
+
         this.riepilogoDati = true
         return
 
-      } else if (this.generalitaForm.valid && this.credenzialiForm.valid) {
-        this.container?.nativeElement.classList.add('ambito')
-        return
       }
-    }
-
-
-    if (this.credenzialiForm.valid) {
-      const utente = this.credenzialiForm.value
-      this.backEndService.postCheckRegistrationCredential(utente).subscribe(
-        (response) => {
-          this.container?.nativeElement.classList.add('generalita')
-
-          }, (error: HttpErrorResponse) => {
-          console.log(error)
-
-          if (error.error === "Email già in uso")
-            alert("Email già in uso")
-
-          else if (error.error === "Username già in uso")
-            alert("Username già in uso")
-
-          else if (error.error === "Password non valida (deve contenere almeno una lettera maiuscola)")
-            Swal.fire("Password non valida (deve contenere almeno una lettera maiuscola)")
-
-          else if (error.error === "Password non valida (deve contenere almeno un numero)")
-            Swal.fire("Password non valida (deve contenere almeno un numero)")
-
-          else if (error.error === "Password non valida (deve contenere almeno 8 caratteri)")
-            Swal.fire("Password non valida (deve contenere almeno 8 caratteri)")
-
-          else if (error.error === "Password non valida (deve contenere almeno un carattere speciale)")
-            Swal.fire("Password non valida (deve contenere almeno un carattere speciale)")
-
-          else {
-            Swal.fire("Errore generico")
-          }
-
-
-        })
-
-
-
-
-      console.log("ciao")
-    }
-  }
-
-    /*else {
-
-        //this.container?.nativeElement.classList.add('emailConferma')
-      }
-
-      if (this.generalitaForm.valid && this.credenzialiForm.valid) {
-        if (this.ambitoForm.valid) {
-
-        }
-        else {
-
-        }
-
-
-        //this.container?.nativeElement.classList.add('emailConferma')
-
-        console.log(this.riepilogoDati)
       }
 
 
-    }
-    if (this.credenzialiForm.valid) {
-      const utente = this.credenzialiForm.value
-      this.backEndService.postCheckRegistrationCredential(utente).subscribe(
-        (response) => {
-          //console.log(response.message)
-          //this.datiRegistrazione.setUsername(this.credenzialiForm.get("username")?.value)
-          //this.datiRegistrazione.setEmail(this.credenzialiForm.get("email")?.value)
 
-
-
-
-        }, (error: HttpErrorResponse) => {
-          console.log(error)
-
-          if (error.error === "Email già in uso")
-            alert("Email già in uso")
-
-          else if (error.error === "Username già in uso")
-            alert("Username già in uso")
-
-          else if (error.error === "Password non valida (deve contenere almeno una lettera maiuscola)")
-            Swal.fire("Password non valida (deve contenere almeno una lettera maiuscola)")
-
-          else if (error.error === "Password non valida (deve contenere almeno un numero)")
-            Swal.fire("Password non valida (deve contenere almeno un numero)")
-
-          else if (error.error === "Password non valida (deve contenere almeno 8 caratteri)")
-            Swal.fire("Password non valida (deve contenere almeno 8 caratteri)")
-
-          else if (error.error === "Password non valida (deve contenere almeno un carattere speciale)")
-            Swal.fire("Password non valida (deve contenere almeno un carattere speciale)")
-
-          else {
-            Swal.fire("Errore generico")
-          }
-
-
-        })
-
-      //this.container?.nativeElement.classList.add('generalita')
-
-    }
-
-  }*/
 
   removeActive() {
 
@@ -412,6 +371,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       nome: googleData.given_name,
       cognome: googleData.family_name
     })
+    console.log("sasa")
     this.container?.nativeElement.classList.add('generalita')
     if (this.generalitaForm.valid && this.scelta === "lavoratore") {
       this.ambitoForm.patchValue({
@@ -424,8 +384,11 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   backToGeneralita() {
-    this.removeActive()
-    this.container?.nativeElement.classList.add('generalita')
+    this.riepilogoDati=false
+    this.container?.nativeElement.classList.remove('generalita')
+    this.container?.nativeElement.classList.remove('ambito')
+    this.ambitoForm.clearValidators();
+    this.generalitaForm.clearValidators();
   }
 
 }

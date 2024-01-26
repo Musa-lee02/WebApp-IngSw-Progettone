@@ -26,7 +26,7 @@ public class ImageController {
     private final String relativePath = "SkillMatchBackEnd/src/main/resources/image/";
 
 
-    //TODO da testare
+    //Testato
     @GetMapping("/{imageName}")
     public ResponseEntity<Resource> getImageById(@PathVariable("imageName") String imageName) {
 
@@ -42,7 +42,7 @@ public class ImageController {
         }
     }
 
-
+/*
     //TODO da testare
     @PostMapping("/utenteAccountImage")
     public ResponseEntity<Boolean> insertUtenteAccountImage(@RequestBody Utente utente, MultipartFile img){
@@ -56,8 +56,8 @@ public class ImageController {
                 new File(realPathToUploads).mkdir();     //Create a directory
             }
 
-            if(u.getImgProfilo().getPath() != null) {                                  //If the User has already a photo
-                String oldFilePath = realPathToUploads + u.getImgProfilo().getPath();  //"\\"+
+            if(u.getImgProfilo() != null) {                                  //If the User has already a photo
+                String oldFilePath = realPathToUploads + u.getImgProfilo();  //"\\"+
                 File fileToDelete = new File(oldFilePath);                  //Go to the path the old photo
                 if (fileToDelete.exists()) {                                //Check if the photo exists
                     if (fileToDelete.delete()) {                            //delete old photo
@@ -72,7 +72,7 @@ public class ImageController {
             File dest = new File(filePath);
             img.transferTo(dest);
 
-            u.getImgProfilo().setPath(orgName);
+            u.setImgProfilo(orgName);
 
             DBManager.getInstance().getUtenteDao().saveOrUpdate(u);
 
@@ -80,6 +80,7 @@ public class ImageController {
         }catch (Exception e){ return ResponseEntity.ok(false); }
 
     }
+
 
 
     //TODO da modificare
@@ -96,8 +97,8 @@ public class ImageController {
             if (!new File(realPathToUploads).exists()) { //If the directory "image" is not existent
                 new File(realPathToUploads).mkdir();     //Create a directory
             }
-/*
-            if(a.getImage().getPath() != null) {                                  //If the User has already a photo
+
+        /*    if(a.getImage().getPath() != null) {                                  //If the User has already a photo
                 String oldFilePath = realPathToUploads + a.getImage().getPath();  //"\\"+
                 File fileToDelete = new File(oldFilePath);                  //Go to the path the old photo
                 if (fileToDelete.exists()) {                                //Check if the photo exists
@@ -107,9 +108,9 @@ public class ImageController {
                 }
             }
 
+        */
 
- */
-
+/*
             String orgName = FileUtil.assignProgressiveName(img);
             String filePath = realPathToUploads + orgName; //"\\"+
 
@@ -120,35 +121,13 @@ public class ImageController {
 
             //DBManager.getInstance().getAnnuncioDao().saveOrUpdate(a);
 
+            System.out.println("immagine");
+
             return ResponseEntity.ok(true);
         }catch (Exception e){ return ResponseEntity.ok(false); }
 
     }
 
-
-    //TODO da testare
-    @PostMapping("/deleteUtenteAccountImage")
-    public ResponseEntity<Boolean> deleteUtenteAccountImage(@RequestBody Utente utente, MultipartFile img) {
-
-        Utente u = DBManager.getInstance().getUtenteDao().findByPrimaryKey(utente.getUsername()); // Check if the user is in DB
-        String newPath =  relativePath + u.getImgProfilo().getPath();
-
-        File file = new File(newPath);
-
-        if (file.exists() && file.isFile()) {
-            if (file.delete()) {
-                System.out.println("File deleted successfully");
-                u.getImgProfilo().setPath(null); // Non so se nel db questo è un campo NOT NULL, non dovrebbe ma lo scrivo lo stesso just in case
-                DBManager.getInstance().getUtenteDao().saveOrUpdate(u);
-                return ResponseEntity.ok(true);
-            } else {
-                System.out.println("Impossible to eliminate the file");
-                return ResponseEntity.ok(false);
-            }
-        } else {
-            System.out.println("The file is non existent or isn't in a valid file type");
-            return ResponseEntity.ok(false);
-        }
-    }
-
+ */
 }
+

@@ -2,15 +2,15 @@
 <div class="pannelloTotale">
     <input class="recensioniBtn" id="recensioniBtn" type="checkbox">
     <div class="pannelloTitolo">
-    <h1>LASCIA UNA RECENSIONE</h1> 
-    
+    <h1>LASCIA UNA RECENSIONE</h1>
+
     <div class="rating">
        <h1>4,5</h1> <img [src]="starImg" class="starImg">
        <label for="recensioniBtn"style="float: right;"><fa-icon [icon]="ArrowDown" size="2x" style="margin-right: 30px;"></fa-icon></label>
     </div>
     </div>
     <div class="pannelloRecensioni">
-        
+
     <ng-container *ngFor="let annuncio of annunci">
         <div class="containerRecensioni" *ngIf="annuncio.stato==='accettata'">
             {{setPropostaAccettata(annuncio.id)}}
@@ -27,8 +27,8 @@
                         <label for="votoBtn{{voto}}" class="starLabel" (click)="setStarsClicked(voto)">
                         <img [src]="starImg" class="starImg">
                         </label>
-                        
-                    
+
+
                     </ng-container>
                 </div>
 
@@ -40,14 +40,14 @@
 </div>
 <div class="pannelloRecensioniConcluse">
     <div class="pannelloTitolo">
-        <h1>LE TUE RECENSIONI</h1>
-   
+        <h1 >LE TUE RECENSIONI</h1>
+
     <input class="recensioni2Btn" id="recensioni2Btn" type="checkbox">
     <label for="recensioni2Btn"style="float: right;"><fa-icon [icon]="ArrowDown" size="2x" style="margin-right: 30px;"></fa-icon></label>
-    
+
     </div>
     <div class="pannelloRecensioni">
-    
+
     </div>
 
 </div>

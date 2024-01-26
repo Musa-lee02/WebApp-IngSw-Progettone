@@ -1,11 +1,22 @@
 package pattern.skillmatchbackend.model;
 
-import java.util.ArrayList;
+import pattern.skillmatchbackend.persistenza.DBManager;
+
+
+import java.util.LinkedList;
 import java.util.List;
 
 public class GestoreAnnunci {
 
-    private List<Observer> observers = new ArrayList<>();
+    private List<Observer> observers = new LinkedList<>();
+
+    public GestoreAnnunci() {
+
+        for (Observer observer: DBManager.getInstance().getLavoratoreDao().findAllLazy() )
+            addObserver(observer);
+
+    }
+
 
     public void addObserver(Observer observer) {
         observers.add(observer);

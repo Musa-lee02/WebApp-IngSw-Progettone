@@ -17,7 +17,7 @@ public class Annuncio {
     private String descrizione;
     private Date dataDiScadenza;
     private String provinciaAnnuncio;
-    private Image image = new Image();
+    private String image;
     private Cliente cliente;
     private Ambito ambito;
     private Proposta proposta;
@@ -62,11 +62,11 @@ public class Annuncio {
         this.provinciaAnnuncio = provinciaAnnuncio;
     }
 
-    public Image getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

@@ -1,8 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ServizioAnnunciService } from '../../../service/servizio-annunci.service';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import {BackEndService} from "../../../service/BackEndService";
+import { Annuncio } from '../../../model/Annuncio';
 
 
 
@@ -14,6 +15,7 @@ type Annunci ={
   ambito: string
   titolo: string
   zona:string
+  dataDiScadenza: Date
 
 }
 @Component({
@@ -23,7 +25,7 @@ type Annunci ={
 })
 
 
-export class FormAnnuncioComponent {
+export class FormAnnuncioComponent implements AfterViewChecked{
 
   ambiti : any
   province : any
@@ -32,13 +34,24 @@ export class FormAnnuncioComponent {
   nuovoAnnuncioForm:FormGroup
   arrowLeft=faArrowLeft
   @ViewChild('container') container: ElementRef | undefined;
+  @Input('annuncio') annuncioScelto: any
+  @Input ('isModifica') isModifica: boolean
+
   cardAnnuncio: any
+
+  annuncio: Annuncio
+  image!: File
 
   constructor(private service: ServizioAnnunciService, private backEndService: BackEndService){
     this.minDate = new Date();
 
     //this.minDate.setDate(this.minDate.getDate() + 1);
   }
+  ngAfterViewChecked(): void {
+
+  }
+
+
 
   ngOnInit(): void {
     this.service.setRouterUrl("/Annuncio")
@@ -59,18 +72,18 @@ export class FormAnnuncioComponent {
 
   onSubmit(): void{
 
-      /*this.backEndService.addImage(this.image).subscribe(
-        (response) => {
-          console.log(response)
-          console.log("Ok")
-        },
-        (error) => {
-          console.log(error)
-          console.log("errore")
-        }
-      );*/
+    if(this.nuovoAnnuncioForm.valid){
+    const annuncio = this.nuovoAnnuncioForm.value
+    this.backEndService.insertAnnuncio(annuncio, this.image).subscribe(
+      (response) => {
+        console.log(response)
+        console.log("Ok. da modificare")
+      },
+      (error) => {
+        console.log(error)
+        console.log("errore. da modificare")
+      });
 
-      /* andrebbe scommentato poi. l'ho commentato per testare l'invio dell'immagine
       this.cardAnnuncio=[]
 
 
@@ -82,14 +95,18 @@ export class FormAnnuncioComponent {
         descrizione:this.nuovoAnnuncioForm.value.descrizione,
         ambito: this.nuovoAnnuncioForm.value.ambito,
         zona: this.nuovoAnnuncioForm.value.zona,
+        dataDiScadenza: this.nuovoAnnuncioForm.value.dataScadenza
 
       }
 
       this.cardAnnuncio.push(cardAnnuncio)
 
       this.container?.nativeElement.classList.add("anteprimaAnnuncioActive")
-      */
+
     }
+
+
+  }
   eliminaAnteprima(){
 
     console.log("ciao")
@@ -98,9 +115,9 @@ export class FormAnnuncioComponent {
   }
   onSelectFile(e: any): void {
 
-      /*if(e.target.files){
+      if(e.target.files){
         this.image = e.target.files[0]
-      }*/
+      }
 
     }
   clickArrow() : void{

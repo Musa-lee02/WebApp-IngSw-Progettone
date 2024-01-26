@@ -1,3 +1,5 @@
+import {Province} from "./Province";
+
 
 export interface Utente{
   username: string
@@ -7,7 +9,7 @@ export interface Utente{
   cognome: string
   dataNascita: Date
   provincia: string
-  imgProfilo: File
+  imgProfilo: File | string | undefined
   registrato: boolean
   dataRegistrazione: Date
 }
@@ -15,6 +17,10 @@ export interface Utente{
 
 export interface UtenteCredenziali{
   username: string
-  email: string
   password: string
+}
+
+export interface AuthToken{
+
+  token: string
 }

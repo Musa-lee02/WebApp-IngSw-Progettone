@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServizioAnnunciService } from '../../../service/servizio-annunci.service';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-recensioni',
@@ -9,24 +10,34 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 })
 export class RecensioniComponent implements OnInit {
 
-  constructor (private service : ServizioAnnunciService){}
+  constructor (private service : ServizioAnnunciService, private route: ActivatedRoute){}
   starImg: string = "../../assets/star.png";
   annunci:any
   propostaAccettata: any
   ArrowDown=faArrowDown
   starsClicked: boolean = false
+  entita: string
 
   ngOnInit(): void {
     this.annunci=this.service.getAnnunci();
+
+    if(this.route.snapshot.paramMap.get('Entita')){
+
+      this.entita=this.route.snapshot.paramMap.get('Entita')!;
+      if(this.entita==="Cliente")
+        this.entita=="Cliente";
+      if(this.entita==="Lavoratore")
+        this.entita=="Lavoratore";
+    }
   }
 
   setPropostaAccettata(id :string){
 
     this.propostaAccettata=this.service.getPropostaAccettataByid(id)
-    
+
   }
 
-   
+
   getPropostaAccettataImg(){
 
     console.log(this.propostaAccettata)
@@ -37,7 +48,7 @@ export class RecensioniComponent implements OnInit {
   }
   getPropostaAccettataNome(){
 
-    
+
     if(this.propostaAccettata){
 
       return this.propostaAccettata.username
@@ -60,5 +71,5 @@ export class RecensioniComponent implements OnInit {
     return this.starsClicked
   }
 
-  
+
 }
