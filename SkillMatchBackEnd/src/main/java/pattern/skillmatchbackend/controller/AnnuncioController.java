@@ -27,9 +27,9 @@ public class AnnuncioController {
 
     //TODO da testare
     @PostMapping("/insertNewAnnuncio")
-    public ResponseEntity<Boolean> insertNewAnnuncio(@RequestPart("annuncio") Annuncio annuncio, @RequestPart("img") MultipartFile img){
+    public ResponseEntity<Boolean> insertNewAnnuncio(@RequestPart("annuncio") Annuncio annuncio, @RequestPart(value = "img", required = false) MultipartFile img, @RequestPart(value = "token") String token){
 
-        return ResponseEntity.ok(imageService.insertAnnuncioAndImage(annuncio, img));
+        return ResponseEntity.ok(imageService.insertAnnuncioAndImage(annuncio, img, token));
     }
 
     //TODO da testare
