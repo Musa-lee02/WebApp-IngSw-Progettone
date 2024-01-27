@@ -41,6 +41,8 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
                 annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
 
+                annunci.add(annuncio);
+
             }
 
         } catch (SQLException e) {
