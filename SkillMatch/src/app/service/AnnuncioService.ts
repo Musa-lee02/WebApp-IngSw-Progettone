@@ -11,6 +11,7 @@ import { Annuncio } from '../model/Annuncio';
 import { LoginLavoratoreDto } from '../model/LoginLavoratoreDto';
 import { LoginClienteDto } from '../model/LoginClienteDto';
 import {Messaggio} from "../model/Messaggio";
+import {Chat} from "../model/Chat";
 
 
 declare var window: any;
@@ -18,7 +19,7 @@ declare var window: any;
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService{
+export class AnnuncioService{
   private url = "http://localhost:8080";
   constructor(private http: HttpClient , private router: Router) { }
 
@@ -62,13 +63,30 @@ export class ChatService{
     );
   }
 
-  public inviaMessaggio(messaggio : Messaggio){
+  public getAnnunci (): Observable<Annuncio[]>{
 
-      console.log(messaggio.contenuto)
-      this.http.post<boolean>(this.url+"/chat/inviaMessaggio", messaggio).subscribe(response =>
-        console.log(response)
-      )
+    return this.http.get<Annuncio[]>(this.url+"/annuncio/getAnnunci")
 
   }
+  public getAmbiti(): Observable<Ambito[]>{
+    return this.http.get<Ambito[]>(this.url+"/ambito/getAmbiti");
+  }
+  public inviaCandidatura(annuncio : Annuncio){
+
+    let chat: Chat={
+      annuncio: annuncio,
+      cliente: annuncio.cliente,
+      lavoratore: JSON.parse(localStorage.getItem("utente")!),
+      messaggi: []
+
+    }
+    this.http.post<boolean>(this.url+"/chat/creaChat", chat).subscribe(response=>{
+
+        if(response){
+          this.router.navigate(["/Chat"])
+        }
+    })
+  }
+
 }
 

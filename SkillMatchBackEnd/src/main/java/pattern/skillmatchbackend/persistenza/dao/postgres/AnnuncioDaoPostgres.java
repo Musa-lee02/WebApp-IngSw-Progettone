@@ -40,7 +40,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
                 annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
-
+                annunci.add(annuncio);
             }
 
         } catch (SQLException e) {
@@ -84,10 +84,10 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     public void saveOrUpdate(Annuncio annuncio) {
 
         String query = "INSERT INTO annuncio VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
+        //System.out.println(findByPrimaryKey(annuncio.getId()));
         if (annuncio.getId() != null && findByPrimaryKey(annuncio.getId()) != null) {
             query = "UPDATE annuncio " +
-                    "SET titolo = ?, descrizione = ?, data_di_scadenza = ?, provincia_annuncio = ?, " +
+                    "SET id_annuncio = ? , titolo = ?, descrizione = ?, data_di_scadenza = ?, provincia_annuncio = ?, " +
                     "img_annuncio = ?, username_cliente = ?, id_ambito = ? " +
                     "WHERE id_annuncio = ?";
         }

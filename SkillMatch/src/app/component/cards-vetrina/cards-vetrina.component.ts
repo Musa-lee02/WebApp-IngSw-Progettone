@@ -3,6 +3,8 @@ import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { ActivatedRoute } from '@angular/router';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import {AnnuncioService} from "../../service/AnnuncioService";
+import {Annuncio} from "../../model/Annuncio";
 
 library.add(faStar);
 
@@ -14,15 +16,15 @@ library.add(faStar);
 export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterContentChecked{
 
   @Input('annunci') annunci : any;
- 
+
   ambito: string;
   starImg: string = "../../assets/star.jpg";
-  
- 
-  constructor(private route : ActivatedRoute, private servizioAnnunci: ServizioAnnunciService){}
+
+
+  constructor(private route : ActivatedRoute, private servizioAnnunci: ServizioAnnunciService, private annuncioService: AnnuncioService){}
   ngAfterContentChecked(): void {
-   
-    
+
+
   }
   getSizeAnnunci(){
     return this.annunci.length
@@ -34,7 +36,7 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
   }
 
   ngOnInit(): void {
-  
+
   }
 
   initAnnunci(){
@@ -42,12 +44,17 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
 
       this.ambito=this.route.snapshot.paramMap.get('ambito')!;
       this.annunci=this.servizioAnnunci.getAnnunciByAmbitoEZona();
-      
+
     }
     else {
       this.annunci=this.servizioAnnunci.getAnnunci()
-      
+
     }
+  }
+
+  inviaCandidatura(annuncio: Annuncio){
+
+    this.annuncioService.inviaCandidatura(annuncio)
   }
 
 }

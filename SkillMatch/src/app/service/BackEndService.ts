@@ -156,34 +156,25 @@ export class BackEndService{
   //Funziona
   public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
 
+    const formData = new FormData();
+    if(utente.imgProfilo != undefined){
+      formData.append('img', utente.imgProfilo);
+      utente.imgProfilo = undefined
+    }
+
+    const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
+
+    formData.append('lavoratore', utenteBlob);
+
     if (scelta==="lavoratore") {
-
-      const formData = new FormData();
-      const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
-
-      formData.append('lavoratore', utenteBlob);
-
-      if(utente.imgProfilo != undefined){
-        formData.append('img', utente.imgProfilo);
-        utente.imgProfilo = undefined
-      }
 
       console.log((<Lavoratore>utente))
       return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", formData);
     }
 
-    const cliente : Cliente = utente
-
-    console.log("cliente is: " + cliente.cognome + "" + cliente.nome)
-
-    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", cliente);
+    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", <Cliente>utente);
 
   }
-  /*public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
-
-    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Utente", { params: { utente } });
-
-  }*/
 
   //Funziona
   public insertAnnuncio(annuncio: Annuncio, image: File){

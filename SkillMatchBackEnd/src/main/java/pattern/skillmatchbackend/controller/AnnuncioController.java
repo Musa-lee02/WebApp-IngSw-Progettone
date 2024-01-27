@@ -23,6 +23,7 @@ public class AnnuncioController {
     //TODO da testare
     @GetMapping("/getAnnunci")
     public List<Annuncio> getAnnunci(){
+        System.out.println("dd");
         return DBManager.getInstance().getAnnuncioDao().findAll();
     }
 

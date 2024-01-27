@@ -22,7 +22,7 @@
     <div class="contenitoreA">
       <h4>Descrizione sul lavoro e sulle abilità  richieste (opzionale) </h4>
       <mat-form-field class="matB">
-        
+
         <textarea matInput style formControlName="descrizione" *ngIf="!isModifica"></textarea>
         <textarea matInput style formControlName="descrizione" *ngIf="isModifica" [(ngModel)]="annuncioScelto.descrizione"></textarea>
       </mat-form-field>
@@ -33,7 +33,7 @@
 
       <mat-form-field class="matA" *ngIf="isModifica">
         <mat-label>Favorite food</mat-label>
-        <mat-select formControlName="zona" [(ngModel)]="annuncioScelto.zona">
+        <mat-select formControlName="provinciaAnnuncio" [(ngModel)]="annuncioScelto.provinciaAnnuncio">
           @for (pv of province; track pv) {
           <mat-option [value]="pv">{{pv}}</mat-option>
           }
@@ -42,7 +42,7 @@
 
       <mat-form-field class="matA" *ngIf="!isModifica">
         <mat-label>Favorite food</mat-label>
-        <mat-select formControlName="zona">
+        <mat-select formControlName="provinciaAnnuncio">
           @for (pv of province; track pv) {
           <mat-option [value]="pv">{{pv}}</mat-option>
           }
@@ -116,9 +116,9 @@
       <div class="buttons"><button mat-raised-button>Pubblica</button><button mat-raised-button (click)="eliminaAnteprima()">Modifica</button></div>
     </div>
     <div class="card" *ngIf="isModifica"><app-cards-vetrina [annunci]="cardAnnuncio"></app-cards-vetrina></div>
-    
+
 
   </div>
 
-  
+
 </div>

@@ -32,7 +32,7 @@ export class ProfiloComponent implements OnInit {
   ngOnInit(): void {
 
 
-    this.annunci = this.service.getAnnunci();
+    /*this.annunci = this.service.getAnnunci();*/
     this.utente = this.getUtente();
     console.log(this.annunci)
 

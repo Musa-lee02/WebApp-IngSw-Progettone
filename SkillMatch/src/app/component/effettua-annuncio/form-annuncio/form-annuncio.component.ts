@@ -59,7 +59,7 @@ export class FormAnnuncioComponent implements AfterViewChecked{
 
     this.nuovoAnnuncioForm=new FormGroup({
       titolo: new FormControl(null,Validators.required),
-      zona: new FormControl(null,Validators.required),
+      provinciaAnnuncio: new FormControl(null,Validators.required),
       ambito: new FormControl(null,Validators.required),
       dataScadenza: new FormControl(null,Validators.required),
       img: new FormControl,

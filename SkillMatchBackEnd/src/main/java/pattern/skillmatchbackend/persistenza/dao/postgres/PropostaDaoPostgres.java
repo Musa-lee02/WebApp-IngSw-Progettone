@@ -156,7 +156,7 @@ public class PropostaDaoPostgres implements PropostaDao {
     @Override
     public Proposta findByForeignKeyAnnuncio(Long id) {
         Proposta proposta = null;
-        String query = "SELECT * FROM proposta WHERE WHERE id_annuncio = ?";
+        String query = "SELECT * FROM proposta WHERE  id_annuncio = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, id);

@@ -29,6 +29,7 @@ public class SignInController {
             lavoratoreDto.setToken(AuthToken);
             lavoratoreDto.setLavoratore(lavoratore);
 
+            System.out.println(utenteCredenziali.getUsername()+ utenteCredenziali.getPassword());
             return ResponseEntity.ok().body(lavoratoreDto);
         }else{
             return ResponseEntity.badRequest().body("Username o password errati");

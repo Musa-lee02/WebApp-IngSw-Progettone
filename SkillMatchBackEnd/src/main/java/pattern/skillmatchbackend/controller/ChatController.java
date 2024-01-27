@@ -30,4 +30,12 @@ public class ChatController {
 
         return true;
     }
+
+    @PostMapping("/creaChat")
+    public boolean creaChat(@RequestBody Chat chat){
+
+        return DBManager.getInstance().getChatDao().saveOrUpdate(chat);
+
+    }
 }
+
