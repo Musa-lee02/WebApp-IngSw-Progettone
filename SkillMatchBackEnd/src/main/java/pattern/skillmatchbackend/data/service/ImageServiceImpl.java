@@ -12,6 +12,7 @@ import java.io.File;
 public class ImageServiceImpl implements ImageService {
 
     private final String relativePath = "SkillMatchBackEnd/src/main/resources/image/";
+    private final String localhostPath = "http://localhost:8080/images/";
 
     @Override
     public Boolean insertAnnuncioAndImage(Annuncio annuncio, MultipartFile img, String token){
@@ -44,9 +45,9 @@ public class ImageServiceImpl implements ImageService {
                         File dest = new File(filePath);
                         img.transferTo(dest);
 
-                        annuncio.setImage(orgName);
+                        annuncio.setImage(localhostPath+orgName);
                     } catch (Exception e) { return false; }
-                }else{ annuncio.setImage("imagedefault.avif"); }
+                }else{ annuncio.setImage(localhostPath+"imagedefault.avif"); }
                 annuncio.setCliente(cliente);
                 DBManager.getInstance().getAnnuncioDao().saveOrUpdate(annuncio);
 
@@ -67,7 +68,7 @@ public class ImageServiceImpl implements ImageService {
             try {
 
                 if(lavoratore.getImgProfilo() == null) {
-                    lavoratore.setImgProfilo("default.jpg");
+                    lavoratore.setImgProfilo(localhostPath+"default.jpg");
                 }
 
                 String passC = lavoratore.getPassword();
@@ -103,9 +104,9 @@ public class ImageServiceImpl implements ImageService {
                     File dest = new File(filePath);
                     img.transferTo(dest);
 
-                    lavoratore.setImgProfilo(orgName);
+                    lavoratore.setImgProfilo(localhostPath+orgName);
                 }else{
-                    lavoratore.setImgProfilo("default.jpg");
+                    lavoratore.setImgProfilo(localhostPath+"default.jpg");
                 }
 
                 String passC = lavoratore.getPassword();
@@ -136,7 +137,7 @@ public class ImageServiceImpl implements ImageService {
 
                 String passC = cliente.getPassword();
                 cliente.setPassword(PasswordCrypt.encode(passC));
-                cliente.setImgProfilo("default.jpg");
+                cliente.setImgProfilo(localhostPath+"default.jpg");
 
                 DBManager.getInstance().getClienteDao().saveOrUpdate(cliente);
 

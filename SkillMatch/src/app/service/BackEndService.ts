@@ -160,7 +160,11 @@ export class BackEndService{
 
       formData.append('lavoratore', utenteBlob);
 
-      if(utente.imgProfilo != undefined){
+      if(typeof utente.imgProfilo == "string"){
+        return this.http.post<boolean>(this.url + "/signup/completeRegistrationGoogle/Lavoratore", formData);
+      }
+
+      else if(utente.imgProfilo != undefined){
         formData.append('img', utente.imgProfilo);
         utente.imgProfilo = undefined
       }
