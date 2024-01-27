@@ -10,7 +10,6 @@ public class Chat {
 
     private Annuncio annuncio;
 
-    private List<Messaggio> messaggi = new LinkedList<>();
 
     public Cliente getCliente() {
         return cliente;
@@ -36,11 +35,5 @@ public class Chat {
         this.annuncio = annuncio;
     }
 
-    public List<Messaggio> getMessaggi() {
-        return messaggi;
-    }
 
-    public void setMessaggi(List<Messaggio> messaggi) {
-        this.messaggi = messaggi;
-    }
 }

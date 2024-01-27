@@ -30,7 +30,6 @@ public class ChatDaoPostgres implements ChatDao {
                 chat.setAnnuncio(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
                 chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
-                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getUsername(),chat.getLavoratore().getUsername()));
                 chats.add(chat);
             }
 
@@ -55,7 +54,7 @@ public class ChatDaoPostgres implements ChatDao {
                 chat.setAnnuncio(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
                 chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
-                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getUsername(),chat.getLavoratore().getUsername()));
+
             }
 
         } catch (SQLException e) {
@@ -135,7 +134,6 @@ public class ChatDaoPostgres implements ChatDao {
                 chat.setAnnuncio(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
                 chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
-                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getUsername(),chat.getLavoratore().getUsername()));
                 chats.add(chat);
             }
 
@@ -161,7 +159,6 @@ public class ChatDaoPostgres implements ChatDao {
                 chat.setAnnuncio(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
                 chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
-                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getUsername(),chat.getLavoratore().getUsername()));
                 chats.add(chat);
             }
 

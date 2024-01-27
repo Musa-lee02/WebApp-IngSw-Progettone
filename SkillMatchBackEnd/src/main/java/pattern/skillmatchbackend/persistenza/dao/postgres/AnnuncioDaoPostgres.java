@@ -37,10 +37,10 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setDataDiScadenza(rs.getDate("data_di_scadenza"));
                 annuncio.setProvinciaAnnuncio(rs.getString("provincia_annuncio"));
                 annuncio.setImage(rs.getString("img_annuncio"));
-               // annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
-               // annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
-               // annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
+                annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
                 annunci.add(annuncio);
+
             }
 
         } catch (SQLException e) {
@@ -70,7 +70,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setImage(rs.getString("img_annuncio"));
                 annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
-                annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
+
 
             }
 
@@ -84,10 +84,10 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     public void saveOrUpdate(Annuncio annuncio) {
 
         String query = "INSERT INTO annuncio VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        //System.out.println(findByPrimaryKey(annuncio.getId()));
-        if (annuncio.getId() != null && findByPrimaryKey(annuncio.getId()) != null) {
+
+        if (annuncio.getId() != null) {
             query = "UPDATE annuncio " +
-                    "SET id_annuncio = ? , titolo = ?, descrizione = ?, data_di_scadenza = ?, provincia_annuncio = ?, " +
+                    "SET id_annuncio = ?, titolo = ?, descrizione = ?, data_di_scadenza = ?, provincia_annuncio = ?, " +
                     "img_annuncio = ?, username_cliente = ?, id_ambito = ? " +
                     "WHERE id_annuncio = ?";
         }
@@ -153,8 +153,6 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setImage(rs.getString("img_annuncio"));
                 annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
-                annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
-
                 annunci.add(annuncio);
             }
 
@@ -185,9 +183,8 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setDataDiScadenza(rs.getDate("data_di_scadenza"));
                 annuncio.setProvinciaAnnuncio(rs.getString("provincia_annuncio"));
                 annuncio.setImage(rs.getString("img_annuncio"));
-                //annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
-                //annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
-                //annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
+                annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
             }
 
         } catch (SQLException e) {
