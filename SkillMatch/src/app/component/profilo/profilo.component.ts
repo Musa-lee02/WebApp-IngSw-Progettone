@@ -8,6 +8,7 @@ import {Cliente} from "../../model/Cliente";
 import {Lavoratore} from "../../model/Lavoratore";
 import {Utente} from "../../model/Utente";
 import {LavoratoreFieldService} from "../../service/LavoratoreFieldService";
+import { Annuncio } from '../../model/Annuncio';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class ProfiloComponent implements OnInit {
 
 
 
-  annunci:any
+  annunci:Annuncio[]
   pencil=faPencil
   utente : Lavoratore | Cliente
   entita:string | null
@@ -49,10 +50,14 @@ export class ProfiloComponent implements OnInit {
 
     this.backEndService.getAnnunciWithToken().subscribe(
       response => {
-      console.log("response is: " + response)
-      this.annunci = response
+        this.annunci = response
+        console.log("Annunci:", this.annunci);
+        this.annunci.forEach(annuncio => {
+          console.log(annuncio.image);
+        });
+
     }, (error) => {
-      console.log("errore")
+        console.log("errore")
     });
     /*this.annunci = this.service.getAnnunci();*/
     this.utente = this.getUtente();

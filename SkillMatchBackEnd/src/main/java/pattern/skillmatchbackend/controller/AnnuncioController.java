@@ -21,7 +21,7 @@ public class AnnuncioController {
 
     private final ImageServiceImpl imageService = new ImageServiceImpl();
 
-    //TODO da testare
+    //Funziona
     @GetMapping("/getAnnunci")
     public List<Annuncio> getAnnunci(){
         System.out.println("dd");
@@ -31,9 +31,6 @@ public class AnnuncioController {
     //Funziona
     @PostMapping("/insertNewAnnuncio")
     public ResponseEntity<Boolean> insertNewAnnuncio(@RequestPart("annuncio") Annuncio annuncio, @RequestPart(value = "img", required = false) MultipartFile img, @RequestPart(value = "token") String token){
-        System.out.println("token is:" + token);
-        System.out.println("token is:" + TokenManager.verificaToken(token));
-
         return ResponseEntity.ok(imageService.insertAnnuncioAndImage(annuncio, img, token));
     }
 
@@ -59,6 +56,7 @@ public class AnnuncioController {
 
     }
 
+    //Funziona
     @GetMapping("/getAnnunciWithToken/{token}")
     public List<Annuncio> getAnnunciWithToken(@PathVariable("token") String token){
         return DBManager.getInstance().getAnnuncioDao().findByForeignKeyCliente(TokenManager.verificaToken(token));

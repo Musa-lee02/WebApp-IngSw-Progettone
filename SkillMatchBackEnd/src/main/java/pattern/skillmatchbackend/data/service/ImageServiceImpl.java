@@ -50,6 +50,8 @@ public class ImageServiceImpl implements ImageService {
                 annuncio.setCliente(cliente);
                 DBManager.getInstance().getAnnuncioDao().saveOrUpdate(annuncio);
 
+                //TODO quando l'annuncio viene correttamente creato, deve essere inviata una email (o notifica?) al cliente che ha creato l'annuncio
+
                 return true;
             } else{ return false; }
 
