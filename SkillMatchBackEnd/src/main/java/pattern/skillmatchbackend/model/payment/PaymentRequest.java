@@ -1,8 +1,10 @@
-/*package pattern.skillmatchbackend.model.payment;
+package pattern.skillmatchbackend.model.payment;
 
 public class PaymentRequest {
     private Long customAmount;
     private String idDest;
+
+    private String paymentMethodToken;
 
     public PaymentRequest(Long customAmount, String id) {
         this.customAmount = customAmount;
@@ -25,5 +27,13 @@ public class PaymentRequest {
         this.idDest = id;
     }
 
+    public void setPaymentMethodToken(String paymentMethodToken) {
+        this.paymentMethodToken = paymentMethodToken;
+    }
 
-}*/
+
+    public String getPaymentMethodToken() {
+        return paymentMethodToken;
+
+    }
+}
