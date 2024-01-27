@@ -20,7 +20,7 @@ public class Annuncio {
     private String image;
     private Cliente cliente;
     private Ambito ambito;
-    private Proposta proposta;
+    private List<Proposta> proposta;
 
     public Long getId() {
         return id;
@@ -86,12 +86,8 @@ public class Annuncio {
         this.ambito = ambito;
     }
 
-    public Proposta getProposta() {
-        return proposta;
-    }
+    public List<Proposta> getProposta() { return proposta; }
 
-    public void setProposta(Proposta proposta) {
-        this.proposta = proposta;
-    }
+    public void setProposta(List<Proposta> proposta) { this.proposta = proposta; }
 }
 

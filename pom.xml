@@ -30,6 +30,12 @@
             <version>42.7.1</version>
         </dependency>
 
+        <dependency>
+        <groupId>com.braintreepayments.gateway</groupId>
+        <artifactId>braintree-java</artifactId>
+        <version>3.25.0</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
         <dependency>
             <groupId>javax.mail</groupId>

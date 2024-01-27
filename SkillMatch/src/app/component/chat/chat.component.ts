@@ -3,6 +3,7 @@ import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
+import {ChatService} from "../../service/ChatService";
 
 
 @Component({
@@ -33,7 +34,7 @@ export class ChatComponent implements OnInit{
   entita : string
 
 
-  constructor(private service: ServizioAnnunciService, private route : ActivatedRoute){
+  constructor(private service: ServizioAnnunciService, private route : ActivatedRoute, private chatService: ChatService){
     this.minDate = new Date();
 
     //this.minDate.setDate(this.minDate.getDate() + 1);
@@ -50,8 +51,6 @@ export class ChatComponent implements OnInit{
         this.entita=="Lavoratore";
     }
 
-
-
     this.ambitoForm=new FormGroup({
       nomeAnnuncio: new FormControl(null,Validators.required),
       zonaAnnuncio: new FormControl(null,Validators.required),
@@ -60,8 +59,6 @@ export class ChatComponent implements OnInit{
     })
 
     this.annunci=this.service.getAnnunci()
-
-
 
   }
 

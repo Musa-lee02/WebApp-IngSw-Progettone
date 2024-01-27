@@ -138,12 +138,12 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
         List<Annuncio> annunci = new LinkedList<>();
         String query = "SELECT * FROM annuncio WHERE username_cliente = ?";
         try {
-
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
+            System.out.println(st);
             ResultSet rs = st.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 Annuncio annuncio = new Annuncio();
                 annuncio.setId(rs.getLong("id_annuncio"));
                 annuncio.setTitolo(rs.getString("titolo"));
@@ -154,6 +154,8 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
                 annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
+
+                annunci.add(annuncio);
             }
 
         } catch (SQLException e) {
