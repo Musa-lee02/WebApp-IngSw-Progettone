@@ -102,6 +102,35 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     window['accediComponentRef'] = this;
     window['backEndServiceRef'] = this.backEndService;
 
+    function decodeJWTToken(token : any){
+      return JSON.parse(atob(token.split(".")[1]))
+    }
+
+
+    (globalThis as any).handleOauthResponse = (response : any) => {
+      const responsePayload = decodeJWTToken(response.credential)
+      console.log(responsePayload)
+      const utente = {
+        id: responsePayload.sub,
+        email: responsePayload.email
+      }
+
+      window['backEndServiceRef'].CheckExistenceGoogleAccount(utente).subscribe((res: any) => {
+        if (res) {
+          console.log("ciao")
+          window.location.href = "http://localhost:4200/Profilo"
+        } else {
+
+          this.registrazioneGoogle(responsePayload)
+
+
+        }
+      })
+    }
+
+
+
+
     this.backEndService.getAmbiti().subscribe(
       data => {
         this.ambiti = data
