@@ -61,6 +61,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }*/
 
 
+
   picProfile: any
   generalitaForm: FormGroup
   credenzialiForm: FormGroup
@@ -96,6 +97,9 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       return
     }
   }*/
+  private googlepassword: string;
+  private googleUsername: string;
+  private googleEmail: string;
 
 
   ngOnInit(): void {
@@ -117,9 +121,10 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
       window['backEndServiceRef'].CheckExistenceGoogleAccount(utente).subscribe((res: any) => {
         if (res) {
-          console.log("ciao")
+          this.doLogin()
           window.location.href = "http://localhost:4200/Profilo"
         } else {
+
 
           this.registrazioneGoogle(responsePayload)
 
@@ -204,7 +209,10 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 
   onSelectFile(e: any) {
+    console.log(e)
+    console.log(e.target.files)
     if (e.target.files) {
+      console.log(e.target.files[0])
       this.picProfile = e.target.files[0]
       var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
@@ -307,20 +315,20 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
   onSubmitGeneralita(){
 
-      if (this.generalitaForm.valid && this.credenzialiForm.valid) {
+      if (this.generalitaForm.valid) {
 
         if (this.scelta === "cliente") {
         this.utente = {
           cognome: this.generalitaForm.get("cognome")?.value,
           dataNascita: this.generalitaForm.get("dataNascita")?.value,
           dataRegistrazione: new Date(),
-          email: this.credenzialiForm.get("email")?.value,
+          email: this.credenzialiForm.get("email")?.value ? this.credenzialiForm.get("email")?.value : this.googleEmail,
           imgProfilo: this.picProfile,
           nome: this.generalitaForm.get("nome")?.value,
-          password: this.credenzialiForm.get("password")?.value,
+          password: this.credenzialiForm.get("password")?.value ? this.credenzialiForm.get("password")?.value : this.googlepassword,
           provincia: this.generalitaForm.get("provincia")?.value.nome,
           registrato: false,
-          username: this.credenzialiForm.get("username")?.value
+          username: this.credenzialiForm.get("username")?.value ? this.credenzialiForm.get("username")?.value : this.googleUsername
 
 
         }
@@ -338,7 +346,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
   onSubmit() {
 
-      if (this.generalitaForm.valid && this.credenzialiForm.valid && this.ambitoForm.valid) {
+      if (this.ambitoForm.valid) {
 
 
         this.utente={
@@ -346,16 +354,16 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           cognome: this.generalitaForm.get("cognome")?.value,
           dataNascita: this.generalitaForm.get("dataNascita")?.value,
           dataRegistrazione: new Date(),
-          email: this.credenzialiForm.get("email")?.value,
+          email : this.credenzialiForm.get("email")?.value ?  this.credenzialiForm.get("email")?.value : this.googleEmail,
           imgProfilo:this.picProfile,
           nome:this.generalitaForm.get("nome")?.value,
           notificaEmail: false,
-          password: this.credenzialiForm.get("password")?.value,
+          password: this.credenzialiForm.get("password")?.value ? this.credenzialiForm.get("password")?.value : this.googlepassword,
           provincia: this.generalitaForm.get("provincia")?.value.nome,
           provinciaLavoro: this.ambitoForm.get("zona")?.value.nome,
           punteggio: 0,
           registrato: false,
-          username: this.credenzialiForm.get("username")?.value
+          username: this.credenzialiForm.get("username")?.value ? this.credenzialiForm.get("username")?.value : this.googleUsername
 
         }
 
@@ -396,20 +404,36 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   registrazioneGoogle(googleData: any) {
+
+    this.googleUsername = googleData.sub
+    this.googleEmail =  googleData.email
+    this.googlepassword =  this.generateRandomPassword()
+
+
     this.generalitaForm.patchValue({
       nome: googleData.given_name,
       cognome: googleData.family_name
     })
     console.log("sasa")
     this.container?.nativeElement.classList.add('generalita')
-    if (this.generalitaForm.valid && this.scelta === "lavoratore") {
-      this.ambitoForm.patchValue({
-        foto: googleData.picture
-
-      })
-      this.container?.nativeElement.classList.add('ambito')
+    console.log(this.scelta)
+    if (this.scelta === "lavoratore") {
+      console.log("dovrebbe inserire img google")
+      this.url = googleData.picture
+      this.picProfile = googleData.picture
+      //this.container?.nativeElement.classList.add('ambito')
     }
 
+  }
+
+  private generateRandomPassword(): string {
+    let length = 8,
+      charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=",
+      retVal = "";
+    for (let i = 0, n = charset.length; i < length; ++i) {
+      retVal += charset.charAt(Math.floor(Math.random() * n))
+    }
+    return retVal;
   }
 
   backToGeneralita() {

@@ -66,7 +66,9 @@ public class SignUpController {
         /*for (Ambito a : lavoratore.getAmbiti()) {
             System.out.println("id:" + a.getId() + "nome:" + a.getNome());
         }*/
-
+        System.out.println(lavoratore.getUsername());
+        System.out.println(lavoratore.getPassword());
+        System.out.println(lavoratore.getEmail());
         if(imageService.insertNewLavoratoreAccountAndImage(lavoratore, img)){
 
             EmailSender emailSender = new EmailSender();

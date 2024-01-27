@@ -155,7 +155,7 @@ export class BackEndService{
 
     if (scelta==="lavoratore") {
 
-      const formData = new FormData();    
+      const formData = new FormData();
       const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
 
       formData.append('lavoratore', utenteBlob);
