@@ -1,4 +1,4 @@
-package pattern.skillmatchbackend.model.payment;
+/*package pattern.skillmatchbackend.model.payment;
 
 import com.braintreegateway.*;
 import pattern.skillmatchbackend.model.payment.PaymentOperations;
@@ -31,3 +31,4 @@ public class PayPalPaymentStrategy implements PaymentStrategy {
         }
     }
 }
+*/

@@ -1,4 +1,4 @@
-package pattern.skillmatchbackend.model.payment;
+/*package pattern.skillmatchbackend.model.payment;
 import com.braintreegateway.*;
 
 import java.math.BigDecimal;
@@ -48,3 +48,4 @@ import java.math.BigDecimal;
             return gateway.transaction().sale(request);
         }
     }
+*/
