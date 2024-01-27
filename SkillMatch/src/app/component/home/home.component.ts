@@ -3,6 +3,8 @@ import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FormControl } from '@angular/forms';
 import { Observable, map, retry, startWith } from 'rxjs';
+import { Annuncio } from '../../model/Annuncio';
+import { BackEndService } from '../../service/BackEndService';
 
 
 @Component({
@@ -16,7 +18,7 @@ export class HomeComponent implements OnInit {
   myControl = new FormControl();
   ambiti : any;
   province : any;
-  annunci: any;
+  annunci: Annuncio[];
 
   icon= faSearch;
   title = 'SkillMatch';
@@ -25,13 +27,19 @@ export class HomeComponent implements OnInit {
   selectedAmbito: string = '';
   selectedZona: string = '';
 
-  constructor(private servizioAnnunci: ServizioAnnunciService){}
+  constructor(private servizioAnnunci: ServizioAnnunciService, private backEndService: BackEndService){}
 
   ngOnInit(): void {
     this.ambiti=this.servizioAnnunci.getAmbiti();
     this.province=this.servizioAnnunci.getProvince();
     this.sizeAnnunci=this.servizioAnnunci.annunciGetSize()
-    this.annunci=this.servizioAnnunci.getAnnunci();
+    
+    this.backEndService.getAllAnnunci().subscribe(
+      response => {
+        this.annunci = response
+    }, (error) => {
+        console.log("errore. da modificare(?)")
+    });
     
   }
 
