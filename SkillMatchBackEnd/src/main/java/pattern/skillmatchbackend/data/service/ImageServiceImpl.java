@@ -58,6 +58,31 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public Boolean insertNewLavoratoreAccountAndImageGoogle(Lavoratore lavoratore){
+
+        Lavoratore l = DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(lavoratore.getUsername()); // Check if lavoratore is in DB
+
+        if(l == null) {
+
+            try {
+
+                if(lavoratore.getImgProfilo() == null) {
+                    lavoratore.setImgProfilo("default.jpg");
+                }
+
+                String passC = lavoratore.getPassword();
+                lavoratore.setPassword(PasswordCrypt.encode(passC));
+
+                DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
+
+                return true;
+            } catch (Exception e) { return false; }
+        }else{ return false; }
+
+    }
+
+
+    @Override
     public Boolean insertNewLavoratoreAccountAndImage(Lavoratore lavoratore, MultipartFile img){
 
         Lavoratore l = DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(lavoratore.getUsername()); // Check if lavoratore is in DB
@@ -65,21 +90,27 @@ public class ImageServiceImpl implements ImageService {
         if(l == null) {
 
             try {
-                String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
+                if(img != null) {
+                    String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
 
-                if (!new File(realPathToUploads).exists()) { //If the directory "image" is not existent
-                    new File(realPathToUploads).mkdir();     //Create a directory
+                    if (!new File(realPathToUploads).exists()) { //If the directory "image" is not existent
+                        new File(realPathToUploads).mkdir();     //Create a directory
+                    }
+
+                    String orgName = FileUtil.assignProgressiveName(img);
+                    String filePath = realPathToUploads + orgName;
+
+                    File dest = new File(filePath);
+                    img.transferTo(dest);
+
+                    lavoratore.setImgProfilo(orgName);
+                }else{
+                    lavoratore.setImgProfilo("default.jpg");
                 }
-
-                String orgName = FileUtil.assignProgressiveName(img);
-                String filePath = realPathToUploads + orgName;
-
-                File dest = new File(filePath);
-                img.transferTo(dest);
 
                 String passC = lavoratore.getPassword();
                 lavoratore.setPassword(PasswordCrypt.encode(passC));
-                lavoratore.setImgProfilo(orgName);
+
 
                 DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
 

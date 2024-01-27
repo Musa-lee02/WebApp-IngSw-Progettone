@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 import { Annuncio } from '../model/Annuncio';
 import { LoginLavoratoreDto } from '../model/LoginLavoratoreDto';
 import { LoginClienteDto } from '../model/LoginClienteDto';
+import { Proposta } from '../model/Proposta';
 
 
 declare var window: any;
@@ -204,10 +205,28 @@ export class BackEndService{
       this.url+"/annuncio/getAnnunciWithToken/"+this.getToken());
   }
 
+  //Funziona
   public getAllAnnunci(): Observable<Annuncio[]>{
     return this.http.get<Annuncio[]>(
       this.url+"/annuncio/getAnnunci");
   }
+
+  /*
+  //TODO Da testare
+  public insertProposta(proposta: Proposta): Observable<Boolean>{
+    return this.http.post<Boolean>(this.url+"/proposta/createProposta", proposta);
+  }
+
+  //TODO Da testare
+  public setStatoProposta(proposta: Proposta): Observable<Boolean>{
+    return this.http.post<Boolean>(this.url+"/proposta/setStatoProposta", proposta);
+  }
+
+  //TODO Da testare
+  public getProposta(proposta: Proposta): Observable<Boolean>{
+    return this.http.get<Boolean>(this.url+"/proposta/getProposta", proposta);
+  }
+*/
 
   public verifyToken(token: string, username : string){
     this.http.get(this.url+"/ConfermaAccount",{params: {token: token}}).subscribe(data => {
