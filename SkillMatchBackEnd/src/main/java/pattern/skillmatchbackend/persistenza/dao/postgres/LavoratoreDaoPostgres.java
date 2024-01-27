@@ -37,13 +37,7 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
                 lavoratore.setProvinciaLavoro(rs.getString("provincia_lavoro"));
                 lavoratore.setNotifica_email(rs.getBoolean("notifica_email"));
                 lavoratore.setPunteggio(rs.getInt("punteggio"));
-                lavoratore.setProposte(DBManager.getInstance().getPropostaDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
-                lavoratore.setChats(DBManager.getInstance().getChatDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
-                lavoratore.setRecensioni(DBManager.getInstance().getRecensioneDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
-                lavoratore.setAnnunciDisponibili(DBManager.getInstance().getAnnuncioDao().annunciPerMe(lavoratore.getProvincia(),lavoratore.getUsername()));
                 lavoratore.setAmbiti(DBManager.getInstance().getAmbitoDao().findByLavoratore(lavoratore.getUsername()));
-                lavoratore.setTransazionePagamento(DBManager.getInstance().getTransazionePagamentoDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
-                lavoratore.setNotifiche(DBManager.getInstance().getNotificaDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
                 lavoratori.add(lavoratore);
             }
 
@@ -93,13 +87,7 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
                 lavoratore.setProvinciaLavoro(rs.getString("provincia_lavoro"));
                 lavoratore.setNotifica_email(rs.getBoolean("notifica_email"));
                 lavoratore.setPunteggio(rs.getInt("punteggio"));
-                lavoratore.setProposte(DBManager.getInstance().getPropostaDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
-                lavoratore.setChats(DBManager.getInstance().getChatDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
-                lavoratore.setRecensioni(DBManager.getInstance().getRecensioneDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
-                lavoratore.setAnnunciDisponibili(DBManager.getInstance().getAnnuncioDao().annunciPerMe(lavoratore.getProvincia(),lavoratore.getUsername()));
                 lavoratore.setAmbiti(DBManager.getInstance().getAmbitoDao().findByLavoratore(lavoratore.getUsername()));
-                lavoratore.setTransazionePagamento(DBManager.getInstance().getTransazionePagamentoDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
-                lavoratore.setNotifiche(DBManager.getInstance().getNotificaDao().findByForeignKeyLavoratore(lavoratore.getUsername()));
             }
 
         } catch (SQLException e) {
