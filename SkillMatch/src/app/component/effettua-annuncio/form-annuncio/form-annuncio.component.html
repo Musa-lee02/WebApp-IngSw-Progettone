@@ -57,20 +57,18 @@
       <mat-form-field class="matA" *ngIf="!isModifica">
         <mat-label>Ambito</mat-label>
         <mat-select formControlName="ambito">
-          <mat-option>None</mat-option>
           @for (ab of ambiti; track ab) {
-          <mat-option [value]="ab">{{ab}}</mat-option>
-          }
+            <mat-option [value]="ab">{{ab.nome}}</mat-option>
+            }
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="matA" *ngIf="isModifica">
         <mat-label>Ambito</mat-label>
         <mat-select formControlName="ambito" [(ngModel)]="annuncioScelto.ambito">
-          <mat-option>None</mat-option>
           @for (ab of ambiti; track ab) {
-          <mat-option [value]="ab">{{ab}}</mat-option>
-          }
+            <mat-option [value]="ab">{{ab.id}}</mat-option>
+            }
         </mat-select>
       </mat-form-field>
     </div>

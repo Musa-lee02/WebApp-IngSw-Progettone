@@ -83,32 +83,33 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     @Override
     public void saveOrUpdate(Annuncio annuncio) {
 
-        String query = "INSERT INTO annuncio (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO annuncio VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        if (findByPrimaryKey(annuncio.getId()) != null)
-            query =  "UPDATE annuncio " +
+        if (annuncio.getId() != null && findByPrimaryKey(annuncio.getId()) != null) {
+            query = "UPDATE annuncio " +
                     "SET titolo = ?, descrizione = ?, data_di_scadenza = ?, provincia_annuncio = ?, " +
                     "img_annuncio = ?, username_cliente = ?, id_ambito = ? " +
                     "WHERE id_annuncio = ?";
-        else
+        }
+        else {
             annuncio.setId(IdBroker.getId(conn));
-
+        }
             try {
 
                 PreparedStatement st = conn.prepareStatement(query);
 
                 st.setLong(1, annuncio.getId());
-                st.setLong(1, annuncio.getId());
                 st.setString(2, annuncio.getTitolo());
                 st.setString(3, annuncio.getDescrizione());
-                st.setDate(4,   annuncio.getDataDiScadenza());
+                st.setDate(4, annuncio.getDataDiScadenza());
                 st.setString(5, annuncio.getProvinciaAnnuncio());
                 st.setString(6, annuncio.getImage());
                 st.setString(7, annuncio.getCliente().getUsername());
                 st.setLong(8, annuncio.getAmbito().getId());
 
-                if(query.startsWith("UPDATE"))
+                if(query.startsWith("UPDATE")) {
                     st.setLong(9, annuncio.getId());
+                }
 
                 st.executeUpdate();
             } catch (SQLException e) {
@@ -137,12 +138,12 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
         List<Annuncio> annunci = new LinkedList<>();
         String query = "SELECT * FROM annuncio WHERE username_cliente = ?";
         try {
-
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
+            System.out.println(st);
             ResultSet rs = st.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 Annuncio annuncio = new Annuncio();
                 annuncio.setId(rs.getLong("id_annuncio"));
                 annuncio.setTitolo(rs.getString("titolo"));
@@ -153,6 +154,8 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
                 annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
+
+                annunci.add(annuncio);
             }
 
         } catch (SQLException e) {

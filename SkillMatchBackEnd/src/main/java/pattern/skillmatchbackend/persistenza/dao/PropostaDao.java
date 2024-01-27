@@ -14,7 +14,7 @@ public interface PropostaDao {
     public void delete(Proposta proposta);
 
     public List<Proposta> findByForeignKeyLavoratore(String username);
-    public Proposta findByForeignKeyAnnuncio(Long id);
+    public List<Proposta> findByForeignKeyAnnuncio(Long id);
 
 
 

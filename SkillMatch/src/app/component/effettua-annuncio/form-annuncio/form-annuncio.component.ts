@@ -4,6 +4,7 @@ import { ServizioAnnunciService } from '../../../service/servizio-annunci.servic
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import {BackEndService} from "../../../service/BackEndService";
 import { Annuncio } from '../../../model/Annuncio';
+import { Ambito } from '../../../model/Ambito';
 
 
 
@@ -27,7 +28,7 @@ type Annunci ={
 
 export class FormAnnuncioComponent implements AfterViewChecked{
 
-  ambiti : any
+  ambiti : Ambito[]
   province : any
   minDate: Date;
   url = '../../assets/imagedefault.avif'
@@ -67,20 +68,34 @@ export class FormAnnuncioComponent implements AfterViewChecked{
     })
 
     this.province=this.service.getProvince()
-    this.ambiti=this.service.getAmbiti()
+    this.backEndService.getAmbiti().subscribe(
+      data => {
+        this.ambiti = data
+        console.log("tutti gli ambiti sono: ")
+        this.ambiti.forEach((ambito, index) => {
+          console.log(`Ambito ${index + 1}:`);
+          console.log(JSON.stringify(ambito, null, 2));
+      });
+      }
+    )
   }
 
   onSubmit(): void{
 
     if(this.nuovoAnnuncioForm.valid){
-    const annuncio = this.nuovoAnnuncioForm.value
+      const ambito: Ambito = {
+        id: this.nuovoAnnuncioForm.value.ambito.id,
+        nome: this.nuovoAnnuncioForm.value.ambito.nome
+      };
+    const annuncio: Annuncio = this.nuovoAnnuncioForm.value
+    annuncio.ambito = ambito
     this.backEndService.insertAnnuncio(annuncio, this.image).subscribe(
       (response) => {
-        console.log(response)
+        console.log("response è: " + response)
         console.log("Ok. da modificare")
       },
       (error) => {
-        console.log(error)
+        console.log("error è: " + error)
         console.log("errore. da modificare")
       });
 

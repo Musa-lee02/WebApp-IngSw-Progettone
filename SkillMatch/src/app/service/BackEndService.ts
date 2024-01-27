@@ -69,6 +69,7 @@ export class BackEndService{
   }
   */
 
+  //Funziona
   public loginLavoratore(utente : UtenteCredenziali){
     this.http.post<LoginLavoratoreDto>(this.url + "/retriveData/loginLavoratore",utente)
       .subscribe(response => {
@@ -86,8 +87,9 @@ export class BackEndService{
 
   }
 
+  //Funziona
   public loginCliente(utente : UtenteCredenziali){
-    this.http.post<LoginClienteDto>(this.url + "/retriveData/loginCliente",utente,{withCredentials: true})
+    this.http.post<LoginClienteDto>(this.url + "/retriveData/loginCliente",utente)
       .subscribe(response => {
         this.setToken(response.token);
         response.cliente.password = ""; // Rimuovi la password. è un modo bruttissimo, ma fa quello che deve
@@ -147,23 +149,30 @@ export class BackEndService{
     return this.http.post<string>(this.url+"/data/cliente/signUp",stringa);
   }
 
+  //Funziona
   public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
 
-    const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
-    const formData = new FormData();
-    formData.append('lavoratore', utenteBlob);
-
-    if(utente.imgProfilo != undefined){
-      formData.append('img', utente.imgProfilo);
-    }
-
     if (scelta==="lavoratore") {
+
+      const formData = new FormData();    
+      const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
+
+      formData.append('lavoratore', utenteBlob);
+
+      if(utente.imgProfilo != undefined){
+        formData.append('img', utente.imgProfilo);
+        utente.imgProfilo = undefined
+      }
 
       console.log((<Lavoratore>utente))
       return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", formData);
     }
 
-    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", <Cliente>utente);
+    const cliente : Cliente = utente
+
+    console.log("cliente is: " + cliente.cognome + "" + cliente.nome)
+
+    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", cliente);
 
   }
   /*public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
@@ -171,6 +180,8 @@ export class BackEndService{
     return this.http.post<boolean>(this.url + "/signup/completeRegistration/Utente", { params: { utente } });
 
   }*/
+
+  //Funziona
   public insertAnnuncio(annuncio: Annuncio, image: File){
 
     const annuncioBlob = new Blob([JSON.stringify(annuncio)], {type: 'application/json'});
@@ -179,13 +190,18 @@ export class BackEndService{
     if (image != null) {
       formData.append('img', image);
     }
-
-    console.log("Annuncio & Image sended")
+    formData.append('token', this.getToken()!);
 
     return this.http.post<Boolean>(
       this.url + "/annuncio/insertNewAnnuncio",
       formData
     );
+  }
+
+  // Funziona
+  public getAnnunciWithToken(): Observable<Annuncio[]>{
+    return this.http.get<Annuncio[]>(
+      this.url+"/annuncio/getAnnunciWithToken/"+this.getToken());
   }
 
   public verifyToken(token: string, username : string){

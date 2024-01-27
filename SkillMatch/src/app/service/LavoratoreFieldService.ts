@@ -10,7 +10,7 @@ import {Injectable} from "@angular/core";
 export class LavoratoreFieldService {
 
   public getAmbiti(utente : Utente) : string[]{
-    console.log((<Lavoratore>(utente)).ambiti)
+
     return (<Lavoratore>utente).ambiti.map(a => a.nome)
 
   }
