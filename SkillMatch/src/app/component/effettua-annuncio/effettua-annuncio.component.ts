@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import { BackEndService } from '../../service/BackEndService';
 
 @Component({
   selector: 'app-effettua-annuncio',
@@ -32,7 +33,7 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
   annuncioScelto: any
   isModifica: boolean=false;
 
-  constructor(private service: ServizioAnnunciService){
+  constructor(private service: ServizioAnnunciService, private backEndService: BackEndService){
 
     //this.minDate.setDate(this.minDate.getDate() + 1);
   }
@@ -51,7 +52,12 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
       
     })
 
-    this.annunci=this.service.getAnnunci()
+    this.backEndService.getAnnunciWithToken().subscribe(
+      response => {
+        this.annunci = response
+    }, (error) => {
+        console.log("errore. da modificare(?)")
+    });
     this.proposte=this.service.getProposte()
 
     console.log(this.annunci)

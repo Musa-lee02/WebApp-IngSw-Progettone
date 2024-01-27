@@ -3,8 +3,8 @@ import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FormControl } from '@angular/forms';
 import { Observable, map, retry, startWith } from 'rxjs';
-import {Annuncio} from "../../model/Annuncio";
-import {AnnuncioService} from "../../service/AnnuncioService";
+import { Annuncio } from '../../model/Annuncio';
+import { BackEndService } from '../../service/BackEndService';
 
 
 @Component({
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   selectedAmbito: string = '';
   selectedZona: string = '';
 
-  constructor(private servizioAnnunci: ServizioAnnunciService, private annuncioService : AnnuncioService){}
+  constructor(private servizioAnnunci: ServizioAnnunciService, private backEndService: BackEndService){}
 
   ngOnInit(): void {
 
@@ -40,6 +40,14 @@ export class HomeComponent implements OnInit {
     this.ambiti=this.servizioAnnunci.getAmbiti();
     this.province=this.servizioAnnunci.getProvince();
     this.sizeAnnunci=this.servizioAnnunci.annunciGetSize()
+
+    this.backEndService.getAllAnnunci().subscribe(
+      response => {
+        this.annunci = response
+    }, (error) => {
+        console.log("errore. da modificare(?)")
+    });
+
     //this.annunci=this.servizioAnnunci.getAnnunci();
 
   }
@@ -85,5 +93,4 @@ export class HomeComponent implements OnInit {
   }
 
 }
-
 

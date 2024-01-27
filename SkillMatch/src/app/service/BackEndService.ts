@@ -217,6 +217,11 @@ export class BackEndService{
 
   }
 
+  public getAllAnnunci(): Observable<Annuncio[]>{
+    return this.http.get<Annuncio[]>(
+      this.url+"/annuncio/getAnnunci");
+  }
+
   public verifyToken(token: string, username : string){
     this.http.get(this.url+"/ConfermaAccount",{params: {token: token}}).subscribe(data => {
   })}

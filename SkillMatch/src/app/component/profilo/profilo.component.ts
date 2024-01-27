@@ -51,13 +51,8 @@ export class ProfiloComponent implements OnInit {
     this.backEndService.getAnnunciWithToken().subscribe(
       response => {
         this.annunci = response
-        console.log("Annunci:", this.annunci);
-        this.annunci.forEach(annuncio => {
-          console.log(annuncio.image);
-        });
-
     }, (error) => {
-        console.log("errore")
+        console.log("errore. da modificare(?)")
     });
     /*this.annunci = this.service.getAnnunci();*/
     this.utente = this.getUtente();

@@ -5,6 +5,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {AnnuncioService} from "../../service/AnnuncioService";
 import {Annuncio} from "../../model/Annuncio";
+import { BackEndService } from '../../service/BackEndService';
 
 library.add(faStar);
 
@@ -43,11 +44,16 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
     if(this.route.snapshot.paramMap.get('ambito')){
 
       this.ambito=this.route.snapshot.paramMap.get('ambito')!;
-      this.annunci=this.servizioAnnunci.getAnnunciByAmbitoEZona();
+      this.annunci=this.servizioAnnunci.getAnnunciByAmbitoEZona(); //TODO
 
     }
     else {
-      this.annunci=this.servizioAnnunci.getAnnunci()
+      this.backEndService.getAllAnnunci().subscribe(
+        response => {
+          this.annunci = response
+      }, (error) => {
+          console.log("errore. da modificare(?)")
+      });
 
     }
   }
