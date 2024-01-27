@@ -70,5 +70,11 @@ export class ChatService{
       )
 
   }
+  public getLavoratoriByIdAnnuncio(id : number): Observable<Lavoratore[]>{
+
+    return this.http.get<Lavoratore[]>(this.url+"/lavoratore/getLavoratoreByIdAnnuncio?id="+id)
+
+  }
+
 }
 

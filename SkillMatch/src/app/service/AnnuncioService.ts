@@ -83,7 +83,7 @@ export class AnnuncioService{
       annuncio: annuncio,
       cliente: annuncio.cliente,
       lavoratore: JSON.parse(localStorage.getItem("utente")!),
-      messaggi: []
+      //messaggi: []
 
     }
     this.http.post<boolean>(this.url+"/chat/creaChat", chat).subscribe(response=>{

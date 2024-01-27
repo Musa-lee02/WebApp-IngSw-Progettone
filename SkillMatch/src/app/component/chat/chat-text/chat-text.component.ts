@@ -5,6 +5,7 @@ import {BackEndService} from "../../../service/BackEndService";
 import {ChatService} from "../../../service/ChatService";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Messaggio} from "../../../model/Messaggio";
+import {Lavoratore} from "../../../model/Lavoratore";
 
 @Component({
   selector: 'app-chat-text',
@@ -37,12 +38,17 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit{
   }
   ngOnChanges(changes: SimpleChanges): void {
 
-    console.log(this.primoCaricamento)
+    console.log(this.chat)
 
     if(this.primoCaricamento && this.chat){
       this.messaggi=this.service.getMessaggiByChat();
-      /*this.primoCaricamento=false;*/
-      this.DestinatarioCard=this.service.getDestinatarioCard(this.chat)
+
+      if(localStorage.getItem("scelta")==="cliente") {
+        this.DestinatarioCard=this.chat.lavoratore
+      }else{
+        this.DestinatarioCard=this.chat.cliente
+      }
+
     }
 
 

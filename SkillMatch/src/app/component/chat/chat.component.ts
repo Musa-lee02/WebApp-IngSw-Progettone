@@ -1,9 +1,15 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterContentChecked, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import {ChatService} from "../../service/ChatService";
+import {BackEndService} from "../../service/BackEndService";
+import {Chat} from "../../model/Chat";
+import {Cliente} from "../../model/Cliente";
+import {Lavoratore} from "../../model/Lavoratore";
+import {Annuncio} from "../../model/Annuncio";
+
 
 
 @Component({
@@ -12,7 +18,7 @@ import {ChatService} from "../../service/ChatService";
   styleUrls: ['./chat.component.css']//,'../profilo/profilo.component.css']
 })
 
-export class ChatComponent implements OnInit{
+export class ChatComponent implements OnInit, AfterContentChecked{
 
   @ViewChild('rightPart') dashboard :ElementRef
 
@@ -32,15 +38,19 @@ export class ChatComponent implements OnInit{
   arrowLeft=faArrowLeft
   primoCaricamento:boolean=true
   entita : string
+    annunciCaricati=false
+
+    chat: Chat
 
 
-  constructor(private service: ServizioAnnunciService, private route : ActivatedRoute, private chatService: ChatService){
+  constructor(private service: ServizioAnnunciService, private route : ActivatedRoute, private chatService: ChatService, private backEndService : BackEndService){
     this.minDate = new Date();
 
     //this.minDate.setDate(this.minDate.getDate() + 1);
   }
 
   ngOnInit(): void {
+
 
     if(this.route.snapshot.paramMap.get('Entita')){
 
@@ -58,9 +68,27 @@ export class ChatComponent implements OnInit{
       dataScadenza: new FormControl(null,Validators.required),
     })
 
-    this.annunci=this.service.getAnnunci()
+    this.backEndService.getAnnunciWithToken().subscribe(
+      response => {
+        console.log( response)
+        this.annunci = response
+      }, (error) => {
+        console.log()
+      });
+
+
 
   }
+    ngAfterContentChecked(): void {
+        if(this.annunci && !this.annunciCaricati) {
+            for (let annuncio of this.annunci) {
+
+                this.getLavoratoriByIdAnnuncio(annuncio.id)
+            }
+            this.annunciCaricati=true
+        }
+
+    }
 
   onSubmit(): void{
 
@@ -86,10 +114,24 @@ export class ChatComponent implements OnInit{
   }
 
 
-  setChatByUsernameAndId(username : string, id : string){
+  setChatByUsernameAndId(destinatario : Lavoratore | Cliente, annuncio : Annuncio){
 
-    console.log(username,id)
-    return this.service.setChatByUsernameAndId(username, id);//cancella
+    if(localStorage.getItem("scelta")==="cliente") {
+        this.chat = {
+            annuncio: annuncio,
+            cliente: JSON.parse(localStorage.getItem("utente")!),
+            lavoratore: <Lavoratore>destinatario
+
+        }
+    }else{
+        this.chat = {
+            annuncio: annuncio,
+            cliente: destinatario,
+            lavoratore : JSON.parse(localStorage.getItem("utente")!)
+
+        }
+    }
+
 
 
 
@@ -97,17 +139,23 @@ export class ChatComponent implements OnInit{
 
   getChat(){
     this.primoCaricamento=true
-
-    return this.service.getChat()
+    return this.chat
   }
 
-  getLavoratoriByIdAnnuncio(id: string){
+  getLavoratoriByIdAnnuncio(id: number){
 
+    console.log(id)
+    this.chatService.getLavoratoriByIdAnnuncio(id).subscribe(data =>{
 
-    this.proposte=this.service.getLavoratoriByIdAnnuncio(id);
+      this.proposte=data;
+    })
 
   }
   getAnnunciByUsernameLavoratore(){
+
     this.annunci=this.service.getAnnunciByUsernameLavoratore("maswso")
+
   }
+
+
 }

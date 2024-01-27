@@ -145,7 +145,7 @@ public class ChatDaoPostgres implements ChatDao {
     }
 
     private List<Chat> findByForeignKeyClienteOLavoratore(String username,String cosa) {
-        /*List<Chat> chats = new LinkedList<>();
+        List<Chat> chats = new LinkedList<>();
 
         String query = "SELECT * FROM chat WHERE "+cosa+" = ?";
 
@@ -165,8 +165,7 @@ public class ChatDaoPostgres implements ChatDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return chats;*/
-    return null;
+        return chats;
 
     }
 

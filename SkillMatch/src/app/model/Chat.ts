@@ -8,5 +8,5 @@ export interface Chat{
     cliente: Cliente;
     lavoratore: Lavoratore;
     annuncio: Annuncio;
-    messaggi: Messaggio[];
+    //messaggi: Messaggio[];
 }

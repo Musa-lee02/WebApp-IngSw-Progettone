@@ -64,6 +64,8 @@ public class AnnuncioController {
         return DBManager.getInstance().getAnnuncioDao().findByForeignKeyCliente(TokenManager.verificaToken(token));
     }
 
+
+
     // In teoria andrebbe fatto col token
     @PostMapping("/getAnnunciByUsernameCliente")
     public List<Annuncio> getAnnunciByUsernameCliente(@RequestBody Cliente cliente){

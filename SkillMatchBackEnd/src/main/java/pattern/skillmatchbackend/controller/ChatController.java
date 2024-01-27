@@ -34,10 +34,11 @@ public class ChatController {
     @PostMapping("/creaChat")
     public boolean creaChat(@RequestBody Chat chat){
 
-
-
-
          return DBManager.getInstance().getChatDao().saveOrUpdate(chat);
     }
+
+
+
+
 }
 

@@ -146,6 +146,31 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
     }
 
     @Override
+    public List<Lavoratore> getLavoratori(long idAnnuncio) {
+
+        List<Lavoratore> lavoratori = new LinkedList<>();
+        String query = "SELECT * FROM lavoratore,chat WHERE lavoratore.username = chat.username_lavoratore AND chat.id_annuncio = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setLong(1, idAnnuncio);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Lavoratore lavoratore = new Lavoratore(DBManager.getInstance().getUtenteDao().findByPrimaryKey(rs.getString("username")));
+                lavoratore.setProvinciaLavoro(rs.getString("provincia_lavoro"));
+                lavoratore.setNotifica_email(rs.getBoolean("notifica_email"));
+                lavoratore.setPunteggio(rs.getInt("punteggio"));
+                lavoratore.setAmbiti(DBManager.getInstance().getAmbitoDao().findByLavoratore(lavoratore.getUsername()));
+                lavoratori.add(lavoratore);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lavoratori;
+    }
+
+    @Override
     public void delete(Lavoratore lavoratore) {
 
         DBManager.getInstance().getUtenteDao().delete(lavoratore);
