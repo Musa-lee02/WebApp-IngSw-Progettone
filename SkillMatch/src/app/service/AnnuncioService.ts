@@ -68,6 +68,12 @@ export class AnnuncioService{
     return this.http.get<Annuncio[]>(this.url+"/annuncio/getAnnunci")
 
   }
+  public getAnnunciByAmbitoEZona(ambito: string, provincia : string):Observable<Annuncio[]>{
+
+
+    return this.http.get<Annuncio[]>(this.url+"/annuncio/getAnnunciByAmbitoEZona?ambito="+ambito+"&provincia="+provincia)
+  }
+
   public getAmbiti(): Observable<Ambito[]>{
     return this.http.get<Ambito[]>(this.url+"/ambito/getAmbiti");
   }

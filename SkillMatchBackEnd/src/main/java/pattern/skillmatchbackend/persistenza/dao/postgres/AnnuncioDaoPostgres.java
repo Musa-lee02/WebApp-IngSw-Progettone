@@ -37,9 +37,9 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setDataDiScadenza(rs.getDate("data_di_scadenza"));
                 annuncio.setProvinciaAnnuncio(rs.getString("provincia_annuncio"));
                 annuncio.setImage(rs.getString("img_annuncio"));
-                annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
-                annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
-                annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
+               // annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+               // annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
+               // annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
                 annunci.add(annuncio);
             }
 
@@ -183,9 +183,9 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setDataDiScadenza(rs.getDate("data_di_scadenza"));
                 annuncio.setProvinciaAnnuncio(rs.getString("provincia_annuncio"));
                 annuncio.setImage(rs.getString("img_annuncio"));
-                annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
-                annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
-                annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
+                //annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                //annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
+                //annuncio.setProposta(DBManager.getInstance().getPropostaDao().findByForeignKeyAnnuncio(annuncio.getId()));
             }
 
         } catch (SQLException e) {

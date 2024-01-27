@@ -31,12 +31,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    /*this.annuncioService.getAnnunci().subscribe(data=> {
+    this.annuncioService.getAnnunci().subscribe(data=> {
 
         console.log(data)
         this.annunci = data
       }
-    )*/
+    )
     this.ambiti=this.servizioAnnunci.getAmbiti();
     this.province=this.servizioAnnunci.getProvince();
     this.sizeAnnunci=this.servizioAnnunci.annunciGetSize()

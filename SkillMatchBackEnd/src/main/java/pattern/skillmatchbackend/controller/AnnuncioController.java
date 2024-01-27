@@ -43,13 +43,13 @@ public class AnnuncioController {
     }
 
     //non so se si possono mettere 2 parametri requestbody e non so come generare http per 2 parametri
-    @PostMapping("/getAnnunciByAmbitoEZona")
-    public List<Annuncio> getAnnunciByAmbitoEZona(@RequestBody Ambito ambito, @RequestBody String provincia){
+    @GetMapping("/getAnnunciByAmbitoEZona")
+    public List<Annuncio> getAnnunciByAmbitoEZona(@RequestParam String ambito, @RequestParam String provincia){
 
-        System.out.println(ambito.getNome());
+
         System.out.println(provincia);
 
-        List<Annuncio> annunci =  DBManager.getInstance().getAnnuncioDao().annunciPerMe(ambito.getNome(),provincia);
+        List<Annuncio> annunci =  DBManager.getInstance().getAnnuncioDao().annunciPerMe(ambito,provincia);
 
         if(annunci == null)
             return DBManager.getInstance().getAnnuncioDao().findAll();

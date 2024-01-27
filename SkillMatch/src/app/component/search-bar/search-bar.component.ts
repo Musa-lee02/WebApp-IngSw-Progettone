@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { ActivatedRoute } from '@angular/router';
 import { CardsVetrinaComponent } from '../cards-vetrina/cards-vetrina.component';
+import {AnnuncioService} from "../../service/AnnuncioService";
 
 
 @Component({
@@ -14,9 +15,9 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   ambiti : any;
   province : any;
   selectedAmbito: string = '';
-  selectedZona: string = ''; 
+  selectedZona: string = '';
 
-  constructor(private router: ActivatedRoute, private servizioAnnunci: ServizioAnnunciService){}
+  constructor(private router: ActivatedRoute, private servizioAnnunci: ServizioAnnunciService, private annunciService : AnnuncioService){}
   ngOnDestroy(): void {
     console.log("suca")
   }
@@ -24,24 +25,24 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.ambiti=this.servizioAnnunci.getAmbiti();
     this.province=this.servizioAnnunci.getProvince();
-    
+
   }
 
   ambitoClicked(ambito: string){
     if (this.servizioAnnunci.ambiti.includes(ambito)) {
-      this.servizioAnnunci.setSelectAmbito(ambito) 
+      this.servizioAnnunci.setSelectAmbito(ambito)
     }
   }
   zonaClicked(zona: string){
     if (this.servizioAnnunci.province.includes(zona)) {
       this.servizioAnnunci.setSelectZona(zona)
-    } 
+    }
   }
 
 
   searchValid(){
     // Verifica se l'ambito e la zona sono validi
-    if (this.servizioAnnunci.isAmbitoValid() && 
+    if (this.servizioAnnunci.isAmbitoValid() &&
     this.servizioAnnunci.isZoneValid()) {
       return true;
     }
@@ -49,7 +50,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
   searchClicked(){
     if (this.searchValid()) {
-      this.servizioAnnunci.buttonSearchClicked()
+      /*this.servizioAnnunci.buttonSearchClicked()*/
+      this.annunciService.getAnnunciByAmbitoEZona(this.getSelectedAmbito(), this.getSelectedZona())
     }
   }
 
@@ -63,7 +65,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     return "" + this.getSelectedAmbito() + "/" + this.getSelectedZona()
   }
 
-  
-  
+
+
 
 }
