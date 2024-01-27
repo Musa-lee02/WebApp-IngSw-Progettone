@@ -195,8 +195,26 @@ export class BackEndService{
 
   // Funziona
   public getAnnunciWithToken(): Observable<Annuncio[]>{
-    return this.http.get<Annuncio[]>(
+    if( localStorage.getItem("scelta")==="cliente"){
+      return this.http.get<Annuncio[]>(
       this.url+"/annuncio/getAnnunciWithToken/"+this.getToken());
+    }
+    else{
+      return this.http.get<Annuncio[]>(
+        this.url+"/annuncio/getAnnunciWithTokenLavoratore/"+this.getToken());
+    }
+  }
+  public getAnnunciWithChat(): Observable<Annuncio[]>{
+    if( localStorage.getItem("scelta")==="cliente"){
+      return this.http.get<Annuncio[]>(
+
+          this.url+"/annuncio/getAnnunciWithChat/"+this.getToken());
+    }
+    else{
+      return this.http.get<Annuncio[]>(
+          this.url+"/annuncio/getAnnunciWithTokenLavoratore");
+    }
+
   }
 
   public verifyToken(token: string, username : string){

@@ -15,13 +15,13 @@
             <label for="propostaBtn" *ngIf="DestinatarioCard">
             <mat-icon *ngIf="DestinatarioCard" style="color: white;">description</mat-icon></label>
             <div class="form">
-                <app-proposta *ngIf="DestinatarioCard" [proposta]="getProposta()"></app-proposta>
+                <!--<app-proposta *ngIf="DestinatarioCard" [proposta]="getProposta()"></app-proposta>-->
             </div>
 
     </div>
     <div class="messageArea">
         <div class="messaggioContainer" *ngFor="let message of messaggi">
-            <div [ngClass]="{'messaggioInviato': message.inviato, 'messaggioRicevuto':!message.inviato}"><h4>{{message.contenuto}}</h4></div>
+            <div [ngClass]="{'messaggioInviato': isInviato(message), 'messaggioRicevuto':!isInviato(message)}"><h4>{{message.contenuto}}</h4></div>
         </div>
     </div>
     <div class="textArea">

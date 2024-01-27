@@ -7,7 +7,7 @@ export interface Messaggio{
     data: Date;
     letto: boolean;
     isLavoratore: boolean;
-
+    chat: Chat
 
 
 }

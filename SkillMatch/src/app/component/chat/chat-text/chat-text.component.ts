@@ -1,4 +1,14 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { ServizioAnnunciService } from '../../../service/servizio-annunci.service';
 import Swal from 'sweetalert2';
 import {BackEndService} from "../../../service/BackEndService";
@@ -6,19 +16,22 @@ import {ChatService} from "../../../service/ChatService";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Messaggio} from "../../../model/Messaggio";
 import {Lavoratore} from "../../../model/Lavoratore";
+import {Chat} from "../../../model/Chat";
+
 
 @Component({
   selector: 'app-chat-text',
   templateUrl: './chat-text.component.html',
   styleUrl: './chat-text.component.css'
 })
-export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit{
+export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit, OnDestroy{
 
 
   @Input() primoCaricamento:boolean;
   @Input() chat: any;
   @Output() tornaDietro = new EventEmitter<boolean>()
 
+  interval: any
   messaggi : any;
   DestinatarioCard:any;
   textForm:FormGroup;
@@ -29,19 +42,27 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit{
 
   }
 
+
   ngOnInit(): void {
+
+    this.interval=setInterval(() => {
+      this.getMessaggi();
+    }, 500);
 
     this.textForm = new FormGroup({
       messaggio: new FormControl(null, Validators.required),
 
     })
   }
+
+  ngOnDestroy(): void {
+    clearInterval(this.interval)
+  }
   ngOnChanges(changes: SimpleChanges): void {
 
-    console.log(this.chat)
 
-    if(this.primoCaricamento && this.chat){
-      this.messaggi=this.service.getMessaggiByChat();
+
+    if(this.chat){
 
       if(localStorage.getItem("scelta")==="cliente") {
         this.DestinatarioCard=this.chat.lavoratore
@@ -54,6 +75,13 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit{
 
   }
 
+  getMessaggi(){
+
+    this.chatService.getMessaggiByChat(this.chat).subscribe(data =>{
+      this.messaggi=data
+    })
+
+  }
 
   inviaMessaggio(){
 
@@ -62,18 +90,37 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit{
 
       contenuto: this.textForm.get("messaggio")?.value,
       data: new Date(),
-      isLavoratore: localStorage.getItem("scelta") != "cliente",
-      letto: false
+      isLavoratore: localStorage.getItem("scelta") === "lavoratore",
+      letto: false,
+      chat: this.chat
 
     }
+
     this.chatService.inviaMessaggio(messaggio)
+
+
 
 }
   back(){
     this.tornaDietro.emit();
   }
 
+  isInviato(messaggio: Messaggio){
 
+
+    if(messaggio.isLavoratore && localStorage.getItem("scelta")==="lavoratore"){
+
+      return true
+    }
+    else if(!messaggio.isLavoratore && localStorage.getItem("scelta")==="cliente"){
+
+      return true
+    }
+    else{
+      return false
+    }
+
+  }
 
 
   getProposta(){
@@ -83,5 +130,7 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit{
 
     return
   }
+
+
 
 }

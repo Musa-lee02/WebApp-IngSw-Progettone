@@ -11,6 +11,7 @@ import { Annuncio } from '../model/Annuncio';
 import { LoginLavoratoreDto } from '../model/LoginLavoratoreDto';
 import { LoginClienteDto } from '../model/LoginClienteDto';
 import {Messaggio} from "../model/Messaggio";
+import {Chat} from "../model/Chat";
 
 
 declare var window: any;
@@ -68,6 +69,13 @@ export class ChatService{
       this.http.post<boolean>(this.url+"/chat/inviaMessaggio", messaggio).subscribe(response =>
         console.log(response)
       )
+
+  }
+
+  public getMessaggiByChat(chat : Chat):Observable<Messaggio[]> {
+
+
+    return this.http.post<Messaggio[]>(this.url + "/chat/getMessaggi",chat)
 
   }
   public getLavoratoriByIdAnnuncio(id : number): Observable<Lavoratore[]>{

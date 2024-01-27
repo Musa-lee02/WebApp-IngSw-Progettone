@@ -47,9 +47,7 @@ public class Messaggio {
         return isLavoratore;
     }
 
-    public void isLavoratore(boolean isLavoratore) {
-        this.isLavoratore = isLavoratore;
-    }
+    public void setLavoratore(boolean isLavoratore){this.isLavoratore=isLavoratore;}
 
     public Chat getChat() {
         return chat;

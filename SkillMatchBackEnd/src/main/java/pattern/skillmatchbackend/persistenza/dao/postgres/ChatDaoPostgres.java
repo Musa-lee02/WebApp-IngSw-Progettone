@@ -42,6 +42,7 @@ public class ChatDaoPostgres implements ChatDao {
     @Override
     public Chat findByPrimaryKey(long idAnnuncio,String username_cliente,String username_lavoratore) {
         Chat chat = null;
+
         String query = "SELECT * FROM chat WHERE id_annuncio = ? and username_cliente = ? and username_lavoratore = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
@@ -51,6 +52,7 @@ public class ChatDaoPostgres implements ChatDao {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
+                chat=new Chat();
                 chat.setAnnuncio(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
                 chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));

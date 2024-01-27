@@ -31,14 +31,14 @@ export class ChatComponent implements OnInit, AfterContentChecked{
 
   ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica', 'Letteratura', 'Cinema', 'Teatro', 'Moda', 'Altro']
 
-  annunci:any
+  annunci:Annuncio[]
   proposte:any
   lavoratore:any
   ambitoForm:FormGroup
   arrowLeft=faArrowLeft
   primoCaricamento:boolean=true
   entita : string
-    annunciCaricati=false
+  annunciCaricati=false
 
     chat: Chat
 
@@ -52,14 +52,7 @@ export class ChatComponent implements OnInit, AfterContentChecked{
   ngOnInit(): void {
 
 
-    if(this.route.snapshot.paramMap.get('Entita')){
-
-      this.entita=this.route.snapshot.paramMap.get('Entita')!;
-      if(this.entita==="Cliente")
-        this.entita=="Cliente";
-      if(this.entita==="Lavoratore")
-        this.entita=="Lavoratore";
-    }
+   this.entita= localStorage.getItem("scelta")!
 
     this.ambitoForm=new FormGroup({
       nomeAnnuncio: new FormControl(null,Validators.required),
@@ -68,13 +61,25 @@ export class ChatComponent implements OnInit, AfterContentChecked{
       dataScadenza: new FormControl(null,Validators.required),
     })
 
-    this.backEndService.getAnnunciWithToken().subscribe(
-      response => {
-        console.log( response)
-        this.annunci = response
-      }, (error) => {
-        console.log()
-      });
+
+    if (this.entita==="cliente") {
+      this.backEndService.getAnnunciWithChat().subscribe(
+          response => {
+            console.log(response)
+            this.annunci = response
+          }, (error) => {
+            console.log()
+          });
+    }
+    if (this.entita==="lavoratore") {
+      this.backEndService.getAnnunciWithToken().subscribe(
+          response => {
+            console.log(response)
+            this.annunci = response
+          }, (error) => {
+            console.log()
+          });
+    }
 
 
 
@@ -153,7 +158,7 @@ export class ChatComponent implements OnInit, AfterContentChecked{
   }
   getAnnunciByUsernameLavoratore(){
 
-    this.annunci=this.service.getAnnunciByUsernameLavoratore("maswso")
+    //this.annunci=this.service.getAnnunciByUsernameLavoratore("maswso")
 
   }
 

@@ -13,10 +13,11 @@ import pattern.skillmatchbackend.persistenza.DBManager;
 import pattern.skillmatchbackend.persistenza.dao.LavoratoreDao;
 import pattern.skillmatchbackend.persistenza.dao.postgres.LavoratoreDaoPostgres;
 
+import java.util.List;
 import java.util.Objects;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(value= "http://localhost:4200",allowCredentials = "true")
 @RequestMapping("/chat")
 public class ChatController {
 
@@ -24,8 +25,7 @@ public class ChatController {
     public boolean InviaMessaggio(@RequestBody Messaggio messaggio){
 
 
-        messaggio.setId((long)2);
-        System.out.println(messaggio);
+
         DBManager.getInstance().getMessaggioDao().saveOrUpdate(messaggio);
 
         return true;
@@ -37,7 +37,13 @@ public class ChatController {
          return DBManager.getInstance().getChatDao().saveOrUpdate(chat);
     }
 
+    @PostMapping("/getMessaggi")
+        public List<Messaggio> getMessaggi (@RequestBody Chat chat){
 
+            return DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),
+                    chat.getCliente().getUsername(), chat.getLavoratore().getUsername() );
+
+        }
 
 
 }

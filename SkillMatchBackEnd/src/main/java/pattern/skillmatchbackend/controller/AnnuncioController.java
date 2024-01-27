@@ -15,7 +15,7 @@ import pattern.skillmatchbackend.persistenza.DBManager;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("http://localhost:4200" )
 @RequestMapping("/annuncio")
 public class AnnuncioController {
 
@@ -59,10 +59,26 @@ public class AnnuncioController {
     //Funziona
     @GetMapping("/getAnnunciWithToken/{token}")
     public List<Annuncio> getAnnunciWithToken(@PathVariable("token") String token){
+
         return DBManager.getInstance().getAnnuncioDao().findByForeignKeyCliente(TokenManager.verificaToken(token));
     }
 
+    @GetMapping("/getAnnunciWithTokenLavoratore/{token}")
 
+    public List<Annuncio> getAnnunciWithTokenLavoratore(@PathVariable("token") String token){
+
+        for(Annuncio annuncio : DBManager.getInstance().getAnnuncioDao().findByLavoratore(TokenManager.verificaToken(token))){
+            System.out.println(annuncio.getId());
+        }
+        return DBManager.getInstance().getAnnuncioDao().findByLavoratore(TokenManager.verificaToken(token));
+    }
+
+    @GetMapping("/getAnnunciWithChat/{token}")
+
+    public List<Annuncio> getAnnunciWithChat(@PathVariable("token") String token){
+
+        return DBManager.getInstance().getAnnuncioDao().getAnnunciWithChat(TokenManager.verificaToken(token));
+    }
 
     // In teoria andrebbe fatto col token
     @PostMapping("/getAnnunciByUsernameCliente")

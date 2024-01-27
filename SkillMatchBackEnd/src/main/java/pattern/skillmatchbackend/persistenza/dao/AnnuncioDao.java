@@ -17,5 +17,6 @@ public interface AnnuncioDao {
 
     public List<Annuncio> findByForeignKeyCliente(String username);
     public List<Annuncio> annunciPerMe(String provincia, String username);
-
+    public List<Annuncio> findByLavoratore(String username);
+    public List<Annuncio> getAnnunciWithChat(String username);
 }
