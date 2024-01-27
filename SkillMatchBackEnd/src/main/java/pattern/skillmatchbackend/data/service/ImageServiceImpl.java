@@ -128,16 +128,21 @@ public class ImageServiceImpl implements ImageService {
 
         if(c == null) {
 
-            try {
-                String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
+                try {
+                    if(cliente.getImgProfilo() != null) {
+                        String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
 
-                if (!new File(realPathToUploads).exists()) { //If the directory "image" is not existent
-                    new File(realPathToUploads).mkdir();     //Create a directory
-                }
+                        if (!new File(realPathToUploads).exists()) { //If the directory "image" is not existent
+                            new File(realPathToUploads).mkdir();     //Create a directory
+                        }
+
+                        cliente.setImgProfilo(cliente.getImgProfilo());
+                    }else{
+                        cliente.setImgProfilo(localhostPath+"default.jpg");
+                    }
 
                 String passC = cliente.getPassword();
                 cliente.setPassword(PasswordCrypt.encode(passC));
-                cliente.setImgProfilo(localhostPath+"default.jpg");
 
                 DBManager.getInstance().getClienteDao().saveOrUpdate(cliente);
 
