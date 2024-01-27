@@ -11,6 +11,8 @@ public interface ImageService {
 
     Boolean insertNewLavoratoreAccountAndImage(Lavoratore lavoratore, MultipartFile img);
 
+    Boolean insertNewLavoratoreAccountAndImageGoogle(Lavoratore lavoratore);
+
     Boolean insertNewClienteAccountAndImage(Cliente cliente);
 
 

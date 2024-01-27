@@ -12,6 +12,7 @@ import java.io.File;
 public class ImageServiceImpl implements ImageService {
 
     private final String relativePath = "SkillMatchBackEnd/src/main/resources/image/";
+    private final String localhostPath = "http://localhost:8080/images/";
 
     @Override
     public Boolean insertAnnuncioAndImage(Annuncio annuncio, MultipartFile img, String token){
@@ -44,9 +45,9 @@ public class ImageServiceImpl implements ImageService {
                         File dest = new File(filePath);
                         img.transferTo(dest);
 
-                        annuncio.setImage(orgName);
+                        annuncio.setImage(localhostPath+orgName);
                     } catch (Exception e) { return false; }
-                }else{ annuncio.setImage("imagedefault.avif"); }
+                }else{ annuncio.setImage(localhostPath+"imagedefault.avif"); }
                 annuncio.setCliente(cliente);
                 DBManager.getInstance().getAnnuncioDao().saveOrUpdate(annuncio);
 
@@ -58,6 +59,31 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public Boolean insertNewLavoratoreAccountAndImageGoogle(Lavoratore lavoratore){
+
+        Lavoratore l = DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(lavoratore.getUsername()); // Check if lavoratore is in DB
+
+        if(l == null) {
+
+            try {
+
+                if(lavoratore.getImgProfilo() == null) {
+                    lavoratore.setImgProfilo(localhostPath+"default.jpg");
+                }
+
+                String passC = lavoratore.getPassword();
+                lavoratore.setPassword(PasswordCrypt.encode(passC));
+
+                DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
+
+                return true;
+            } catch (Exception e) { return false; }
+        }else{ return false; }
+
+    }
+
+
+    @Override
     public Boolean insertNewLavoratoreAccountAndImage(Lavoratore lavoratore, MultipartFile img){
 
         Lavoratore l = DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(lavoratore.getUsername()); // Check if lavoratore is in DB
@@ -65,21 +91,27 @@ public class ImageServiceImpl implements ImageService {
         if(l == null) {
 
             try {
-                String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
+                if(img != null) {
+                    String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
 
-                if (!new File(realPathToUploads).exists()) { //If the directory "image" is not existent
-                    new File(realPathToUploads).mkdir();     //Create a directory
+                    if (!new File(realPathToUploads).exists()) { //If the directory "image" is not existent
+                        new File(realPathToUploads).mkdir();     //Create a directory
+                    }
+
+                    String orgName = FileUtil.assignProgressiveName(img);
+                    String filePath = realPathToUploads + orgName;
+
+                    File dest = new File(filePath);
+                    img.transferTo(dest);
+
+                    lavoratore.setImgProfilo(localhostPath+orgName);
+                }else{
+                    lavoratore.setImgProfilo(localhostPath+"default.jpg");
                 }
-
-                String orgName = FileUtil.assignProgressiveName(img);
-                String filePath = realPathToUploads + orgName;
-
-                File dest = new File(filePath);
-                img.transferTo(dest);
 
                 String passC = lavoratore.getPassword();
                 lavoratore.setPassword(PasswordCrypt.encode(passC));
-                lavoratore.setImgProfilo(orgName);
+
 
                 DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
 
@@ -96,16 +128,21 @@ public class ImageServiceImpl implements ImageService {
 
         if(c == null) {
 
-            try {
-                String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
+                try {
+                    if(cliente.getImgProfilo() != null) {
+                        String realPathToUploads = System.getProperty("user.dir") + File.separator + relativePath;
 
-                if (!new File(realPathToUploads).exists()) { //If the directory "image" is not existent
-                    new File(realPathToUploads).mkdir();     //Create a directory
-                }
+                        if (!new File(realPathToUploads).exists()) { //If the directory "image" is not existent
+                            new File(realPathToUploads).mkdir();     //Create a directory
+                        }
+
+                        cliente.setImgProfilo(cliente.getImgProfilo());
+                    }else{
+                        cliente.setImgProfilo(localhostPath+"default.jpg");
+                    }
 
                 String passC = cliente.getPassword();
                 cliente.setPassword(PasswordCrypt.encode(passC));
-                cliente.setImgProfilo("default.jpg");
 
                 DBManager.getInstance().getClienteDao().saveOrUpdate(cliente);
 

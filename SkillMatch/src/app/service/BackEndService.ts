@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 import { Annuncio } from '../model/Annuncio';
 import { LoginLavoratoreDto } from '../model/LoginLavoratoreDto';
 import { LoginClienteDto } from '../model/LoginClienteDto';
+import { Proposta } from '../model/Proposta';
 
 
 declare var window: any;
@@ -156,17 +157,21 @@ export class BackEndService{
   //Funziona
   public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
 
-    const formData = new FormData();
-    if(utente.imgProfilo != undefined){
-      formData.append('img', utente.imgProfilo);
-      utente.imgProfilo = undefined
-    }
-
-    const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
-
-    formData.append('lavoratore', utenteBlob);
-
     if (scelta==="lavoratore") {
+
+      const formData = new FormData();
+      const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
+
+      formData.append('lavoratore', utenteBlob);
+
+      if(typeof utente.imgProfilo == "string"){
+        return this.http.post<boolean>(this.url + "/signup/completeRegistrationGoogle/Lavoratore", formData);
+      }
+
+      else if(utente.imgProfilo != undefined){
+        formData.append('img', utente.imgProfilo);
+        utente.imgProfilo = undefined
+      }
 
       console.log((<Lavoratore>utente))
       return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", formData);
@@ -217,10 +222,28 @@ export class BackEndService{
 
   }
 
+  //Funziona
   public getAllAnnunci(): Observable<Annuncio[]>{
     return this.http.get<Annuncio[]>(
       this.url+"/annuncio/getAnnunci");
   }
+
+  /*
+  //TODO Da testare
+  public insertProposta(proposta: Proposta): Observable<Boolean>{
+    return this.http.post<Boolean>(this.url+"/proposta/createProposta", proposta);
+  }
+
+  //TODO Da testare
+  public setStatoProposta(proposta: Proposta): Observable<Boolean>{
+    return this.http.post<Boolean>(this.url+"/proposta/setStatoProposta", proposta);
+  }
+
+  //TODO Da testare
+  public getProposta(proposta: Proposta): Observable<Boolean>{
+    return this.http.get<Boolean>(this.url+"/proposta/getProposta", proposta);
+  }
+*/
 
   public verifyToken(token: string, username : string){
     this.http.get(this.url+"/ConfermaAccount",{params: {token: token}}).subscribe(data => {
