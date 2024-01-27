@@ -9,4 +9,5 @@ export interface Proposta{
     prezzoLavoro: number | null;
     annuncioRelativo: Annuncio;
     lavoratore: Lavoratore;
+    dataLavoro: Date;
 }

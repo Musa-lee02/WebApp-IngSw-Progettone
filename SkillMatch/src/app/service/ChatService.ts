@@ -12,6 +12,7 @@ import { LoginLavoratoreDto } from '../model/LoginLavoratoreDto';
 import { LoginClienteDto } from '../model/LoginClienteDto';
 import {Messaggio} from "../model/Messaggio";
 import {Chat} from "../model/Chat";
+import {Proposta} from "../model/Proposta";
 
 
 declare var window: any;
@@ -82,6 +83,16 @@ export class ChatService{
 
     return this.http.get<Lavoratore[]>(this.url+"/lavoratore/getLavoratoreByIdAnnuncio?id="+id)
 
+  }
+
+  public getProposta(chat : Chat): Observable<Proposta>{
+
+    return this.http.post<Proposta>(this.url+"/chat/getProposta",chat)
+  }
+
+  public setProposta(proposta : Proposta): Observable<Proposta>{
+
+    return this.http.post<Proposta>(this.url+"/chat/setProposta",proposta)
   }
 
 }

@@ -45,6 +45,20 @@ public class ChatController {
 
         }
 
+    @PostMapping("/getProposta")
+    public Proposta getProposta(@RequestBody Chat chat){
 
+        return DBManager.getInstance().getPropostaDao().findByChat(chat.getAnnuncio().getId(),
+                chat.getCliente().getUsername(), chat.getLavoratore().getUsername());
+
+    }
+
+    @PostMapping("/setProposta")
+
+    public boolean setProposta(@RequestBody Proposta proposta){
+
+        return DBManager.getInstance().getPropostaDao().saveOrUpdate(proposta);
+
+    }
 }
 

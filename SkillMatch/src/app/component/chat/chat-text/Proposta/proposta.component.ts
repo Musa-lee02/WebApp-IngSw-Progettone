@@ -1,5 +1,6 @@
 import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import {Proposta} from "../../../../model/Proposta";
 
 @Component({
   selector: 'app-proposta',
@@ -7,12 +8,13 @@ import Swal from 'sweetalert2';
   styleUrl: './proposta.component.css'
 })
 export class PropostaComponent implements AfterContentChecked{
-  
-  @Input() proposta : any
+
+  @Input() proposta : Proposta
 
   ngAfterContentChecked(): void {
-    
-    
+
+    //console.log(this.proposta)
+
   }
   alertConferma(){
     Swal.fire({
@@ -23,7 +25,7 @@ export class PropostaComponent implements AfterContentChecked{
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         Swal.fire("Proposta accettata con successo");
-      } 
+      }
     });
   }
 
@@ -36,11 +38,11 @@ export class PropostaComponent implements AfterContentChecked{
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         Swal.fire("Proposta rifiutata con successo");
-      } 
+      }
     });
   }
 
-  
+
 
 
 }

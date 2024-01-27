@@ -19,4 +19,5 @@ public interface AnnuncioDao {
     public List<Annuncio> annunciPerMe(String provincia, String username);
     public List<Annuncio> findByLavoratore(String username);
     public List<Annuncio> getAnnunciWithChat(String username);
+    public List<Annuncio> getAnnunciByAmbitoAndProvincia(long idAmbito, String provincia);
 }

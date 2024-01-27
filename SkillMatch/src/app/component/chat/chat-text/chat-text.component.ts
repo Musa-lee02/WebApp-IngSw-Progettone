@@ -17,6 +17,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Messaggio} from "../../../model/Messaggio";
 import {Lavoratore} from "../../../model/Lavoratore";
 import {Chat} from "../../../model/Chat";
+import {Proposta} from "../../../model/Proposta";
 
 
 @Component({
@@ -31,11 +32,12 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit, OnDes
   @Input() chat: any;
   @Output() tornaDietro = new EventEmitter<boolean>()
 
+
   interval: any
   messaggi : any;
   DestinatarioCard:any;
   textForm:FormGroup;
-
+  proposta : Proposta
   constructor( private service: ServizioAnnunciService, private chatService : ChatService){}
   ngAfterViewInit(): void {
     console.log("sass")
@@ -123,12 +125,20 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit, OnDes
   }
 
 
-  getProposta(){
+  /*getProposta(): Proposta{
     if(this.chat)
 
-      return this.service.getPropostaVera(this.chat);
+      this.chatService.getProposta(this.chat).subscribe(data =>{
 
-    return
+        this.proposta=data
+      });
+
+    return this.proposta
+  }*/
+
+  setProposta(){
+
+
   }
 
 

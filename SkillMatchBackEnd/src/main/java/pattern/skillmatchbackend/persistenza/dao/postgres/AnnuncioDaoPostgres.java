@@ -165,6 +165,38 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     }
 
     @Override
+    public List<Annuncio> getAnnunciByAmbitoAndProvincia(long idAmbito, String provincia) {
+        List<Annuncio> annunci = new LinkedList<>();
+        String query = "SELECT *" +
+                "FROM annuncio " +
+                "WHERE id_ambito = ? AND provincia_annuncio = ? ";
+        try {
+            //TODO DATA DI SCADENZA E STATO
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setLong(1,idAmbito);
+            st.setString(2,provincia);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Annuncio annuncio = new Annuncio();
+                annuncio.setId(rs.getLong("id_annuncio"));
+                annuncio.setTitolo(rs.getString("titolo"));
+                annuncio.setDescrizione(rs.getString("descrizione"));
+                annuncio.setDataDiScadenza(rs.getDate("data_di_scadenza"));
+                annuncio.setProvinciaAnnuncio(rs.getString("provincia_annuncio"));
+                annuncio.setImage(rs.getString("img_annuncio"));
+                annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
+                annunci.add(annuncio);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return annunci;
+    }
+
+    @Override
     public List<Annuncio> annunciPerMe(String provincia, String username) {
         List<Annuncio> annunci = new LinkedList<>();
         String query = "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione,annuncio.data_di_scadenza,annuncio.provincia_annuncio,annuncio.img_annuncio,annuncio.username_cliente,annuncio.id_ambito " +

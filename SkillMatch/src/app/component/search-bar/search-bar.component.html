@@ -15,13 +15,13 @@
                   (ngModelChange)="ambitoClicked(selectedAmbito)">
             <mat-autocomplete autoActiveFirstOption #ambitoAuto="matAutocomplete">
               @for (ab of ambiti; track ab) {
-                <mat-option [value]="ab">{{ab}}</mat-option>
+                <mat-option [value]="ab">{{ab.nome}}</mat-option>
               }
             </mat-autocomplete>
-          <!-- /mat-select--> 
+          <!-- /mat-select-->
           </mat-form-field>
       </div>
-      
+
       <div class="prova">
         <mat-form-field class="searchForm">
           <!-- mat-select matAutocompleteOrigin="search" -->
@@ -43,7 +43,7 @@
       </div>
 
       <div class="prova">
-        <a routerLink="../Esplora/{{getParametriRicerca()}}" class="searchForm">  
+        <a routerLink="../Esplora/{{getParametriRicerca()}}" class="searchForm">
         <button mat-fab extended color="primary" [disabled]="!searchValid()" (click)="searchClicked()">
           <mat-icon>search</mat-icon>
           <!-- Cerca-->

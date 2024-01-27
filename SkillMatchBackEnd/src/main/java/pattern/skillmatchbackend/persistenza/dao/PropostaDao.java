@@ -9,12 +9,15 @@ public interface PropostaDao {
     public List<Proposta> findAll();
     public Proposta findByPrimaryKey(long idAnnuncio, String username);
 
-    public void saveOrUpdate(Proposta proposta);
+    public boolean saveOrUpdate(Proposta proposta);
 
     public void delete(Proposta proposta);
 
     public List<Proposta> findByForeignKeyLavoratore(String username);
+
     public List<Proposta> findByForeignKeyAnnuncio(Long id);
+
+    public Proposta findByChat(Long idAnnuncio, String usernameCliente, String usernameLavoratore);
 
 
 

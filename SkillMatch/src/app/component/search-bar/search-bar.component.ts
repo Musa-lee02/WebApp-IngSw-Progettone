@@ -3,6 +3,7 @@ import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { ActivatedRoute } from '@angular/router';
 import { CardsVetrinaComponent } from '../cards-vetrina/cards-vetrina.component';
 import {AnnuncioService} from "../../service/AnnuncioService";
+import {Ambito} from "../../model/Ambito";
 
 
 @Component({
@@ -12,7 +13,7 @@ import {AnnuncioService} from "../../service/AnnuncioService";
 })
 export class SearchBarComponent implements OnInit, OnDestroy {
 
-  ambiti : any;
+  ambiti : Ambito[];
   province : any;
   selectedAmbito: string = '';
   selectedZona: string = '';
@@ -23,7 +24,11 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.ambiti=this.servizioAnnunci.getAmbiti();
+    this.annunciService.getAmbiti().subscribe(data=>{
+
+      this.ambiti=data
+
+    })
     this.province=this.servizioAnnunci.getProvince();
 
   }
@@ -64,8 +69,5 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   getParametriRicerca(){
     return "" + this.getSelectedAmbito() + "/" + this.getSelectedZona()
   }
-
-
-
 
 }

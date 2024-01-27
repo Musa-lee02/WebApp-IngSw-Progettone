@@ -22,7 +22,11 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
   starImg: string = "../../assets/star.jpg";
 
 
-  constructor(private route : ActivatedRoute, private servizioAnnunci: ServizioAnnunciService, private annuncioService: AnnuncioService){}
+  constructor(private route : ActivatedRoute,
+              private servizioAnnunci: ServizioAnnunciService,
+              private annuncioService: AnnuncioService,
+              private backEndService: BackEndService
+  ){}
   ngAfterContentChecked(): void {
 
 
