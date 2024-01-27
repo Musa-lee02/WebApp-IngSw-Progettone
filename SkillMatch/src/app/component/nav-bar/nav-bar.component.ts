@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import {BackEndService} from "../../service/BackEndService";
+import { Lavoratore } from '../../model/Lavoratore';
+import { Cliente } from '../../model/Cliente';
 
 
 @Component({
@@ -87,7 +89,13 @@ export class NavBarComponent implements OnInit, AfterContentChecked{
   }
 
   getPicProfile(){
+    return this.getUtente().imgProfilo;
+  }
 
+
+  getUtente() : Lavoratore | Cliente{
+    var utenteLogged = localStorage.getItem("utente");
+    return JSON.parse(utenteLogged!);
   }
 
 

@@ -160,20 +160,19 @@ export class BackEndService{
     if (scelta==="lavoratore") {
 
       const formData = new FormData();
-      const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
 
-      formData.append('lavoratore', utenteBlob);
-
-      if(typeof utente.imgProfilo == "string"){
+      if(typeof utente.imgProfilo === "string"){
         return this.http.post<boolean>(this.url + "/signup/completeRegistrationGoogle/Lavoratore", formData);
       }
 
-      else if(utente.imgProfilo != undefined){
+      if(utente.imgProfilo instanceof File){
         formData.append('img', utente.imgProfilo);
-        utente.imgProfilo = undefined
+        utente.imgProfilo = ""
       }
 
-      console.log((<Lavoratore>utente))
+      const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
+      formData.append('lavoratore', utenteBlob);
+
       return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", formData);
     }
 

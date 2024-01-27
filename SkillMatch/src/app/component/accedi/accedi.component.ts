@@ -62,7 +62,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 
 
-  picProfile: any
+  picProfile: File | string
   generalitaForm: FormGroup
   credenzialiForm: FormGroup
   loginForm: FormGroup
@@ -209,8 +209,6 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 
   onSelectFile(e: any) {
-    console.log(e)
-    console.log(e.target.files)
     if (e.target.files) {
       console.log(e.target.files[0])
       this.picProfile = e.target.files[0]
