@@ -1,6 +1,5 @@
 package pattern.skillmatchbackend.controller;
 
-
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +57,7 @@ public class SignUpController {
     public boolean checkExistenceGoogleAccount(@RequestBody String username) {
         boolean presente = DBManager.getInstance().getUtenteDao().isUsernameTaken(username);
         System.out.println(presente);
-       return presente;
+        return presente;
     }
 
 
@@ -77,7 +76,7 @@ public class SignUpController {
 
             return true;
         }
-            return false;
+        return false;
     }
 
     @PostMapping("/completeRegistrationGoogle/Lavoratore")
@@ -94,6 +93,7 @@ public class SignUpController {
         return false;
     }
 
+
     @PostMapping("/completeRegistration/Cliente")
     public boolean completeRegistrationCliente(@RequestBody Cliente cliente) {
 
@@ -103,7 +103,7 @@ public class SignUpController {
             String token = TokenManager.getInstance().creaToken(cliente.getUsername(), 2 * 24 * 60 * 60 * 1000);
             //emailSender.confermaLink(cliente, "http://localhost:4200/ConfermaAccount?token=" + token);
 
-        return true;
+            return true;
         }
         return false;
     }

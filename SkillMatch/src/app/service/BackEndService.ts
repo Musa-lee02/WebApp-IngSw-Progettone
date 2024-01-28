@@ -168,6 +168,9 @@ export class BackEndService{
       const formData = new FormData();
 
       if(typeof utente.imgProfilo === "string"){
+
+        const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
+        formData.append('lavoratore', utenteBlob);
         return this.http.post<boolean>(this.url + "/signup/completeRegistrationGoogle/Lavoratore", formData);
       }
 
@@ -178,6 +181,7 @@ export class BackEndService{
 
       const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
       formData.append('lavoratore', utenteBlob);
+
 
       return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", formData);
     }

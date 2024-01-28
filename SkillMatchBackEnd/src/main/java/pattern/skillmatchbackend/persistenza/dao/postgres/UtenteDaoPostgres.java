@@ -110,7 +110,6 @@ public class UtenteDaoPostgres implements UtenteDao {
                     + "WHERE username = ?";
         }
 
-
         try {
             System.out.println("utente registrato: " + utente.isRegistrato());
             System.out.println(utente.getPassword());

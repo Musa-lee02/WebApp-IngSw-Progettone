@@ -194,7 +194,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 
     if (this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid) {
-      Swal.fire("Ricora di confermare l'email se vuoi pubblicare o proporti per un annuncio")
+      Swal.fire("Ricorda di confermare l'email se vuoi pubblicare o proporti per un annuncio")
 
     }
   }
