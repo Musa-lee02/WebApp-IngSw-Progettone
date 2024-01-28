@@ -54,8 +54,9 @@ public class SignUpController {
     }
 
     @PostMapping("/google/checkExistence")
-    public boolean checkExistenceGoogleAccount(@RequestBody Utente utente) {
-        boolean presente = DBManager.getInstance().getUtenteDao().isEmailTaken(utente.getEmail());
+    public boolean checkExistenceGoogleAccount(@RequestBody String username) {
+        boolean presente = DBManager.getInstance().getUtenteDao().isUsernameTaken(username);
+        System.out.println(presente);
        return presente;
     }
 
