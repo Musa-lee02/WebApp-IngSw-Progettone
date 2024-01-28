@@ -91,6 +91,10 @@ export class BackEndService{
 
   }
 
+  public loginGoogle(utenteGoogle : any ){
+
+
+  }
   //Funziona
   public loginCliente(utente : UtenteCredenziali){
     this.http.post<LoginClienteDto>(this.url + "/retriveData/loginCliente",utente)
@@ -132,7 +136,9 @@ export class BackEndService{
     return this.http.post<string>(this.url+"/signup/passo1", utente);
   }
 
-  public CheckExistenceGoogleAccount(utente : Utente): Observable<boolean> {
+  public CheckExistenceGoogleAccount(utente : UtenteCredenziali): Observable<boolean> {
+    console.log("utente is: " + utente.username)
+
     return this.http.post<boolean>(this.url+"/signup/google/checkExistence", utente);
 
   }

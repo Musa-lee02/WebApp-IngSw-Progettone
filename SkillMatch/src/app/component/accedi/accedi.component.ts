@@ -114,21 +114,13 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     (globalThis as any).handleOauthResponse = (response : any) => {
       const responsePayload = decodeJWTToken(response.credential)
       console.log(responsePayload)
-      const utente = {
-        id: responsePayload.sub,
-        email: responsePayload.email
-      }
 
-      window['backEndServiceRef'].CheckExistenceGoogleAccount(utente).subscribe((res: any) => {
+
+      window['backEndServiceRef'].CheckExistenceGoogleAccount(responsePayload.sub).subscribe((res: boolean) => {
         if (res) {
-          this.doLogin()
-          window.location.href = "http://localhost:4200/Profilo"
+          this.doLoginGoogle(responsePayload)
         } else {
-
-
           this.registrazioneGoogle(responsePayload)
-
-
         }
       })
     }
@@ -273,6 +265,17 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
   }
 
+  doLoginGoogle(responsePayload: any){
+    const credenzialiGoogle = {username: responsePayload.sub, password: this.generateUniqueString(responsePayload.email)}
+    if(this.scelta === "lavoratore"){
+      this.backEndService.loginLavoratore(credenzialiGoogle)
+    }
+    else{
+      this.backEndService.loginCliente(credenzialiGoogle)
+    }
+
+  }
+
   onSubmitCredenziali(){
     if (this.credenzialiForm.valid) {
       const utente = this.credenzialiForm.value
@@ -403,7 +406,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.googleUsername = googleData.sub
     this.googleEmail =  googleData.email
-    this.googlepassword =  this.generateRandomPassword()
+    this.googlepassword =  this.generateUniqueString(googleData.email)
 
 
     this.generalitaForm.patchValue({
@@ -422,15 +425,26 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   }
 
-  private generateRandomPassword(): string {
-    let length = 8,
-      charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=",
-      retVal = "";
-    for (let i = 0, n = charset.length; i < length; ++i) {
-      retVal += charset.charAt(Math.floor(Math.random() * n))
+ private generateUniqueString(email: string): string {
+    let hash = 0;
+    for (let i = 0; i < email.length; i++) {
+      const char = email.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash |= 0; // Convert to 32bit integer
     }
-    return retVal;
+
+    let randomString = '';
+    const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const hashString = hash.toString();
+
+    for (let i = 0; i < hashString.length; i++) {
+      const index = Math.abs(hashString.charCodeAt(i) % possibleChars.length);
+      randomString += possibleChars[index];
+    }
+
+    return randomString;
   }
+
 
   backToGeneralita() {
     this.riepilogoDati=false
