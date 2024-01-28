@@ -17,7 +17,7 @@ type Annunci ={
   descrizione: string
   ambito: string
   titolo: string
-  zona:string
+  provinciaAnnuncio:string
   dataDiScadenza: Date
 
 }
@@ -69,13 +69,13 @@ export class FormAnnuncioComponent implements AfterViewChecked{
 
 
     this.backEndService.getAmbiti().subscribe(
-      data => {
-        this.ambiti = data
-        console.log("tutti gli ambiti sono: ")
-        this.ambiti.forEach((ambito, index) => {
+        data => {
+          this.ambiti = data
+          console.log("tutti gli ambiti sono: ")
+          this.ambiti.forEach((ambito, index) => {
 
-      });
-      }
+          });
+        }
     )
 
     this.httpClient.get<Province[]>('http://mobilio.altervista.org').subscribe( data =>
@@ -96,7 +96,7 @@ export class FormAnnuncioComponent implements AfterViewChecked{
       titolo:this.nuovoAnnuncioForm.value.titolo ,
       descrizione:this.nuovoAnnuncioForm.value.descrizione,
       ambito: this.nuovoAnnuncioForm.value.ambito,
-      zona: this.nuovoAnnuncioForm.value.zona,
+      provinciaAnnuncio: this.nuovoAnnuncioForm.value.provinciaAnnuncio,
       dataDiScadenza: this.nuovoAnnuncioForm.value.dataScadenza
 
     }
@@ -112,18 +112,25 @@ export class FormAnnuncioComponent implements AfterViewChecked{
         id: this.nuovoAnnuncioForm.value.ambito.id,
         nome: this.nuovoAnnuncioForm.value.ambito.nome
       };
-    const annuncio: Annuncio = this.nuovoAnnuncioForm.value
-    annuncio.ambito = ambito
-      console.log(annuncio)
-    this.backEndService.insertAnnuncio(annuncio, this.image).subscribe(
-      (response) => {
-        console.log("response è: " + response)
-        console.log("Ok. da modificare")
-      },
-      (error) => {
-        console.log("error è: " + error)
-        console.log("errore. da modificare")
-      });
+      const annuncio: Annuncio = this.nuovoAnnuncioForm.value
+
+
+      annuncio.provinciaAnnuncio = (annuncio.provinciaAnnuncio as unknown as Province).nome;
+
+      annuncio.ambito = ambito
+
+      console.log("annuncio.provinciaAnnuncio"+annuncio.provinciaAnnuncio)
+
+
+      this.backEndService.insertAnnuncio(annuncio, this.image).subscribe(
+          (response) => {
+            console.log("response è: " + response)
+            console.log("Ok. da modificare")
+          },
+          (error) => {
+            console.log("error è: " + error)
+            console.log("errore. da modificare")
+          });
 
 
 
@@ -140,11 +147,11 @@ export class FormAnnuncioComponent implements AfterViewChecked{
   }
   onSelectFile(e: any): void {
 
-      if(e.target.files){
-        this.image = e.target.files[0]
-      }
-
+    if(e.target.files){
+      this.image = e.target.files[0]
     }
+
+  }
   clickArrow() : void{
 
   }

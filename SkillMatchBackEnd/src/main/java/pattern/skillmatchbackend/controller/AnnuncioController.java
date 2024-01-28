@@ -52,14 +52,15 @@ public class AnnuncioController {
         if(ambito.equals("all") && provincia.equals("all"))
             annunci=DBManager.getInstance().getAnnuncioDao().findAll();
         else if (ambito.equals("all"))
-            annunci=DBManager.getInstance().getAnnuncioDao().getAnnunciByAmbito(ambito);
-        else if (provincia.equals("all"))
             annunci=DBManager.getInstance().getAnnuncioDao().getAnnunciByProvincia(provincia);
+
+        else if (provincia.equals("all"))
+            annunci=DBManager.getInstance().getAnnuncioDao().getAnnunciByAmbito(ambito);
         else
             annunci=DBManager.getInstance().getAnnuncioDao().getAnnunciByAmbitoAndProvincia(ambito,provincia);
 
 
-        if(annunci == null)
+        if(annunci.isEmpty())
             return DBManager.getInstance().getAnnuncioDao().findAll();
 
         return annunci;

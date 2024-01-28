@@ -63,6 +63,7 @@ public class ImageServiceImpl implements ImageService {
 
     }
 
+
     @Override
     public Boolean insertNewLavoratoreAccountAndImageGoogle(Lavoratore lavoratore){
 
@@ -79,7 +80,6 @@ public class ImageServiceImpl implements ImageService {
                 String passC = lavoratore.getPassword();
                 lavoratore.setPassword(PasswordCrypt.encode(passC));
 
-                gestoreNotifiche.addObserver(lavoratore);
                 DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
 
                 return true;

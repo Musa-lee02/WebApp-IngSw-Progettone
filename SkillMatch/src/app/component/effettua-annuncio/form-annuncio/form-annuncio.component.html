@@ -58,8 +58,8 @@
         <mat-label>Ambito</mat-label>
         <mat-select formControlName="ambito">
           @for (ab of ambiti; track ab) {
-            <mat-option [value]="ab">{{ab.nome}}</mat-option>
-            }
+          <mat-option [value]="ab">{{ab.nome}}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
 
@@ -67,8 +67,8 @@
         <mat-label>Ambito</mat-label>
         <mat-select formControlName="ambito" [(ngModel)]="annuncioScelto.ambito">
           @for (ab of ambiti; track ab) {
-            <mat-option [value]="ab">{{ab.nome}}</mat-option>
-            }
+          <mat-option [value]="ab">{{ab.nome}}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
     </div>
