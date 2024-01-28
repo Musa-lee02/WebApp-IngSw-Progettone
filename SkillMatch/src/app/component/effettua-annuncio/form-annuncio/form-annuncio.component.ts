@@ -80,7 +80,26 @@ export class FormAnnuncioComponent implements AfterViewChecked{
     )
   }
 
-  onSubmit(): void{
+  onSubmit(){
+
+    this.cardAnnuncio=[]
+    let cardAnnuncio : Annunci={
+
+
+      img: this.url,
+      titolo:this.nuovoAnnuncioForm.value.titolo ,
+      descrizione:this.nuovoAnnuncioForm.value.descrizione,
+      ambito: this.nuovoAnnuncioForm.value.ambito,
+      zona: this.nuovoAnnuncioForm.value.zona,
+      dataDiScadenza: this.nuovoAnnuncioForm.value.dataScadenza
+
+    }
+    this.cardAnnuncio.push(cardAnnuncio)
+    console.log(cardAnnuncio)
+    this.container?.nativeElement.classList.add("anteprimaAnnuncioActive")
+  }
+
+  inserisciAnnuncio(): void{
 
     if(this.nuovoAnnuncioForm.valid){
       const ambito: Ambito = {
@@ -99,24 +118,8 @@ export class FormAnnuncioComponent implements AfterViewChecked{
         console.log("errore. da modificare")
       });
 
-      this.cardAnnuncio=[]
 
 
-      let cardAnnuncio : Annunci={
-
-
-        img: this.url,
-        titolo:this.nuovoAnnuncioForm.value.titolo ,
-        descrizione:this.nuovoAnnuncioForm.value.descrizione,
-        ambito: this.nuovoAnnuncioForm.value.ambito,
-        zona: this.nuovoAnnuncioForm.value.zona,
-        dataDiScadenza: this.nuovoAnnuncioForm.value.dataScadenza
-
-      }
-
-      this.cardAnnuncio.push(cardAnnuncio)
-
-      this.container?.nativeElement.classList.add("anteprimaAnnuncioActive")
 
     }
 

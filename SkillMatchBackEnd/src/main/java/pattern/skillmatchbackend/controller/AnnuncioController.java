@@ -67,6 +67,7 @@ public class AnnuncioController {
 
     public List<Annuncio> getAnnunciWithTokenLavoratore(@PathVariable("token") String token){
 
+
         for(Annuncio annuncio : DBManager.getInstance().getAnnuncioDao().findByLavoratore(TokenManager.verificaToken(token))){
             System.out.println(annuncio.getId());
         }
@@ -85,6 +86,22 @@ public class AnnuncioController {
     public List<Annuncio> getAnnunciByUsernameCliente(@RequestBody Cliente cliente){
         return DBManager.getInstance().getAnnuncioDao().findByForeignKeyCliente(cliente.getUsername());
     }
+
+    @GetMapping("/getAnnunciFinalizzati/{token}")
+    public List<Annuncio> getAnnunciFinalizzati(@PathVariable("token") String token){
+
+        for(Annuncio annuncio : DBManager.getInstance().getAnnuncioDao().getAnnunciFinalizzati(TokenManager.verificaToken(token)))
+        {
+            System.out.println(annuncio);
+        }
+        return DBManager.getInstance().getAnnuncioDao().getAnnunciFinalizzati(TokenManager.verificaToken(token));
+    }
+
+
+
+
+
+
 
 ////
 

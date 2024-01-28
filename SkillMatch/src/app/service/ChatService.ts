@@ -66,7 +66,7 @@ export class ChatService{
 
   public inviaMessaggio(messaggio : Messaggio){
 
-      console.log(messaggio.contenuto)
+      console.log(messaggio.isLavoratore)
       this.http.post<boolean>(this.url+"/chat/inviaMessaggio", messaggio).subscribe(response =>
         console.log(response)
       )
@@ -93,6 +93,13 @@ export class ChatService{
   public setProposta(proposta : Proposta): Observable<Proposta>{
 
     return this.http.post<Proposta>(this.url+"/chat/setProposta",proposta)
+  }
+
+  public accettaProposta(proposta : Proposta):Observable<boolean>{
+
+
+    return this.http.post<boolean>(this.url + "/chat/accettaProposta", proposta);
+
   }
 
 }

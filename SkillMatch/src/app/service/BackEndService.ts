@@ -198,17 +198,23 @@ export class BackEndService{
     );
   }
 
+
   // Funziona
   public getAnnunciWithToken(): Observable<Annuncio[]>{
+
     if( localStorage.getItem("scelta")==="cliente"){
       return this.http.get<Annuncio[]>(
       this.url+"/annuncio/getAnnunciWithToken/"+this.getToken());
     }
     else{
+
       return this.http.get<Annuncio[]>(
         this.url+"/annuncio/getAnnunciWithTokenLavoratore/"+this.getToken());
     }
   }
+
+
+
   public getAnnunciWithChat(): Observable<Annuncio[]>{
     if( localStorage.getItem("scelta")==="cliente"){
       return this.http.get<Annuncio[]>(
@@ -221,6 +227,7 @@ export class BackEndService{
     }
 
   }
+
 
   //Funziona
   public getAllAnnunci(): Observable<Annuncio[]>{

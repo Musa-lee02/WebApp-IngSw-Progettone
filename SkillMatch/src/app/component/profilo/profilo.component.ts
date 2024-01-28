@@ -9,6 +9,7 @@ import {Lavoratore} from "../../model/Lavoratore";
 import {Utente} from "../../model/Utente";
 import {LavoratoreFieldService} from "../../service/LavoratoreFieldService";
 import { Annuncio } from '../../model/Annuncio';
+import {AnnuncioService} from "../../service/AnnuncioService";
 
 
 @Component({
@@ -19,7 +20,6 @@ import { Annuncio } from '../../model/Annuncio';
 export class ProfiloComponent implements OnInit {
 
 
-
   annunci:Annuncio[]
   pencil=faPencil
   utente : Lavoratore | Cliente
@@ -27,7 +27,12 @@ export class ProfiloComponent implements OnInit {
   propostaAccettata: any
 
   url:string;
-  constructor(private service: ServizioAnnunciService, private route: ActivatedRoute, private backEndService: BackEndService, private lavoratoreService : LavoratoreFieldService) { }
+  constructor(private service: ServizioAnnunciService,
+              private route: ActivatedRoute,
+              private backEndService: BackEndService,
+              private lavoratoreService : LavoratoreFieldService,
+              private annunciService : AnnuncioService
+  ) { }
 
 
   ngOnInit(): void {
@@ -48,7 +53,7 @@ export class ProfiloComponent implements OnInit {
       });
     */
 
-    this.backEndService.getAnnunciWithToken().subscribe(
+    this.annunciService.getAnnunciFinalizzati().subscribe(
       response => {
         this.annunci = response
     }, (error) => {

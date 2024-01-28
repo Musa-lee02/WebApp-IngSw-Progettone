@@ -1,20 +1,10 @@
 package pattern.skillmatchbackend.controller;
 
-import jakarta.servlet.http.HttpSession;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import pattern.skillmatchbackend.config.PasswordCrypt;
-import pattern.skillmatchbackend.data.service.ImageServiceImpl;
-import pattern.skillmatchbackend.data.service.interf.ImageService;
 import pattern.skillmatchbackend.model.*;
-import pattern.skillmatchbackend.model.email.EmailSender;
 import pattern.skillmatchbackend.persistenza.DBManager;
-import pattern.skillmatchbackend.persistenza.dao.LavoratoreDao;
-import pattern.skillmatchbackend.persistenza.dao.postgres.LavoratoreDaoPostgres;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @CrossOrigin(value= "http://localhost:4200",allowCredentials = "true")
@@ -24,8 +14,7 @@ public class ChatController {
     @PostMapping("/inviaMessaggio")
     public boolean InviaMessaggio(@RequestBody Messaggio messaggio){
 
-
-
+        System.out.println(messaggio.isLavoratore()+" "+messaggio.isInviato());
         DBManager.getInstance().getMessaggioDao().saveOrUpdate(messaggio);
 
         return true;
@@ -48,6 +37,7 @@ public class ChatController {
     @PostMapping("/getProposta")
     public Proposta getProposta(@RequestBody Chat chat){
 
+
         return DBManager.getInstance().getPropostaDao().findByChat(chat.getAnnuncio().getId(),
                 chat.getCliente().getUsername(), chat.getLavoratore().getUsername());
 
@@ -59,6 +49,11 @@ public class ChatController {
 
         return DBManager.getInstance().getPropostaDao().saveOrUpdate(proposta);
 
+    }
+
+    @PostMapping("/accettaProposta")
+    public boolean accettaProposta(@RequestBody Proposta proposta){
+        return DBManager.getInstance().getPropostaDao().saveOrUpdate(proposta);
     }
 }
 

@@ -7,7 +7,8 @@ public class Messaggio {
     private Long id;
     private String contenuto;
     private Timestamp data;
-    private boolean letto;
+
+    private boolean inviato;
     private boolean isLavoratore;
     private Chat chat;
 
@@ -35,12 +36,12 @@ public class Messaggio {
         this.data = data;
     }
 
-    public boolean isLetto() {
-        return letto;
+    public boolean isInviato() {
+        return inviato;
     }
 
-    public void setLetto(boolean letto) {
-        this.letto = letto;
+    public void setInviato(boolean inviato) {
+        this.inviato = inviato;
     }
 
     public boolean isLavoratore() {
@@ -62,7 +63,7 @@ public class Messaggio {
         return "Messaggio{" +
                 ", contenuto='" + contenuto + '\'' +
                 ", data=" + data +
-                ", letto=" + letto +
+                ", letto=" + inviato +
                 ", isLavoratore=" + isLavoratore +
                 '}';
     }

@@ -12,6 +12,7 @@ import { LoginLavoratoreDto } from '../model/LoginLavoratoreDto';
 import { LoginClienteDto } from '../model/LoginClienteDto';
 import {Messaggio} from "../model/Messaggio";
 import {Chat} from "../model/Chat";
+import {Proposta} from "../model/Proposta";
 
 
 declare var window: any;
@@ -74,9 +75,21 @@ export class AnnuncioService{
     return this.http.get<Annuncio[]>(this.url+"/annuncio/getAnnunciByAmbitoEZona?ambito="+ambito+"&provincia="+provincia)
   }
 
+
+  public getAnnunciFinalizzati(): Observable<Annuncio[]>{
+
+
+    return this.http.get<Annuncio[]>(this.url+"/annuncio/getAnnunciFinalizzati/"+this.getToken())
+
+  }
+
+
+
   public getAmbiti(): Observable<Ambito[]>{
     return this.http.get<Ambito[]>(this.url+"/ambito/getAmbiti");
   }
+
+
   public inviaCandidatura(annuncio : Annuncio){
 
     let chat: Chat={
@@ -93,6 +106,8 @@ export class AnnuncioService{
         }
     })
   }
+
+
 
 }
 

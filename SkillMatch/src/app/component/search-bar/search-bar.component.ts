@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { CardsVetrinaComponent } from '../cards-vetrina/cards-vetrina.component';
 import {AnnuncioService} from "../../service/AnnuncioService";
 import {Ambito} from "../../model/Ambito";
+import {Province} from "../../model/Province";
+import {HttpClient} from "@angular/common/http";
 
 
 @Component({
@@ -14,11 +16,14 @@ import {Ambito} from "../../model/Ambito";
 export class SearchBarComponent implements OnInit, OnDestroy {
 
   ambiti : Ambito[];
-  province : any;
+  province : Province[];
   selectedAmbito: string = '';
   selectedZona: string = '';
 
-  constructor(private router: ActivatedRoute, private servizioAnnunci: ServizioAnnunciService, private annunciService : AnnuncioService){}
+  constructor(private router: ActivatedRoute, private servizioAnnunci:
+              ServizioAnnunciService, private annunciService : AnnuncioService,
+              private httpClient: HttpClient
+  ){}
   ngOnDestroy(): void {
     console.log("suca")
   }
@@ -29,7 +34,13 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       this.ambiti=data
 
     })
-    this.province=this.servizioAnnunci.getProvince();
+
+    this.httpClient.get<Province[]>('http://mobilio.altervista.org').subscribe( data =>
+        {
+          console.log(data)
+          this.province=data
+        }
+    )
 
   }
 

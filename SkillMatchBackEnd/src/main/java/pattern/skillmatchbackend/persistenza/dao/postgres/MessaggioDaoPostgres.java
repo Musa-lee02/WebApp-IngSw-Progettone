@@ -39,7 +39,7 @@ public class MessaggioDaoPostgres implements MessaggioDao {
                 messaggio.setId(rs.getLong("id_messaggio"));
                 messaggio.setContenuto(rs.getString("contenuto"));
                 messaggio.setData(rs.getTimestamp("data"));
-                messaggio.setLetto(rs.getBoolean("visualizzato"));
+                messaggio.setInviato(rs.getBoolean("visualizzato"));
                 messaggio.setLavoratore(rs.getBoolean("chi"));
                 messaggio.setChat(DBManager.getInstance().getChatDao().findByPrimaryKey(rs.getLong("id_annuncio"),rs.getString("username_cliente"),rs.getString("username_lavoratore")));
                 messaggi.add(messaggio);
@@ -68,7 +68,7 @@ public class MessaggioDaoPostgres implements MessaggioDao {
                 messaggio.setId(rs.getLong("id_messaggio"));
                 messaggio.setContenuto(rs.getString("contenuto"));
                 messaggio.setData(rs.getTimestamp("data"));
-                messaggio.setLetto(rs.getBoolean("visualizzato"));
+                messaggio.setInviato(rs.getBoolean("visualizzato"));
                 messaggio.setLavoratore(rs.getBoolean("chi"));
                 messaggio.setChat(DBManager.getInstance().getChatDao().findByPrimaryKey(rs.getLong("id_annuncio"),rs.getString("username_cliente"),rs.getString("username_lavoratore")));
             }
@@ -101,7 +101,7 @@ public class MessaggioDaoPostgres implements MessaggioDao {
                 st.setLong(1, messaggio.getId());
                 st.setString(2, messaggio.getContenuto());
                 st.setTimestamp(3, messaggio.getData());
-                st.setBoolean(4, messaggio.isLetto());
+                st.setBoolean(4, messaggio.isInviato());
                 st.setBoolean(5, messaggio.isLavoratore());
                 st.setLong(6, messaggio.getChat().getAnnuncio().getId());
                 st.setString(7, messaggio.getChat().getCliente().getUsername());
@@ -148,7 +148,7 @@ public class MessaggioDaoPostgres implements MessaggioDao {
                 messaggio.setId(rs.getLong("id_messaggio"));
                 messaggio.setContenuto(rs.getString("contenuto"));
                 messaggio.setData(rs.getTimestamp("data"));
-                messaggio.setLetto(rs.getBoolean("visualizzato"));
+                messaggio.setInviato(rs.getBoolean("visualizzato"));
                 messaggio.setLavoratore(rs.getBoolean("chi"));
                 messaggio.setChat(DBManager.getInstance().getChatDao().findByPrimaryKey(rs.getLong("id_annuncio"),rs.getString("username_cliente"),rs.getString("username_lavoratore")));
                 messaggi.add(messaggio);

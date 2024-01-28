@@ -1,15 +1,43 @@
-import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
+import {AfterContentChecked, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import Swal from 'sweetalert2';
 import {Proposta} from "../../../../model/Proposta";
+import {AnnuncioService} from "../../../../service/AnnuncioService";
+import {ChatService} from "../../../../service/ChatService";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-proposta',
   templateUrl: './proposta.component.html',
   styleUrl: './proposta.component.css'
 })
-export class PropostaComponent implements AfterContentChecked{
+export class PropostaComponent implements AfterContentChecked, OnInit{
 
   @Input() proposta : Proposta
+  @Output() sendProposta = new EventEmitter<any>()
+
+  entita: string | null
+  propostaForm: FormGroup
+
+  constructor(private chatService : ChatService) {
+
+  }
+
+
+  ngOnInit(): void {
+
+    this.entita=localStorage.getItem("scelta")
+    this.propostaForm = new FormGroup({
+
+      descrizione: new FormControl(null, Validators.required),
+      data: new FormControl(null, Validators.required),
+      prezzo: new FormControl(null, Validators.required)
+
+    })
+    console.log(this.proposta)
+    console.log(this.entita)
+  }
+
+
 
   ngAfterContentChecked(): void {
 
@@ -24,7 +52,19 @@ export class PropostaComponent implements AfterContentChecked{
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire("Proposta accettata con successo");
+
+        this.proposta.stato="accettata"
+        this.chatService.accettaProposta(this.proposta).subscribe(response =>{
+          if(response){
+            Swal.fire("Proposta accettata con successo");
+          }
+          else{
+            Swal.fire("Errore imprevisto");
+          }
+        })
+
+
+
       }
     });
   }
@@ -41,6 +81,36 @@ export class PropostaComponent implements AfterContentChecked{
       }
     });
   }
+
+  isFormPropostaValid(){
+
+    return this.propostaForm.valid
+  }
+
+  setProposta(){
+
+    let proposta : any={
+
+      descrizione: this.propostaForm.get("descrizione")?.value,
+      prezzo: this.propostaForm.get("prezzo")?.value,
+      data: this.propostaForm.get("data")?.value
+    }
+    console.log(proposta)
+
+    Swal.fire({
+      title: "Sei sicuro di voler inviare la proposta? il processo è irreversibile",
+      showCancelButton: true,
+      confirmButtonText: "Si invia",
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.sendProposta.emit(proposta)
+        Swal.fire("Proposta Inviata, Ricarica la pagina");
+      }
+    });
+
+  }
+
 
 
 

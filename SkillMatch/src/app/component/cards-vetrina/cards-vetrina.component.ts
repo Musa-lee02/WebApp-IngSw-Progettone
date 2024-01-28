@@ -16,7 +16,7 @@ library.add(faStar);
 })
 export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterContentChecked{
 
-  @Input('annunci') annunci : any;
+  @Input('annunci') annunci : Annuncio[];
 
   ambito: string;
   starImg: string = "../../assets/star.jpg";
@@ -29,7 +29,6 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
   ){}
   ngAfterContentChecked(): void {
 
-
   }
   getSizeAnnunci(){
     return this.annunci.length
@@ -37,18 +36,18 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
 
 
   ngAfterViewChecked(): void {
-    console.log(this.annunci)
+
   }
 
   ngOnInit(): void {
-
+    console.log(this.annunci)
   }
 
   initAnnunci(){
     if(this.route.snapshot.paramMap.get('ambito')){
 
       this.ambito=this.route.snapshot.paramMap.get('ambito')!;
-      this.annunci=this.servizioAnnunci.getAnnunciByAmbitoEZona(); //TODO
+      //this.annunci=this.servizioAnnunci.getAnnunciByAmbitoEZona(); //TODO
 
     }
     else {

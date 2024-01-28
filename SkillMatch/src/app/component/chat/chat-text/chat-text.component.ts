@@ -1,4 +1,5 @@
 import {
+  AfterContentChecked,
   AfterViewInit,
   Component,
   EventEmitter,
@@ -18,6 +19,8 @@ import {Messaggio} from "../../../model/Messaggio";
 import {Lavoratore} from "../../../model/Lavoratore";
 import {Chat} from "../../../model/Chat";
 import {Proposta} from "../../../model/Proposta";
+import {Router} from "@angular/router";
+
 
 
 @Component({
@@ -25,43 +28,43 @@ import {Proposta} from "../../../model/Proposta";
   templateUrl: './chat-text.component.html',
   styleUrl: './chat-text.component.css'
 })
-export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit, OnDestroy{
+export class ChatTextComponent implements OnInit, OnChanges, OnDestroy, AfterContentChecked{
 
 
   @Input() primoCaricamento:boolean;
-  @Input() chat: any;
+  @Input() chat: Chat;
   @Output() tornaDietro = new EventEmitter<boolean>()
-
+  @Input()  proposta : Proposta
 
   interval: any
   messaggi : any;
   DestinatarioCard:any;
   textForm:FormGroup;
-  proposta : Proposta
-  constructor( private service: ServizioAnnunciService, private chatService : ChatService){}
-  ngAfterViewInit(): void {
-    console.log("sass")
 
-  }
+  propostaCaricata: boolean=false
+
+  constructor( private service: ServizioAnnunciService, private chatService : ChatService, private router: Router){}
 
 
   ngOnInit(): void {
 
-    this.interval=setInterval(() => {
-      this.getMessaggi();
-    }, 500);
+      this.interval = setInterval(() => {
+        this.getMessaggi();
+      }, 500);
+
 
     this.textForm = new FormGroup({
       messaggio: new FormControl(null, Validators.required),
 
     })
+
+
   }
 
   ngOnDestroy(): void {
     clearInterval(this.interval)
   }
   ngOnChanges(changes: SimpleChanges): void {
-
 
 
     if(this.chat){
@@ -73,15 +76,19 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit, OnDes
       }
 
     }
-
+  }
+  ngAfterContentChecked(): void {
 
   }
 
   getMessaggi(){
 
-    this.chatService.getMessaggiByChat(this.chat).subscribe(data =>{
-      this.messaggi=data
-    })
+    if(this.chat) {
+      this.chatService.getMessaggiByChat(this.chat).subscribe(data => {
+        this.messaggi = data
+        /*console.log(this.messaggi)*/
+      })
+    }
 
   }
 
@@ -93,14 +100,13 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit, OnDes
       contenuto: this.textForm.get("messaggio")?.value,
       data: new Date(),
       isLavoratore: localStorage.getItem("scelta") === "lavoratore",
-      letto: false,
+      inviato: localStorage.getItem("scelta") === "lavoratore",
       chat: this.chat
 
     }
 
+    console.log(messaggio.isLavoratore)
     this.chatService.inviaMessaggio(messaggio)
-
-
 
 }
   back(){
@@ -110,11 +116,11 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit, OnDes
   isInviato(messaggio: Messaggio){
 
 
-    if(messaggio.isLavoratore && localStorage.getItem("scelta")==="lavoratore"){
+    if(messaggio.inviato && localStorage.getItem("scelta")==="lavoratore"){
 
       return true
     }
-    else if(!messaggio.isLavoratore && localStorage.getItem("scelta")==="cliente"){
+    else if(!messaggio.inviato && localStorage.getItem("scelta")==="cliente"){
 
       return true
     }
@@ -125,21 +131,34 @@ export class ChatTextComponent implements OnInit, OnChanges,AfterViewInit, OnDes
   }
 
 
-  /*getProposta(): Proposta{
-    if(this.chat)
+  setProposta(propostaParametri : any){
 
-      this.chatService.getProposta(this.chat).subscribe(data =>{
+    let proposta : Proposta={
+      annuncioRelativo: this.chat.annuncio,
+      dataLavoro: propostaParametri.data,
+      descrizione: propostaParametri.data,
+      lavoratore: this.chat.lavoratore,
+      prezzoLavoro: propostaParametri.prezzo,
+      stato: "inCorso",
+      statoLavoro: undefined,
 
-        this.proposta=data
-      });
+    }
+    console.log(proposta)
+    this.chatService.setProposta(proposta).subscribe(response =>{
 
-    return this.proposta
-  }*/
+      if(response){
+        console.log("true")
 
-  setProposta(){
-
+      }
+      else{
+        console.log("false")
+      }
+      }
+    )
 
   }
+
+
 
 
 

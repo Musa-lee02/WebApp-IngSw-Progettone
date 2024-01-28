@@ -54,7 +54,7 @@ public class PropostaDaoPostgres implements PropostaDao {
     @Override
     public Proposta findByPrimaryKey(long idAnnuncio, String username) {
         Proposta proposta = null;
-        String query = "SELECT * FROM proposta WHERE WHERE id_annuncio = ? and username_lavoratore = ?";
+        String query = "SELECT * FROM proposta WHERE id_annuncio = ? and username_lavoratore = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, idAnnuncio);
@@ -84,7 +84,7 @@ public class PropostaDaoPostgres implements PropostaDao {
         String query = "INSERT INTO proposta VALUES (?, ?, ?, ?, ?, ?,?)";
 
         if (findByPrimaryKey(proposta.getAnnuncioRelativo().getId(),proposta.getLavoratore().getUsername()) != null)
-            query = "UPDATE proposta SET  id_annuncio = ?, username_lavoratore = ?, data_lavoro = ?, descrizione = ?, stato = ?, stato_lavoro, prezzo_lavoro = ? WHERE id_annuncio = ? and iusername_lavoratore = ?";
+            query = "UPDATE proposta SET  id_annuncio = ?, username_lavoratore = ?, data_lavoro = ?, descrizione = ?, stato = ?, stato_lavoro = ?, prezzo_lavoro = ? WHERE id_annuncio = ? and username_lavoratore = ?";
 
         try {
             PreparedStatement st = conn.prepareStatement(query);

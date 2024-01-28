@@ -1,5 +1,5 @@
 <div class="content">
-<div class="pannelloTotale "*ngIf="this.entita==='lavoratore'">
+<div class="pannelloTotale "*ngIf="this.entita==='cliente'">
     <input class="recensioniBtn" id="recensioniBtn" type="checkbox">
     <div class="pannelloTitolo" >
     <h1>LASCIA UNA RECENSIONE</h1>
@@ -38,7 +38,7 @@
     </ng-container>
 </div>
 </div>
-<div class="pannelloRecensioniConcluse">
+<div class="pannelloRecensioniConcluse" *ngIf="this.entita==='lavoratore'" >
     <div class="pannelloTitolo">
         <h1 >LE TUE RECENSIONI</h1>
 

@@ -1,4 +1,4 @@
-import {AfterContentChecked, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterContentChecked, AfterContentInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +9,8 @@ import {Chat} from "../../model/Chat";
 import {Cliente} from "../../model/Cliente";
 import {Lavoratore} from "../../model/Lavoratore";
 import {Annuncio} from "../../model/Annuncio";
+import {Proposta} from "../../model/Proposta";
+
 
 
 
@@ -32,15 +34,15 @@ export class ChatComponent implements OnInit, AfterContentChecked{
   ambiti: String[] = ['Cucina', 'Sport', 'Musica', 'Arte', 'Scienza', 'Informatica', 'Letteratura', 'Cinema', 'Teatro', 'Moda', 'Altro']
 
   annunci:Annuncio[]
-  proposte:any
-  lavoratore:any
+
+  lavoratori: { [key: number]: Lavoratore[] } = {};
   ambitoForm:FormGroup
   arrowLeft=faArrowLeft
   primoCaricamento:boolean=true
   entita : string
   annunciCaricati=false
-
-    chat: Chat
+  proposta : Proposta
+  chat: Chat
 
 
   constructor(private service: ServizioAnnunciService, private route : ActivatedRoute, private chatService: ChatService, private backEndService : BackEndService){
@@ -84,27 +86,23 @@ export class ChatComponent implements OnInit, AfterContentChecked{
 
 
   }
+
     ngAfterContentChecked(): void {
+
+
         if(this.annunci && !this.annunciCaricati) {
+
             for (let annuncio of this.annunci) {
 
                 this.getLavoratoriByIdAnnuncio(annuncio.id)
             }
+
             this.annunciCaricati=true
         }
-
     }
 
-  onSubmit(): void{
 
-  }
-  onSelectFile(e: Event): void {
-  }
-  clickArrow() : void{
-
-  }
-
-  visualizzaChatResponsive(){
+    visualizzaChatResponsive(){
 
     console.log("swss")
     this.dashboard.nativeElement.classList.add('visualizzaChat')
@@ -135,25 +133,42 @@ export class ChatComponent implements OnInit, AfterContentChecked{
             lavoratore : JSON.parse(localStorage.getItem("utente")!)
 
         }
+
+
+
+      }
+    this.getProposta()
     }
 
 
 
+  getProposta() {
+
+
+    this.chatService.getProposta(this.chat).subscribe(data => {
+
+      this.proposta = data
+    });
 
   }
 
-  getChat(){
+    getChat(){
     this.primoCaricamento=true
     return this.chat
   }
 
+
   getLavoratoriByIdAnnuncio(id: number){
 
     console.log(id)
+
     this.chatService.getLavoratoriByIdAnnuncio(id).subscribe(data =>{
 
-      this.proposte=data;
+        this.lavoratori[id]=data
+        console.log(this.lavoratori[id])
+
     })
+
 
   }
   getAnnunciByUsernameLavoratore(){
@@ -161,6 +176,7 @@ export class ChatComponent implements OnInit, AfterContentChecked{
     //this.annunci=this.service.getAnnunciByUsernameLavoratore("maswso")
 
   }
+
 
 
 }

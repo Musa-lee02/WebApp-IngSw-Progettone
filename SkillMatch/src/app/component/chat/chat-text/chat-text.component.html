@@ -3,8 +3,8 @@
 <div class="chat">
     <div class="contactArea">
 
-        <mat-icon class="arrowResponsive" *ngIf="DestinatarioCard" style="color:white" (click)="back()">arrow_back</mat-icon>
-        <div class="contactImgName" *ngIf="DestinatarioCard">
+        <mat-icon class="arrowResponsive" style="color:white" (click)="back()">arrow_back</mat-icon>
+        <div class="contactImgName">
             <img src="{{DestinatarioCard.img}}">
             {{DestinatarioCard.username}}
         </div>
@@ -15,7 +15,8 @@
             <label for="propostaBtn" *ngIf="DestinatarioCard">
             <mat-icon *ngIf="DestinatarioCard" style="color: white;">description</mat-icon></label>
             <div class="form">
-               <!-- <app-proposta *ngIf="DestinatarioCard" [proposta]="getProposta()"></app-proposta>-->
+              <app-proposta [proposta]="proposta" (sendProposta)="setProposta($event)"></app-proposta>
+              <!--<app-proposta *ngIf="!this.proposta"  (sendProposta)="setProposta($event)"></app-proposta>-->
             </div>
 
     </div>

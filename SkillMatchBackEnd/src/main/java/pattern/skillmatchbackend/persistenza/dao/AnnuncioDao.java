@@ -20,4 +20,5 @@ public interface AnnuncioDao {
     public List<Annuncio> findByLavoratore(String username);
     public List<Annuncio> getAnnunciWithChat(String username);
     public List<Annuncio> getAnnunciByAmbitoAndProvincia(long idAmbito, String provincia);
+    public List<Annuncio> getAnnunciFinalizzati(String username);
 }

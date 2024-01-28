@@ -165,6 +165,35 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     }
 
     @Override
+    public List<Annuncio> getAnnunciFinalizzati(String username) {
+        List<Annuncio> annunci = new LinkedList<>();
+        String query = "SELECT * FROM annuncio, proposta WHERE username_cliente = ? AND annuncio.id_annuncio = proposta.id_annuncio AND proposta.stato = 'accettata'";
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, username);
+            System.out.println(st);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Annuncio annuncio = new Annuncio();
+                annuncio.setId(rs.getLong("id_annuncio"));
+                annuncio.setTitolo(rs.getString("titolo"));
+                annuncio.setDescrizione(rs.getString("descrizione"));
+                annuncio.setDataDiScadenza(rs.getDate("data_di_scadenza"));
+                annuncio.setProvinciaAnnuncio(rs.getString("provincia_annuncio"));
+                annuncio.setImage(rs.getString("img_annuncio"));
+                annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
+                annunci.add(annuncio);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return annunci;
+    }
+
+    @Override
     public List<Annuncio> getAnnunciByAmbitoAndProvincia(long idAmbito, String provincia) {
         List<Annuncio> annunci = new LinkedList<>();
         String query = "SELECT *" +
@@ -230,10 +259,24 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     @Override
     public List<Annuncio> findByLavoratore(String username) {
         List<Annuncio> annunci = new LinkedList<>();
-        String query = "SELECT * FROM annuncio,chat WHERE chat.username_lavoratore = ? AND chat.id_annuncio = annuncio.id_annuncio";
+        String query = "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito FROM annuncio, chat, proposta WHERE " +
+                " chat.username_lavoratore = ? AND " +
+                " chat.id_annuncio = annuncio.id_annuncio AND" +
+                " chat.id_annuncio = proposta.id_annuncio AND" +
+                " proposta.stato <> 'accettata'" +
+                " UNION SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito FROM annuncio " +
+                " INNER JOIN chat ON annuncio.id_annuncio = chat.id_annuncio " +
+                " LEFT JOIN proposta ON annuncio.id_annuncio = proposta.id_annuncio " +
+                " WHERE chat.username_lavoratore = ? " +
+                " AND proposta.id_annuncio IS NULL";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
+            st.setString(2, username);
             System.out.println(st);
             ResultSet rs = st.executeQuery();
 
@@ -258,11 +301,26 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
 
     @Override
     public List<Annuncio> getAnnunciWithChat(String username) {
+
         List<Annuncio> annunci = new LinkedList<>();
-        String query = "SELECT * FROM annuncio,chat WHERE annuncio.username_cliente = ? AND  chat.id_annuncio = annuncio.id_annuncio";
+
+        String query = "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito" +
+                " FROM annuncio, proposta WHERE username_cliente = ? AND" +
+                " annuncio.id_annuncio = proposta.id_annuncio AND " +
+                " proposta.stato <> 'accettata'" +
+                " UNION SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito FROM annuncio " +
+                " INNER JOIN chat ON annuncio.id_annuncio = chat.id_annuncio " +
+                " LEFT JOIN proposta ON annuncio.id_annuncio = proposta.id_annuncio" +
+                " WHERE annuncio.username_cliente = ? " +
+                " AND proposta.id_annuncio IS NULL";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
+            st.setString(2, username);
             System.out.println(st);
             ResultSet rs = st.executeQuery();
 

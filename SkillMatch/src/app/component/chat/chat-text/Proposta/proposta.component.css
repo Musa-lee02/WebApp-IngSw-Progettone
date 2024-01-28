@@ -1,10 +1,10 @@
 
-.propostaForm{
+.propostaForm form{
 
     padding: 30px 10px 10px 10px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 10px;
     color: white;
 }
 .propostaForm span{
@@ -17,6 +17,17 @@
     font-size: 30px;
     font-weight: 500;
 }
+
+.titolo{
+  display: flex;
+  gap: 5px;
+}
+.titolo input{
+
+  width: 80%;
+  height: 25px;
+  border-radius: 5px;
+}
 .propostaForm h3{
 
     font-size: 20px;
@@ -26,11 +37,27 @@
     border: 1px solid black;
     border-radius: 10px;
     background-color: rgb(68, 56, 110);
-    padding: 40px 0 40px 0;
+    height: 150px;
+    margin-bottom: 40px;
+}
+.descrizione textarea{
+  width: 100%;
+  height: 80%;
 }
 .propostaForm .footer{
     display: flex;
     justify-content: space-between;
+}
+
+.footer .prezzo input{
+
+  width: 50px;
+  border-radius: 10px;
+}
+.footer .data input{
+
+  width: 100px;
+  border-radius: 10px;
 }
 .propostaForm .button{
     display: flex;
@@ -41,4 +68,26 @@
 .button .icona{
 
     transform: scale(1.7);
+}
+.button button{
+
+  color: #fff;
+  font-size: 12px;
+  padding: 10px 45px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.buttonColorValid{
+  background-color: #512da8 ;
+
+}
+.buttonColorInvalid{
+
+  background-color: grey;
 }

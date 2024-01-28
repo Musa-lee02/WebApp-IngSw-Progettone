@@ -24,16 +24,17 @@
 
 
                 </div>
+
                 <div class="containerProposta">
-                    <div *ngFor="let lavoratore of proposte; index as j">
+                    <div *ngFor="let lavoratore of lavoratori[annuncio.id] index as j">
                        <div class="cardProposta"
                          (click)="setChatByUsernameAndId(lavoratore, annuncio)" (click)="visualizzaChatResponsive()">
                             <!--<input class="chatBtn" id="chatBtn{{j}}" type="checkbox">
                             <label for="chatBtn{{j}}" class="cardProposta">-->
-                            <div class="imgCard"><img src="{{lavoratore.img}}"></div>
+                            <div class="imgCard"><img src="{{lavoratore.imgProfilo}}"></div>
                             <div class="titoloDesc">
                                 <div class="titoloCard">{{lavoratore.username}}</div>
-                                <div class="descrizioneCard">{{lavoratore.descrizione}}</div>
+                                <!--<div class="descrizioneCard">{{lavoratore.descrizione}}</div>-->
 
 
                             </div><!--</label>-->
@@ -67,8 +68,8 @@
 
         </div>
     <div class="rightPart">
-
-            <app-chat-text [primoCaricamento]="primoCaricamento" [chat]="getChat()" (tornaDietro)="rimuoviChat()" ></app-chat-text>
+            <h1 *ngIf="!chat"> Clicca su una chat per visualizzare i messaggi e la proposta associata</h1>
+            <app-chat-text *ngIf="chat" [proposta]="proposta" [chat]="getChat()" (tornaDietro)="rimuoviChat()" ></app-chat-text>
         </div>
     </div>
 
