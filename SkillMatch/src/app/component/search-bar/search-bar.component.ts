@@ -48,6 +48,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   ambitoClicked(ambito: string){
 
+
     this.selectedAmbito=ambito!
 
     console.log(this.selectedAmbito)
@@ -66,12 +67,23 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   searchClicked(){
 
       console.log(this.selectedAmbito , this.selectedZona)
+
+      if (this.selectedAmbito==undefined || this.selectedAmbito==""){
+
+          this.selectedAmbito="all"
+
+      }
+      if (this.selectedZona==undefined  || this.selectedZona==""){
+          this.selectedZona="all"
+      }
+      console.log("Esplora/"+this.selectedAmbito+"/"+this.selectedZona)
       this.annunciService.getAnnunciByAmbitoEZona(this.selectedAmbito, this.selectedZona).subscribe(data=>
       {
+
         this.annunci=data
-        console.log("Esplora/"+this.selectedAmbito+"/"+this.selectedZona)
         this.servizioAnnunci.setAnnunciEsplora(this.annunci)
         this.router.navigate(["Esplora/"+this.selectedAmbito+"/"+this.selectedZona])
+
       })
 
   }

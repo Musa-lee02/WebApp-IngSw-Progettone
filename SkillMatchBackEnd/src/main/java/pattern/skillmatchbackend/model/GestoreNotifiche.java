@@ -6,11 +6,11 @@ import pattern.skillmatchbackend.persistenza.DBManager;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GestoreAnnunci {
+public class GestoreNotifiche {
 
     private List<Observer> observers = new LinkedList<>();
 
-    public GestoreAnnunci() {
+    public GestoreNotifiche() {
 
         for (Observer observer: DBManager.getInstance().getLavoratoreDao().findAllLazy() )
             addObserver(observer);

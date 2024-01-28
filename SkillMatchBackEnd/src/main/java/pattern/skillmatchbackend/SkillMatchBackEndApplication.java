@@ -8,9 +8,12 @@ import pattern.skillmatchbackend.model.*;
 import pattern.skillmatchbackend.model.email.EmailSender;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
+
 @SpringBootApplication
 @ServletComponentScan
 public class SkillMatchBackEndApplication {
+
+	public GestoreNotifiche gestoreNotifiche = new GestoreNotifiche();
 
 	public static void main(String[] args) {
 
@@ -30,6 +33,8 @@ public class SkillMatchBackEndApplication {
 		}
 
  */
+
+
 
 	}
 }

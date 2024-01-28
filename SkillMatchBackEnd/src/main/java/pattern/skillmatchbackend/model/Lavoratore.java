@@ -60,8 +60,11 @@ public class Lavoratore extends Utente implements Observer {
 
     @Override
     public void update(Annuncio annuncio) {
+
         if(annuncio.getProvinciaAnnuncio().equals(provincia) && ambiti.contains(annuncio.getAmbito())){
+
             new EmailSender().annuncioRelativo(this,annuncio);
+
         }
     }
 }

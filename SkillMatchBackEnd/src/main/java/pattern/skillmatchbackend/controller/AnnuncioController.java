@@ -12,6 +12,7 @@ import pattern.skillmatchbackend.model.TokenManager;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
 
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -44,10 +45,19 @@ public class AnnuncioController {
     @GetMapping("/getAnnunciByAmbitoEZona")
     public List<Annuncio> getAnnunciByAmbitoEZona(@RequestParam String ambito, @RequestParam String provincia){
 
+        System.out.println(ambito+provincia);
 
-        System.out.println(provincia);
+        List<Annuncio> annunci = new LinkedList<>();
 
-        List<Annuncio> annunci =  DBManager.getInstance().getAnnuncioDao().getAnnunciByAmbitoAndProvincia(ambito,provincia);
+        if(ambito.equals("all") && provincia.equals("all"))
+            annunci=DBManager.getInstance().getAnnuncioDao().findAll();
+        else if (ambito.equals("all"))
+            annunci=DBManager.getInstance().getAnnuncioDao().getAnnunciByAmbito(ambito);
+        else if (provincia.equals("all"))
+            annunci=DBManager.getInstance().getAnnuncioDao().getAnnunciByProvincia(provincia);
+        else
+            annunci=DBManager.getInstance().getAnnuncioDao().getAnnunciByAmbitoAndProvincia(ambito,provincia);
+
 
         if(annunci == null)
             return DBManager.getInstance().getAnnuncioDao().findAll();
