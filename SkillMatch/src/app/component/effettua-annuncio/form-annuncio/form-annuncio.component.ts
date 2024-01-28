@@ -5,6 +5,8 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import {BackEndService} from "../../../service/BackEndService";
 import { Annuncio } from '../../../model/Annuncio';
 import { Ambito } from '../../../model/Ambito';
+import {Province} from "../../../model/Province";
+import {HttpClient} from "@angular/common/http";
 
 
 
@@ -29,7 +31,7 @@ type Annunci ={
 export class FormAnnuncioComponent implements AfterViewChecked{
 
   ambiti : Ambito[]
-  province : any
+  province : Province[]
   minDate: Date;
   url = '../../assets/imagedefault.avif'
   nuovoAnnuncioForm:FormGroup
@@ -43,7 +45,7 @@ export class FormAnnuncioComponent implements AfterViewChecked{
   annuncio: Annuncio
   image!: File
 
-  constructor(private service: ServizioAnnunciService, private backEndService: BackEndService){
+  constructor(private service: ServizioAnnunciService, private backEndService: BackEndService, private httpClient : HttpClient){
     this.minDate = new Date();
 
     //this.minDate.setDate(this.minDate.getDate() + 1);
@@ -51,7 +53,6 @@ export class FormAnnuncioComponent implements AfterViewChecked{
   ngAfterViewChecked(): void {
 
   }
-
 
 
   ngOnInit(): void {
@@ -75,6 +76,13 @@ export class FormAnnuncioComponent implements AfterViewChecked{
 
       });
       }
+    )
+
+    this.httpClient.get<Province[]>('http://mobilio.altervista.org').subscribe( data =>
+        {
+          console.log(data)
+          this.province=data
+        }
     )
   }
 
@@ -106,6 +114,7 @@ export class FormAnnuncioComponent implements AfterViewChecked{
       };
     const annuncio: Annuncio = this.nuovoAnnuncioForm.value
     annuncio.ambito = ambito
+      console.log(annuncio)
     this.backEndService.insertAnnuncio(annuncio, this.image).subscribe(
       (response) => {
         console.log("response è: " + response)

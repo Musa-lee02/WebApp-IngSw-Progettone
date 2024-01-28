@@ -22,7 +22,16 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     public List<Annuncio> findAll() {
 
         List<Annuncio> annunci = new LinkedList<>();
-        String query = "SELECT * FROM annuncio";
+        String query = "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito " +
+                "FROM annuncio" +
+                " EXCEPT " +
+                "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito " +
+                "FROM annuncio,proposta " +
+                " WHERE proposta.id_annuncio = annuncio.id_annuncio AND  proposta.stato = 'accettata' ";
         try {
 
             Statement st = conn.createStatement();
@@ -39,8 +48,6 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setImage(rs.getString("img_annuncio"));
                 annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
-                annunci.add(annuncio);
-
                 annunci.add(annuncio);
 
             }

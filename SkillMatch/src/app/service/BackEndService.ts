@@ -197,6 +197,7 @@ export class BackEndService{
     }
     formData.append('token', this.getToken()!);
 
+    console.log(annuncio)
     return this.http.post<Boolean>(
       this.url + "/annuncio/insertNewAnnuncio",
       formData

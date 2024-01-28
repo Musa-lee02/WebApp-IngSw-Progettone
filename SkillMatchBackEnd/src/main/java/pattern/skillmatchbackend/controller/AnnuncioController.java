@@ -24,7 +24,7 @@ public class AnnuncioController {
     //Funziona
     @GetMapping("/getAnnunci")
     public List<Annuncio> getAnnunci(){
-        System.out.println("dd");
+        System.out.println(DBManager.getInstance().getAnnuncioDao().findAll().size());
         return DBManager.getInstance().getAnnuncioDao().findAll();
     }
 

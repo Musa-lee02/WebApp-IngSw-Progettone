@@ -90,9 +90,8 @@ public class SignUpController {
 
             return true;
         }
-            return false;
+        return false;
     }
-
 
     @PostMapping("/completeRegistration/Cliente")
     public boolean completeRegistrationCliente(@RequestBody Cliente cliente) {

@@ -28,7 +28,7 @@
     <div class="footer" *ngIf="proposta"><span><h4>Prezzo: {{proposta.prezzoLavoro}} €</h4></span>
     <span class="data" *ngIf="proposta"><h4>data: {{proposta.dataLavoro}}</h4></span></div>
 
-    <div class="button" *ngIf="proposta"><mat-icon class="icona" (click)="alertRifiuta()">cancel</mat-icon>
+    <div class="button" *ngIf="proposta && entita==='cliente'"><mat-icon class="icona" (click)="alertRifiuta()">cancel</mat-icon>
     <mat-icon class="icona" (click)="alertConferma()">check</mat-icon></div>
 
   </form>

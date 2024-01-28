@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
     this.annuncioService.getAnnunci().subscribe(data=> {
 
         console.log(data)
+        console.log(data.length)
         this.annunci = data
       }
     )
