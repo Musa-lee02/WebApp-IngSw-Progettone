@@ -1,17 +1,22 @@
-import { AfterContentChecked, Component, OnDestroy, OnInit } from '@angular/core';
+import {AfterContentChecked, Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
+import {AnnuncioService} from "../../service/AnnuncioService";
 
 @Component({
   selector: 'app-esplora',
   templateUrl: './esplora.component.html',
   styleUrl: './esplora.component.css'
 })
-export class EsploraComponent implements OnInit, OnDestroy, AfterContentChecked {
+export class EsploraComponent implements OnInit, OnDestroy, AfterContentChecked, OnChanges {
 
-  ambito : string
-  annunci : any
-    constructor(private service: ServizioAnnunciService, private route: ActivatedRoute, private router: Router){
+
+  ambito: string
+  zona: string
+    constructor(public service: ServizioAnnunciService,
+                private route: ActivatedRoute,
+                private annunciService : AnnuncioService,
+                private router: Router){
 
     }
   ngAfterContentChecked(): void {
@@ -28,13 +33,23 @@ export class EsploraComponent implements OnInit, OnDestroy, AfterContentChecked 
   ngOnInit(): void {
 
 
+  }
 
-    console.log(this.annunci)
+  ngOnChanges(changes: SimpleChanges): void {
+
+    this.ambito=this.route.snapshot.paramMap.get("ambito")!
+    this.zona=this.route.snapshot.paramMap.get("zona")!
+    this.annunciService.getAnnunciByAmbitoEZona(this.ambito ,this.zona ).subscribe(data=>{
+
+      //this.annunci=data
+    })
+
   }
   ngOnDestroy(): void {
-    this.service.setSelectAmbito('')
-    this.service.setSelectZona('')
-    this.annunci = []
+
+    //this.annunci = []
   }
+
+
 
 }

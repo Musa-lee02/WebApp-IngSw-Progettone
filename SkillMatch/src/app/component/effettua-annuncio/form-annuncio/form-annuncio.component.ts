@@ -55,7 +55,6 @@ export class FormAnnuncioComponent implements AfterViewChecked{
 
 
   ngOnInit(): void {
-    this.service.setRouterUrl("/Annuncio")
 
     this.nuovoAnnuncioForm=new FormGroup({
       titolo: new FormControl(null,Validators.required),
@@ -67,14 +66,13 @@ export class FormAnnuncioComponent implements AfterViewChecked{
 
     })
 
-    this.province=this.service.getProvince()
+
     this.backEndService.getAmbiti().subscribe(
       data => {
         this.ambiti = data
         console.log("tutti gli ambiti sono: ")
         this.ambiti.forEach((ambito, index) => {
-          console.log(`Ambito ${index + 1}:`);
-          console.log(JSON.stringify(ambito, null, 2));
+
       });
       }
     )

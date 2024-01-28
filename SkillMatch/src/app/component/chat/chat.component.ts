@@ -112,9 +112,7 @@ export class ChatComponent implements OnInit, AfterContentChecked{
     this.dashboard.nativeElement.classList.remove('visualizzaChat')
   }
 
-  isAutenticato(){
-    return this.service.isAutenticato()
-  }
+
 
 
   setChatByUsernameAndId(destinatario : Lavoratore | Cliente, annuncio : Annuncio){

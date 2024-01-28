@@ -186,7 +186,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       ambito: new FormControl(null, Validators.required),
     })
 
-    this.service.setDoingAccesso(true)
+
 
 
   }
@@ -202,7 +202,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     if (this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid) {
       Swal.fire("Ricora di confermare l'email se vuoi pubblicare o proporti per un annuncio")
-      this.service.setAutenticato(true)
+
     }
   }
 
@@ -256,7 +256,6 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   skipAutentication() {
 
-    return this.service.getSkipAutentication()
   }
 
   doLogin(){

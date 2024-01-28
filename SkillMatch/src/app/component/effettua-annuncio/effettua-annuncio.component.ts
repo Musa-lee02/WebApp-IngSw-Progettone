@@ -25,7 +25,7 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
 
   @ViewChild('container') container : ElementRef
 
-  annunci:any 
+  annunci:any
   proposte:any
   ambitoForm:FormGroup
   arrowLeft=faArrowLeft
@@ -43,13 +43,13 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
   ngOnInit(): void {
 
 
-    this.service.setRouterUrl("/Annuncio")
-    
+
+
     this.ambitoForm=new FormGroup({
       foto: new FormControl(null,Validators.required),
       provincia: new FormControl(null,Validators.required),
       ambito: new FormControl(null,Validators.required),
-      
+
     })
 
     this.backEndService.getAnnunciWithToken().subscribe(
@@ -58,7 +58,7 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
     }, (error) => {
         console.log("errore. da modificare(?)")
     });
-    this.proposte=this.service.getProposte()
+
 
     console.log(this.annunci)
     console.log(this.proposte)
@@ -71,8 +71,8 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
   }
 
   ngAfterViewChecked(): void {
-   
-  }  
+
+  }
 
   setAnnuncioScelto(annuncio: any){
 
@@ -101,7 +101,5 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
   clickArrow() : void{
     console.log("click")
   }
-  isAutenticato(){
-    return this.service.isAutenticato()
-  }
+
 }

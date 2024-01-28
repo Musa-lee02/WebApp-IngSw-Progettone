@@ -44,25 +44,14 @@ export class NavBarComponent implements AfterContentChecked{
 
   }
 
-  setSfondo(){
 
-    this.getRouterUrl()
-  }
 
-  getRouterUrl(){
-
-    return this.service.getRouterUrl()
-  }
 
   getRange(sizeAnnunci: number){
     return this.sizeAnnunci
   }
 
-  setLavoratore(bool: boolean){
 
-    this.service.setlavoratoreBool(bool);
-
-  }
   switch(){
     if(this.entita==='lavoratore')
     {
@@ -74,10 +63,7 @@ export class NavBarComponent implements AfterContentChecked{
         this.entita='lavoratore'
     }
   }
-  setDoingAccesso(bool:boolean){
-    this.service.setAutenticato(false)
-    this.service.setDoingAccesso(bool);
-  }
+
   isAutenticato(){
 
     return this.backEndService.isAuthenticated()
@@ -90,10 +76,6 @@ export class NavBarComponent implements AfterContentChecked{
 
     this.backEndService.removeToken()
 
-  }
-  skipAutentication(bool: boolean){
-
-    this.service.setSkipAutentication(bool)
   }
 
   getPicProfile(){

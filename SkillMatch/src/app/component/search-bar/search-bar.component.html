@@ -15,7 +15,7 @@
                   (ngModelChange)="ambitoClicked(selectedAmbito)">
             <mat-autocomplete autoActiveFirstOption #ambitoAuto="matAutocomplete">
               @for (ab of ambiti; track ab) {
-                <mat-option [value]="ab">{{ab.nome}}</mat-option>
+                <mat-option [value]="ab.nome">{{ab.nome}}</mat-option>
               }
             </mat-autocomplete>
           <!-- /mat-select-->
@@ -35,7 +35,7 @@
                  (ngModelChange)="zonaClicked(selectedZona)">
           <mat-autocomplete autoActiveFirstOption #zonaAuto="matAutocomplete">
             @for (pv of province; track pv) {
-              <mat-option [value]="pv">{{pv.nome}}</mat-option>
+              <mat-option [value]="pv.nome">{{pv.nome}}</mat-option>
             }
           </mat-autocomplete>
         <!-- /mat-select-->
@@ -43,12 +43,12 @@
       </div>
 
       <div class="prova">
-        <a routerLink="../Esplora/{{getParametriRicerca()}}" class="searchForm">
-        <button mat-fab extended color="primary" [disabled]="!searchValid()" (click)="searchClicked()">
+
+        <button mat-fab extended color="primary" (click)="searchClicked()">
           <mat-icon>search</mat-icon>
           <!-- Cerca-->
         </button>
-        </a>
+
       </div>
     </div>
 

@@ -1,6 +1,6 @@
 <div class="contentSfondo">
 <div class="container" #container>
-    <div class="contenitoreScelta" #componentScelta *ngIf="doingAccesso() && !skipAutentication()" >
+    <div class="contenitoreScelta" #componentScelta >
         <app-scelta-utente (mandaSceltaUtente)="onRiceviScelta($event)"></app-scelta-utente>
     </div>
     <div class="form-container sign-in">

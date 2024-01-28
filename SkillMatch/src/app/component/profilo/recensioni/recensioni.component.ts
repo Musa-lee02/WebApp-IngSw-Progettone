@@ -21,7 +21,7 @@ export class RecensioniComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.annunci=this.service.getAnnunci();
+
     this.entita=localStorage.getItem("scelta")
     console.log(this.entita)
     if(this.route.snapshot.paramMap.get('Entita')){
@@ -35,8 +35,6 @@ export class RecensioniComponent implements OnInit {
   }
 
   setPropostaAccettata(id :string){
-
-    this.propostaAccettata=this.service.getPropostaAccettataByid(id)
 
   }
 

@@ -194,16 +194,31 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     }
 
     @Override
-    public List<Annuncio> getAnnunciByAmbitoAndProvincia(long idAmbito, String provincia) {
+    public List<Annuncio> getAnnunciByAmbitoAndProvincia(String nome, String provincia) {
         List<Annuncio> annunci = new LinkedList<>();
-        String query = "SELECT *" +
-                "FROM annuncio " +
-                "WHERE id_ambito = ? AND provincia_annuncio = ? ";
+        /*String query = "SELECT *" +
+                "FROM annuncio, ambito " +
+                " WHERE ambito.nome = ? AND provincia_annuncio = ? AND ambito.id_ambito = annuncio.id_ambito";*/
+
+        String query = "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito " +
+                "FROM annuncio,ambito " +
+                "WHERE ambito.nome = ? AND provincia_annuncio = ? AND ambito.id_ambito = annuncio.id_ambito"+
+                " EXCEPT " +
+                "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito " +
+                "FROM annuncio,proposta,ambito " +
+                " WHERE proposta.id_annuncio = annuncio.id_annuncio AND  proposta.stato = 'accettata' " +
+                " AND ambito.id_ambito = annuncio.id_ambito AND ambito.nome = ? AND provincia_annuncio = ?";
         try {
             //TODO DATA DI SCADENZA E STATO
             PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1,idAmbito);
+            st.setString(1,nome);
             st.setString(2,provincia);
+            st.setString(3,nome);
+            st.setString(4,provincia);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {

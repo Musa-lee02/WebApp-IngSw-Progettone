@@ -42,7 +42,7 @@ public class AnnuncioController {
 
     //non so se si possono mettere 2 parametri requestbody e non so come generare http per 2 parametri
     @GetMapping("/getAnnunciByAmbitoEZona")
-    public List<Annuncio> getAnnunciByAmbitoEZona(@RequestParam long ambito, @RequestParam String provincia){
+    public List<Annuncio> getAnnunciByAmbitoEZona(@RequestParam String ambito, @RequestParam String provincia){
 
 
         System.out.println(provincia);

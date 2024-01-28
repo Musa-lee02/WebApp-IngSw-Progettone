@@ -30,7 +30,7 @@
       <li *ngIf="isAutenticato()"><div class="liImg"><div class="imgNavBar"><img src="{{getPicProfile()}}" alt=""></div></div>
         <ul>
           <li><a routerLink="/Profilo">Profilo </a></li>
-          <li><a routerLink="/Chat" (click)="setDoingAccesso(false)">Chat</a></li>
+          <li><a routerLink="/Chat">Chat</a></li>
           <li><a routerLink="/Home" (click)="doLogout()">Logout</a></li>
 
         </ul>
@@ -49,4 +49,5 @@
 
   <router-outlet ></router-outlet>
 
+</div>
 </div>
