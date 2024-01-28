@@ -19,5 +19,7 @@ public interface LavoratoreDao {
 
     public boolean isUsernameTaken(String username);
 
+    public List<Lavoratore> getLavoratori(long idAnnuncio);
+
 
 }

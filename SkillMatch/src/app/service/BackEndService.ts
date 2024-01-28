@@ -40,6 +40,8 @@ export class BackEndService{
   removeToken(){
     this.token = undefined;
     localStorage.removeItem("user-token");
+    localStorage.removeItem("scelta");
+    localStorage.removeItem("utente")
   }
 
 
@@ -77,11 +79,12 @@ export class BackEndService{
         this.setToken(response.token);
         response.lavoratore.password = ""; // Rimuovi la password. è un modo bruttissimo, ma fa quello che deve
         localStorage.setItem("utente", JSON.stringify(response.lavoratore));
-
+        localStorage.setItem("scelta", "lavoratore")
         console.log(this.getToken())
         console.log(localStorage.getItem("utente"))
 
-        this.router.navigate(["/Profilo/Lavoratore"]);
+
+        this.router.navigate(["/Profilo"]);
       },(error) =>{
         console.log("errore da gestire?: (password od username non valide)" + error) //TODO
       });
@@ -99,11 +102,12 @@ export class BackEndService{
         this.setToken(response.token);
         response.cliente.password = ""; // Rimuovi la password. è un modo bruttissimo, ma fa quello che deve
         localStorage.setItem("utente", JSON.stringify(response.cliente));
+        localStorage.setItem("scelta", "cliente")
 
         console.log(this.getToken())
         console.log(localStorage.getItem("utente"))
 
-        this.router.navigate(["/Profilo/Cliente"]);
+        this.router.navigate(["/Profilo"]);
       },(error) =>{
         console.log("errore da gestire?: (password od username non valide)" + error) //TODO
       });
@@ -179,18 +183,9 @@ export class BackEndService{
       return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", formData);
     }
 
-    const cliente : Cliente = utente
-
-    console.log("cliente is: " + cliente.cognome + "" + cliente.nome)
-
-    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", cliente);
+    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Cliente", <Cliente>utente);
 
   }
-  /*public completeSignUp(utente : Utente, scelta: string): Observable<boolean> {
-
-    return this.http.post<boolean>(this.url + "/signup/completeRegistration/Utente", { params: { utente } });
-
-  }*/
 
   //Funziona
   public insertAnnuncio(annuncio: Annuncio, image: File){
@@ -209,11 +204,36 @@ export class BackEndService{
     );
   }
 
+
   // Funziona
   public getAnnunciWithToken(): Observable<Annuncio[]>{
-    return this.http.get<Annuncio[]>(
+
+    if( localStorage.getItem("scelta")==="cliente"){
+      return this.http.get<Annuncio[]>(
       this.url+"/annuncio/getAnnunciWithToken/"+this.getToken());
+    }
+    else{
+
+      return this.http.get<Annuncio[]>(
+        this.url+"/annuncio/getAnnunciWithTokenLavoratore/"+this.getToken());
+    }
   }
+
+
+
+  public getAnnunciWithChat(): Observable<Annuncio[]>{
+    if( localStorage.getItem("scelta")==="cliente"){
+      return this.http.get<Annuncio[]>(
+
+          this.url+"/annuncio/getAnnunciWithChat/"+this.getToken());
+    }
+    else{
+      return this.http.get<Annuncio[]>(
+          this.url+"/annuncio/getAnnunciWithTokenLavoratore");
+    }
+
+  }
+
 
   //Funziona
   public getAllAnnunci(): Observable<Annuncio[]>{

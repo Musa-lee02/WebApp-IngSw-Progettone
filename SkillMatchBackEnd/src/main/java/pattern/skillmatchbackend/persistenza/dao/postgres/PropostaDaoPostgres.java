@@ -54,7 +54,7 @@ public class PropostaDaoPostgres implements PropostaDao {
     @Override
     public Proposta findByPrimaryKey(long idAnnuncio, String username) {
         Proposta proposta = null;
-        String query = "SELECT * FROM proposta WHERE WHERE id_annuncio = ? and username_lavoratore = ?";
+        String query = "SELECT * FROM proposta WHERE id_annuncio = ? and username_lavoratore = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, idAnnuncio);
@@ -79,12 +79,12 @@ public class PropostaDaoPostgres implements PropostaDao {
     }
 
     @Override
-    public void saveOrUpdate(Proposta proposta) {
+    public boolean saveOrUpdate(Proposta proposta) {
 
         String query = "INSERT INTO proposta VALUES (?, ?, ?, ?, ?, ?,?)";
 
         if (findByPrimaryKey(proposta.getAnnuncioRelativo().getId(),proposta.getLavoratore().getUsername()) != null)
-            query = "UPDATE proposta SET  id_annuncio = ?, username_lavoratore = ?, data_lavoro = ?, descrizione = ?, stato = ?, stato_lavoro, prezzo_lavoro = ? WHERE id_annuncio = ? and iusername_lavoratore = ?";
+            query = "UPDATE proposta SET  id_annuncio = ?, username_lavoratore = ?, data_lavoro = ?, descrizione = ?, stato = ?, stato_lavoro = ?, prezzo_lavoro = ? WHERE id_annuncio = ? and username_lavoratore = ?";
 
         try {
             PreparedStatement st = conn.prepareStatement(query);
@@ -102,9 +102,10 @@ public class PropostaDaoPostgres implements PropostaDao {
             }
 
             st.executeUpdate();
-
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
 
     }
@@ -181,6 +182,37 @@ public class PropostaDaoPostgres implements PropostaDao {
             e.printStackTrace();
         }
         return proposte;
+
+    }
+
+    @Override
+    public Proposta findByChat(Long idAnnuncio, String usernameCliente, String usernameLavoratore) {
+        Proposta proposta = null;
+        String query = "SELECT * FROM proposta,annuncio WHERE proposta.id_annuncio = ? AND  username_lavoratore = ? AND proposta.id_annuncio = annuncio.id_annuncio AND annuncio.username_cliente = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setLong(1, idAnnuncio);
+            st.setString(2,usernameLavoratore);
+            st.setString(3,usernameCliente);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                proposta = new Proposta();
+                proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
+                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
+                proposta.setDataLavoro(rs.getDate("data_lavoro"));
+                proposta.setStato(rs.getString("stato"));
+                proposta.setStatoLavoro(rs.getString("stato_lavoro"));
+                proposta.setDescrizione(rs.getString("descrizione"));
+                proposta.setStato(rs.getString("stato"));
+                proposta.setPrezzoLavoro(rs.getFloat("prezzo_lavoro"));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return proposta;
 
     }
 

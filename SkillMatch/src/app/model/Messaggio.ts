@@ -2,12 +2,12 @@ import { Chat } from "./Chat";
 
 export interface Messaggio{
 
-    id: number;
+
     contenuto: string;
     data: Date;
-    letto: boolean;
+    inviato: boolean,
     isLavoratore: boolean;
-    chat: Chat;
+    chat: Chat
 
-    
+
 }

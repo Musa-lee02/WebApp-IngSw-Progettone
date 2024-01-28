@@ -4,15 +4,16 @@
 
     display: flex;
     flex-wrap: wrap;
+    width: 100vw;
 }
 .pannelloTotale{
     margin-top: 50px;
     width: 58%;
 }
 .pannelloRecensioniConcluse{
-    
+
     margin-left: 2%;
-    width: 40%;
+    width: 58%;
     height: 300px;
     margin-top: 50px;
 }
@@ -37,7 +38,7 @@
 .recensioniBtn:checked ~ .pannelloRecensioni{
 
     max-height:400px
-    
+
 }
 .recensioni2Btn ~ .pannelloRecensioni{
 
@@ -90,7 +91,7 @@
     border: 1px solid black;
     overflow: hidden;
     font-size: 15px;
-    
+
 }
 
 .recensioniArea .divNome{
@@ -99,13 +100,13 @@
     height: 20%;
     background-color: rgb(213, 208, 233);
     font-weight: 500;
-    
+
 }
 .recensioniArea .divRelativo{
     width: 70%;
     height: 20%;
     background-color: rgb(160, 148, 203);;
-    
+
 }
 .recensioniArea h2{
     display: inline;
@@ -182,15 +183,15 @@
         width: 25%;
     }
 
- 
-    
+
+
 }
 
 @media only screen and (max-width: 1024px){
 
- 
+
     .pannelloTotale{
-        
+
         width: 100%;
     }
     .content h1{
@@ -203,9 +204,9 @@
 
 @media only screen and (max-width: 800px){
 
- 
+
     .pannelloTotale{
-        
+
         width: 100%;
     }
     .content h1{

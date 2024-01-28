@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 import { Observable, map, retry, startWith } from 'rxjs';
 import { Annuncio } from '../../model/Annuncio';
 import { BackEndService } from '../../service/BackEndService';
+import {AnnuncioService} from "../../service/AnnuncioService";
 
 
 @Component({
@@ -14,7 +15,7 @@ import { BackEndService } from '../../service/BackEndService';
 })
 export class HomeComponent implements OnInit {
 
-  
+
   myControl = new FormControl();
   ambiti : any;
   province : any;
@@ -27,25 +28,29 @@ export class HomeComponent implements OnInit {
   selectedAmbito: string = '';
   selectedZona: string = '';
 
-  constructor(private servizioAnnunci: ServizioAnnunciService, private backEndService: BackEndService){}
+  constructor(private servizioAnnunci: ServizioAnnunciService, private backEndService: BackEndService, private annuncioService: AnnuncioService){}
 
   ngOnInit(): void {
+
+    this.annuncioService.getAnnunci().subscribe(data=> {
+
+        console.log(data)
+        this.annunci = data
+      }
+    )
     this.ambiti=this.servizioAnnunci.getAmbiti();
     this.province=this.servizioAnnunci.getProvince();
     this.sizeAnnunci=this.servizioAnnunci.annunciGetSize()
-    
-    this.backEndService.getAllAnnunci().subscribe(
-      response => {
-        this.annunci = response
-    }, (error) => {
-        console.log("errore. da modificare(?)")
-    });
-    
+
+
+
+    //this.annunci=this.servizioAnnunci.getAnnunci();
+
   }
 
   ambitoClicked(ambito: string){
     if (this.servizioAnnunci.ambiti.includes(ambito)) {
-      this.servizioAnnunci.setSelectAmbito(ambito) 
+      this.servizioAnnunci.setSelectAmbito(ambito)
     }
   }
   zonaClicked(zona: string){
@@ -65,10 +70,10 @@ export class HomeComponent implements OnInit {
     return "" + this.getSelectedAmbito() + "/" + this.getSelectedZona()
   }
 
-  
+
   searchClick(){
     // Verifica se l'ambito e la zona sono validi
-    if (this.servizioAnnunci.isAmbitoValid() && 
+    if (this.servizioAnnunci.isAmbitoValid() &&
     this.servizioAnnunci.isZoneValid()) {
       return true;
     }
@@ -78,5 +83,10 @@ export class HomeComponent implements OnInit {
   getRange(sizeAnnunci: number){
     return this.sizeAnnunci
   }
+  getAnnunci(){
+
+
+  }
+
 }
 

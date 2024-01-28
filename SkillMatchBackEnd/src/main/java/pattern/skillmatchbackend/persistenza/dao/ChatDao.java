@@ -10,7 +10,7 @@ public interface ChatDao {
 
     public Chat findByPrimaryKey(long idAnnuncio,String username_cliente,String username_lavoratore);
 
-    public void saveOrUpdate(Chat chat);
+    public boolean saveOrUpdate(Chat chat);
 
     public void delete(Chat chat);
 

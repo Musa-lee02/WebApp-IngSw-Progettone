@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { CardsVetrinaComponent } from '../component/cards-vetrina/cards-vetrina.component';
+import {Annuncio} from "../model/Annuncio";
 
 
 type Annunci ={
@@ -48,7 +49,7 @@ type Messaggio={
 type Chat={
 
   idAnnuncio: string
-  interlocutore1: string 
+  interlocutore1: string
   interlocutore2:string
 
 }
@@ -78,7 +79,7 @@ export class ServizioAnnunciService implements OnInit {
   chatAttuale: Chat ;
 
 
-  usernameUtente="utente1" 
+  usernameUtente="utente1"
   annunci : Annunci[]=[{
     username: 'utente1',
     img:'../assets/soffione-doccia-rotto.png',
@@ -86,10 +87,10 @@ export class ServizioAnnunciService implements OnInit {
     descrizione:"descrizione...",
     ambito:"Cucina",
     id:"12",
-    stato: "accettata", 
+    stato: "accettata",
     zona:"Cosenza",
     dataDiScadenza:new Date("2023/11/10")
-  
+
   },
   {
     username: 'utente1',
@@ -163,7 +164,7 @@ export class ServizioAnnunciService implements OnInit {
       username:"mll",
       img:"'https://material.angular.io/assets/img/examples/shiba2.jpg'"
     }
-  
+
   ]
 
   proposta: Proposta[]=[{
@@ -174,7 +175,7 @@ export class ServizioAnnunciService implements OnInit {
     prezzo:100,
     idAnnuncio:"13",
     usernameLavoratore:"mario"
-    
+
   }]
   proposte : Proposte[]=[{
 
@@ -220,7 +221,7 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
   province: string[] = ['Cosenza', 'Reggio Calabria', 'Vibo Valentia', 'Catanzaro', 'Crotone',
               'Napoli', 'Salerno', 'Avellino', 'Benevento', 'Caserta', 'Potenza', 'Matera' ]
 
-  
+
 
 
   chat1:Chat={
@@ -269,7 +270,7 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
     inviato:true
   }
 ]
- 
+
   constructor( ) { }
   ngOnInit(): void {
     this.autenticato=false
@@ -299,7 +300,7 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
     return this.province.includes(this.selectedZona);
   }
 
- 
+
   setRouterUrl(url : string){
     this.url=url
   }
@@ -345,7 +346,7 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
         }
       }
     }
-  
+
     return lavoratoriFiltarti
   }
   getPropostaVera(chat : Chat){
@@ -364,7 +365,7 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
     for(const proposta of this.proposte){
 
       if(proposta.id===id){
-      
+
         proposteFiltrate.push(proposta)
       }
     }
@@ -376,7 +377,7 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
     for(const proposta of this.proposte){
 
       if(proposta.id===id){
-      
+
         proposta.stato==="accettata"
         return proposta
       }
@@ -387,19 +388,19 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
   getDestinatarioCard(chat :Chat){ //DA CAMBIARE
 
     this.setlavoratoreBool(false)
-    
+
     for(const lavoratore of this.lavoratori){
 
-      
+
       if(chat.interlocutore1 === lavoratore.username || chat.interlocutore2 === lavoratore.username ){
 
-            return lavoratore; 
+            return lavoratore;
         }
     }
     return
 }
   getProposteLavoratore(username: string){
-    
+
     let proposteFiltrate : Proposte[]=[]
     for(const proposta of this.proposte){
       if(proposta.username ===username){
@@ -412,20 +413,20 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
   getAnnunciByUsernameLavoratore(username: string){
 
       let proposteFiltrate=this.getProposteLavoratore(username)
-      
+
       let annunciFiltrati: Annunci[]=[]
       for( let i=0; i<this.annunci.length; i++){
         for( let j=0; j<proposteFiltrate.length;j++)
         {
-         
+
           if(proposteFiltrate[j].id === this.annunci[i].id)
           {
             annunciFiltrati.push(this.annunci[i])
-            
+
           }
         }
       }
-      
+
       return annunciFiltrati
   }
   getAnnunciByAmbito(ambito: string) : Annunci[]{
@@ -452,24 +453,24 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
 
 
     this.buttonSearchClickedBool=true
-    return this.getAnnunciByAmbitoEZona()
+    //return this.getAnnunciByAmbitoEZona()
 
   }
-  getAnnunciByAmbitoEZona() : Annunci[]{
-      
-    
+  /*getAnnunciByAmbitoEZona() : Annuncio[]{
+
+
     if (this.buttonSearchClickedBool){
 
-    
+
     let inHome=true
     let annunciFiltrati:Annunci[]=[]
-   
-  
+
+
     for(const annuncio of this.annunci){
 
       if(annuncio.ambito=== this.selectedAmbito && annuncio.zona === this.selectedZona){
         inHome=false;
-        
+
         annunciFiltrati.push(annuncio)
       }
     }
@@ -480,22 +481,22 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
     }
     }
     return []
-  
 
-  }
+
+  }*/
 
   getMessaggiByChat(){
-    
+
     let chat: Messaggio[]=[]
     for(const messaggio of this.messaggi){
 
       if(messaggio.idChat===this.chatAttuale){
-      
+
         chat.push(messaggio)
       }
     }
     return chat
-    
+
   }
 
   setChatByUsernameAndId(usernameDestinatario : string,  idAnnuncio : string){
@@ -503,13 +504,13 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
     console.log(usernameDestinatario+"username", idAnnuncio+"id")
     for(const chat of this.chatTotali){
 
-      
+
       if(chat.idAnnuncio === idAnnuncio &&  ((chat.interlocutore1===usernameDestinatario
          && chat.interlocutore2===this.usernameUtente)||chat.interlocutore1===this.usernameUtente
          && chat.interlocutore2===usernameDestinatario)){
 
           this.chatAttuale=chat
-          
+
           return
       }
     }
@@ -521,12 +522,12 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
 
   getChat(){
 
-    
+
     return this.chatAttuale
   }
 
   isLavoratore(){
-   
+
     return this.lavoratoreBool;
   }
   setlavoratoreBool(bool: boolean){
@@ -536,21 +537,21 @@ ambiti: string[] = ['Cucina', 'Tecnologia', 'Edilizia', 'Elettronica', 'Meccanic
   }
 
   setAutenticato(bool: boolean){
-   
+
     this.autenticato=bool;
-    
+
   }
   setDoingAccesso(bool : boolean){
     this.doingAccesso=bool;
   }
   isAutenticato(){
-    
+
     return this.autenticato
   }
 
   setSkipAutentication(bool: boolean){
 
-   
+
     this.skipAutentication =bool
 
   }

@@ -26,10 +26,6 @@ public class ClienteDaoPostgres  implements ClienteDao {
 
             while (rs.next()) {
                 Cliente cliente = new Cliente(DBManager.getInstance().getUtenteDao().findByPrimaryKey(rs.getString("username")));
-                cliente.setChats(DBManager.getInstance().getChatDao().findByForeignKeyCliente(cliente.getUsername()));
-                cliente.setRecensioni(DBManager.getInstance().getRecensioneDao().findByForeignKeyCliente(cliente.getUsername()));
-                cliente.setAnnunci(DBManager.getInstance().getAnnuncioDao().findByForeignKeyCliente(cliente.getUsername()));
-                cliente.setTransazionePagamento(DBManager.getInstance().getTransazionePagamentoDao().findByForeignKeyCliente(cliente.getUsername()));
                 clienti.add(cliente);
             }
         } catch (SQLException e) {
@@ -51,10 +47,6 @@ public class ClienteDaoPostgres  implements ClienteDao {
 
             if (rs.next()) {
                 cliente = new Cliente(DBManager.getInstance().getUtenteDao().findByPrimaryKey(rs.getString("username")));
-                cliente.setChats(DBManager.getInstance().getChatDao().findByForeignKeyCliente(cliente.getUsername()));
-                cliente.setRecensioni(DBManager.getInstance().getRecensioneDao().findByForeignKeyCliente(cliente.getUsername()));
-                cliente.setTransazionePagamento(DBManager.getInstance().getTransazionePagamentoDao().findByForeignKeyCliente(cliente.getUsername()));
-                cliente.setNotifiche(DBManager.getInstance().getNotificaDao().findByForeignKeyCliente(cliente.getUsername()));
 
             }
 

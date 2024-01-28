@@ -15,7 +15,7 @@ import pattern.skillmatchbackend.persistenza.DBManager;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("http://localhost:4200" )
 @RequestMapping("/annuncio")
 public class AnnuncioController {
 
@@ -24,6 +24,7 @@ public class AnnuncioController {
     //Funziona
     @GetMapping("/getAnnunci")
     public List<Annuncio> getAnnunci(){
+        System.out.println("dd");
         return DBManager.getInstance().getAnnuncioDao().findAll();
     }
 
@@ -40,13 +41,13 @@ public class AnnuncioController {
     }
 
     //non so se si possono mettere 2 parametri requestbody e non so come generare http per 2 parametri
-    @PostMapping("/getAnnunciByAmbitoEZona")
-    public List<Annuncio> getAnnunciByAmbitoEZona(@RequestBody Ambito ambito, @RequestBody String provincia){
+    @GetMapping("/getAnnunciByAmbitoEZona")
+    public List<Annuncio> getAnnunciByAmbitoEZona(@RequestParam long ambito, @RequestParam String provincia){
 
-        System.out.println(ambito.getNome());
+
         System.out.println(provincia);
 
-        List<Annuncio> annunci =  DBManager.getInstance().getAnnuncioDao().annunciPerMe(ambito.getNome(),provincia);
+        List<Annuncio> annunci =  DBManager.getInstance().getAnnuncioDao().getAnnunciByAmbitoAndProvincia(ambito,provincia);
 
         if(annunci == null)
             return DBManager.getInstance().getAnnuncioDao().findAll();
@@ -58,7 +59,26 @@ public class AnnuncioController {
     //Funziona
     @GetMapping("/getAnnunciWithToken/{token}")
     public List<Annuncio> getAnnunciWithToken(@PathVariable("token") String token){
+
         return DBManager.getInstance().getAnnuncioDao().findByForeignKeyCliente(TokenManager.verificaToken(token));
+    }
+
+    @GetMapping("/getAnnunciWithTokenLavoratore/{token}")
+
+    public List<Annuncio> getAnnunciWithTokenLavoratore(@PathVariable("token") String token){
+
+
+        for(Annuncio annuncio : DBManager.getInstance().getAnnuncioDao().findByLavoratore(TokenManager.verificaToken(token))){
+            System.out.println(annuncio.getId());
+        }
+        return DBManager.getInstance().getAnnuncioDao().findByLavoratore(TokenManager.verificaToken(token));
+    }
+
+    @GetMapping("/getAnnunciWithChat/{token}")
+
+    public List<Annuncio> getAnnunciWithChat(@PathVariable("token") String token){
+
+        return DBManager.getInstance().getAnnuncioDao().getAnnunciWithChat(TokenManager.verificaToken(token));
     }
 
     // In teoria andrebbe fatto col token
@@ -66,6 +86,22 @@ public class AnnuncioController {
     public List<Annuncio> getAnnunciByUsernameCliente(@RequestBody Cliente cliente){
         return DBManager.getInstance().getAnnuncioDao().findByForeignKeyCliente(cliente.getUsername());
     }
+
+    @GetMapping("/getAnnunciFinalizzati/{token}")
+    public List<Annuncio> getAnnunciFinalizzati(@PathVariable("token") String token){
+
+        for(Annuncio annuncio : DBManager.getInstance().getAnnuncioDao().getAnnunciFinalizzati(TokenManager.verificaToken(token)))
+        {
+            System.out.println(annuncio);
+        }
+        return DBManager.getInstance().getAnnuncioDao().getAnnunciFinalizzati(TokenManager.verificaToken(token));
+    }
+
+
+
+
+
+
 
 ////
 

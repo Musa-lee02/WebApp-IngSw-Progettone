@@ -26,8 +26,8 @@
     height: 100%;
     background-color: rgb(68, 56, 110);
     margin-left: 10%;
-    
-    
+
+
 }
 .arrowBtn,
 .propostaBtn{
@@ -72,6 +72,7 @@
     width: 100%;
     height: 80%;
     background-color: rgb(97, 79, 154);
+    overflow-y: scroll;
 }
 .messaggioRicevuto{
 
@@ -128,7 +129,7 @@ input{
     .form{
         height: calc(100vh - 280px) !important;
         width: 100%;
-        
+
         position: absolute;
         left: 10%;
         top:80px;
@@ -143,12 +144,12 @@ input{
         max-height:calc(100vh - 280px) !important;
         max-width: 80%;
     }
-    
-    
+
+
 }
 
 @media only screen and (max-width: 800px) {
- 
+
     .contactImgName img{
 
         display:none;

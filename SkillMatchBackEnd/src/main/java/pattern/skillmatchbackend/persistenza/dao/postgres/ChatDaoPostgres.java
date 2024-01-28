@@ -30,7 +30,6 @@ public class ChatDaoPostgres implements ChatDao {
                 chat.setAnnuncio(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
                 chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
-                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getUsername(),chat.getLavoratore().getUsername()));
                 chats.add(chat);
             }
 
@@ -43,7 +42,8 @@ public class ChatDaoPostgres implements ChatDao {
     @Override
     public Chat findByPrimaryKey(long idAnnuncio,String username_cliente,String username_lavoratore) {
         Chat chat = null;
-        String query = "SELECT * FROM chat id_annuncio = ? and username_cliente = ? and username_lavoratore = ?";
+
+        String query = "SELECT * FROM chat WHERE id_annuncio = ? and username_cliente = ? and username_lavoratore = ?";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setLong(1, idAnnuncio);
@@ -52,10 +52,11 @@ public class ChatDaoPostgres implements ChatDao {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
+                chat=new Chat();
                 chat.setAnnuncio(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
                 chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
-                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getUsername(),chat.getLavoratore().getUsername()));
+
             }
 
         } catch (SQLException e) {
@@ -65,17 +66,17 @@ public class ChatDaoPostgres implements ChatDao {
     }
 
     @Override
-    public void saveOrUpdate(Chat chat) {
+    public boolean saveOrUpdate(Chat chat) {
         String query = "INSERT INTO chat VALUES (?, ?, ?)";
 
         if (findByPrimaryKey(chat.getAnnuncio().getId(), chat.getCliente().getUsername(),chat.getLavoratore().getUsername()) != null)
-            query = "UPDATE chat SET  id_annuncio = ?, username_cliente = ?, username_lavoratore = ? WHERE id_annuncio = ?, username_cliente = ?, username_lavoratore = ?";
+            query = "UPDATE chat SET  id_annuncio = ?, username_cliente = ?, username_lavoratore = ? WHERE id_annuncio = ? AND username_cliente = ? AND username_lavoratore = ?";
 
         try {
             PreparedStatement st = conn.prepareStatement(query);
 
             st.setLong(1, chat.getAnnuncio().getId());
-            st.setString(3, chat.getCliente().getUsername());
+            st.setString(2, chat.getCliente().getUsername());
             st.setString(3, chat.getLavoratore().getUsername());
 
             if(query.startsWith("UPDATE")) {
@@ -87,10 +88,11 @@ public class ChatDaoPostgres implements ChatDao {
             }
 
             st.executeUpdate();
-
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -134,7 +136,6 @@ public class ChatDaoPostgres implements ChatDao {
                 chat.setAnnuncio(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
                 chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
-                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getUsername(),chat.getLavoratore().getUsername()));
                 chats.add(chat);
             }
 
@@ -149,6 +150,7 @@ public class ChatDaoPostgres implements ChatDao {
         List<Chat> chats = new LinkedList<>();
 
         String query = "SELECT * FROM chat WHERE "+cosa+" = ?";
+
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
@@ -159,7 +161,6 @@ public class ChatDaoPostgres implements ChatDao {
                 chat.setAnnuncio(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
                 chat.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 chat.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
-                chat.setMessaggi(DBManager.getInstance().getMessaggioDao().findByForeignKeyChat(chat.getAnnuncio().getId(),chat.getCliente().getUsername(),chat.getLavoratore().getUsername()));
                 chats.add(chat);
             }
 
@@ -167,8 +168,8 @@ public class ChatDaoPostgres implements ChatDao {
             e.printStackTrace();
         }
         return chats;
-    }
 
+    }
 
 }
 

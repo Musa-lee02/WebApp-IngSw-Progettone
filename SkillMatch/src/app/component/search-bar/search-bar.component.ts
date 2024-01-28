@@ -2,6 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import { ActivatedRoute } from '@angular/router';
 import { CardsVetrinaComponent } from '../cards-vetrina/cards-vetrina.component';
+import {AnnuncioService} from "../../service/AnnuncioService";
+import {Ambito} from "../../model/Ambito";
+import {Province} from "../../model/Province";
+import {HttpClient} from "@angular/common/http";
 
 
 @Component({
@@ -11,37 +15,50 @@ import { CardsVetrinaComponent } from '../cards-vetrina/cards-vetrina.component'
 })
 export class SearchBarComponent implements OnInit, OnDestroy {
 
-  ambiti : any;
-  province : any;
+  ambiti : Ambito[];
+  province : Province[];
   selectedAmbito: string = '';
-  selectedZona: string = ''; 
+  selectedZona: string = '';
 
-  constructor(private router: ActivatedRoute, private servizioAnnunci: ServizioAnnunciService){}
+  constructor(private router: ActivatedRoute, private servizioAnnunci:
+              ServizioAnnunciService, private annunciService : AnnuncioService,
+              private httpClient: HttpClient
+  ){}
   ngOnDestroy(): void {
     console.log("suca")
   }
 
   ngOnInit(): void {
-    this.ambiti=this.servizioAnnunci.getAmbiti();
-    this.province=this.servizioAnnunci.getProvince();
-    
+    this.annunciService.getAmbiti().subscribe(data=>{
+
+      this.ambiti=data
+
+    })
+
+    this.httpClient.get<Province[]>('http://mobilio.altervista.org').subscribe( data =>
+        {
+          console.log(data)
+          this.province=data
+        }
+    )
+
   }
 
   ambitoClicked(ambito: string){
     if (this.servizioAnnunci.ambiti.includes(ambito)) {
-      this.servizioAnnunci.setSelectAmbito(ambito) 
+      this.servizioAnnunci.setSelectAmbito(ambito)
     }
   }
   zonaClicked(zona: string){
     if (this.servizioAnnunci.province.includes(zona)) {
       this.servizioAnnunci.setSelectZona(zona)
-    } 
+    }
   }
 
 
   searchValid(){
     // Verifica se l'ambito e la zona sono validi
-    if (this.servizioAnnunci.isAmbitoValid() && 
+    if (this.servizioAnnunci.isAmbitoValid() &&
     this.servizioAnnunci.isZoneValid()) {
       return true;
     }
@@ -49,7 +66,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
   searchClicked(){
     if (this.searchValid()) {
-      this.servizioAnnunci.buttonSearchClicked()
+      /*this.servizioAnnunci.buttonSearchClicked()*/
+      this.annunciService.getAnnunciByAmbitoEZona(this.getSelectedAmbito(), this.getSelectedZona())
     }
   }
 
@@ -62,8 +80,5 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   getParametriRicerca(){
     return "" + this.getSelectedAmbito() + "/" + this.getSelectedZona()
   }
-
-  
-  
 
 }

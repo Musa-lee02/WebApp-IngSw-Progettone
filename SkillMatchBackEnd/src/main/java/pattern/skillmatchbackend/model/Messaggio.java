@@ -7,7 +7,8 @@ public class Messaggio {
     private Long id;
     private String contenuto;
     private Timestamp data;
-    private boolean letto;
+
+    private boolean inviato;
     private boolean isLavoratore;
     private Chat chat;
 
@@ -35,21 +36,19 @@ public class Messaggio {
         this.data = data;
     }
 
-    public boolean isLetto() {
-        return letto;
+    public boolean isInviato() {
+        return inviato;
     }
 
-    public void setLetto(boolean letto) {
-        this.letto = letto;
+    public void setInviato(boolean inviato) {
+        this.inviato = inviato;
     }
 
     public boolean isLavoratore() {
         return isLavoratore;
     }
 
-    public void isLavoratore(boolean isLavoratore) {
-        this.isLavoratore = isLavoratore;
-    }
+    public void setLavoratore(boolean isLavoratore){this.isLavoratore=isLavoratore;}
 
     public Chat getChat() {
         return chat;
@@ -57,5 +56,15 @@ public class Messaggio {
 
     public void setChat(Chat chat) {
         this.chat = chat;
+    }
+
+    @Override
+    public String toString() {
+        return "Messaggio{" +
+                ", contenuto='" + contenuto + '\'' +
+                ", data=" + data +
+                ", letto=" + inviato +
+                ", isLavoratore=" + isLavoratore +
+                '}';
     }
 }

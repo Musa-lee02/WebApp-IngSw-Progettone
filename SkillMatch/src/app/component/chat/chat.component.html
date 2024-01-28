@@ -6,71 +6,72 @@
     </ul>
 </div>
 
-    
+
     <div class="dashboard" #rightPart >
         <div class="leftPart">
-            
+            <ng-container *ngIf="entita==='cliente'">
             <div *ngFor="let annuncio of annunci; index as i">
-        
+
                 <div class="cardAnnuncio">
-                
+
                 <input class="proposteBtn" id="proposteBtn{{i}}" type="checkbox">
                 <label for="proposteBtn{{i}}" class="cardAnnuncio">
 
-                <div class="imgCard" ><img src="{{annuncio.img}}"></div>
+                <div class="imgCard" ><img src="{{annuncio.image}}"></div>
                 <div class="titoloDesc">
                     <div class="titoloCard">{{annuncio.titolo}}</div>
                     <div class="descrizioneCard">{{annuncio.descrizione}}</div>
-                    
-                    
+
+
                 </div>
-                {{getLavoratoriByIdAnnuncio(annuncio.id)}}
+
                 <div class="containerProposta">
-                    <div *ngFor="let proposta of proposte; index as j">
+                    <div *ngFor="let lavoratore of lavoratori[annuncio.id] index as j">
                        <div class="cardProposta"
-                         (click)="setChatByUsernameAndId(proposta.username, annuncio.id)" (click)="visualizzaChatResponsive()">
+                         (click)="setChatByUsernameAndId(lavoratore, annuncio)" (click)="visualizzaChatResponsive()">
                             <!--<input class="chatBtn" id="chatBtn{{j}}" type="checkbox">
                             <label for="chatBtn{{j}}" class="cardProposta">-->
-                            <div class="imgCard"><img src="{{proposta.img}}"></div>
+                            <div class="imgCard"><img src="{{lavoratore.imgProfilo}}"></div>
                             <div class="titoloDesc">
-                                <div class="titoloCard">{{proposta.username}}</div>
-                                <div class="descrizioneCard">{{proposta.descrizione}}</div>
+                                <div class="titoloCard">{{lavoratore.username}}</div>
+                                <!--<div class="descrizioneCard">{{lavoratore.descrizione}}</div>-->
 
-                               
+
                             </div><!--</label>-->
                         </div>
                     </div>
                 </div>
             </label></div>
             </div>
-        
-        <ng-container *ngIf="entita==='Cliente'">
-            {{getAnnunciByUsernameLavoratore()}}
+            </ng-container>
+
+        <ng-container *ngIf="entita==='lavoratore'">
+
             <div *ngFor="let annuncio of annunci; index as i">
-        
-                <div class="cardAnnuncio" (click)="setChatByUsernameAndId(annuncio.username, annuncio.id)" (click)="visualizzaChatResponsive()">
-                
+
+                <div class="cardAnnuncio" (click)="setChatByUsernameAndId(annuncio.cliente, annuncio)" (click)="visualizzaChatResponsive()">
+
                 <input class="propostelavoratoreBtn" id="propostelavoratoreBtn{{i}}" type="checkbox">
                 <label for="propostelavoratoreBtn{{i}}" class="cardAnnuncio">
 
-                <div class="imgCard" ><img src="{{annuncio.img}}"></div>
+                <div class="imgCard" ><img src="{{annuncio.image}}"></div>
                 <div class="titoloDesc">
                     <div class="titoloCard">{{annuncio.titolo}}</div>
                     <div class="descrizioneCard">{{annuncio.descrizione}}</div>
                 </div>
                 </label>
-                </div>  
                 </div>
-        </ng-container>    
+                </div>
+        </ng-container>
 
 
 
         </div>
     <div class="rightPart">
-
-            <app-chat-text [primoCaricamento]="primoCaricamento" [chat]="getChat()" (tornaDietro)="rimuoviChat()" ></app-chat-text>
+            <h1 *ngIf="!chat"> Clicca su una chat per visualizzare i messaggi e la proposta associata</h1>
+            <app-chat-text *ngIf="chat" [proposta]="proposta" [chat]="getChat()" (tornaDietro)="rimuoviChat()" ></app-chat-text>
         </div>
     </div>
-   
+
 
 

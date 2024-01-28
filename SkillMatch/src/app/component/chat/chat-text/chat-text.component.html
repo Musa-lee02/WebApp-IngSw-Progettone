@@ -2,31 +2,33 @@
 
 <div class="chat">
     <div class="contactArea">
-        
-        <mat-icon class="arrowResponsive" *ngIf="DestinatarioCard" style="color:white" (click)="back()">arrow_back</mat-icon>
-        <div class="contactImgName" *ngIf="DestinatarioCard">
+
+        <mat-icon class="arrowResponsive" style="color:white" (click)="back()">arrow_back</mat-icon>
+        <div class="contactImgName">
             <img src="{{DestinatarioCard.img}}">
             {{DestinatarioCard.username}}
         </div>
-            
-        
-            
+
+
+
             <input class="propostaBtn" id="propostaBtn" type="checkbox" *ngIf="DestinatarioCard">
             <label for="propostaBtn" *ngIf="DestinatarioCard">
             <mat-icon *ngIf="DestinatarioCard" style="color: white;">description</mat-icon></label>
             <div class="form">
-                <app-proposta *ngIf="DestinatarioCard" [proposta]="getProposta()"></app-proposta>
+              <app-proposta [proposta]="proposta" (sendProposta)="setProposta($event)"></app-proposta>
+              <!--<app-proposta *ngIf="!this.proposta"  (sendProposta)="setProposta($event)"></app-proposta>-->
             </div>
-        
+
     </div>
     <div class="messageArea">
         <div class="messaggioContainer" *ngFor="let message of messaggi">
-            <div [ngClass]="{'messaggioInviato': message.inviato, 'messaggioRicevuto':!message.inviato}"><h4>{{message.contenuto}}</h4></div>
+            <div [ngClass]="{'messaggioInviato': isInviato(message), 'messaggioRicevuto':!isInviato(message)}"><h4>{{message.contenuto}}</h4></div>
         </div>
     </div>
     <div class="textArea">
-        <input type="text" placeholder="Messaggio..."><mat-icon style="color: white;">send</mat-icon>
+      <form [formGroup]="textForm" style="width: 80%; height: 90%" ><input type="text" placeholder="Messaggio..." formControlName="messaggio">
+        <mat-icon style="color: white;" (click)="inviaMessaggio()">send</mat-icon></form>
     </div>
-   
+
 
 </div>

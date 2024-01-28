@@ -186,7 +186,6 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   passwordMatchValidators(control: AbstractControl) {
     const password = control.get('password')?.value;
     const ripetiPassword = control.get('confermaPassword')?.value;
-
     return password === ripetiPassword ? null : {mismatch: true};
   }
 

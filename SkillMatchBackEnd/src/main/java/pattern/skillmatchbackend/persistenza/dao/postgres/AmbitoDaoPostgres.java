@@ -50,7 +50,7 @@ public class AmbitoDaoPostgres implements AmbitoDao {
             st.setLong(1, id);
             ResultSet rs = st.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
                 ambito = new Ambito();
                 ambito.setId(rs.getLong("id_ambito"));
                 ambito.setNome(rs.getString("nome"));
@@ -69,7 +69,7 @@ public class AmbitoDaoPostgres implements AmbitoDao {
 
 
 
-        if (findByPrimaryKey(ambito.getId()) != null)
+        if (ambito.getId() != null)
             query = "UPDATE ambito SET id_ambito = ?, nome = ? WHERE id_ambito = ?";
         else
             ambito.setId(IdBroker.getId(conn));

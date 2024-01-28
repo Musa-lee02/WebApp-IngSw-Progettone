@@ -3,10 +3,13 @@ import { Lavoratore } from "./Lavoratore";
 
 export interface Proposta{
 
-    titolo: string;
     descrizione: string;
     stato: string;
+    statoLavoro:  string | undefined;
     prezzoLavoro: number | null;
     annuncioRelativo: Annuncio;
     lavoratore: Lavoratore;
+    dataLavoro: Date;
+
+
 }

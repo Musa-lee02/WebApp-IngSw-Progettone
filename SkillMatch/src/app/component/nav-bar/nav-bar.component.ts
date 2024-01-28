@@ -10,7 +10,7 @@ import {BackEndService} from "../../service/BackEndService";
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
-export class NavBarComponent implements OnInit, AfterContentChecked{
+export class NavBarComponent implements AfterContentChecked{
 
   logoImg:string = "../../assets/Skill.png"
 
@@ -22,6 +22,7 @@ export class NavBarComponent implements OnInit, AfterContentChecked{
   sizeAnnunci:number=0;
   isHome:boolean=false;
   isEsplora:boolean=false;
+  entita: string | null
 
 
   linkHome:String="http://localhost:4200/Home"
@@ -31,20 +32,18 @@ export class NavBarComponent implements OnInit, AfterContentChecked{
 
 
   ngAfterContentChecked(): void {
+
     if(this.router.url==="/Home"){
       this.isHome=true
-
     }
 
     else{
-
       this.isHome=false
     }
+    this.entita=localStorage.getItem("scelta")
 
   }
-  ngOnInit(): void {
 
-  }
   setSfondo(){
 
     this.getRouterUrl()
@@ -64,21 +63,32 @@ export class NavBarComponent implements OnInit, AfterContentChecked{
     this.service.setlavoratoreBool(bool);
 
   }
+  switch(){
+    if(this.entita==='lavoratore')
+    {
+      localStorage.setItem("scelta","cliente")
+      this.entita='cliente'
+    }
+    else{
+        localStorage.setItem("scelta","lavoratore")
+        this.entita='lavoratore'
+    }
+  }
   setDoingAccesso(bool:boolean){
     this.service.setAutenticato(false)
     this.service.setDoingAccesso(bool);
   }
   isAutenticato(){
 
-    return this.service.isAutenticato()
+    return this.backEndService.isAuthenticated()
   }
   _isEsplora(){
     return this.isEsplora
   }
-  setCliente(){
+  doLogout(){
 
 
-
+    this.backEndService.removeToken()
 
   }
   skipAutentication(bool: boolean){
@@ -87,7 +97,7 @@ export class NavBarComponent implements OnInit, AfterContentChecked{
   }
 
   getPicProfile(){
-   
+
   }
 
 

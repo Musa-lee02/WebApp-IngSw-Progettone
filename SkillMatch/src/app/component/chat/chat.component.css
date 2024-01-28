@@ -43,6 +43,7 @@ li{
 }
 
 .dashboard{
+
     height: calc(100vh - 100px);
     width: 70vw;
     display:flex;
@@ -62,8 +63,8 @@ li{
 }
 
 .imgCard{
-   
-    
+
+
     width: 30%;
     height: 100%;
     overflow: hidden;
@@ -78,18 +79,18 @@ li{
 
 .titoloCard{
 
-    
+
     text-align: left;
     width: 100%;
     height: 50%;
     border-radius: 10px;
     padding-left: 10px;
     background-color: rgb(44, 36, 72);
-    
+
 }
 
 .titoloDesc{
-    
+
     width: 70%;
     display: flex;
     flex-direction: column;
@@ -100,17 +101,17 @@ li{
     font-size: auto;
     width: 100%;
     height: 50%;
-    
+
 }
 .cardAnnuncio{
-    
+
     width: 100%;
     color: white;
     background-color: rgb(33, 30, 45);
     display: flex;
     height: 100px;
     margin-bottom: 3px;
-    
+
 }
 .cardAnnuncio, .cardProposta, .containerProposta{
     border: 1px solid black;
@@ -154,7 +155,7 @@ li{
 }
 .leftPart{
     background-color: rgb(44, 36, 72);
-    
+
     height:100%;
     border-radius: 11px;
     position: relative;
@@ -172,6 +173,12 @@ li{
     text-align: center;
     margin-right: 0px;
     z-index: 1;
+    background-color: rgb(97, 79, 154);
+}
+.rightPart h1{
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 60px;
 }
 
 .arrowDownResponsive{
@@ -180,7 +187,7 @@ li{
 
 @media only screen and (max-width: 1024px){
 
-    
+
     .dashboard{
         flex-direction: column;
         align-items: center;
@@ -220,7 +227,7 @@ li{
     }
 
     .leftPart .cardAnnuncio .containerProposta{
-        
+
         max-height: 0;
         top: 100%;
         left:0;
@@ -236,7 +243,7 @@ li{
         width: 30%;
     }
     .cardAnnuncio:hover .containerProposta{
-    
+
         max-width: 0;
         transition: none;
     }

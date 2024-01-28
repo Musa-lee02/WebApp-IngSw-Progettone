@@ -15,20 +15,20 @@ export class EsploraComponent implements OnInit, OnDestroy, AfterContentChecked 
 
     }
   ngAfterContentChecked(): void {
-    
-   
+
+
     if(this.service.buttonSearchClickedBool){
 
-      
-      this.annunci=this.service.getAnnunciByAmbitoEZona();
+
+      //this.annunci=this.service.getAnnunciByAmbitoEZona();
       this.service.buttonSearchClickedBool=false
     }
   }
-  
-  ngOnInit(): void { 
-    
-    
-    
+
+  ngOnInit(): void {
+
+
+
     console.log(this.annunci)
   }
   ngOnDestroy(): void {
@@ -36,5 +36,5 @@ export class EsploraComponent implements OnInit, OnDestroy, AfterContentChecked 
     this.service.setSelectZona('')
     this.annunci = []
   }
-  
+
 }

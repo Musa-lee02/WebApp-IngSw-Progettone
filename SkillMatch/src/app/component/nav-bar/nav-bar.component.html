@@ -31,13 +31,15 @@
         <ul>
           <li><a routerLink="/Profilo">Profilo </a></li>
           <li><a routerLink="/Chat" (click)="setDoingAccesso(false)">Chat</a></li>
-          <li><a href="/Accedi" (click)="skipAutentication(true)">Diventa Professionista</a></li>
-          <li><a routerLink="/Home">Logout</a></li>
+          <li><a routerLink="/Home" (click)="doLogout()">Logout</a></li>
 
         </ul>
       </li>
       <li *ngIf="!isHome"><a routerLink="Home">Home</a></li>
-      <li><a href="Annuncio" (click)="setLavoratore(false)" (click)="setDoingAccesso(false)">Pubblica  Annuncio</a></li>
+
+      <li *ngIf="entita==='lavoratore'" (click)="switch()"><a href="Profilo">Passa a Cliente</a></li>
+      <li *ngIf="entita==='cliente'" (click)="switch()"><a href="Profilo" >Passa a Lavoratore</a></li>
+      <li  *ngIf="!(entita==='lavoratore')"><a href="Annuncio">Gestisci Annunci</a></li>
 
 
     </ul>

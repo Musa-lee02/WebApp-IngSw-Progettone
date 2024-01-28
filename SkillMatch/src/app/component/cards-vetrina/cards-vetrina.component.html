@@ -1,10 +1,10 @@
 
 <div class="containerMain">
-  
+
   <div class="vetrina">
       <mat-card *ngFor="let annuncio of annunci" class="example-card">
-        
-        
+
+
         <!--<mat-card-header>
           <div mat-card-avatar class="example-header-image"></div>
           <mat-card-title>Shiba Inu</mat-card-title>
@@ -13,10 +13,10 @@
         <img mat-card-image src="{{annuncio.image}}" alt="Photo of a Shiba Inu" >
 
         <mat-card-header>
-              
+
 
           <mat-card-title>{{annuncio.titolo}}</mat-card-title>
-          <mat-card-subtitle>{{annuncio.ambito}} - {{annuncio.zona}} - {{annuncio.dataDiScadenza | date:'dd/MM/yyyy'}} 
+          <mat-card-subtitle>{{annuncio.ambito}} - {{annuncio.provinciaAnnuncio}} - {{annuncio.dataDiScadenza | date:'dd/MM/yyyy'}}
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
@@ -25,13 +25,13 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>CHAT</button>
+          <button mat-button (click)="inviaCandidatura(annuncio)">CHAT</button>
           <button mat-button>CONDIVIDI</button>
         </mat-card-actions>
       </mat-card>
 
 
 
-  
+
 
 </div>

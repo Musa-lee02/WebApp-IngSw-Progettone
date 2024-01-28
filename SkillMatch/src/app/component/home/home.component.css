@@ -7,7 +7,7 @@
     justify-content: flex-start;
     padding-top: 20px;
     width: 100%;
- 
+
     z-index: 1;
     margin-top: 1px;
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -32,7 +32,7 @@
 .searchClass{
     gap: 6px;
     width: 560px;
-    background-color: white; 
+    background-color: white;
     height: 70px;
     display: flex;
     /*margin-left: 665px;*/
@@ -43,7 +43,7 @@
     z-index: 1;
     border-radius: 45px;
     box-shadow: 0px 0px 1px 2px rgb(107, 62, 211);
-    
+
 }
 .testo{
 
@@ -53,12 +53,12 @@
 }
 
 @media only screen and (min-width: 1600px) {
-   
+
     .centered h1{
         line-height: 60px;
     }
 }@media only screen and (max-width: 1091px) {
-   
+
     .centered h1 {
       height: 150px;
       margin-top: 0px;
@@ -67,21 +67,21 @@
     }
 }
 @media only screen and (max-width: 1091px) {
-   
+
     .centered h1 {
       height: 150px;
       margin-top: 0px;
       word-wrap: break-word;
-    letter-spacing: 10px;
+      letter-spacing: 10px;
     }
 }
 @media only screen and (max-width: 800px) {
-   
+
     .centered h1 {
-    
+
         font-size: 5vw;
     }
-    
+
     .searchClass{
         height: 350px;
         width: 50%;

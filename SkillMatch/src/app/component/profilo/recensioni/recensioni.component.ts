@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServizioAnnunciService } from '../../../service/servizio-annunci.service';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import {ActivatedRoute} from "@angular/router";
+import {BackEndService} from "../../../service/BackEndService";
 
 @Component({
   selector: 'app-recensioni',
@@ -10,17 +11,19 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class RecensioniComponent implements OnInit {
 
-  constructor (private service : ServizioAnnunciService, private route: ActivatedRoute){}
+  constructor (private backEndService : BackEndService, private service : ServizioAnnunciService, private route: ActivatedRoute){}
   starImg: string = "../../assets/star.png";
   annunci:any
   propostaAccettata: any
   ArrowDown=faArrowDown
   starsClicked: boolean = false
-  entita: string
+  entita: string | null
 
   ngOnInit(): void {
-    this.annunci=this.service.getAnnunci();
 
+    this.annunci=this.service.getAnnunci();
+    this.entita=localStorage.getItem("scelta")
+    console.log(this.entita)
     if(this.route.snapshot.paramMap.get('Entita')){
 
       this.entita=this.route.snapshot.paramMap.get('Entita')!;
@@ -69,6 +72,11 @@ export class RecensioniComponent implements OnInit {
   isStarsClicked(){
 
     return this.starsClicked
+  }
+  getEntita(){
+
+
+    return this.entita
   }
 
 

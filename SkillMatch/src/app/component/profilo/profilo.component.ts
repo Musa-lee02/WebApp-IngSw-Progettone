@@ -9,6 +9,7 @@ import {Lavoratore} from "../../model/Lavoratore";
 import {Utente} from "../../model/Utente";
 import {LavoratoreFieldService} from "../../service/LavoratoreFieldService";
 import { Annuncio } from '../../model/Annuncio';
+import {AnnuncioService} from "../../service/AnnuncioService";
 
 
 @Component({
@@ -19,15 +20,19 @@ import { Annuncio } from '../../model/Annuncio';
 export class ProfiloComponent implements OnInit {
 
 
-
   annunci:Annuncio[]
   pencil=faPencil
   utente : Lavoratore | Cliente
-  entita:string
+  entita:string | null
   propostaAccettata: any
 
   url:string;
-  constructor(private service: ServizioAnnunciService, private route: ActivatedRoute, private backEndService: BackEndService, private lavoratoreService : LavoratoreFieldService) { }
+  constructor(private service: ServizioAnnunciService,
+              private route: ActivatedRoute,
+              private backEndService: BackEndService,
+              private lavoratoreService : LavoratoreFieldService,
+              private annunciService : AnnuncioService
+  ) { }
 
 
   ngOnInit(): void {
@@ -48,23 +53,17 @@ export class ProfiloComponent implements OnInit {
       });
     */
 
-    this.backEndService.getAnnunciWithToken().subscribe(
+    this.annunciService.getAnnunciFinalizzati().subscribe(
       response => {
         this.annunci = response
     }, (error) => {
         console.log("errore. da modificare(?)")
     });
+    /*this.annunci = this.service.getAnnunci();*/
     this.utente = this.getUtente();
     console.log(this.annunci)
 
-    if (this.route.snapshot.paramMap.get('Entita')) {
-
-      this.entita = this.route.snapshot.paramMap.get('Entita')!;
-      if (this.entita === "Cliente")
-        this.entita == "Cliente";
-      if (this.entita === "Lavoratore")
-        this.entita == "Lavoratore";
-    }
+    this.entita=localStorage.getItem("scelta")
 
     console.log(this.backEndService.getToken())
     this.getUtente()
@@ -103,9 +102,6 @@ export class ProfiloComponent implements OnInit {
   public getZona() : string{
     return this.lavoratoreService.getZona(this.utente)
   }
-
-
-
 
 
 }
