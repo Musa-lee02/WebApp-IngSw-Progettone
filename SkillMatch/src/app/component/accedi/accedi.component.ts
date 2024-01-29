@@ -131,7 +131,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.backEndService.getAmbiti().subscribe(
       data => {
         this.ambiti = data
-        console.log(this.ambiti)
+        //console.log(this.ambiti)
       }
     )
 
