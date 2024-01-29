@@ -7,6 +7,9 @@ import java.util.List;
 public class Cliente extends Utente {
 
 
+    public Cliente(Lavoratore lavoratore){
+        super(lavoratore);
+    }
     public Cliente(Utente utente) {
         super(utente);
     }

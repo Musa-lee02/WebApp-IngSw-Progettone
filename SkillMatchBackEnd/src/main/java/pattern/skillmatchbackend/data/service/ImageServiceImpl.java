@@ -56,6 +56,7 @@ public class ImageServiceImpl implements ImageService {
                 gestoreNotifiche.notifyObservers(annuncio);
                 DBManager.getInstance().getAnnuncioDao().saveOrUpdate(annuncio);
 
+
                 //TODO quando l'annuncio viene correttamente creato, deve essere inviata una email (o notifica?) al cliente che ha creato l'annuncio
 
                 return true;
@@ -81,7 +82,7 @@ public class ImageServiceImpl implements ImageService {
                 lavoratore.setPassword(PasswordCrypt.encode(passC));
 
                 DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
-
+                DBManager.getInstance().getClienteDao().saveOrUpdate(new Cliente(lavoratore));
                 return true;
             } catch (Exception e) { return false; }
         }else{ return false; }
@@ -121,7 +122,7 @@ public class ImageServiceImpl implements ImageService {
                 gestoreNotifiche.addObserver(lavoratore);
 
                 DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
-
+                DBManager.getInstance().getClienteDao().saveOrUpdate(new Cliente(lavoratore));
 
                 return true;
             } catch (Exception e) { return false; }

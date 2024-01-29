@@ -60,8 +60,8 @@ public class AnnuncioController {
             annunci=DBManager.getInstance().getAnnuncioDao().getAnnunciByAmbitoAndProvincia(ambito,provincia);
 
 
-        if(annunci.isEmpty())
-            return DBManager.getInstance().getAnnuncioDao().findAll();
+        /*if(annunci.isEmpty())
+            return DBManager.getInstance().getAnnuncioDao().findAll();*/
 
         return annunci;
 

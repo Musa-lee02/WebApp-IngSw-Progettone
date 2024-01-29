@@ -24,9 +24,11 @@ public class LavoratoreProxy extends Lavoratore {
 
         List<Ambito> ambiti = super.getAmbiti();
 
-        if (ambiti == null)
-            return DBManager.getInstance().getAmbitoDao().findByLavoratore(username);
+        if (ambiti == null){
 
+            super.setAmbiti(DBManager.getInstance().getAmbitoDao().findByLavoratore(username));
+
+        }
         return ambiti;
 
     }

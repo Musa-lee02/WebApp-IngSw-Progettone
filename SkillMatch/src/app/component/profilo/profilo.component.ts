@@ -57,7 +57,7 @@ export class ProfiloComponent implements OnInit {
       response => {
         this.annunci = response
     }, (error) => {
-        console.log("errore. da modificare(?)")
+        console.log("errore.")
     });
     /*this.annunci = this.service.getAnnunci();*/
     this.utente = this.getUtente();

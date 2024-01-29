@@ -9,12 +9,13 @@ import javax.mail.internet.*;
 
 public class EmailSender {
 
-
+    GmailConfig gmailConfig = new GmailConfig();
     private boolean sendEmail(EmailConfig emailConfig, EmailContent emailContent){
 
         // Indirizzo del mittente e destinatario
         String from = emailConfig.getSenderAddress();
         String to = emailContent.getTo();
+
 
         // Proprietà per la configurazione del server di posta
         Properties properties = emailConfig.getProperties();
@@ -58,7 +59,7 @@ public class EmailSender {
     }
 
     public boolean confermaLink(Utente utente,String link){
-        return sendEmail(new GmailConfig(),new EmailContentConfermaRegistrazione(utente,link));
+        return sendEmail(gmailConfig,new EmailContentConfermaRegistrazione(utente,link));
     }
 
     public boolean annuncioRelativo(Utente utente, Annuncio annuncio) {

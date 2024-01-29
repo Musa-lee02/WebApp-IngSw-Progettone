@@ -104,7 +104,7 @@ export class ChatComponent implements OnInit, AfterContentChecked{
 
     visualizzaChatResponsive(){
 
-    console.log("swss")
+
     this.dashboard.nativeElement.classList.add('visualizzaChat')
 
   }

@@ -6,6 +6,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {AnnuncioService} from "../../service/AnnuncioService";
 import {Annuncio} from "../../model/Annuncio";
 import { BackEndService } from '../../service/BackEndService';
+import {Province} from "../../model/Province";
 
 library.add(faStar);
 
@@ -40,7 +41,12 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
   }
 
   ngOnInit(): void {
+
     console.log(this.annunci)
+  }
+  getProvincia(provincia : Province | string){
+
+    return (provincia as Province).nome;
   }
 
   initAnnunci(){

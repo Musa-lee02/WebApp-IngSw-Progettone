@@ -125,11 +125,11 @@ export class FormAnnuncioComponent implements AfterViewChecked{
       this.backEndService.insertAnnuncio(annuncio, this.image).subscribe(
           (response) => {
             console.log("response è: " + response)
-            console.log("Ok. da modificare")
+
           },
           (error) => {
             console.log("error è: " + error)
-            console.log("errore. da modificare")
+
           });
 
 

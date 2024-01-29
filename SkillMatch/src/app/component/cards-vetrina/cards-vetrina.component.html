@@ -10,13 +10,13 @@
           <mat-card-title>Shiba Inu</mat-card-title>
           <mat-card-subtitle>Dog Breed</mat-card-subtitle>
         </mat-card-header>-->
-        <img mat-card-image src="{{annuncio.image}}" alt="Photo of a Shiba Inu" >
+        <img mat-card-image src="{{annuncio.image}}" alt="Photo" >
 
         <mat-card-header>
 
 
           <mat-card-title>{{annuncio.titolo}}</mat-card-title>
-          <mat-card-subtitle>{{annuncio.ambito.nome}} - {{annuncio.provinciaAnnuncio}} - {{annuncio.dataDiScadenza | date:'dd/MM/yyyy'}}
+          <mat-card-subtitle>{{annuncio.ambito.nome}} - {{getProvincia(annuncio.provinciaAnnuncio)}} - {{annuncio.dataDiScadenza | date:'dd/MM/yyyy'}}
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>

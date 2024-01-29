@@ -27,7 +27,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
               private httpClient: HttpClient
   ){}
   ngOnDestroy(): void {
-    console.log("suca")
+
   }
 
   ngOnInit(): void {

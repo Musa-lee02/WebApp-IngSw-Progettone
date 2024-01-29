@@ -86,7 +86,7 @@ export class BackEndService{
 
         this.router.navigate(["/Profilo"]);
       },(error) =>{
-        console.log("errore da gestire?: (password od username non valide)" + error) //TODO
+        console.log("(password od username non valide)" + error) //TODO
       });
 
   }
@@ -109,7 +109,7 @@ export class BackEndService{
 
         this.router.navigate(["/Profilo"]);
       },(error) =>{
-        console.log("errore da gestire?: (password od username non valide)" + error) //TODO
+        console.log("(password od username non valide)" + error) //TODO
       });
   }
 
