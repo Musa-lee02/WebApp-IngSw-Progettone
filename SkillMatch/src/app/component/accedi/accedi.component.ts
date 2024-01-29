@@ -114,7 +114,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
       (globalThis as any).handleOauthResponse = (response : any) => {
           const responsePayload = decodeJWTToken(response.credential)
-          console.log(responsePayload)
+
 
 
           window['backEndServiceRef'].CheckExistenceGoogleAccount(responsePayload.sub).subscribe((res: boolean) => {
@@ -131,13 +131,13 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.backEndService.getAmbiti().subscribe(
       data => {
         this.ambiti = data
-        console.log(this.ambiti)
+
       }
     )
 
     this.httpClient.get<Province[]>('http://mobilio.altervista.org').subscribe( data =>
       {
-        console.log(data)
+
         this.province=data
       }
     )
@@ -202,7 +202,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   onSelectFile(e: any) {
     if (e.target.files) {
-      console.log(e.target.files[0])
+
       this.picProfile = e.target.files[0]
       var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
@@ -228,7 +228,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   clickArrow() {
 
-    console.log(this.generalitaForm)
+
     this.container?.nativeElement.classList.remove('generalita')
     this.container?.nativeElement.classList.remove('ambito')
     this.ambitoForm.clearValidators();
@@ -236,7 +236,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.generalitaForm.reset();
     this.ambitoForm.reset();
 
-    console.log(this.generalitaForm)
+
   }
 
   doingAccesso() {
@@ -257,7 +257,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       password: password,
       username: username
     }
-    console.log(utenteCredenziali)
+
     if(this.scelta === "lavoratore"){
       this.backEndService.loginLavoratore(utenteCredenziali)
     }
@@ -285,7 +285,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
           this.container?.nativeElement.classList.add('generalita')
 
         }, (error: HttpErrorResponse) => {
-          console.log(error)
+
 
           if (error.error === "Email già in uso")
             Swal.fire("Email già in uso")
@@ -414,11 +414,11 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
             nome: googleData.given_name,
             cognome: googleData.family_name
         })
-        console.log("sasa")
+
         this.container?.nativeElement.classList.add('generalita')
-        console.log(this.scelta)
+
         if (this.scelta === "lavoratore") {
-            console.log("dovrebbe inserire img google")
+
             this.url = googleData.picture
             this.picProfile = googleData.picture
             //this.container?.nativeElement.classList.add('ambito')

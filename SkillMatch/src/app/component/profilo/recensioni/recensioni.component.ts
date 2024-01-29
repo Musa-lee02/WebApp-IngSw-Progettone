@@ -23,7 +23,7 @@ export class RecensioniComponent implements OnInit {
 
 
     this.entita=localStorage.getItem("scelta")
-    console.log(this.entita)
+
     if(this.route.snapshot.paramMap.get('Entita')){
 
       this.entita=this.route.snapshot.paramMap.get('Entita')!;

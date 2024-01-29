@@ -86,7 +86,7 @@ export class ChatTextComponent implements OnInit, OnChanges, OnDestroy, AfterCon
     if(this.chat) {
       this.chatService.getMessaggiByChat(this.chat).subscribe(data => {
         this.messaggi = data
-        /*console.log(this.messaggi)*/
+
       })
     }
 
@@ -105,7 +105,7 @@ export class ChatTextComponent implements OnInit, OnChanges, OnDestroy, AfterCon
 
     }
 
-    console.log(messaggio.isLavoratore)
+
     this.chatService.inviaMessaggio(messaggio)
 
 }
@@ -143,15 +143,15 @@ export class ChatTextComponent implements OnInit, OnChanges, OnDestroy, AfterCon
       statoLavoro: undefined,
 
     }
-    console.log(proposta)
+
     this.chatService.setProposta(proposta).subscribe(response =>{
 
       if(response){
-        console.log("true")
+
 
       }
       else{
-        console.log("false")
+
       }
       }
     )

@@ -40,7 +40,7 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
   }
 
   ngOnInit(): void {
-    console.log(this.annunci)
+
   }
 
   initAnnunci(){
@@ -55,7 +55,7 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
         response => {
           this.annunci = response
       }, (error) => {
-          console.log("errore. da modificare(?)")
+
       });
 
     }

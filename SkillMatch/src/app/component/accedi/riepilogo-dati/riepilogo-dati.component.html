@@ -1,14 +1,14 @@
 <div class="container">
     <div class="dati">
-        <h3>Username:{{utente.username}} </h3><label></label>
-        <h3>Email: {{utente.email}}</h3><label></label>
-        <h3>Nome: {{utente.nome}}</h3><label></label>
-        <h3>Cognome: {{utente.cognome}}</h3><label></label>
-        <h3>Indirizzo: {{utente.provincia}}</h3><label></label>
-        <h3>Data di nascita: {{utente.dataNascita | date: 'dd/MM/yyyy'}}</h3><label></label>
+        <div><h3>Username:{{utente.username}} </h3><label></label></div>
+        <div><h3>Email: {{utente.email}}</h3><label></label></div>
+        <div><h3>Nome: {{utente.nome}}</h3><label></label></div>
+        <div><h3>Cognome: {{utente.cognome}}</h3><label></label></div>
+        <div><h3>Indirizzo: {{utente.provincia}}</h3><label></label></div>
+        <div><h3>Data di nascita: {{utente.dataNascita | date: 'dd/MM/yyyy'}}</h3><label></label>
       <ng-container *ngIf="scelta==='lavoratore'">
-      <h3>Ambito:{{getAmbiti()}}</h3><label></label>
-        <h3>Zona di competenza:{{getZona()}} </h3><label></label>
+          <div><h3>Ambito:{{getAmbiti()}}</h3><label></label></div>
+          <div><h3>Zona di competenza:{{getZona()}} </h3><label></label></div>
       </ng-container>
     </div>
     <div class="bottoni">

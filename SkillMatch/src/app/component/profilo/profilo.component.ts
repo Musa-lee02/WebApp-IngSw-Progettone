@@ -37,38 +37,23 @@ export class ProfiloComponent implements OnInit {
 
   ngOnInit(): void {
 
-    /*
-    this.http.post<LoginClienteDto>(this.url + "/retriveData/loginCliente",utente)
-      .subscribe(response => {
-        this.setToken(response.token);
-        response.cliente.password = ""; // Rimuovi la password. è un modo bruttissimo, ma fa quello che deve
-        localStorage.setItem("utente", JSON.stringify(response.cliente));
 
-        console.log(this.getToken())
-        console.log(localStorage.getItem("utente"))
-
-        this.router.navigate(["/Profilo/Cliente"]);
-      },(error) =>{
-        console.log("errore da gestire?: (password od username non valide)" + error) //TODO
-      });
-    */
 
     this.annunciService.getAnnunciFinalizzati().subscribe(
       response => {
         this.annunci = response
     }, (error) => {
-        console.log("errore. da modificare(?)")
+        console.log("errore.")
     });
     /*this.annunci = this.service.getAnnunci();*/
     this.utente = this.getUtente();
-    console.log(this.annunci)
+
 
     this.entita=localStorage.getItem("scelta")
 
-    console.log(this.backEndService.getToken())
+
     this.getUtente()
-      console.log("img:" + this.utente.imgProfilo);
-      console.log("data di nascita: " + this.utente.dataNascita);
+
   }
 
 

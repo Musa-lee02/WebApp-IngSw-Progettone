@@ -56,12 +56,11 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
       response => {
         this.annunci = response
     }, (error) => {
-        console.log("errore. da modificare(?)")
+
     });
 
 
-    console.log(this.annunci)
-    console.log(this.proposte)
+
   }
 
   ngOnDestroy(): void {
@@ -81,7 +80,7 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
     this.container.nativeElement.classList.add("annuncioSceltoActiveContainer")
     this.container.nativeElement.classList.remove("matita")
     this.container.nativeElement.classList.remove("linguettaRovesciata")
-    console.log(this.annuncioScelto)
+
 
   }
   crea(){
@@ -99,7 +98,7 @@ export class EffettuaAnnuncioComponent implements OnInit, AfterViewInit, AfterVi
   onSelectFile(e: Event): void {
   }
   clickArrow() : void{
-    console.log("click")
+
   }
 
 }

@@ -27,7 +27,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
               private httpClient: HttpClient
   ){}
   ngOnDestroy(): void {
-    console.log("suca")
+
   }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
     this.httpClient.get<Province[]>('http://mobilio.altervista.org').subscribe( data =>
         {
-          console.log(data)
+
           this.province=data
         }
     )
@@ -58,7 +58,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
     this.selectedZona=zona
 
-    console.log(this.selectedZona)
 
   }
 
@@ -66,7 +65,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   searchClicked(){
 
-      console.log(this.selectedAmbito , this.selectedZona)
+
 
       if (this.selectedAmbito==undefined || this.selectedAmbito==""){
 
@@ -76,7 +75,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       if (this.selectedZona==undefined  || this.selectedZona==""){
           this.selectedZona="all"
       }
-      console.log("Esplora/"+this.selectedAmbito+"/"+this.selectedZona)
+
       this.annunciService.getAnnunciByAmbitoEZona(this.selectedAmbito, this.selectedZona).subscribe(data=>
       {
 

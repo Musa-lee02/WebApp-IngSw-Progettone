@@ -67,19 +67,19 @@ export class ChatComponent implements OnInit, AfterContentChecked{
     if (this.entita==="cliente") {
       this.backEndService.getAnnunciWithChat().subscribe(
           response => {
-            console.log(response)
+
             this.annunci = response
           }, (error) => {
-            console.log()
+
           });
     }
     if (this.entita==="lavoratore") {
       this.backEndService.getAnnunciWithToken().subscribe(
           response => {
-            console.log(response)
+
             this.annunci = response
           }, (error) => {
-            console.log()
+
           });
     }
 
@@ -104,7 +104,7 @@ export class ChatComponent implements OnInit, AfterContentChecked{
 
     visualizzaChatResponsive(){
 
-    console.log("swss")
+
     this.dashboard.nativeElement.classList.add('visualizzaChat')
 
   }
@@ -158,7 +158,7 @@ export class ChatComponent implements OnInit, AfterContentChecked{
 
   getLavoratoriByIdAnnuncio(id: number){
 
-    console.log(id)
+
 
     this.chatService.getLavoratoriByIdAnnuncio(id).subscribe(data =>{
 

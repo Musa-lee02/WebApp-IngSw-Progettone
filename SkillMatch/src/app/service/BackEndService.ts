@@ -66,7 +66,7 @@ export class BackEndService{
     this.http.post<AuthToken>(this.url + "/login",utente,{withCredentials: true})
       .subscribe(response => {
         this.setToken(response.token);
-        console.log(this.getToken())
+
 
       });
   }
@@ -86,7 +86,7 @@ export class BackEndService{
 
         this.router.navigate(["/Profilo"]);
       },(error) =>{
-        console.log("errore da gestire?: (password od username non valide)" + error) //TODO
+        console.log(" (password od username non valide)" + error) //TODO
       });
 
   }
@@ -104,12 +104,12 @@ export class BackEndService{
         localStorage.setItem("utente", JSON.stringify(response.cliente));
         localStorage.setItem("scelta", "cliente")
 
-        console.log(this.getToken())
-        console.log(localStorage.getItem("utente"))
+
+
 
         this.router.navigate(["/Profilo"]);
       },(error) =>{
-        console.log("errore da gestire?: (password od username non valide)" + error) //TODO
+        console.log("(password od username non valide)" + error) //TODO
       });
   }
 
@@ -137,7 +137,7 @@ export class BackEndService{
   }
 
   public CheckExistenceGoogleAccount(utente : UtenteCredenziali): Observable<boolean> {
-    console.log("utente is: " + utente.username)
+
 
     return this.http.post<boolean>(this.url+"/signup/google/checkExistence", utente);
 
@@ -156,7 +156,7 @@ export class BackEndService{
 
   public postSignUpCliente(stringa :string):Observable<string>{
 
-    console.log(this.url)
+
     return this.http.post<string>(this.url+"/data/cliente/signUp",stringa);
   }
 
@@ -201,7 +201,7 @@ export class BackEndService{
     }
     formData.append('token', this.getToken()!);
 
-    console.log(annuncio)
+
     return this.http.post<Boolean>(
       this.url + "/annuncio/insertNewAnnuncio",
       formData

@@ -56,7 +56,7 @@ export class ChatService{
     }
     formData.append('token', this.getToken()!);
 
-    console.log("Annuncio & Image sended")
+
 
     return this.http.post<Boolean>(
       this.url + "/annuncio/insertNewAnnuncio",
@@ -66,7 +66,7 @@ export class ChatService{
 
   public inviaMessaggio(messaggio : Messaggio){
 
-      console.log(messaggio.isLavoratore)
+
       this.http.post<boolean>(this.url+"/chat/inviaMessaggio", messaggio).subscribe(response =>
         console.log(response)
       )

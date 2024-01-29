@@ -44,7 +44,7 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
   public goToAccount() {
 
     this.backEndService.completeSignUp(this.utente, this.scelta).subscribe(response => {
-      console.log("response is :" + response)
+
       if (response) {
         const utenteCredenziali : UtenteCredenziali ={
           password: this.utente.password,
@@ -56,7 +56,7 @@ export class RiepilogoDatiComponent implements AfterContentChecked{
 
         }else {
 
-          console.log(utenteCredenziali)
+
           this.backEndService.loginLavoratore(utenteCredenziali)
 
         }

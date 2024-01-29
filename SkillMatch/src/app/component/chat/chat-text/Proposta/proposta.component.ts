@@ -33,15 +33,14 @@ export class PropostaComponent implements AfterContentChecked, OnInit{
       prezzo: new FormControl(null, Validators.required)
 
     })
-    console.log(this.proposta)
-    console.log(this.entita)
+
   }
 
 
 
   ngAfterContentChecked(): void {
 
-    //console.log(this.proposta)
+
 
   }
   alertConferma(){
@@ -95,7 +94,7 @@ export class PropostaComponent implements AfterContentChecked, OnInit{
       prezzo: this.propostaForm.get("prezzo")?.value,
       data: this.propostaForm.get("data")?.value
     }
-    console.log(proposta)
+
 
     Swal.fire({
       title: "Sei sicuro di voler inviare la proposta? il processo è irreversibile",
