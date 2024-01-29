@@ -22,30 +22,29 @@ public class AnnuncioController {
 
     private final ImageServiceImpl imageService = new ImageServiceImpl();
 
-    //Funziona
+
     @GetMapping("/getAnnunci")
     public List<Annuncio> getAnnunci(){
-        System.out.println(DBManager.getInstance().getAnnuncioDao().findAll().size());
         return DBManager.getInstance().getAnnuncioDao().findAll();
     }
 
-    //Funziona
+
     @PostMapping("/insertNewAnnuncio")
     public ResponseEntity<Boolean> insertNewAnnuncio(@RequestPart("annuncio") Annuncio annuncio, @RequestPart(value = "img", required = false) MultipartFile img, @RequestPart(value = "token") String token){
         return ResponseEntity.ok(imageService.insertAnnuncioAndImage(annuncio, img, token));
     }
 
-    //TODO da testare
+
     @PostMapping("/modifyAnnuncio")
     public void modifyAnnuncio(@RequestBody Annuncio annuncio){
         DBManager.getInstance().getAnnuncioDao().saveOrUpdate(annuncio);
     }
 
-    //non so se si possono mettere 2 parametri requestbody e non so come generare http per 2 parametri
+
     @GetMapping("/getAnnunciByAmbitoEZona")
     public List<Annuncio> getAnnunciByAmbitoEZona(@RequestParam String ambito, @RequestParam String provincia){
 
-        System.out.println(ambito+provincia);
+
 
         List<Annuncio> annunci = new LinkedList<>();
 
@@ -67,7 +66,7 @@ public class AnnuncioController {
 
     }
 
-    //Funziona
+
     @GetMapping("/getAnnunciWithToken/{token}")
     public List<Annuncio> getAnnunciWithToken(@PathVariable("token") String token){
 
@@ -77,11 +76,6 @@ public class AnnuncioController {
     @GetMapping("/getAnnunciWithTokenLavoratore/{token}")
 
     public List<Annuncio> getAnnunciWithTokenLavoratore(@PathVariable("token") String token){
-
-
-        for(Annuncio annuncio : DBManager.getInstance().getAnnuncioDao().findByLavoratore(TokenManager.verificaToken(token))){
-            System.out.println(annuncio.getId());
-        }
         return DBManager.getInstance().getAnnuncioDao().findByLavoratore(TokenManager.verificaToken(token));
     }
 
@@ -92,7 +86,7 @@ public class AnnuncioController {
         return DBManager.getInstance().getAnnuncioDao().getAnnunciWithChat(TokenManager.verificaToken(token));
     }
 
-    // In teoria andrebbe fatto col token
+
     @PostMapping("/getAnnunciByUsernameCliente")
     public List<Annuncio> getAnnunciByUsernameCliente(@RequestBody Cliente cliente){
         return DBManager.getInstance().getAnnuncioDao().findByForeignKeyCliente(cliente.getUsername());
@@ -100,11 +94,6 @@ public class AnnuncioController {
 
     @GetMapping("/getAnnunciFinalizzati/{token}")
     public List<Annuncio> getAnnunciFinalizzati(@PathVariable("token") String token){
-
-        for(Annuncio annuncio : DBManager.getInstance().getAnnuncioDao().getAnnunciFinalizzati(TokenManager.verificaToken(token)))
-        {
-            System.out.println(annuncio);
-        }
         return DBManager.getInstance().getAnnuncioDao().getAnnunciFinalizzati(TokenManager.verificaToken(token));
     }
 

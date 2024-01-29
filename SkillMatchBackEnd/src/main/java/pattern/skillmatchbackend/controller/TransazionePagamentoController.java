@@ -14,7 +14,6 @@ import pattern.skillmatchbackend.persistenza.DBManager;
 @RequestMapping("/transazionepagamento")
 public class TransazionePagamentoController {
 
-    //TODO da testare
     @PostMapping("/doTransazionePagamento")
     public void doTransazionePagamento(TransazionePagamento transazionePagamento){
         DBManager.getInstance().getTransazionePagamentoDao().saveOrUpdate(transazionePagamento);

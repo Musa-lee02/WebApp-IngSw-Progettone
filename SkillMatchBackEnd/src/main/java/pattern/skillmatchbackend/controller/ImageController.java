@@ -23,7 +23,6 @@ public class ImageController {
 
     private final String relativePath = "SkillMatchBackEnd/src/main/resources/image/";
 
-    //Testato e funzionante
     @GetMapping("/{imageName}")
     public ResponseEntity<Resource> getImageById(@PathVariable("imageName") String imageName) {
 

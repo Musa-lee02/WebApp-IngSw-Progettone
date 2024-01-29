@@ -56,17 +56,13 @@ public class SignUpController {
     @PostMapping("/google/checkExistence")
     public boolean checkExistenceGoogleAccount(@RequestBody String username) {
         boolean presente = DBManager.getInstance().getUtenteDao().isUsernameTaken(username);
-        System.out.println(presente);
+
         return presente;
     }
 
 
     @PostMapping("/completeRegistration/Lavoratore")
     public boolean completeRegistrationLavoratore(@RequestPart(value = "lavoratore", required = false) Lavoratore lavoratore, @RequestPart(value = "img", required = false) MultipartFile img) {
-
-        /*for (Ambito a : lavoratore.getAmbiti()) {
-            System.out.println("id:" + a.getId() + "nome:" + a.getNome());
-        }*/
 
         if(imageService.insertNewLavoratoreAccountAndImage(lavoratore, img)){
 

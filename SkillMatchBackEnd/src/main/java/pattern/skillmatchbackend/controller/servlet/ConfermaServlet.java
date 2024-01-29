@@ -23,7 +23,6 @@ public class ConfermaServlet extends HttpServlet {
 
         String token = req.getParameter("token");
         String tokenGenerato = TokenManager.verificaToken(token);
-        System.out.println("token: " + tokenGenerato);
 
         switch(tokenGenerato){
 

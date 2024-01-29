@@ -25,5 +25,5 @@ public class NotificaController {
         return DBManager.getInstance().getNotificaDao().findByForeignKeyCliente(lavoratore.getUsername());
 
     }
-////
+
 }

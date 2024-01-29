@@ -13,7 +13,7 @@ import pattern.skillmatchbackend.persistenza.DBManager;
 public class PropostaController {
 
     /*
-    //TODO da testare
+
     @PostMapping("setStatoProposta")
     public void setStatoProposta(@RequestBody Proposta proposta){
         proposta.setStato("qui_andrebbe_lo_stato"); //Oppure lo stato si potrebbe mettere come paramentro, oppure si potrebbe modificare dal frontend e salvare direttamente nel db
@@ -22,7 +22,7 @@ public class PropostaController {
      */
 
     /*
-    //TODO da testare
+
     @GetMapping("getStatoProposta")
     public String getStatoProposta(@RequestBody Lavoratore lavoratore){
         return DBManager.getInstance().getPropostaDao().findByForeignKeyLavoratore(lavoratore.getUsername()).getStatus();

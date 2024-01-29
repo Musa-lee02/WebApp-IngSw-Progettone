@@ -22,8 +22,6 @@ public class DataController {
     @PostMapping("/cliente/signUp")
     public ResponseEntity<String> registerStep1(@RequestBody String cliente , HttpSession session) {
 
-        System.out.println("ciao");
-
         return ResponseEntity.ok().body("ok");
     }
 }

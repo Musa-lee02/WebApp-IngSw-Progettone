@@ -17,7 +17,6 @@ public class PaymentController {
         PaymentStrategy paymentStrategy = paymentStrategyFactory.getPaymentStrategy(paymentMethod);
         paymentContext.setPaymentStrategy(paymentStrategy);
         String session = paymentContext.processPayment(paymentRequest);
-        System.out.println(session);
         return session;
     }
 }

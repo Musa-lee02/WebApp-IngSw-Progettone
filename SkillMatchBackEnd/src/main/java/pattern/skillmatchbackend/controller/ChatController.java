@@ -14,7 +14,7 @@ public class ChatController {
     @PostMapping("/inviaMessaggio")
     public boolean InviaMessaggio(@RequestBody Messaggio messaggio){
 
-        System.out.println(messaggio.isLavoratore()+" "+messaggio.isInviato());
+
         DBManager.getInstance().getMessaggioDao().saveOrUpdate(messaggio);
 
         return true;
