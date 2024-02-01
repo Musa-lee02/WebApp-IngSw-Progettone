@@ -137,7 +137,7 @@ export class ChatTextComponent implements OnInit, OnChanges, OnDestroy, AfterCon
     let proposta : Proposta={
       annuncioRelativo: this.chat.annuncio,
       dataLavoro: propostaParametri.data,
-      descrizione: propostaParametri.data,
+      descrizione: propostaParametri.descrizione,
       lavoratore: this.chat.lavoratore,
       prezzoLavoro: propostaParametri.prezzo,
       stato: "inCorso",

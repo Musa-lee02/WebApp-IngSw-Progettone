@@ -12,11 +12,10 @@
     <div class="pannelloRecensioni">
 
     <ng-container *ngFor="let annuncio of annunci">
-        <div class="containerRecensioni" *ngIf="annuncio.stato==='accettata'">
-            {{setPropostaAccettata(annuncio.id)}}
-            <div class="divImg"><img src={{getPropostaAccettataImg()}}></div>
+        <div class="containerRecensioni">
+            <div class="divImg"><img src="{{annuncio.image}}"></div>
             <div class="recensioniArea">
-                <div class="divNome"><h1>{{getPropostaAccettataNome()}}</h1></div>
+                <div class="divNome"><h1>{{annuncio.cliente.username}}</h1></div>
                 <div class="divRelativo"><h2>Relativo all'annuncio:{{annuncio.titolo}}</h2></div>
                 <div class="divRecensione"><textarea></textarea></div>
                 <div class="divButton">

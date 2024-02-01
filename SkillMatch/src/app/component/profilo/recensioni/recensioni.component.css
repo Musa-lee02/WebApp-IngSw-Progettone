@@ -31,6 +31,7 @@
     max-height: 0;
     transition: 1s max-height ease-in-out;
 }
+
 .recensioniBtn, .recensioni2Btn{
 
     display: none;

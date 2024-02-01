@@ -3,6 +3,8 @@ import { ServizioAnnunciService } from '../../../service/servizio-annunci.servic
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import {ActivatedRoute} from "@angular/router";
 import {BackEndService} from "../../../service/BackEndService";
+import {AnnuncioService} from "../../../service/AnnuncioService";
+import {Annuncio} from "../../../model/Annuncio";
 
 @Component({
   selector: 'app-recensioni',
@@ -11,9 +13,9 @@ import {BackEndService} from "../../../service/BackEndService";
 })
 export class RecensioniComponent implements OnInit {
 
-  constructor (private backEndService : BackEndService, private service : ServizioAnnunciService, private route: ActivatedRoute){}
+  constructor (private backEndService : BackEndService, private annunciService : AnnuncioService, private route: ActivatedRoute){}
   starImg: string = "../../assets/star.png";
-  annunci:any
+  annunci:Annuncio[]
   propostaAccettata: any
   ArrowDown=faArrowDown
   starsClicked: boolean = false
@@ -21,7 +23,14 @@ export class RecensioniComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.annunciService.getAnnunciFinalizzati().subscribe(data =>{
 
+
+      this.annunci=data;
+      console.log(this.annunci)
+      console.log(this.entita)
+
+    })
     this.entita=localStorage.getItem("scelta")
     console.log(this.entita)
     if(this.route.snapshot.paramMap.get('Entita')){

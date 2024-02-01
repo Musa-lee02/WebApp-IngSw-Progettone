@@ -8,7 +8,7 @@
 
 
   <div class="footer"><span class="prezzo"><h4>Prezzo:<input formControlName="prezzo"> €</h4></span>
-    <span class="data"><h4>data: <input formControlName="data"></h4></span></div>
+    <span class="data"><h4>data: <input formControlName="data"></h4><h5>YYYY-MM-DD</h5></span></div>
 
   <div class="button" ><button type="submit" [disabled]="!isFormPropostaValid()"
     [ngClass]="{'buttonColorValid': isFormPropostaValid(),'buttonColorInvalid': !isFormPropostaValid()}">
