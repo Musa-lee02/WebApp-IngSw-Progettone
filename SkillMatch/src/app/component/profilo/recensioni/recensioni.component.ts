@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {BackEndService} from "../../../service/BackEndService";
 import {AnnuncioService} from "../../../service/AnnuncioService";
 import {Annuncio} from "../../../model/Annuncio";
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-recensioni',
@@ -20,6 +21,10 @@ export class RecensioniComponent implements OnInit {
   ArrowDown=faArrowDown
   starsClicked: boolean = false
   entita: string | null
+
+  nuovaRecensione:FormGroup
+
+  starVoto : number
 
   ngOnInit(): void {
 
@@ -67,18 +72,21 @@ export class RecensioniComponent implements OnInit {
 
   setStarsClicked(voto : number){
 
-    if(this.starsClicked){
-      this.starsClicked=false
-      voto=0
-
-    }
-    else
-    this.starsClicked=true
+    this.starsClicked = !this.starsClicked;
+    this.starVoto = this.starsClicked ? voto : 0;
+    console.log(this.starVoto);
 
   }
   isStarsClicked(){
 
     return this.starsClicked
+  }
+
+  insertDescrizione(descrizione: Event): void {
+      const target = descrizione.target as HTMLTextAreaElement;
+      const valoreTextArea = target.value;
+      console.log(valoreTextArea); // Stampa il valore della textarea
+      // Puoi fare qualcosa con il valore ottenuto, ad esempio assegnarlo a una variabile o elaborarlo in qualche modo
   }
   getEntita(){
 
