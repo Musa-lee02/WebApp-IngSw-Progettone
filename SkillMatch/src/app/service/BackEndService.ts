@@ -11,6 +11,7 @@ import { Annuncio } from '../model/Annuncio';
 import { LoginLavoratoreDto } from '../model/LoginLavoratoreDto';
 import { LoginClienteDto } from '../model/LoginClienteDto';
 import { Proposta } from '../model/Proposta';
+import {Recensione} from "../model/Recensione";
 
 
 declare var window: any;
@@ -43,7 +44,6 @@ export class BackEndService{
     localStorage.removeItem("scelta");
     localStorage.removeItem("utente")
   }
-
 
 
   checkAuthentication(){
@@ -208,6 +208,26 @@ export class BackEndService{
     );
   }
 
+  insertRecensione(recensione: Recensione) {
+
+    const recensioneBlob = new Blob([JSON.stringify(recensione)], {type: 'application/json'});
+    const formData = new FormData();
+
+     formData.append('recensione', recensioneBlob);
+     /*
+      if (image != null) {
+        formData.append('img', image);
+      }*/
+      formData.append('token', this.getToken()!);
+
+      console.log(recensione)
+      return this.http.post<Boolean>(
+        this.url + "/recensione/insertRecensione",
+        formData
+      );
+
+  }
+
 
   // Funziona
   public getAnnunciWithToken(): Observable<Annuncio[]>{
@@ -269,5 +289,6 @@ export class BackEndService{
     public getAmbiti(): Observable<Ambito[]>{
       return this.http.get<Ambito[]>(this.url+"/ambito/getAmbiti");
     }
+
 
 }
