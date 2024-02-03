@@ -28,7 +28,6 @@ public class SkillMatchBackEndApplication {
 				Ambito ambito = new Ambito();
 				ambito.setNome(ambiti[i]);
 				DBManager.getInstance().getAmbitoDao().saveOrUpdate(ambito);
-
 			}
 		}
  */

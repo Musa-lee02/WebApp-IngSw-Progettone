@@ -12,8 +12,6 @@ import java.util.List;
 @RequestMapping("/lavoratore")
 public class LavoratoreController {
 
-
-
     //TODO da testare
     @GetMapping("getLavoratorePunteggio")
     public int getLavoratorePunteggio(@RequestBody Lavoratore lavoratore){

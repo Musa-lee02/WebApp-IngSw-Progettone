@@ -209,25 +209,15 @@ export class BackEndService{
   }
 
   public insertRecensione(recensione: Recensione) {
-  console.log("recensione in invio al backend 1: " + recensione)
-    /*
-    const recensioneBlob = new Blob([JSON.stringify(recensione)], {type: 'application/json'});
-    const formData = new FormData();
-
-     formData.append('recensione', recensioneBlob);
-
-      if (image != null) {
-        formData.append('img', image);
-      }
-      formData.append('token', this.getToken()!);
-      */
-      console.log("recensione in invio al backend 2 : " + recensione.descrizione)
+  //console.log("recensione in invio al backend 1: " + recensione)
+      //console.log("recensione in invio al backend 2 : " + recensione.descrizione)
       return this.http.post<Boolean>(
         this.url + "/recensione/insertRecensione",
         recensione
       );
 
   }
+
 
 
   // Funziona

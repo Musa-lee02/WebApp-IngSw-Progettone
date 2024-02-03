@@ -15,16 +15,28 @@ public class RecensioneController {
 
 
     //TODO da testare
-    @GetMapping("/getAnnunciWithToken/{token}")
+    @GetMapping("/getRecensioniWithToken/{token}")
     public List<Recensione> getRecensioniLavoratore(@PathVariable("token") String token){
         System.out.println("get RecensioneLavoratore: " + TokenManager.verificaToken(token));
         for (  Recensione recensione: DBManager.getInstance().getRecensioneDao().findByForeignKeyLavoratore(TokenManager.verificaToken(token))
              ) {
-            System.out.println(recensione.getTitolo());
+            System.out.println("titolo: "  + recensione.getTitolo());
 
         }
         return DBManager.getInstance().getRecensioneDao().findByForeignKeyLavoratore(TokenManager.verificaToken(token));
     }
+
+    /*
+    @GetMapping("/getRecensioniLavoratore")
+    public List<Recensione> getRecensioniUSRLavoratore(@RequestParam String usrLavoratore){
+        System.out.println("get RecensioneLavoratore: " + usrLavoratore);
+        for (  Recensione recensione: DBManager.getInstance().getRecensioneDao().findByForeignKeyLavoratore(usrLavoratore)
+        ) {
+            System.out.println("descrizione: "  + recensione.getDescrizione());
+
+        }
+        return DBManager.getInstance().getRecensioneDao().findByForeignKeyLavoratore(usrLavoratore);
+    }*/
 
 
     //TODO da testare

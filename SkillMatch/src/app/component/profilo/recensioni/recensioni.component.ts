@@ -38,41 +38,28 @@ export class RecensioniComponent implements OnInit {
   ArrowDown=faArrowDown
   starsClicked: boolean = false
   entita: string | null
-
-  annuncioSelezionato : Annuncio | undefined
-
-  nuovaRecensione:FormGroup
-
+  recensioniLavoratore: RecensioneType[]
 
   ngOnInit(): void {
 
     this.annunciService.getAnnunciFinalizzati().subscribe(data =>{
 
-
       this.annunci=data;
       console.log(this.annunci)
-      console.log(this.entita)
 
     })
     this.entita=localStorage.getItem("scelta")
-    console.log(this.entita)
-    if(this.route.snapshot.paramMap.get('Entita')){
+   //console.log("Entità " + this.entita)
 
-      this.entita=this.route.snapshot.paramMap.get('Entita')!;
-      if(this.entita==="Cliente")
-        this.entita=="Cliente";
-      if(this.entita==="Lavoratore")
-        this.entita=="Lavoratore";
+    if(this.entita==="lavoratore"){
+
+        this.annunciService.getRecensioniLavoratore().subscribe(data =>{
+            this.recensioniLavoratore=data
+            console.log("Recensioni del lavoratore: " + this.recensioniLavoratore[0].punteggio)
+
+        })
+
     }
-/*
-    this.recensioneForm = new FormGroup({
-      idRecensione: new FormControl(null,Validators.required),
-      titolo: new FormControl(null,Validators.required),
-      descrizione: new FormControl(null,Validators.required),
-      punteggio: new FormControl(null,Validators.required),
-      lavoratore: new FormControl(null,Validators.required),
-      cliente: new FormControl(null,Validators.required),
-    })*/
 
 
     this.recensioneT = {
@@ -141,6 +128,7 @@ export class RecensioniComponent implements OnInit {
 
 
   setStarsClicked(voto : number, annuncioSel : Annuncio | undefined){
+
 
     console.log(voto);
     this.starsClicked = !this.starsClicked;

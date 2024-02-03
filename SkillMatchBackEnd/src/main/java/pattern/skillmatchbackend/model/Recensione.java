@@ -14,7 +14,6 @@ public class Recensione{
 
 
     public Long getIdRecensione() {
-        System.out.println("RecensioneId: " + idRecensione);
         return idRecensione;
     }
 

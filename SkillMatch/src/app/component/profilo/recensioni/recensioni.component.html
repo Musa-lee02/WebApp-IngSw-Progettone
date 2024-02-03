@@ -37,7 +37,7 @@
     </ng-container>
 </div>
 </div>
-<div class="pannelloRecensioniConcluse" *ngIf="this.entita==='lavoratore'" >
+<div class="pannelloRecensioniConcluse" *ngIf="this.entita==='lavoratore'">
     <div class="pannelloTitolo">
         <h1 >LE TUE RECENSIONI</h1>
 
@@ -46,8 +46,18 @@
 
     </div>
     <div class="pannelloRecensioni">
-
-    </div>
+    <ng-container *ngFor="let recensione of recensioniLavoratore">
+        <div class="containerRecensioni">
+            <!-- div class="divImg"><img src="{{recensione.lavoratore}}"></div -->
+            <div class="recensioniArea">
+                <div class="divNome"><h1>Autore: {{recensione.cliente?.username}}</h1></div>
+                <div class="divRelativo"><h1>Descrizione: {{recensione.descrizione}}</h1></div>
+                <div class="divRelativo"><h1>Punteggio: {{recensione.punteggio}}</h1></div>
+                <!-- div class="divRelativo"><h2>Relativo all'annuncio {{recensione.lavoratore?.username}}</h2></div-->
+            </div>
+        </div>
+    </ng-container>
 
 </div>
 </div>
+
