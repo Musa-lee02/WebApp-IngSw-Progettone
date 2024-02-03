@@ -31,6 +31,14 @@ public class LavoratoreController {
         return DBManager.getInstance().getLavoratoreDao().getLavoratori(id);
     }
 
+    @GetMapping("/getLAVORATOREByIdAnnuncio")
+    public Lavoratore getLAVORATOREByIdAnnuncio(@RequestParam long id){
+        //System.out.println(id);
+        Lavoratore lav = DBManager.getInstance().getLavoratoreDao().getLavoratoreByIdAnnuncio(id);
+        //System.out.println(lav.getUsername());
+        return DBManager.getInstance().getLavoratoreDao().getLavoratoreByIdAnnuncio(id);
+    }
+
 
 
 }

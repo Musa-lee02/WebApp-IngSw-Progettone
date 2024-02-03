@@ -21,5 +21,7 @@ public interface LavoratoreDao {
 
     public List<Lavoratore> getLavoratori(long idAnnuncio);
 
+    public Lavoratore getLavoratoreByIdAnnuncio(long idAnnuncio);
+
 
 }

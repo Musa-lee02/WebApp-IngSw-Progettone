@@ -35,8 +35,8 @@ public class RecensioneDaoPostgres implements RecensioneDao {
                 recensione.setTitolo(rs.getString("titolo"));
                 recensione.setDescrizione(rs.getString("descrizione"));
                 recensione.setPunteggio(rs.getInt("punteggio"));
-                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
-                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
+                recensione.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                recensione.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
                 recensioni.add(recensione);
             }
 
@@ -62,8 +62,8 @@ public class RecensioneDaoPostgres implements RecensioneDao {
                 recensione.setTitolo(rs.getString("titolo"));
                 recensione.setDescrizione(rs.getString("descrizione"));
                 recensione.setPunteggio(rs.getInt("punteggio"));
-                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
-                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
+                recensione.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                recensione.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
             }
 
         } catch (SQLException e) {
@@ -77,12 +77,13 @@ public class RecensioneDaoPostgres implements RecensioneDao {
 
         String query = "INSERT INTO recensione VALUES (?, ?, ?, ?, ?, ?)";
 
-        if (findByPrimaryKey(recensione.getIdRecensione()) != null)
+        if (recensione.getIdRecensione() != -1)
             query = "UPDATE recensione " +
                     "SET id_recensione = ?, titolo = ?, descrizione = ?, punteggio = ?, username_cliente = ?, username_lavoratore = ? " +
                     "WHERE id_recensione = ?";
         else
             recensione.setIdRecensione(IdBroker.getId(conn));
+
 
         try {
 
@@ -92,13 +93,13 @@ public class RecensioneDaoPostgres implements RecensioneDao {
             st.setString(2, recensione.getTitolo());
             st.setString(3, recensione.getDescrizione());
             st.setInt(4, recensione.getPunteggio());
-            st.setString(4, recensione.getRecensore().getUsername());
-            st.setString(5, recensione.getRecensito().getUsername());
-            st.setLong(6, recensione.getIdRecensione());
+            st.setString(5, recensione.getCliente().getUsername());
+            st.setString(6, recensione.getLavoratore().getUsername());
 
             if(query.startsWith("UPDATE"))
                 st.setLong(7,recensione.getIdRecensione());
 
+            System.out.println("Query rec: " + st.toString());
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -146,8 +147,8 @@ public class RecensioneDaoPostgres implements RecensioneDao {
                 recensione.setTitolo(rs.getString("titolo"));
                 recensione.setDescrizione(rs.getString("descrizione"));
                 recensione.setPunteggio(rs.getInt("punteggio"));
-                recensione.setRecensore(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
-                recensione.setRecensito(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
+                recensione.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                recensione.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
                 recensioni.add(recensione);
             }
 

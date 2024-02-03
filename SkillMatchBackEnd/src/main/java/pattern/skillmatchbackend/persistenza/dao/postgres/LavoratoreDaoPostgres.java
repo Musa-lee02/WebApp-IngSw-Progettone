@@ -189,4 +189,36 @@ public class LavoratoreDaoPostgres  implements LavoratoreDao  {
         return DBManager.getInstance().getUtenteDao().isEmailTaken(email);
 
     }
+
+    @Override
+    public Lavoratore getLavoratoreByIdAnnuncio(long idAnnuncio) {
+
+        Lavoratore lavoratore = null;
+        String query = "SELECT lavoratore.username, lavoratore.provincia_lavoro, lavoratore.notifica_email,lavoratore.punteggio " +
+                " FROM proposta,annuncio,lavoratore " +
+                "WHERE annuncio.id_annuncio = ? AND annuncio.id_annuncio = proposta.id_annuncio " +
+                "AND proposta.stato = 'accettata' AND lavoratore.username = proposta.username_lavoratore";
+
+
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setLong(1, idAnnuncio);
+            ResultSet rs = st.executeQuery();
+
+            if(rs.next()) {
+
+                lavoratore = new Lavoratore(DBManager.getInstance().getUtenteDao().findByPrimaryKey(rs.getString("username")));
+                lavoratore.setProvinciaLavoro(rs.getString("provincia_lavoro"));
+                lavoratore.setNotifica_email(rs.getBoolean("notifica_email"));
+                lavoratore.setPunteggio(rs.getInt("punteggio"));
+                lavoratore.setAmbiti(DBManager.getInstance().getAmbitoDao().findByLavoratore(lavoratore.getUsername()));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lavoratore;
+    }
+
 }

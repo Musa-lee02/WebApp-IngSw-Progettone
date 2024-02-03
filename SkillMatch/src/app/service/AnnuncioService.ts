@@ -78,11 +78,14 @@ export class AnnuncioService{
 
 
   public getAnnunciFinalizzati(): Observable<Annuncio[]>{
-
-
     return this.http.get<Annuncio[]>(this.url+"/annuncio/getAnnunciFinalizzati/"+this.getToken())
 
   }
+  public getLavoratoreAnnuncio(id:number) : Observable<Lavoratore>{
+
+    return this.http.get<Lavoratore>(this.url+"/lavoratore/getLAVORATOREByIdAnnuncio?id="+id)
+  }
+
 
 
 

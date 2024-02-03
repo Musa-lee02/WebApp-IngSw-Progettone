@@ -5,23 +5,23 @@ import {ActivatedRoute} from "@angular/router";
 import {BackEndService} from "../../../service/BackEndService";
 import {AnnuncioService} from "../../../service/AnnuncioService";
 import {Annuncio} from "../../../model/Annuncio";
-import {FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 import  {Recensione} from "../../../model/Recensione";
 import {Ambito} from "../../../model/Ambito";
 import {Province} from "../../../model/Province";
-
+import {Lavoratore} from "../../../model/Lavoratore";
+import {Cliente} from "../../../model/Cliente";
 
 type RecensioneType = {
-  id: number
+  idRecensione: number
   titolo: string
   descrizione: string
-  voto: number
-  usrCliente: string
-  usrLavoratore: string
-
-
+  punteggio: number
+  lavoratore: Lavoratore | undefined
+  cliente: Cliente | undefined
 }
+
 @Component({
   selector: 'app-recensioni',
   templateUrl: './recensioni.component.html',
@@ -32,7 +32,8 @@ export class RecensioniComponent implements OnInit {
   constructor (private backEndService : BackEndService, private annunciService : AnnuncioService, private route: ActivatedRoute){}
   starImg: string = "../../assets/star.png";
   annunci:Annuncio[]
-  recensione : RecensioneType
+  recensioneT : RecensioneType
+  recensioneForm: FormGroup
   propostaAccettata: any
   ArrowDown=faArrowDown
   starsClicked: boolean = false
@@ -63,15 +64,52 @@ export class RecensioniComponent implements OnInit {
       if(this.entita==="Lavoratore")
         this.entita=="Lavoratore";
     }
+/*
+    this.recensioneForm = new FormGroup({
+      idRecensione: new FormControl(null,Validators.required),
+      titolo: new FormControl(null,Validators.required),
+      descrizione: new FormControl(null,Validators.required),
+      punteggio: new FormControl(null,Validators.required),
+      lavoratore: new FormControl(null,Validators.required),
+      cliente: new FormControl(null,Validators.required),
+    })*/
 
-    this.recensione = {
-      id: 0,
-      titolo: "",
-      descrizione: "",
-      voto: 0,
-      usrCliente: "",
-      usrLavoratore: ""
+
+    this.recensioneT = {
+        idRecensione: -1,
+        titolo: "",
+        descrizione: "",
+        punteggio: 0,
+        lavoratore: {
+          provinciaLavoro: "",
+          ambiti: [],
+          notificaEmail: false,
+          punteggio: 0,
+          username: '',
+          email: '',
+          password: '',
+          nome: '',
+          cognome: '',
+          dataNascita: new Date(),
+          provincia: '',
+          imgProfilo: undefined,
+          registrato: false,
+          dataRegistrazione: new Date()
+        },
+        cliente: {
+          username: "",
+          password: "",
+          email: "",
+          nome: "",
+          cognome: "",
+          provincia: "",
+          dataNascita: new Date(),
+          imgProfilo: undefined,
+          registrato: false,
+          dataRegistrazione: new Date()
+        }
     }
+
   }
 
   setPropostaAccettata(id :string){
@@ -96,34 +134,38 @@ export class RecensioniComponent implements OnInit {
     }
   }
 
+  isStarsClicked(){
+
+    return this.starsClicked
+  }
+
+
   setStarsClicked(voto : number, annuncioSel : Annuncio | undefined){
 
     console.log(voto);
     this.starsClicked = !this.starsClicked;
-    this.recensione.voto = this.starsClicked ? voto : 0;
-    this.annuncioSelezionato = annuncioSel;
-    console.log("Annuncio sel: " + this.annuncioSelezionato?.cliente.username)
-    console.log(this.recensione.voto);
-    console.log(this.propostaAccettata.username);
+    this.recensioneT.punteggio = this.starsClicked ? voto : 0;
+    this.recensioneT.cliente = annuncioSel?.cliente;
+    this.annunciService.getLavoratoreAnnuncio(annuncioSel?.id!).subscribe(data => {
+      this.recensioneT.lavoratore = data;
+    })
 
+    console.log("Ann id: " +this.recensioneT.lavoratore?.username)
 
-  }
-  isStarsClicked(){
-
-    return this.starsClicked
+    console.log("recensioneT.punteggio: " + this.recensioneT.punteggio)
+    console.log("recensioneT.lavora: " + annuncioSel?.proposta.descrizione)
   }
 
   insertDescrizione(descrizione: Event): void {
 
       const target = descrizione.target as HTMLTextAreaElement;
       const valoreTextArea = target.value;
-      this.recensione.descrizione = valoreTextArea;
+      this.recensioneT.titolo = valoreTextArea[0]; // titolo provvisorio
+      this.recensioneT.descrizione = valoreTextArea;
       console.log("Descrizione rec: " + valoreTextArea); // Stampa il valore della textarea
       // Puoi fare qualcosa con il valore ottenuto, ad esempio assegnarlo a una variabile o elaborarlo in qualche modo
   }
   getEntita(){
-
-
     return this.entita
   }
 
@@ -133,17 +175,24 @@ export class RecensioniComponent implements OnInit {
     if (this.starsClicked){
       console.log("entra")
 
-      const  recensione: Recensione = this.recensione
+      const  recensione: Recensione = {
+        idRecensione: this.recensioneT.idRecensione,
+        titolo: this.recensioneT.titolo,
+        descrizione: this.recensioneT.descrizione,
+        punteggio: this.recensioneT.punteggio,
+        lavoratore: this.recensioneT.lavoratore!,
+        cliente: this.recensioneT.cliente!
+      }
+
+      /*
 
       let usrLogged = localStorage.getItem("utente");
       const cliente =  JSON.parse(usrLogged!);
-      recensione.usrCliente = cliente.username
+      recensione.cliente.username = cliente.username*/
 
-      const usrLavoratore = this.annuncioSelezionato?.proposta.lavoratore.username
-      recensione.usrLavoratore = usrLavoratore!
-      console.log("recensione.usrCliente: " + recensione.usrCliente)
-      console.log("recensione.usrLavoratore: " + recensione.usrLavoratore)
 
+      console.log("recensione è: " + recensione.descrizione)
+      console.log("usr lavoratore: " + recensione.lavoratore.username)
 
       this.backEndService.insertRecensione(recensione).subscribe(
         (response) => {

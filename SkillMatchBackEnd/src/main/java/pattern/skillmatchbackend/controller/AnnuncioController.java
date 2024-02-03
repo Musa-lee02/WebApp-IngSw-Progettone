@@ -68,13 +68,13 @@ public class AnnuncioController {
     }
 
     //Funziona
-    @GetMapping("/getAnnunciWithToken/{token}")
+    @GetMapping("/getAnnunciWithToken/{token}") // devo vedere nel front come si chiama la func
     public List<Annuncio> getAnnunciWithToken(@PathVariable("token") String token){
 
         return DBManager.getInstance().getAnnuncioDao().findByForeignKeyCliente(TokenManager.verificaToken(token));
     }
 
-    @GetMapping("/getAnnunciWithTokenLavoratore/{token}")
+    @GetMapping("/getAnnunciWithTokenLavoratore/{token}")  // devo vedere nel front come si chiama la func
 
     public List<Annuncio> getAnnunciWithTokenLavoratore(@PathVariable("token") String token){
 

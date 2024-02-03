@@ -8,12 +8,13 @@ public class Recensione{
 
     private int punteggio;
 
-    private Cliente recensore;
+    private Cliente cliente;
 
-    private Lavoratore recensito;
+    private Lavoratore lavoratore;
 
 
     public Long getIdRecensione() {
+        System.out.println("RecensioneId: " + idRecensione);
         return idRecensione;
     }
 
@@ -45,19 +46,19 @@ public class Recensione{
         this.punteggio = punteggio;
     }
 
-    public Cliente getRecensore() {
-        return recensore;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setRecensore(Cliente recensore) {
-        this.recensore = recensore;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public Lavoratore getRecensito() {
-        return recensito;
+    public Lavoratore getLavoratore() {
+        return lavoratore;
     }
 
-    public void setRecensito(Lavoratore recensito) {
-        this.recensito = recensito;
+    public void setLavoratore(Lavoratore lavoratore) {
+        this.lavoratore = lavoratore;
     }
 }
