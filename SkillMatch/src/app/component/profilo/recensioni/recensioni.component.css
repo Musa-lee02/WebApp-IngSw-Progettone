@@ -89,7 +89,7 @@
     display: flex;
     flex-wrap: wrap;
     width: 75%;
-    background-color: green;
+    background-color: #f9faf9;
     border-radius: 20px;
     border: 1px solid black;
     overflow: hidden;
@@ -119,7 +119,7 @@
     display: flex;
     width: 100%;
     height: 60%;
-    background-color: blue;
+    background-color: #f0f0f3;
     align-items: center;
 }
 .divRecensione textarea{
@@ -149,6 +149,12 @@
     width: 26px;
     height: 25px;
     margin: 3px 10px
+}
+
+.starImgRecensito{
+  width: 26px;
+  height: 25px;
+  margin: 0;
 }
 .divStelle{
 

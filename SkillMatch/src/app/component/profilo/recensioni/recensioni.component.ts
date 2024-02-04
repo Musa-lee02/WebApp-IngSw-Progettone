@@ -31,6 +31,7 @@ export class RecensioniComponent implements OnInit {
 
   constructor (private backEndService : BackEndService, private annunciService : AnnuncioService, private route: ActivatedRoute){}
   starImg: string = "../../assets/star.png";
+  starBorderImg: string = "../../assets/starborder.png";
   annunci:Annuncio[]
   recensioneT : RecensioneType
   recensioneForm: FormGroup
@@ -39,6 +40,8 @@ export class RecensioniComponent implements OnInit {
   starsClicked: boolean = false
   entita: string | null
   recensioniLavoratore: RecensioneType[]
+
+  mediaRecensioniRicevute: string
 
   ngOnInit(): void {
 
@@ -56,6 +59,8 @@ export class RecensioniComponent implements OnInit {
         this.annunciService.getRecensioniLavoratore().subscribe(data =>{
             this.recensioniLavoratore=data
             console.log("Recensioni del lavoratore: " + this.recensioniLavoratore[0].punteggio)
+          this.mediaRecensioniRicevute = this.mediaRecensioni();
+
 
         })
 
@@ -119,6 +124,23 @@ export class RecensioniComponent implements OnInit {
 
       return this.propostaAccettata.username
     }
+  }
+
+  mediaRecensioni(){
+    let somma = 0;
+    for (let i = 0; i < this.recensioniLavoratore.length; i++){
+      somma += this.recensioniLavoratore[i].punteggio;
+    }
+    return  (somma / this.recensioniLavoratore.length).toFixed(1);
+
+  }
+  getRange(punteggio: number): number[] {
+    if (punteggio < 0) {
+      console.log( "Primo if: " +Array(5).fill(0))
+      return Array(5).fill(0)
+    }
+    console.log(Array(punteggio).fill(0))
+    return Array(punteggio).fill(0)
   }
 
   isStarsClicked(){
