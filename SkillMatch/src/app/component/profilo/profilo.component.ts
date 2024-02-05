@@ -88,7 +88,6 @@ export class ProfiloComponent implements OnInit {
     return this.getUtente().imgProfilo;
   }
 
-
   getUtente() : Lavoratore | Cliente{
     var utenteLogged = localStorage.getItem("utente");
     return JSON.parse(utenteLogged!);

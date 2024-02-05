@@ -30,7 +30,7 @@
     overflow: hidden;
     padding-top: 10px;
     background-image: linear-gradient(white,rgb(79, 60, 143));
-    /*max-height: 0; */ /* da risolvere, si bugga perchè nazza è scemo */
+    max-height: 0;  /* da risolvere, si bugga perchè nazza è scemo */
     transition: 1s max-height ease-in-out;
 }
 
@@ -39,9 +39,7 @@
     display: none;
 }
 .recensioniBtn:checked ~ .pannelloRecensioni{
-
     max-height:400px
-
 }
 .recensioni2Btn:checked ~ .pannelloRecensioni{
 

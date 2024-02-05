@@ -54,6 +54,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     if ('ambiti' in utenteL) {
         let ambiti = utenteL.ambiti;
         for (let i = 0; i < ambiti.length; i++) {
+          console.log("Ambito: " + ambiti[i].nome)
             let index = this.ambiti.findIndex(a => a.nome === ambiti[i].nome);
             if (index !== -1) {
                 let ambitoRimosso = this.ambiti.splice(index, 1)[0];
