@@ -57,7 +57,6 @@
     justify-content: center;
 }
 .containerRecensioni{
-
     display: flex;
     margin-top: 50px;
     width: 100%;
@@ -67,7 +66,6 @@
     font-size: 12px;
 }
 .containerRecensioni .divImg{
-
     width: 25%;
     height: fit-content;
 

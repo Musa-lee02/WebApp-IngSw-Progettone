@@ -13,7 +13,7 @@
                   [matAutocomplete]="ambitoAuto"
                   [(ngModel)]="selectedAmbito"
                   (ngModelChange)="ambitoClicked(selectedAmbito)">
-            <mat-autocomplete autoActiveFirstOption #ambitoAuto="matAutocomplete">
+            <mat-autocomplete #ambitoAuto="matAutocomplete">
               <ng-container *ngFor="let ab of ambiti">
                 <mat-option [value]="ab.nome">
                   <!-- Utilizza l'operatore ternario per cambiare il nome dell'opzione in base alla condizione -->
@@ -35,7 +35,7 @@
                  [matAutocomplete]="zonaAuto"
                  [(ngModel)]="selectedZona"
                  (ngModelChange)="zonaClicked(selectedZona)">
-          <mat-autocomplete autoActiveFirstOption #zonaAuto="matAutocomplete">
+          <mat-autocomplete #zonaAuto="matAutocomplete">
             <ng-container *ngFor="let pv of province">
               <mat-option [value]="pv.nome">
                 <!-- Utilizza l'operatore ternario per cambiare il nome dell'opzione in base alla condizione -->

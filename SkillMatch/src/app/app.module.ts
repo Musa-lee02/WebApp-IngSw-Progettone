@@ -102,6 +102,7 @@ import { RecensioniComponent } from './component/profilo/recensioni/recensioni.c
     MatCardModule,
     MatInputModule,
     MatButtonModule,
+    MatAutocompleteModule,
     FontAwesomeModule,
     ReactiveFormsModule,
     MatDatepickerModule,

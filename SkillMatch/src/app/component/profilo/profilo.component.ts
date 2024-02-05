@@ -12,6 +12,7 @@ import { Annuncio } from '../../model/Annuncio';
 import {AnnuncioService} from "../../service/AnnuncioService";
 
 
+
 @Component({
   selector: 'app-profilo',
   templateUrl: './profilo.component.html',
@@ -103,4 +104,7 @@ export class ProfiloComponent implements OnInit {
   }
 
 
+  vaiAlPagamento() {
+    console.log("vai al pagamento")
+  }
 }

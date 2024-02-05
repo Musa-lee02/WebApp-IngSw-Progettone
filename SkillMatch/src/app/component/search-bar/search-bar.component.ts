@@ -12,6 +12,7 @@ import {LavoratoreFieldService} from "../../service/LavoratoreFieldService";
 import {Cliente} from "../../model/Cliente";
 
 
+
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
