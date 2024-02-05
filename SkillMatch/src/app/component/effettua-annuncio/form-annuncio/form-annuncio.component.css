@@ -1,4 +1,8 @@
 
+*{
+  font-family: 'Montserrat', sans-serif;
+
+}
 .anteprimaAnnuncio{
     display: none;
 }
@@ -35,23 +39,23 @@
 
     height: 50%;
     width: 100%;
-   
+
 
 }
 .descrizioneANDbutton button{
-    
+
     background-color: rgb(157, 130, 221);
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
     border: 1px solid transparent;
-    border-radius: 8px; 
+    border-radius: 8px;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     cursor: pointer;
     margin-right: 20px;
-    
+
 
 }
 
@@ -84,18 +88,18 @@
     height: 100px;
 }
 .contenitoreB button{
-    
+
     background-color: rgb(106, 171, 211);
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
     border: 1px solid transparent;
-    border-radius: 8px; 
+    border-radius: 8px;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     cursor: pointer;
-    
+
 
 }
 .contenitoreA{

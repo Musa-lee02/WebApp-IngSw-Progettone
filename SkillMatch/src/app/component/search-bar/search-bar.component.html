@@ -13,10 +13,13 @@
                   [matAutocomplete]="ambitoAuto"
                   [(ngModel)]="selectedAmbito"
                   (ngModelChange)="ambitoClicked(selectedAmbito)">
-            <mat-autocomplete autoActiveFirstOption #ambitoAuto="matAutocomplete">
-              @for (ab of ambiti; track ab) {
-                <mat-option [value]="ab.nome">{{ab.nome}}</mat-option>
-              }
+            <mat-autocomplete #ambitoAuto="matAutocomplete">
+              <ng-container *ngFor="let ab of ambiti">
+                <mat-option [value]="ab.nome">
+                  <!-- Utilizza l'operatore ternario per cambiare il nome dell'opzione in base alla condizione -->
+                  {{ ab.consigliato ? ab.nome + ' (Consigliata)' : ab.nome }}
+                </mat-option>
+              </ng-container>
             </mat-autocomplete>
           <!-- /mat-select-->
           </mat-form-field>
@@ -24,7 +27,6 @@
 
       <div class="prova">
         <mat-form-field class="searchForm">
-          <!-- mat-select matAutocompleteOrigin="search" -->
           <mat-label>Zona di lavoro</mat-label>
           <input type="text"
                  placeholder="Scegli la tua zona"
@@ -33,14 +35,17 @@
                  [matAutocomplete]="zonaAuto"
                  [(ngModel)]="selectedZona"
                  (ngModelChange)="zonaClicked(selectedZona)">
-          <mat-autocomplete autoActiveFirstOption #zonaAuto="matAutocomplete">
-            @for (pv of province; track pv) {
-              <mat-option [value]="pv.nome">{{pv.nome}}</mat-option>
-            }
+          <mat-autocomplete #zonaAuto="matAutocomplete">
+            <ng-container *ngFor="let pv of province">
+              <mat-option [value]="pv.nome">
+                <!-- Utilizza l'operatore ternario per cambiare il nome dell'opzione in base alla condizione -->
+                {{ pv.consigliata ? pv.nome + ' (Consigliata)' : pv.nome }}
+              </mat-option>
+            </ng-container>
           </mat-autocomplete>
-        <!-- /mat-select-->
         </mat-form-field>
       </div>
+
 
       <div class="prova">
 

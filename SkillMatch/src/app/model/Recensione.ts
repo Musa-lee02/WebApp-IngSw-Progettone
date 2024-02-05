@@ -7,11 +7,12 @@ import {Province} from "./Province";
 
 export interface Recensione{
 
-  id: number
+  idRecensione: number
   titolo: string
   descrizione: string
-  voto: number
-  usrCliente: string
-  usrLavoratore: string
+  punteggio: number
+  lavoratore: Lavoratore
+  cliente: Cliente
+
 
 }

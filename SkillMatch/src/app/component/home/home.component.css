@@ -1,4 +1,8 @@
 
+*{
+  font-family: 'Montserrat', sans-serif;
+
+}
 .centered{
     gap: 70px;
     display: flex;

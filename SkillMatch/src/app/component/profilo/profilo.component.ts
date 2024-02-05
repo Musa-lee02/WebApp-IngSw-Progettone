@@ -12,6 +12,7 @@ import { Annuncio } from '../../model/Annuncio';
 import {AnnuncioService} from "../../service/AnnuncioService";
 
 
+
 @Component({
   selector: 'app-profilo',
   templateUrl: './profilo.component.html',
@@ -88,7 +89,6 @@ export class ProfiloComponent implements OnInit {
     return this.getUtente().imgProfilo;
   }
 
-
   getUtente() : Lavoratore | Cliente{
     var utenteLogged = localStorage.getItem("utente");
     return JSON.parse(utenteLogged!);
@@ -104,4 +104,7 @@ export class ProfiloComponent implements OnInit {
   }
 
 
+  vaiAlPagamento() {
+    console.log("vai al pagamento")
+  }
 }

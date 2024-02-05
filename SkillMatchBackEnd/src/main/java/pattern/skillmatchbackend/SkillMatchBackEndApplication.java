@@ -8,6 +8,8 @@ import pattern.skillmatchbackend.model.*;
 import pattern.skillmatchbackend.model.email.EmailSender;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
+import java.util.List;
+
 
 @SpringBootApplication
 @ServletComponentScan
@@ -26,15 +28,13 @@ public class SkillMatchBackEndApplication {
 				Ambito ambito = new Ambito();
 				ambito.setNome(ambiti[i]);
 				DBManager.getInstance().getAmbitoDao().saveOrUpdate(ambito);
-
 			}
-
+		}
+ */
+		List<Recensione> recList = DBManager.getInstance().getRecensioneDao().findByForeignKeyLavoratore("samu");
+		for (Recensione rec : recList){
+			 System.out.println(rec.getTitolo());
 
 		}
-
- */
-
-
-
 	}
 }

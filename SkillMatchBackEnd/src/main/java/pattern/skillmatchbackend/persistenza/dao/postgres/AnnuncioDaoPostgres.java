@@ -149,7 +149,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
-            System.out.println(st);
+            //System.out.println(st);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -178,7 +178,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
-            System.out.println(st);
+            //System.out.println(st);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -389,7 +389,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
             st.setString(2, username);
-            System.out.println(st);
+            //System.out.println(st);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -433,7 +433,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
             st.setString(2, username);
-            System.out.println(st);
+            //System.out.println(st);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
