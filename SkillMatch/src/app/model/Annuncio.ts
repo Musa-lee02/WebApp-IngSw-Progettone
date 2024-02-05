@@ -1,14 +1,15 @@
 import { Ambito } from "./Ambito";
 import { Cliente } from "./Cliente";
 import { Proposta } from "./Proposta";
+import {Province} from "./Province";
 
 export interface Annuncio{
 
-   id: number ;
+    id: number ;
     titolo: string;
     descrizione: string;
     dataDiScadenza: Date;
-    provinciaAnnuncio: string;
+    provinciaAnnuncio: Province | string;
     image: string;
     cliente: Cliente;
     ambito: Ambito;

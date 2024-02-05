@@ -89,11 +89,14 @@ export class PropostaComponent implements AfterContentChecked, OnInit{
 
   setProposta(){
 
+    var dateString = this.propostaForm.get("data")?.value;
+    var dateObject = new Date(Date.parse(dateString));
+
     let proposta : any={
 
       descrizione: this.propostaForm.get("descrizione")?.value,
       prezzo: this.propostaForm.get("prezzo")?.value,
-      data: this.propostaForm.get("data")?.value
+      data: dateObject
     }
     console.log(proposta)
 

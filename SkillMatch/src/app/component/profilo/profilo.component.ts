@@ -57,7 +57,7 @@ export class ProfiloComponent implements OnInit {
       response => {
         this.annunci = response
     }, (error) => {
-        console.log("errore. da modificare(?)")
+        console.log("errore.")
     });
     /*this.annunci = this.service.getAnnunci();*/
     this.utente = this.getUtente();
@@ -78,7 +78,7 @@ export class ProfiloComponent implements OnInit {
       reader.readAsDataURL(e.target.files[0]);
       reader.onload=(event:any)=>{
         this.url=event.target.result;
-        this.service.setPicProfile(this.url)
+
       }
 
     }

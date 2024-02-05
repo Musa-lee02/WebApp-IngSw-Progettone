@@ -106,32 +106,32 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
     window['accediComponentRef'] = this;
     window['backEndServiceRef'] = this.backEndService;
 
+
     function decodeJWTToken(token : any){
-      return JSON.parse(atob(token.split(".")[1]))
+          return JSON.parse(atob(token.split(".")[1]))
     }
 
 
-    (globalThis as any).handleOauthResponse = (response : any) => {
-      const responsePayload = decodeJWTToken(response.credential)
-      console.log(responsePayload)
+      (globalThis as any).handleOauthResponse = (response : any) => {
+          const responsePayload = decodeJWTToken(response.credential)
+          console.log(responsePayload)
 
 
-      window['backEndServiceRef'].CheckExistenceGoogleAccount(responsePayload.sub).subscribe((res: boolean) => {
-        if (res) {
-          this.doLoginGoogle(responsePayload)
-        } else {
-          this.registrazioneGoogle(responsePayload)
-        }
-      })
-    }
-
+          window['backEndServiceRef'].CheckExistenceGoogleAccount(responsePayload.sub).subscribe((res: boolean) => {
+              if (res) {
+                  this.doLoginGoogle(responsePayload)
+              } else {
+                  this.registrazioneGoogle(responsePayload)
+              }
+          })
+      }
 
 
 
     this.backEndService.getAmbiti().subscribe(
       data => {
         this.ambiti = data
-        console.log(this.ambiti)
+        //console.log(this.ambiti)
       }
     )
 
@@ -178,7 +178,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
       ambito: new FormControl(null, Validators.required),
     })
 
-    this.service.setDoingAccesso(true)
+
 
 
   }
@@ -186,6 +186,7 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   passwordMatchValidators(control: AbstractControl) {
     const password = control.get('password')?.value;
     const ripetiPassword = control.get('confermaPassword')?.value;
+
     return password === ripetiPassword ? null : {mismatch: true};
   }
 
@@ -193,15 +194,13 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 
     if (this.credenzialiForm.valid && this.generalitaForm.valid && this.ambitoForm.valid) {
-      Swal.fire("Ricora di confermare l'email se vuoi pubblicare o proporti per un annuncio")
-      this.service.setAutenticato(true)
+      Swal.fire("Ricorda di confermare l'email se vuoi pubblicare o proporti per un annuncio")
+
     }
   }
 
 
   onSelectFile(e: any) {
-    console.log(e)
-    console.log(e.target.files)
     if (e.target.files) {
       console.log(e.target.files[0])
       this.picProfile = e.target.files[0]
@@ -248,7 +247,6 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   skipAutentication() {
 
-    return this.service.getSkipAutentication()
   }
 
   doLogin(){
@@ -269,15 +267,15 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   doLoginGoogle(responsePayload: any){
-    const credenzialiGoogle = {username: responsePayload.sub, password: this.generateUniqueString(responsePayload.email)}
-    if(this.scelta === "lavoratore"){
-      this.backEndService.loginLavoratore(credenzialiGoogle)
-    }
-    else{
-      this.backEndService.loginCliente(credenzialiGoogle)
-    }
+        const credenzialiGoogle = {username: responsePayload.sub, password: this.generateUniqueString(responsePayload.email)}
+        if(this.scelta === "lavoratore"){
+            this.backEndService.loginLavoratore(credenzialiGoogle)
+        }
+        else{
+            this.backEndService.loginCliente(credenzialiGoogle)
+        }
 
-  }
+    }
 
   onSubmitCredenziali(){
     if (this.credenzialiForm.valid) {
@@ -407,26 +405,26 @@ export class AccediComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   registrazioneGoogle(googleData: any) {
 
-    this.googleUsername = googleData.sub
-    this.googleEmail =  googleData.email
-    this.googlepassword =  this.generateUniqueString(googleData.email)
+        this.googleUsername = googleData.sub
+        this.googleEmail =  googleData.email
+        this.googlepassword =  this.generateUniqueString(googleData.email)
 
 
-    this.generalitaForm.patchValue({
-      nome: googleData.given_name,
-      cognome: googleData.family_name
-    })
-    console.log("sasa")
-    this.container?.nativeElement.classList.add('generalita')
-    console.log(this.scelta)
-    if (this.scelta === "lavoratore") {
-      console.log("dovrebbe inserire img google")
-      this.url = googleData.picture
-      this.picProfile = googleData.picture
-      //this.container?.nativeElement.classList.add('ambito')
+        this.generalitaForm.patchValue({
+            nome: googleData.given_name,
+            cognome: googleData.family_name
+        })
+        console.log("sasa")
+        this.container?.nativeElement.classList.add('generalita')
+        console.log(this.scelta)
+        if (this.scelta === "lavoratore") {
+            console.log("dovrebbe inserire img google")
+            this.url = googleData.picture
+            this.picProfile = googleData.picture
+            //this.container?.nativeElement.classList.add('ambito')
+        }
+
     }
-
-  }
 
  private generateUniqueString(email: string): string {
     let hash = 0;

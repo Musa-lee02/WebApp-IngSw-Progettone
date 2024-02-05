@@ -35,12 +35,10 @@ export class HomeComponent implements OnInit {
     this.annuncioService.getAnnunci().subscribe(data=> {
 
         console.log(data)
+        console.log(data.length)
         this.annunci = data
       }
     )
-    this.ambiti=this.servizioAnnunci.getAmbiti();
-    this.province=this.servizioAnnunci.getProvince();
-    this.sizeAnnunci=this.servizioAnnunci.annunciGetSize()
 
 
 
@@ -48,45 +46,6 @@ export class HomeComponent implements OnInit {
 
   }
 
-  ambitoClicked(ambito: string){
-    if (this.servizioAnnunci.ambiti.includes(ambito)) {
-      this.servizioAnnunci.setSelectAmbito(ambito)
-    }
-  }
-  zonaClicked(zona: string){
-    if (this.servizioAnnunci.province.includes(zona)) {
-      this.servizioAnnunci.setSelectZona(zona)
-    }
-  }
-
-  getSelectedAmbito(){
-    return this.servizioAnnunci.getSelectAmbito()
-  }
-  getSelectedZona(){
-    return this.servizioAnnunci.getSelectZona()
-  }
-  getParametriRicerca(){
-    console.log("" + this.getSelectedAmbito() + "/" + this.getSelectedZona())
-    return "" + this.getSelectedAmbito() + "/" + this.getSelectedZona()
-  }
-
-
-  searchClick(){
-    // Verifica se l'ambito e la zona sono validi
-    if (this.servizioAnnunci.isAmbitoValid() &&
-    this.servizioAnnunci.isZoneValid()) {
-      return true;
-    }
-    return false;
-  }
-
-  getRange(sizeAnnunci: number){
-    return this.sizeAnnunci
-  }
-  getAnnunci(){
-
-
-  }
 
 }
 

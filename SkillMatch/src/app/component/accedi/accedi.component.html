@@ -1,6 +1,6 @@
 <div class="contentSfondo">
 <div class="container" #container>
-    <div class="contenitoreScelta" #componentScelta *ngIf="doingAccesso() && !skipAutentication()" >
+    <div class="contenitoreScelta" #componentScelta >
         <app-scelta-utente (mandaSceltaUtente)="onRiceviScelta($event)"></app-scelta-utente>
     </div>
     <div class="form-container sign-in">
@@ -25,7 +25,7 @@
               </div>
 
             <span>Oppure usa la tua Email e password</span>
-            <input type="email" placeholder="Email" formControlName="username">
+            <input type="email" placeholder="Username" formControlName="username">
             <input type="password" placeholder="Password" formControlName="password" >
             <a href="Recupero" style="color: black"><span>password dimenticata? Recuperala da qui</span></a>
             <a routerLink="/Profilo"></a><button type="submit"  [ngStyle]="{'background': loginForm.valid ? '#512da8':'grey'}">Accedi</button>

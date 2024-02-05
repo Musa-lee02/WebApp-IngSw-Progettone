@@ -11,34 +11,6 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script>
-
-
-    function decodeJWTToken(token){
-      return JSON.parse(atob(token.split(".")[1]))
-    }
-    function handleOauthResponse(response){
-      const responsePayload = decodeJWTToken(response.credential)
-      console.log(responsePayload)
-      const utente = {
-        id: responsePayload.sub,
-        email: responsePayload.email
-      }
-        window['backEndServiceRef'].CheckExistenceGoogleAccount(utente).subscribe(res =>
-            {
-                console.log("ciao")
-                window.location.href = "http://localhost:4200/Profilo"
-            },
-            {
-                window['accediComponentRef'].registrazioneGoogle(responsePayload)
-
-            })
-
-    }
-  </script>
-
-
-
 
 </head>
 <body class="mat-typography">

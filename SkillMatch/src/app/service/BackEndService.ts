@@ -11,6 +11,7 @@ import { Annuncio } from '../model/Annuncio';
 import { LoginLavoratoreDto } from '../model/LoginLavoratoreDto';
 import { LoginClienteDto } from '../model/LoginClienteDto';
 import { Proposta } from '../model/Proposta';
+import {Recensione} from "../model/Recensione";
 
 
 declare var window: any;
@@ -43,7 +44,6 @@ export class BackEndService{
     localStorage.removeItem("scelta");
     localStorage.removeItem("utente")
   }
-
 
 
   checkAuthentication(){
@@ -86,7 +86,7 @@ export class BackEndService{
 
         this.router.navigate(["/Profilo"]);
       },(error) =>{
-        console.log("errore da gestire?: (password od username non valide)" + error) //TODO
+        console.log("(password od username non valide)" + error) //TODO
       });
 
   }
@@ -109,7 +109,7 @@ export class BackEndService{
 
         this.router.navigate(["/Profilo"]);
       },(error) =>{
-        console.log("errore da gestire?: (password od username non valide)" + error) //TODO
+        console.log("(password od username non valide)" + error) //TODO
       });
   }
 
@@ -166,20 +166,23 @@ export class BackEndService{
     if (scelta==="lavoratore") {
 
       const formData = new FormData();
-      const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
 
-      formData.append('lavoratore', utenteBlob);
+      if(typeof utente.imgProfilo === "string"){
 
-      if(typeof utente.imgProfilo == "string"){
+        const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
+        formData.append('lavoratore', utenteBlob);
         return this.http.post<boolean>(this.url + "/signup/completeRegistrationGoogle/Lavoratore", formData);
       }
 
-      else if(utente.imgProfilo != undefined){
+      if(utente.imgProfilo instanceof File){
         formData.append('img', utente.imgProfilo);
-        utente.imgProfilo = undefined
+        utente.imgProfilo = ""
       }
 
-      console.log((<Lavoratore>utente))
+      const utenteBlob = new Blob([JSON.stringify(utente)], {type: 'application/json'});
+      formData.append('lavoratore', utenteBlob);
+
+
       return this.http.post<boolean>(this.url + "/signup/completeRegistration/Lavoratore", formData);
     }
 
@@ -198,10 +201,31 @@ export class BackEndService{
     }
     formData.append('token', this.getToken()!);
 
+    console.log(annuncio)
     return this.http.post<Boolean>(
       this.url + "/annuncio/insertNewAnnuncio",
       formData
     );
+  }
+
+  insertRecensione(recensione: Recensione) {
+
+    const recensioneBlob = new Blob([JSON.stringify(recensione)], {type: 'application/json'});
+    const formData = new FormData();
+
+     formData.append('recensione', recensioneBlob);
+     /*
+      if (image != null) {
+        formData.append('img', image);
+      }*/
+      formData.append('token', this.getToken()!);
+
+      console.log(recensione)
+      return this.http.post<Boolean>(
+        this.url + "/recensione/insertRecensione",
+        formData
+      );
+
   }
 
 
@@ -265,5 +289,6 @@ export class BackEndService{
     public getAmbiti(): Observable<Ambito[]>{
       return this.http.get<Ambito[]>(this.url+"/ambito/getAmbiti");
     }
+
 
 }

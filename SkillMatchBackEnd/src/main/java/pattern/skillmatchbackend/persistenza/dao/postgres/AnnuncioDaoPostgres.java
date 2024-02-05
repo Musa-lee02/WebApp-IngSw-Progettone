@@ -22,7 +22,16 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     public List<Annuncio> findAll() {
 
         List<Annuncio> annunci = new LinkedList<>();
-        String query = "SELECT * FROM annuncio";
+        String query = "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito " +
+                "FROM annuncio" +
+                " EXCEPT " +
+                "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito " +
+                "FROM annuncio,proposta " +
+                " WHERE proposta.id_annuncio = annuncio.id_annuncio AND  proposta.stato = 'accettata' ";
         try {
 
             Statement st = conn.createStatement();
@@ -39,8 +48,6 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
                 annuncio.setImage(rs.getString("img_annuncio"));
                 annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
                 annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
-                annunci.add(annuncio);
-
                 annunci.add(annuncio);
 
             }
@@ -194,16 +201,121 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     }
 
     @Override
-    public List<Annuncio> getAnnunciByAmbitoAndProvincia(long idAmbito, String provincia) {
+    public List<Annuncio>getAnnunciByAmbito(String ambito){
+
         List<Annuncio> annunci = new LinkedList<>();
-        String query = "SELECT *" +
+
+        String query = "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito " +
+                "FROM annuncio,ambito " +
+                "WHERE ambito.nome = ? AND ambito.id_ambito = annuncio.id_ambito"+
+                " EXCEPT " +
+                "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito " +
+                "FROM annuncio,proposta,ambito " +
+                " WHERE proposta.id_annuncio = annuncio.id_annuncio AND  proposta.stato = 'accettata' " +
+                " AND ambito.id_ambito = annuncio.id_ambito AND ambito.nome = ?";
+
+        try {
+
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1,ambito);
+            st.setString(2,ambito);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Annuncio annuncio = new Annuncio();
+                annuncio.setId(rs.getLong("id_annuncio"));
+                annuncio.setTitolo(rs.getString("titolo"));
+                annuncio.setDescrizione(rs.getString("descrizione"));
+                annuncio.setDataDiScadenza(rs.getDate("data_di_scadenza"));
+                annuncio.setProvinciaAnnuncio(rs.getString("provincia_annuncio"));
+                annuncio.setImage(rs.getString("img_annuncio"));
+                annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
+                annunci.add(annuncio);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return annunci;
+
+    }
+
+
+    @Override
+    public List<Annuncio>getAnnunciByProvincia(String provincia){
+
+        List<Annuncio> annunci = new LinkedList<>();
+
+        String query = "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito " +
                 "FROM annuncio " +
-                "WHERE id_ambito = ? AND provincia_annuncio = ? ";
+                "WHERE  provincia_annuncio = ? "+
+                " EXCEPT " +
+                "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito " +
+                "FROM annuncio,proposta,ambito " +
+                " WHERE proposta.id_annuncio = annuncio.id_annuncio AND  proposta.stato = 'accettata' " +
+                " AND provincia_annuncio = ?";
+
+        try {
+
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1,provincia);
+            st.setString(2,provincia);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Annuncio annuncio = new Annuncio();
+                annuncio.setId(rs.getLong("id_annuncio"));
+                annuncio.setTitolo(rs.getString("titolo"));
+                annuncio.setDescrizione(rs.getString("descrizione"));
+                annuncio.setDataDiScadenza(rs.getDate("data_di_scadenza"));
+                annuncio.setProvinciaAnnuncio(rs.getString("provincia_annuncio"));
+                annuncio.setImage(rs.getString("img_annuncio"));
+                annuncio.setCliente(DBManager.getInstance().getClienteDao().findByPrimaryKey(rs.getString("username_cliente")));
+                annuncio.setAmbito(DBManager.getInstance().getAmbitoDao().findByPrimaryKey(rs.getLong("id_ambito")));
+                annunci.add(annuncio);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return annunci;
+
+    }
+    @Override
+    public List<Annuncio> getAnnunciByAmbitoAndProvincia(String nome, String provincia) {
+        List<Annuncio> annunci = new LinkedList<>();
+        /*String query = "SELECT *" +
+                "FROM annuncio, ambito " +
+                " WHERE ambito.nome = ? AND provincia_annuncio = ? AND ambito.id_ambito = annuncio.id_ambito";*/
+
+        String query = "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito " +
+                "FROM annuncio,ambito " +
+                "WHERE ambito.nome = ? AND provincia_annuncio = ? AND ambito.id_ambito = annuncio.id_ambito"+
+                " EXCEPT " +
+                "SELECT annuncio.id_annuncio, annuncio.titolo, annuncio.descrizione," +
+                " annuncio.data_di_scadenza, annuncio.provincia_annuncio, annuncio.img_annuncio," +
+                " annuncio.username_cliente, annuncio.id_ambito " +
+                "FROM annuncio,proposta,ambito " +
+                " WHERE proposta.id_annuncio = annuncio.id_annuncio AND  proposta.stato = 'accettata' " +
+                " AND ambito.id_ambito = annuncio.id_ambito AND ambito.nome = ? AND provincia_annuncio = ?";
         try {
             //TODO DATA DI SCADENZA E STATO
             PreparedStatement st = conn.prepareStatement(query);
-            st.setLong(1,idAmbito);
+            st.setString(1,nome);
             st.setString(2,provincia);
+            st.setString(3,nome);
+            st.setString(4,provincia);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {

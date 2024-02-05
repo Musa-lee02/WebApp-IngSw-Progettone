@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { CardsVetrinaComponent } from '../cards-vetrina/cards-vetrina.component';
 import {AnnuncioService} from "../../service/AnnuncioService";
 import {Ambito} from "../../model/Ambito";
 import {Province} from "../../model/Province";
 import {HttpClient} from "@angular/common/http";
+import {Annuncio} from "../../model/Annuncio";
 
 
 @Component({
@@ -17,15 +18,16 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   ambiti : Ambito[];
   province : Province[];
-  selectedAmbito: string = '';
-  selectedZona: string = '';
+  selectedAmbito: string;
+  selectedZona: string;
+  annunci: Annuncio[]
 
-  constructor(private router: ActivatedRoute, private servizioAnnunci:
+  constructor(private router: Router, private servizioAnnunci:
               ServizioAnnunciService, private annunciService : AnnuncioService,
               private httpClient: HttpClient
   ){}
   ngOnDestroy(): void {
-    console.log("suca")
+
   }
 
   ngOnInit(): void {
@@ -45,40 +47,46 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   ambitoClicked(ambito: string){
-    if (this.servizioAnnunci.ambiti.includes(ambito)) {
-      this.servizioAnnunci.setSelectAmbito(ambito)
-    }
+
+
+    this.selectedAmbito=ambito!
+
+    console.log(this.selectedAmbito)
   }
+
   zonaClicked(zona: string){
-    if (this.servizioAnnunci.province.includes(zona)) {
-      this.servizioAnnunci.setSelectZona(zona)
-    }
+
+    this.selectedZona=zona
+
+    console.log(this.selectedZona)
+
   }
 
 
-  searchValid(){
-    // Verifica se l'ambito e la zona sono validi
-    if (this.servizioAnnunci.isAmbitoValid() &&
-    this.servizioAnnunci.isZoneValid()) {
-      return true;
-    }
-    return false;
-  }
+
   searchClicked(){
-    if (this.searchValid()) {
-      /*this.servizioAnnunci.buttonSearchClicked()*/
-      this.annunciService.getAnnunciByAmbitoEZona(this.getSelectedAmbito(), this.getSelectedZona())
-    }
+
+      console.log(this.selectedAmbito , this.selectedZona)
+
+      if (this.selectedAmbito==undefined || this.selectedAmbito==""){
+
+          this.selectedAmbito="all"
+
+      }
+      if (this.selectedZona==undefined  || this.selectedZona==""){
+          this.selectedZona="all"
+      }
+      console.log("Esplora/"+this.selectedAmbito+"/"+this.selectedZona)
+      this.annunciService.getAnnunciByAmbitoEZona(this.selectedAmbito, this.selectedZona).subscribe(data=>
+      {
+
+        this.annunci=data
+        this.servizioAnnunci.setAnnunciEsplora(this.annunci)
+        this.router.navigate(["Esplora/"+this.selectedAmbito+"/"+this.selectedZona])
+
+      })
+
   }
 
-  getSelectedAmbito(){
-    return this.servizioAnnunci.getSelectAmbito()
-  }
-  getSelectedZona(){
-    return this.servizioAnnunci.getSelectZona()
-  }
-  getParametriRicerca(){
-    return "" + this.getSelectedAmbito() + "/" + this.getSelectedZona()
-  }
 
 }

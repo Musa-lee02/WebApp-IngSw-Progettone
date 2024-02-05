@@ -19,63 +19,44 @@ export class AppComponent implements OnInit, OnChanges, AfterContentChecked, Aft
 
     if(this.router.url==="/Home"){
       this.isHome=true
-      
+
     }
     else{
       this.isHome=false
     }
-  
-    
+
+
   }
   ngOnChanges(changes: SimpleChanges): void {
 
   }
   ngOnInit(): void {
-   
+
   }
-  
+
   arrowIcon= faArrowDown
   title = 'SkillMatch';
   sizeAnnunci:number=0;
   isHome:boolean;
-  
+
   linkHome:String="http://localhost:4200/Home"
 
-  
+
   ngAfterViewChecked(): void {
-    
 
-   
+
+
   }
 
 
-  setSfondo(){
 
-    this.getRouterUrl()
-  }
 
-  getRouterUrl(){
-
-    return this.service.getRouterUrl()
-  }
 
   getRange(sizeAnnunci: number){
     return this.sizeAnnunci
   }
 
-  setLavoratore(bool: boolean){
-   
-    this.service.setlavoratoreBool(bool);
 
-  }
-  setDoingAccesso(bool:boolean){
-    this.service.setAutenticato(false)
-    this.service.doingAccesso=bool;
-  }
-  isAutenticato(){
- 
-    return this.service.isAutenticato()
-  }
 
 
 }

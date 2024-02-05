@@ -20,6 +20,7 @@ import {Lavoratore} from "../../../model/Lavoratore";
 import {Chat} from "../../../model/Chat";
 import {Proposta} from "../../../model/Proposta";
 import {Router} from "@angular/router";
+import {Cliente} from "../../../model/Cliente";
 
 
 
@@ -38,7 +39,7 @@ export class ChatTextComponent implements OnInit, OnChanges, OnDestroy, AfterCon
 
   interval: any
   messaggi : any;
-  DestinatarioCard:any;
+  DestinatarioCard: Lavoratore | Cliente;
   textForm:FormGroup;
 
   propostaCaricata: boolean=false
@@ -136,7 +137,7 @@ export class ChatTextComponent implements OnInit, OnChanges, OnDestroy, AfterCon
     let proposta : Proposta={
       annuncioRelativo: this.chat.annuncio,
       dataLavoro: propostaParametri.data,
-      descrizione: propostaParametri.data,
+      descrizione: propostaParametri.descrizione,
       lavoratore: this.chat.lavoratore,
       prezzoLavoro: propostaParametri.prezzo,
       stato: "inCorso",

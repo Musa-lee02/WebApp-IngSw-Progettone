@@ -18,6 +18,14 @@
     font-weight: 500;
 }
 
+::ng-deep .mat-datepicker-content {
+  width: 100px; /* Imposta la larghezza desiderata */
+}
+
+::ng-deep .mat-calendar {
+  width: 50%; /* Imposta la larghezza del calendario al 100% del genitore */
+}
+
 .titolo{
   display: flex;
   gap: 5px;
@@ -49,6 +57,12 @@
     justify-content: space-between;
 }
 
+.footer .prezzo{
+  padding: 10px;
+  height: fit-content;
+  background-color: blueviolet;
+  border-radius: 20px;
+}
 .footer .prezzo input{
 
   width: 50px;

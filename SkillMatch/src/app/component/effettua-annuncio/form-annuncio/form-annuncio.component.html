@@ -32,19 +32,19 @@
       <h4>Zona di lavoro</h4>
 
       <mat-form-field class="matA" *ngIf="isModifica">
-        <mat-label>Favorite food</mat-label>
+        <mat-label>Zona di lavoro</mat-label>
         <mat-select formControlName="provinciaAnnuncio" [(ngModel)]="annuncioScelto.provinciaAnnuncio">
           @for (pv of province; track pv) {
-          <mat-option [value]="pv">{{pv}}</mat-option>
+          <mat-option [value]="pv">{{pv.nome}}</mat-option>
           }
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="matA" *ngIf="!isModifica">
-        <mat-label>Favorite food</mat-label>
+        <mat-label>Zona di lavoro</mat-label>
         <mat-select formControlName="provinciaAnnuncio">
           @for (pv of province; track pv) {
-          <mat-option [value]="pv">{{pv}}</mat-option>
+          <mat-option [value]="pv">{{pv.nome}}</mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -58,8 +58,8 @@
         <mat-label>Ambito</mat-label>
         <mat-select formControlName="ambito">
           @for (ab of ambiti; track ab) {
-            <mat-option [value]="ab">{{ab.nome}}</mat-option>
-            }
+          <mat-option [value]="ab">{{ab.nome}}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
 
@@ -67,8 +67,8 @@
         <mat-label>Ambito</mat-label>
         <mat-select formControlName="ambito" [(ngModel)]="annuncioScelto.ambito">
           @for (ab of ambiti; track ab) {
-            <mat-option [value]="ab">{{ab.id}}</mat-option>
-            }
+          <mat-option [value]="ab">{{ab.nome}}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
     </div>

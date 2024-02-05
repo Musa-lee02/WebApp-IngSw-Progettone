@@ -1,6 +1,8 @@
 package pattern.skillmatchbackend.data.service;
 
+import pattern.skillmatchbackend.SkillMatchBackEndApplication;
 import org.springframework.web.multipart.MultipartFile;
+import pattern.skillmatchbackend.SkillMatchBackEndApplication;
 import pattern.skillmatchbackend.config.FileUtil;
 import pattern.skillmatchbackend.config.PasswordCrypt;
 import pattern.skillmatchbackend.data.service.interf.ImageService;
@@ -14,6 +16,7 @@ public class ImageServiceImpl implements ImageService {
     private final String relativePath = "SkillMatchBackEnd/src/main/resources/image/";
     private final String localhostPath = "http://localhost:8080/images/";
 
+    public GestoreNotifiche gestoreNotifiche = new GestoreNotifiche();
     @Override
     public Boolean insertAnnuncioAndImage(Annuncio annuncio, MultipartFile img, String token){
 
@@ -48,8 +51,11 @@ public class ImageServiceImpl implements ImageService {
                         annuncio.setImage(localhostPath+orgName);
                     } catch (Exception e) { return false; }
                 }else{ annuncio.setImage(localhostPath+"imagedefault.avif"); }
+
                 annuncio.setCliente(cliente);
+                gestoreNotifiche.notifyObservers(annuncio);
                 DBManager.getInstance().getAnnuncioDao().saveOrUpdate(annuncio);
+
 
                 //TODO quando l'annuncio viene correttamente creato, deve essere inviata una email (o notifica?) al cliente che ha creato l'annuncio
 
@@ -57,6 +63,7 @@ public class ImageServiceImpl implements ImageService {
             } else{ return false; }
 
     }
+
 
     @Override
     public Boolean insertNewLavoratoreAccountAndImageGoogle(Lavoratore lavoratore){
@@ -75,7 +82,7 @@ public class ImageServiceImpl implements ImageService {
                 lavoratore.setPassword(PasswordCrypt.encode(passC));
 
                 DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
-
+                DBManager.getInstance().getClienteDao().saveOrUpdate(new Cliente(lavoratore));
                 return true;
             } catch (Exception e) { return false; }
         }else{ return false; }
@@ -112,8 +119,10 @@ public class ImageServiceImpl implements ImageService {
                 String passC = lavoratore.getPassword();
                 lavoratore.setPassword(PasswordCrypt.encode(passC));
 
+                gestoreNotifiche.addObserver(lavoratore);
 
                 DBManager.getInstance().getLavoratoreDao().saveOrUpdate(lavoratore);
+                DBManager.getInstance().getClienteDao().saveOrUpdate(new Cliente(lavoratore));
 
                 return true;
             } catch (Exception e) { return false; }

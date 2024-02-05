@@ -57,7 +57,7 @@ public class SignUpController {
     public boolean checkExistenceGoogleAccount(@RequestBody String username) {
         boolean presente = DBManager.getInstance().getUtenteDao().isUsernameTaken(username);
         System.out.println(presente);
-       return presente;
+        return presente;
     }
 
 
@@ -72,11 +72,11 @@ public class SignUpController {
 
             EmailSender emailSender = new EmailSender();
             String token = TokenManager.getInstance().creaToken(lavoratore.getUsername(), 2 * 24 * 60 * 60 * 1000);
-            //emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
+            emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
 
             return true;
         }
-            return false;
+        return false;
     }
 
     @PostMapping("/completeRegistrationGoogle/Lavoratore")
@@ -86,11 +86,11 @@ public class SignUpController {
 
             EmailSender emailSender = new EmailSender();
             String token = TokenManager.getInstance().creaToken(lavoratore.getUsername(), 2 * 24 * 60 * 60 * 1000);
-            //emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
+            emailSender.confermaLink(lavoratore, "http://localhost:4200/ConfermaAccount?token=" + token);
 
             return true;
         }
-            return false;
+        return false;
     }
 
 
@@ -101,9 +101,9 @@ public class SignUpController {
 
             EmailSender emailSender = new EmailSender();
             String token = TokenManager.getInstance().creaToken(cliente.getUsername(), 2 * 24 * 60 * 60 * 1000);
-            //emailSender.confermaLink(cliente, "http://localhost:4200/ConfermaAccount?token=" + token);
+            emailSender.confermaLink(cliente, "http://localhost:4200/ConfermaAccount?token=" + token);
 
-        return true;
+            return true;
         }
         return false;
     }

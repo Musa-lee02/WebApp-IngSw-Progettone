@@ -1,13 +1,17 @@
 import { Cliente } from "./Cliente";
 import { Lavoratore } from "./Lavoratore";
+import { Ambito } from "./Ambito";
+import { Proposta } from "./Proposta";
+import {Province} from "./Province";
+
 
 export interface Recensione{
 
-    idRecensione: number;
-    titolo: string;
-    descrizione: string;
-    punteggio: number;
-    recensore: Cliente;
-    recensito: Lavoratore;
+  id: number
+  titolo: string
+  descrizione: string
+  voto: number
+  usrCliente: string
+  usrLavoratore: string
 
 }

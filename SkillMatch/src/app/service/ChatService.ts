@@ -92,6 +92,8 @@ export class ChatService{
 
   public setProposta(proposta : Proposta): Observable<Proposta>{
 
+    console.log("dsdssd")
+
     return this.http.post<Proposta>(this.url+"/chat/setProposta",proposta)
   }
 

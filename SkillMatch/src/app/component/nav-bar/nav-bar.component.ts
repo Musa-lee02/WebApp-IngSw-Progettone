@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { ServizioAnnunciService } from '../../service/servizio-annunci.service';
 import {BackEndService} from "../../service/BackEndService";
+import { Lavoratore } from '../../model/Lavoratore';
+import { Cliente } from '../../model/Cliente';
 
 
 @Component({
@@ -44,25 +46,14 @@ export class NavBarComponent implements AfterContentChecked{
 
   }
 
-  setSfondo(){
 
-    this.getRouterUrl()
-  }
 
-  getRouterUrl(){
-
-    return this.service.getRouterUrl()
-  }
 
   getRange(sizeAnnunci: number){
     return this.sizeAnnunci
   }
 
-  setLavoratore(bool: boolean){
 
-    this.service.setlavoratoreBool(bool);
-
-  }
   switch(){
     if(this.entita==='lavoratore')
     {
@@ -74,10 +65,7 @@ export class NavBarComponent implements AfterContentChecked{
         this.entita='lavoratore'
     }
   }
-  setDoingAccesso(bool:boolean){
-    this.service.setAutenticato(false)
-    this.service.setDoingAccesso(bool);
-  }
+
   isAutenticato(){
 
     return this.backEndService.isAuthenticated()
@@ -91,13 +79,15 @@ export class NavBarComponent implements AfterContentChecked{
     this.backEndService.removeToken()
 
   }
-  skipAutentication(bool: boolean){
-
-    this.service.setSkipAutentication(bool)
-  }
 
   getPicProfile(){
+    return this.getUtente().imgProfilo;
+  }
 
+
+  getUtente() : Lavoratore | Cliente{
+    var utenteLogged = localStorage.getItem("utente");
+    return JSON.parse(utenteLogged!);
   }
 
 

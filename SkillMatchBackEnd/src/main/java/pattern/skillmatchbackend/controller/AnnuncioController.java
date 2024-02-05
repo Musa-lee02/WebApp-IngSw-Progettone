@@ -12,6 +12,7 @@ import pattern.skillmatchbackend.model.TokenManager;
 import pattern.skillmatchbackend.persistenza.DBManager;
 
 
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,7 @@ public class AnnuncioController {
     //Funziona
     @GetMapping("/getAnnunci")
     public List<Annuncio> getAnnunci(){
-        System.out.println("dd");
+        System.out.println(DBManager.getInstance().getAnnuncioDao().findAll().size());
         return DBManager.getInstance().getAnnuncioDao().findAll();
     }
 
@@ -42,15 +43,25 @@ public class AnnuncioController {
 
     //non so se si possono mettere 2 parametri requestbody e non so come generare http per 2 parametri
     @GetMapping("/getAnnunciByAmbitoEZona")
-    public List<Annuncio> getAnnunciByAmbitoEZona(@RequestParam long ambito, @RequestParam String provincia){
+    public List<Annuncio> getAnnunciByAmbitoEZona(@RequestParam String ambito, @RequestParam String provincia){
+
+        System.out.println(ambito+provincia);
+
+        List<Annuncio> annunci = new LinkedList<>();
+
+        if(ambito.equals("all") && provincia.equals("all"))
+            annunci=DBManager.getInstance().getAnnuncioDao().findAll();
+        else if (ambito.equals("all"))
+            annunci=DBManager.getInstance().getAnnuncioDao().getAnnunciByProvincia(provincia);
+
+        else if (provincia.equals("all"))
+            annunci=DBManager.getInstance().getAnnuncioDao().getAnnunciByAmbito(ambito);
+        else
+            annunci=DBManager.getInstance().getAnnuncioDao().getAnnunciByAmbitoAndProvincia(ambito,provincia);
 
 
-        System.out.println(provincia);
-
-        List<Annuncio> annunci =  DBManager.getInstance().getAnnuncioDao().getAnnunciByAmbitoAndProvincia(ambito,provincia);
-
-        if(annunci == null)
-            return DBManager.getInstance().getAnnuncioDao().findAll();
+        /*if(annunci.isEmpty())
+            return DBManager.getInstance().getAnnuncioDao().findAll();*/
 
         return annunci;
 

@@ -20,3 +20,6 @@
     flex-wrap: wrap;
     align-items: flex-start;
 }
+.dati div{
+    width: 50%;
+}
