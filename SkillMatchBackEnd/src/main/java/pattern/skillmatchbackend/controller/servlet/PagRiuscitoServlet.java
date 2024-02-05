@@ -1,27 +1,38 @@
 package pattern.skillmatchbackend.controller.servlet;
 
-
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import pattern.skillmatchbackend.model.TokenManager;
-import pattern.skillmatchbackend.model.Utente;
-import pattern.skillmatchbackend.persistenza.DBManager;
 
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet("/ConfermaAccount")
-public class ConfermaServlet extends HttpServlet {
+
+@WebServlet("/PagamentoRiuscito")
+public class PagRiuscitoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/views/conferma_account.html");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+
+        String token = req.getParameter("token");
+        String tokenGenerato = TokenManager.verificaToken(token);
+        System.out.println("token: " + tokenGenerato);
+
+        HttpSession session = req.getSession(true);
+
+        //String tokenGenerato = TokenManager.verificaToken(token);
+        //System.out.println(tokenGenerato);
+
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("views/pagamentoRiuscito.html");
         dispatcher.forward(req, resp);
-        //resp.getWriter().println("<h1>Funziona</h1>");
+
     }
 
 }
@@ -90,7 +101,7 @@ public class ConfermaServlet extends HttpServlet {
                 }*/
  /*       }
 
-RequestDispatcher dispatcher = req.getRequestDispatcher("views/conferma_account.html");
+RequestDispatcher dispatcher = req.getRequestDispatcher("views/pagamento.html");
         dispatcher.forward(req, resp);
     }
             }

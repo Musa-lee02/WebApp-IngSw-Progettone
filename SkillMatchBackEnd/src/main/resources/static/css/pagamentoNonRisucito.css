@@ -1,0 +1,63 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.Pagamento {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-left: 600px;
+    width: 40%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-message {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+.error-message p{
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+.icon{
+    width: 420px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+}
+.error-message .icon {
+    font-size: 36px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
