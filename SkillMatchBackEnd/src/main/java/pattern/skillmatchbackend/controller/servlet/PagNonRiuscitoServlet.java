@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.List;
 
 
-@CrossOrigin("http://localhost:4200")
 @WebServlet("/PagamentoNonRiuscito")
 public class PagNonRiuscitoServlet extends HttpServlet {
     @Override
@@ -103,7 +102,7 @@ public class ConfermaServlet extends HttpServlet {
                 }*/
  /*       }
 
-RequestDispatcher dispatcher = req.getRequestDispatcher("views/conferma_account.html");
+RequestDispatcher dispatcher = req.getRequestDispatcher("views/pagamento.html");
         dispatcher.forward(req, resp);
     }
             }

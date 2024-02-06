@@ -13,7 +13,6 @@ import pattern.skillmatchbackend.model.TokenManager;
 import java.io.IOException;
 
 
-@CrossOrigin("http://localhost:4200")
 @WebServlet("/PagamentoRiuscito")
 public class PagRiuscitoServlet extends HttpServlet {
     @Override
@@ -102,7 +101,7 @@ public class ConfermaServlet extends HttpServlet {
                 }*/
  /*       }
 
-RequestDispatcher dispatcher = req.getRequestDispatcher("views/conferma_account.html");
+RequestDispatcher dispatcher = req.getRequestDispatcher("views/pagamento.html");
         dispatcher.forward(req, resp);
     }
             }
