@@ -1,17 +1,30 @@
 
+
 <div class="containerHome">
   <div class="centered">
 
     <div class="testo"><h1>Trova il
-    <br><br>professionista ideale</h1></div>
+      <br><br>professionista ideale</h1></div>
 
     <div class="searchClass">
       <app-search-bar></app-search-bar>
     </div>
   </div>
   <div class="vetrinaHome">
-    <app-cards-vetrina [annunci]="annunci"></app-cards-vetrina>
+
+    <h2 *ngIf="annunciConsigliati.length > 0">Annunci Per te</h2>
+    <div class="vetrinaAnnunci">
+      <app-cards-vetrina *ngIf="annunci" [annunci]="annunciConsigliati"></app-cards-vetrina>
+    </div>
+
+    <h2>Annunci che potrebbero interessarti</h2>
+    <div class="vetrinaAnnunci">
+    <!--<h2 *ngIf="!isHome ">Ecco i migliori risultati</h2>
+    <h2 *ngIf="!isHome && annunci.length == 0">La tua ricerca non ha prodotto risultati :( ...<br> Prova con altri criteri di ricerca</h2>-->
+        <app-cards-vetrina *ngIf="annunci" [annunci]="annunci"></app-cards-vetrina>
+      </div>
 
   </div>
 </div>
+
 

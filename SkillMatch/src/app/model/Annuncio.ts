@@ -14,5 +14,6 @@ export interface Annuncio{
     cliente: Cliente;
     ambito: Ambito;
     proposta: Proposta;
+    consigliato: boolean
 
 }

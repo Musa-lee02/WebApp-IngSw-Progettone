@@ -5,25 +5,30 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.container{ 
+.container{
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
+h2{
+  text-align: left;
+  margin-top: 4%;
+  margin-bottom: 2%;
+  margin-left: 10%;
+  color: rgb(0, 0, 0);
+  font-size: 1.4em;
+  font-weight: 490;
 
+}
 
 .vetrina{
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
-  box-shadow: 4px 0px -1px rgb(107, 62, 211);  
-  margin-top: 1%;
-  margin-left: 10%;
-  margin-right: 10%;
   z-index: 1;
   justify-content: center;
- 
+
 }
 
 .example-card {
@@ -32,10 +37,10 @@
   border-style:solid;
   border-width: thin;
   border-radius: 20px;
-  box-shadow: 0px 4px 8px rgb(107, 62, 211);  
-    margin-top: 15px;
-    z-index: 1;
-    overflow: hidden;
+  box-shadow: 0px 4px 8px rgb(107, 62, 211);
+  margin-top: 15px;
+  z-index: 1;
+  overflow: hidden;
 }
 .mdc-card__media {
   position: relative;
@@ -45,7 +50,7 @@
   background-size: cover;
   object-fit: cover;
   border-radius: 30px;
-  
+
   width: 100%;
   height: 280px;
 }
@@ -60,7 +65,7 @@
   padding: 0 16px;
   overflow: hidden;
   white-space: overflow;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
 }
 
 .mat-mdc-button:not(:disabled) {
@@ -71,10 +76,10 @@
   margin-right: 7px;
   border-radius: 30px;
 }
-  /*.example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }*/
+/*.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}*/
 
 .starImg{
   width: 26px;
@@ -82,76 +87,76 @@
   margin-bottom:7px;
   margin-right: 20px;
 }
-  @media only screen and (max-width: 1850px) {
-    .mdc-card__media {
-      height: 50%; /* Ridotto l'altezza dell'immagine per uno stile più proporzionato */
-      object-fit: calc(100% - 20px); 
-    }
-    
-  }
-  @media only screen and (max-width: 1516px) {
-
-    .example-card {
-      width: calc(28% - 20px);
-      max-height:10%;
-      border-style:solid;
-      border-width: thin;
-      border-radius: 20px;
-      box-shadow: 0px 4px 8px rgb(107, 62, 211);  
-        margin-top: 15px;
-        z-index: 1;
-        overflow: hidden;
-    }
-    .mdc-card__media {
-      height: 50%; /* Ridotto l'altezza dell'immagine per uno stile più proporzionato */
-      object-fit: cover; 
-    }
-    
-  }
-  @media only screen and (max-width: 1180px) {
-
-    .example-card {
-      width: calc(40% - 20px);
-      max-height:10%;
-      border-style:solid;
-      border-width: thin;
-      border-radius: 20px;
-      box-shadow: 0px 4px 8px rgb(107, 62, 211);  
-        margin-top: 15px;
-        z-index: 1;
-        overflow: hidden;
-    }
-    .mdc-card__media {
-      height: 50%; /* Ridotto l'altezza dell'immagine per uno stile più proporzionato */
-      object-fit: cover; 
-    }
-    
+@media only screen and (max-width: 1850px) {
+  .mdc-card__media {
+    height: 50%; /* Ridotto l'altezza dell'immagine per uno stile più proporzionato */
+    object-fit: calc(100% - 20px);
   }
 
-  @media only screen and (max-width: 700px) {
-    .contentSfondo {
-      margin-top: 150px; /* Ridotto lo spazio superiore */
-    }
-  
-    .vetrina {
-      margin-left: 10px; /* Ridotto lo spazio a sinistra */
-      margin-right: 10px; /* Ridotto lo spazio a destra */
-    }
-    
-    .example-card {
-      width: calc(60% - 20px); /* 2 card per riga su schermi più piccoli */
-      max-height: 10%;
-    }
-  
-    .mdc-card__media {
-      height: 50%; /* Ridotto l'altezza dell'immagine per uno stile più proporzionato */
-      object-fit: contain; 
-    }
-    .mat-mdc-card-content{
-      height: 140px;
-      display: block;
-      padding: 0 16px;
-      
+}
+@media only screen and (max-width: 1516px) {
 
-    }
+  .example-card {
+    width: calc(28% - 20px);
+    max-height:10%;
+    border-style:solid;
+    border-width: thin;
+    border-radius: 20px;
+    box-shadow: 0px 4px 8px rgb(107, 62, 211);
+    margin-top: 15px;
+    z-index: 1;
+    overflow: hidden;
   }
+  .mdc-card__media {
+    height: 50%; /* Ridotto l'altezza dell'immagine per uno stile più proporzionato */
+    object-fit: cover;
+  }
+
+}
+@media only screen and (max-width: 1180px) {
+
+  .example-card {
+    width: calc(40% - 20px);
+    max-height:10%;
+    border-style:solid;
+    border-width: thin;
+    border-radius: 20px;
+    box-shadow: 0px 4px 8px rgb(107, 62, 211);
+    margin-top: 15px;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .mdc-card__media {
+    height: 50%; /* Ridotto l'altezza dell'immagine per uno stile più proporzionato */
+    object-fit: cover;
+  }
+
+}
+
+@media only screen and (max-width: 700px) {
+  .contentSfondo {
+    margin-top: 150px; /* Ridotto lo spazio superiore */
+  }
+
+  .vetrina {
+    margin-left: 10px; /* Ridotto lo spazio a sinistra */
+    margin-right: 10px; /* Ridotto lo spazio a destra */
+  }
+
+  .example-card {
+    width: calc(60% - 20px); /* 2 card per riga su schermi più piccoli */
+    max-height: 10%;
+  }
+
+  .mdc-card__media {
+    height: 50%; /* Ridotto l'altezza dell'immagine per uno stile più proporzionato */
+    object-fit: contain;
+  }
+  .mat-mdc-card-content{
+    height: 140px;
+    display: block;
+    padding: 0 16px;
+
+
+  }
+}
