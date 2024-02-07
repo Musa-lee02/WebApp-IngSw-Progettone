@@ -11,23 +11,18 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import pattern.skillmatchbackend.model.TokenManager;
 
 import java.io.IOException;
+import java.sql.Date;
 
 
 @WebServlet("/PagamentoRiuscito")
 public class PagRiuscitoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        resp.setHeader("Access-Control-Allow-Origin", "*");
-
-        String token = req.getParameter("token");
-        String tokenGenerato = TokenManager.verificaToken(token);
-        System.out.println("token: " + tokenGenerato);
-
-        HttpSession session = req.getSession(true);
-
-        //String tokenGenerato = TokenManager.verificaToken(token);
-        //System.out.println(tokenGenerato);
+        double importo = (double) req.getSession().getAttribute("customAmount");
+        Date data = new Date(System.currentTimeMillis());
+        String metodoDiPagamento = req.getSession().getAttribute("metodoDiPagamento").toString();
+        String cliente = req.getSession().getAttribute("idMitt").toString();
+        String lavoratore = req.getSession().getAttribute("idDest").toString();
 
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("views/pagamentoRiuscito.html");

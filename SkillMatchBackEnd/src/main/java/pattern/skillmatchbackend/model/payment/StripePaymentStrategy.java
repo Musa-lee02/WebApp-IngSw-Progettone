@@ -16,7 +16,7 @@ public class StripePaymentStrategy implements PaymentStrategy{
     try {
         SessionCreateParams.LineItem.PriceData priceData = SessionCreateParams.LineItem.PriceData.builder()
                 .setCurrency("eur")
-                .setUnitAmount(request.getCustomAmount())
+                .setUnitAmount(request.getCustomAmount() * 100L)
                 .setProductData(
                         SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                 .setName("P2P Payment")
@@ -30,14 +30,14 @@ public class StripePaymentStrategy implements PaymentStrategy{
                         .setQuantity(1L)
                         .build())
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl("http://localhost:8080/succes.html")
-                .setCancelUrl("http://localhost:8080/cancel.html")
+                .setSuccessUrl("http://localhost:8080/PagamentoRiuscito")
+                .setCancelUrl("http://localhost:8080/PagamentoNonRiuscito")
                 // Additional parameters for recipient or transfer logic
                 .build();
         Session session = Session.create(params);
         System.out.println("url: " + session.getUrl());
 
-        return session.getId();
+        return session.getUrl();
 
     } catch (StripeException e) {
        return null;

@@ -12,6 +12,7 @@ import { LoginLavoratoreDto } from '../model/LoginLavoratoreDto';
 import { LoginClienteDto } from '../model/LoginClienteDto';
 import { Proposta } from '../model/Proposta';
 import {Recensione} from "../model/Recensione";
+import {RichiestaPagamento} from "../model/RichiestaPagamento";
 
 
 declare var window: any;
@@ -281,6 +282,12 @@ export class BackEndService{
     public getPropostaByAnnuncio(idAnnuncio : number) : Observable<Proposta> {
 
     return this.http.get<Proposta>(this.url + "/proposta/accettata?annuncio=", {params : {idAnnuncio : idAnnuncio}})
+
+    }
+
+    public goToPayments(richiestaPagamento : RichiestaPagamento) {
+    //set allow origin header
+    return this.http.post(this.url + "/Pagamento", richiestaPagamento)
 
     }
 
