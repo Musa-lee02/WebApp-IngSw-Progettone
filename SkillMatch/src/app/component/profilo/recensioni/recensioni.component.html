@@ -1,53 +1,148 @@
 <div class="content">
-<div class="pannelloTotale "*ngIf="this.entita==='cliente'">
+  <div class="pannelloTotale " *ngIf="this.entita==='cliente'">
     <input class="recensioniBtn" id="recensioniBtn" type="checkbox">
     <div class="pannelloTitolo" >
-    <h1>LASCIA UNA RECENSIONE</h1>
+      <h1>LASCIA UNA RECENSIONE</h1>
 
-    <div class="rating">
-       <h1>4,5</h1> <img [src]="starImg" class="starImg">
-       <label for="recensioniBtn"style="float: right;"><fa-icon [icon]="ArrowDown" size="2x" style="margin-right: 30px;"></fa-icon></label>
-    </div>
+      <div class="rating">
+        <img [src]="starImg" class="starImg">
+        <label for="recensioniBtn"style="float: right;"><fa-icon [icon]="ArrowDown" size="2x" style="margin-right: 30px;"></fa-icon></label>
+      </div>
     </div>
     <div class="pannelloRecensioni">
 
-    <ng-container *ngFor="let annuncio of annunci">
+      <ng-container *ngFor="let annuncio of annunci">
         <div class="containerRecensioni">
-            <div class="divImg"><img src="{{annuncio.image}}"></div>
-            <div class="recensioniArea">
-                <div class="divNome"><h1>{{annuncio.cliente.username}}</h1></div>
-                <div class="divRelativo"><h2>Relativo all'annuncio:{{annuncio.titolo}}</h2></div>
-                <div class="divRecensione"><textarea></textarea></div>
-                <div class="divButton">
-                    <div class="divStelle">
-                    <ng-container *ngFor="let voto of [5,4,3,2,1]">
+          <div class="divImg"><img src="{{annuncio.image}}"></div>
+          <div class="recensioniArea">
+            <div class="divNome"><h1>Autore: {{annuncio.cliente.username}}</h1></div>
+            <div class="divRelativo"><h2>Relativo all'annuncio:{{annuncio.titolo}}</h2></div>
+            <div class="divRecensione"><textarea (input)="insertDescrizione($event)"></textarea></div>
+            <div class="divButton">
+              <div class="divStelle">
+                <ng-container *ngFor="let voto of [5,4,3,2,1]">
 
-                        <input class="votoBtn" id="votoBtn{{voto}}" type="checkbox">
-                        <label for="votoBtn{{voto}}" class="starLabel" (click)="setStarsClicked(voto)">
-                        <img [src]="starImg" class="starImg">
-                        </label>
+                  <input class="votoBtn" id="votoBtn{{voto}}" type="checkbox">
+                  <label for="votoBtn{{voto}}" class="starLabel" (click)="setStarsClicked(voto, annuncio)">
+                    <img [src]="starImg" class="starImg">
+                  </label>
 
 
-                    </ng-container>
-                </div>
+                </ng-container>
+              </div>
 
-                    <h2>Lascia una recensione</h2><button mat-button [disabled]="!isStarsClicked()">Invia</button></div>
-            </div>
+              <h2>Lascia una recensione</h2><button mat-button [disabled]="!isStarsClicked()"  (click)="inviaRecensione()">Invia</button></div>
+          </div>
         </div>
-    </ng-container>
-</div>
-</div>
-<div class="pannelloRecensioniConcluse" *ngIf="this.entita==='lavoratore'" >
-    <div class="pannelloTitolo">
-        <h1 >LE TUE RECENSIONI</h1>
+      </ng-container>
+      <ng-container *ngFor="let annuncio of annunci">
+        <div class="containerRecensioni">
+          <div class="divImg"><img src="{{annuncio.image}}"></div>
+          <div class="recensioniArea">
+            <div class="divNome"><h1>Autore: {{annuncio.cliente.username}}</h1></div>
+            <div class="divRelativo"><h2>Relativo all'annuncio:{{annuncio.titolo}}</h2></div>
+            <div class="divRecensione"><textarea (input)="insertDescrizione($event)"></textarea></div>
+            <div class="divButton">
+              <div class="divStelle">
+                <ng-container *ngFor="let voto of [5,4,3,2,1]">
 
+                  <input class="votoBtn" id="votoBtn{{voto}}" type="checkbox">
+                  <label for="votoBtn{{voto}}" class="starLabel" (click)="setStarsClicked(voto, annuncio)">
+                    <img [src]="starImg" class="starImg">
+                  </label>
+
+
+                </ng-container>
+              </div>
+
+              <h2>Lascia una recensione</h2><button mat-button [disabled]="!isStarsClicked()"  (click)="inviaRecensione()">Invia</button></div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="pannelloRecensioniConcluse" *ngIf="this.entita==='lavoratore'">
     <input class="recensioni2Btn" id="recensioni2Btn" type="checkbox">
-    <label for="recensioni2Btn"style="float: right;"><fa-icon [icon]="ArrowDown" size="2x" style="margin-right: 30px;"></fa-icon></label>
-
+    <div class="pannelloTitolo">
+      <h1 >RECENSIONI RICEVUTE</h1>
+      <div class="rating">
+        <h1>Media recensioni ricevute: {{mediaRecensioniRicevute}}</h1> <img [src]="starImg" class="starImg">
+        <label for="recensioni2Btn"style="float: right;"><fa-icon [icon]="ArrowDown" size="2x" style="margin-right: 30px;"></fa-icon></label>
+      </div>
     </div>
+
     <div class="pannelloRecensioni">
+      <ng-container *ngFor="let recensione of recensioniLavoratore">
+        <div class="containerRecensioni">
+          <!-- div class="divImg"><img src="{{recensione.lavoratore}}"></div -->
+          <div class="recensioniArea">
+            <div class="divNome"><h1>Autore: {{recensione.cliente?.username}}</h1></div>
+            <div class="divStelle">
 
+              <ng-container *ngFor="let s of [5,4,3,2,1]">
+                <img *ngIf="recensione.punteggio >= s; else elseBlock" [src]="starImg" class="starImgRecensito">
+                <ng-template #elseBlock>
+                  <img [src]="starBorderImg" class="starImgRecensito">
+                </ng-template>
+              </ng-container>
+              <h1>  Titolo: {{recensione.titolo}}</h1>
+            </div>
+            <div class="divRecensione">
+              <p>{{recensione.descrizione}}</p>
+            </div>
+
+            <!-- div class="divRelativo"><h2>Relativo all'annuncio {{recensione.lavoratore?.username}}</h2></div-->
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngFor="let recensione of recensioniLavoratore">
+        <div class="containerRecensioni">
+          <!-- div class="divImg"><img src="{{recensione.lavoratore}}"></div -->
+          <div class="recensioniArea">
+            <div class="divNome"><h1>Autore: {{recensione.cliente?.username}}</h1></div>
+            <div class="divStelle">
+
+              <ng-container *ngFor="let s of [5,4,3,2,1]">
+                <img *ngIf="recensione.punteggio >= s; else elseBlock" [src]="starImg" class="starImgRecensito">
+                <ng-template #elseBlock>
+                  <img [src]="starBorderImg" class="starImgRecensito">
+                </ng-template>
+              </ng-container>
+              <h1>  Titolo: {{recensione.titolo}}</h1>
+            </div>
+            <div class="divRecensione">
+              <p>{{recensione.descrizione}}</p>
+            </div>
+
+            <!-- div class="divRelativo"><h2>Relativo all'annuncio {{recensione.lavoratore?.username}}</h2></div-->
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngFor="let recensione of recensioniLavoratore">
+        <div class="containerRecensioni">
+          <!-- div class="divImg"><img src="{{recensione.lavoratore}}"></div -->
+          <div class="recensioniArea">
+            <div class="divNome"><h1>Autore: {{recensione.cliente?.username}}</h1></div>
+            <div class="divStelle">
+
+              <ng-container *ngFor="let s of [5,4,3,2,1]">
+                <img *ngIf="recensione.punteggio >= s; else elseBlock" [src]="starImg" class="starImgRecensito">
+                <ng-template #elseBlock>
+                  <img [src]="starBorderImg" class="starImgRecensito">
+                </ng-template>
+              </ng-container>
+              <h1>  Titolo: {{recensione.titolo}}</h1>
+            </div>
+            <div class="divRecensione">
+              <p>{{recensione.descrizione}}</p>
+            </div>
+
+            <!-- div class="divRelativo"><h2>Relativo all'annuncio {{recensione.lavoratore?.username}}</h2></div-->
+          </div>
+        </div>
+      </ng-container>
     </div>
 
-</div>
+  </div>
 </div>

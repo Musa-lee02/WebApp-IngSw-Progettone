@@ -11,6 +11,7 @@ import { Annuncio } from '../model/Annuncio';
 import { LoginLavoratoreDto } from '../model/LoginLavoratoreDto';
 import { LoginClienteDto } from '../model/LoginClienteDto';
 import { Proposta } from '../model/Proposta';
+import {Recensione} from "../model/Recensione";
 
 
 declare var window: any;
@@ -43,7 +44,6 @@ export class BackEndService{
     localStorage.removeItem("scelta");
     localStorage.removeItem("utente")
   }
-
 
 
   checkAuthentication(){
@@ -128,7 +128,7 @@ export class BackEndService{
 
   public getUtente(): Observable<Lavoratore>{
 
-        return this.http.get<Lavoratore>(this.url + "/lavoratore/getLavoratoreByUsername?token=" + this.getToken());
+    return this.http.get<Lavoratore>(this.url + "/lavoratore/getLavoratoreByUsername?token=" + this.getToken());
 
   }
 
@@ -208,13 +208,24 @@ export class BackEndService{
     );
   }
 
+  public insertRecensione(recensione: Recensione) {
+    //console.log("recensione in invio al backend 1: " + recensione)
+    //console.log("recensione in invio al backend 2 : " + recensione.descrizione)
+    return this.http.post<Boolean>(
+      this.url + "/recensione/insertRecensione",
+      recensione
+    );
+
+  }
+
+
 
   // Funziona
   public getAnnunciWithToken(): Observable<Annuncio[]>{
 
     if( localStorage.getItem("scelta")==="cliente"){
       return this.http.get<Annuncio[]>(
-      this.url+"/annuncio/getAnnunciWithToken/"+this.getToken());
+        this.url+"/annuncio/getAnnunciWithToken/"+this.getToken());
     }
     else{
 
@@ -229,11 +240,11 @@ export class BackEndService{
     if( localStorage.getItem("scelta")==="cliente"){
       return this.http.get<Annuncio[]>(
 
-          this.url+"/annuncio/getAnnunciWithChat/"+this.getToken());
+        this.url+"/annuncio/getAnnunciWithChat/"+this.getToken());
     }
     else{
       return this.http.get<Annuncio[]>(
-          this.url+"/annuncio/getAnnunciWithTokenLavoratore");
+        this.url+"/annuncio/getAnnunciWithTokenLavoratore");
     }
 
   }
@@ -264,10 +275,11 @@ export class BackEndService{
 
   public verifyToken(token: string, username : string){
     this.http.get(this.url+"/ConfermaAccount",{params: {token: token}}).subscribe(data => {
-  })}
+    })}
 
-    public getAmbiti(): Observable<Ambito[]>{
-      return this.http.get<Ambito[]>(this.url+"/ambito/getAmbiti");
-    }
+  public getAmbiti(): Observable<Ambito[]>{
+    return this.http.get<Ambito[]>(this.url+"/ambito/getAmbiti");
+  }
+
 
 }

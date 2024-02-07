@@ -13,6 +13,7 @@ import { LoginClienteDto } from '../model/LoginClienteDto';
 import {Messaggio} from "../model/Messaggio";
 import {Chat} from "../model/Chat";
 import {Proposta} from "../model/Proposta";
+import {Recensione} from "../model/Recensione";
 
 
 declare var window: any;
@@ -76,14 +77,19 @@ export class AnnuncioService{
     return this.http.get<Annuncio[]>(this.url+"/annuncio/getAnnunciByAmbitoEZona?ambito="+ambito+"&provincia="+encodeURIComponent(provincia))
   }
 
-
   public getAnnunciFinalizzati(): Observable<Annuncio[]>{
-
-
     return this.http.get<Annuncio[]>(this.url+"/annuncio/getAnnunciFinalizzati/"+this.getToken())
 
   }
+  public getLavoratoreAnnuncio(id:number) : Observable<Lavoratore>{
 
+    return this.http.get<Lavoratore>(this.url+"/lavoratore/getLAVORATOREByIdAnnuncio?id="+id)
+  }
+
+  public getRecensioniLavoratore(): Observable<Recensione[]>{
+
+    return this.http.get<Recensione[]>(this.url+"/recensione/getRecensioniWithToken/"+this.getToken())
+  }
 
 
   public getAmbiti(): Observable<Ambito[]>{
@@ -102,13 +108,12 @@ export class AnnuncioService{
     }
     this.http.post<boolean>(this.url+"/chat/creaChat", chat).subscribe(response=>{
 
-        if(response){
-          this.router.navigate(["/Chat"])
-        }
+      if(response){
+        this.router.navigate(["/Chat"])
+      }
     })
   }
 
 
 
 }
-

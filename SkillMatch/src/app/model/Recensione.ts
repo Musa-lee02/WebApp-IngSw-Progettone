@@ -7,7 +7,7 @@ export interface Recensione{
     titolo: string;
     descrizione: string;
     punteggio: number;
-    recensore: Cliente;
-    recensito: Lavoratore;
+    cliente: Cliente;
+    lavoratore: Lavoratore;
 
 }
