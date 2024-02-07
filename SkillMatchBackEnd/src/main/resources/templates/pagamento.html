@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Seleziona Pagamento</title>
+    <link href="css/pagamento.css" rel="stylesheet" type="text/css"/>
+    <link href="css/nav-bar.css" rel="stylesheet" type="text/css"/>
+    <link href="css/footer.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+npm start
+
+<div class="navBar">
+    <img src="css/Skill.png" class="logoImg" alt="">
+
+    <span class="searchResponsive">
+            <input class="search-btn" id="search-btn" type="checkbox">
+            <label for="search-btn" class="labelSearch"></label>
+        </span>
+    <input class="menu-btn" id="menu-btn" type="checkbox">
+    <label for="menu-btn" class="menu-icon">
+        <span class="nav-icon"></span>
+    </label>
+    <ul>
+        <li><a href="http://localhost:4200/Home">Home</a></li>
+    </ul>
+</div>
+
+<div class="Pagamento">
+    <h2>Seleziona un Metodo di Pagamento</h2>
+    <form action="/processaPagamento" method="post">
+        <div th:each="metodo : ${session.metodiPagamento}">
+            <label>
+                <input type="radio" th:name="metodoPagamento" th:value="${metodo}" />
+                <span th:text="${metodo}"></span>
+            </label>
+            <br />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Conferma Pagamento</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<div class="mainFooter">
+    <div class="containerFooter">
+        <p>2024 - Skill Match || Web Application - Ingegneria del software</p>
+    </div>
+</div>
+
+</body>
+</html>
