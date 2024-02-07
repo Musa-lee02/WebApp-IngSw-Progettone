@@ -104,7 +104,9 @@ export class ProfiloComponent implements OnInit {
   }
 
 
-  vaiAlPagamento() {
+  vaiAlPagamento(annuncio : Annuncio) {
+    console.log(annuncio.id)
+    console.log(annuncio.proposta.prezzoLavoro)
     console.log("vai al pagamento")
   }
 }

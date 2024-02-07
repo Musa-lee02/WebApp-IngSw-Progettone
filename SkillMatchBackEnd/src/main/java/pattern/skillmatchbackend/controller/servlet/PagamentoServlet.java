@@ -23,7 +23,7 @@ public class PagamentoServlet extends HttpServlet {
         //System.out.println(tokenGenerato);
 
         //Nello switch qui sotto andrebbe "tokenGenerato", però, se qualcuno volesse testare il risultato può hard-codare la stringa, per ora
-        List<String> metodiPagamento = List.of("PayPal", "Carta di credito", "Bonifico bancario");
+        List<String> metodiPagamento = List.of("Carta di credito", "PayPal");
         session.setAttribute("metodiPagamento", metodiPagamento);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("views/pagamento.html");

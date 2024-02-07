@@ -29,7 +29,7 @@
 
 <div class="Pagamento">
     <h2>Seleziona un Metodo di Pagamento</h2>
-    <form action="/processaPagamento" method="post">
+    <form action="/payment/process?" method="post">
         <div th:each="metodo : ${session.metodiPagamento}">
             <label>
                 <input type="radio" th:name="metodoPagamento" th:value="${metodo}" />
