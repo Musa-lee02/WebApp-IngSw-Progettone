@@ -1,69 +1,69 @@
+<div class="header">
+  <ul>
+    <li><a routerLink="/Profilo">Profilo</a></li>
+    <li><a routerLink="/Chat">Chat</a></li>
+  </ul>
+</div>
+<div class="dashboard">
+  <div class="leftPart">
+    <div class="picProfile">
+      <img src="{{getPicProfile()}}">
 
-
-    <div class="header">
-        <ul>
-            <li><a routerLink="/Profilo">Profilo</a></li>
-            <li><a routerLink="/Chat">Chat</a></li>
-        </ul>
+      <label for="fileInput">
+        <fa-icon [icon]="pencil" size="2x" (click)="onSelectFile($event)"> </fa-icon>
+      </label>
     </div>
-    <div class="dashboard">
-        <div class="leftPart">
-            <div class="picProfile">
-                <img src="{{getPicProfile()}}">
+    <input type="file" id="fileInput" (change)="onSelectFile($event)">
+    <div class="data">
+      <ul>
+        <li>Username: {{utente.username}}</li>
+        <li>Nome: {{utente.nome}}</li>
+        <li>Cognome: {{utente.cognome}}</li>
+        <li>Data di nascita: {{utente.dataNascita}}</li>
+        <li>Provincia: {{utente.provincia}}</li>
+        <li *ngIf="entita==='lavoratore'">Zona di competenza: {{getZona()}}</li>
+        <li *ngIf="entita==='lavoratore'">Ambiti: {{getAmbiti()}}</li>
+        <li *ngIf="entita==='lavoratore'">Altre informazioni</li>
 
-            <label for="fileInput">
-            <fa-icon [icon]="pencil" size="2x" (click)="onSelectFile($event)"> </fa-icon>
-            </label>
-            </div>
-            <input type="file" id="fileInput" (change)="onSelectFile($event)">
-            <div class="data">
-                    <ul>
-                        <li>Username: {{utente.username}}</li>
-                        <li>Nome: {{utente.nome}}</li>
-                        <li>Cognome: {{utente.cognome}}</li>
-                        <li>Data di nascita: {{utente.dataNascita}}</li>
-                        <li>Provincia: {{utente.provincia}}</li>
-                        <li *ngIf="entita==='lavoratore'">Zona di competenza: {{getZona()}}</li>
-                        <li *ngIf="entita==='lavoratore'">Ambiti: {{getAmbiti()}}</li>
-                        <li *ngIf="entita==='lavoratore'">Altre informazioni</li>
+      </ul>
+    </div>
+  </div>
+  <div class="rightPart">
 
-                    </ul>
+    <div class="notifiche">
+      <div class="inbox">
+        <h2 style=" float: left;">Inbox</h2>
+      </div>
+
+    </div>
+
+    <div class="cronoChat">
+      <h2 style="align-self: flex-start;" *ngIf="entita==='cliente'">Annunci Finalizzati</h2>
+      <h2 style="align-self: flex-start;" *ngIf="entita==='lavoratore'">Le tue proposte di lavoro</h2>
+      <div *ngFor="let annuncio of annunci; index as i">
+
+        <div class="cardAnnuncio">
+
+          <input class="proposteBtn" id="proposteBtn{{i}}" type="checkbox">
+          <label for="proposteBtn{{i}}" class="cardAnnuncio">
+
+            <div class="imgCard" ><img src="{{annuncio.image}}"></div>
+            <div class="titoloDesc">
+              <div class="titoloCard">{{annuncio.titolo}}</div>
+              <div class="descrizioneCard">{{annuncio.descrizione}}</div>
+              <mat-card-actions>
+                <a href="http://localhost:8080/Pagamento"><button mat-button (click)="vaiAlPagamento()" >Effettua Pagamento</button></a>
+              </mat-card-actions>
             </div>
+          </label>
         </div>
-        <div class="rightPart">
-
-            <div class="notifiche">
-                <div class="inbox">
-                    <h2 style=" float: left;">Inbox</h2>
-                </div>
-
-            </div>
-
-            <div class="cronoChat">
-                <h2 style="align-self: flex-start;" *ngIf="entita==='cliente'">Annunci Finalizzati</h2>
-                <h2 style="align-self: flex-start;" *ngIf="entita==='lavoratore'">Le tue proposte di lavoro</h2>
-                <div *ngFor="let annuncio of annunci; index as i">
-
-                    <div class="cardAnnuncio">
-
-                        <input class="proposteBtn" id="proposteBtn{{i}}" type="checkbox">
-                        <label for="proposteBtn{{i}}" class="cardAnnuncio">
-
-                        <div class="imgCard" ><img src="{{annuncio.image}}"></div>
-                        <div class="titoloDesc">
-                            <div class="titoloCard">{{annuncio.titolo}}</div>
-                            <div class="descrizioneCard">{{annuncio.descrizione}}</div>
-                        </div>
-                        </label>
-                        </div>
-                </div>
+      </div>
 
 
-            </div>
-        </div>
+    </div>
+  </div>
 
-        <app-recensioni></app-recensioni>
+  <app-recensioni></app-recensioni>
 
 
 </div>
-

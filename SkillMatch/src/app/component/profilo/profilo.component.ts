@@ -12,6 +12,7 @@ import { Annuncio } from '../../model/Annuncio';
 import {AnnuncioService} from "../../service/AnnuncioService";
 
 
+
 @Component({
   selector: 'app-profilo',
   templateUrl: './profilo.component.html',
@@ -56,9 +57,9 @@ export class ProfiloComponent implements OnInit {
     this.annunciService.getAnnunciFinalizzati().subscribe(
       response => {
         this.annunci = response
-    }, (error) => {
+      }, (error) => {
         console.log("errore.")
-    });
+      });
     /*this.annunci = this.service.getAnnunci();*/
     this.utente = this.getUtente();
     console.log(this.annunci)
@@ -67,8 +68,8 @@ export class ProfiloComponent implements OnInit {
 
     console.log(this.backEndService.getToken())
     this.getUtente()
-      console.log("img:" + this.utente.imgProfilo);
-      console.log("data di nascita: " + this.utente.dataNascita);
+    console.log("img:" + this.utente.imgProfilo);
+    console.log("data di nascita: " + this.utente.dataNascita);
   }
 
 
@@ -88,7 +89,6 @@ export class ProfiloComponent implements OnInit {
     return this.getUtente().imgProfilo;
   }
 
-
   getUtente() : Lavoratore | Cliente{
     var utenteLogged = localStorage.getItem("utente");
     return JSON.parse(utenteLogged!);
@@ -104,4 +104,7 @@ export class ProfiloComponent implements OnInit {
   }
 
 
+  vaiAlPagamento() {
+    console.log("vai al pagamento")
+  }
 }
