@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
+
 }
 
 
@@ -42,12 +42,12 @@
     background-color: black;
 }
 .dashboard{
- 
-    height: 700px;
+
+    height: fit-content;
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
-    
+
     padding: 0 70px 0 70px;
     margin: 0 20px 20px 20px;
     align-items: flex-start;
@@ -63,13 +63,14 @@
     padding-top: 20px;
 }
 .leftPart{
-    
-   
+
+
     border-left: 1px solid black;
     border-right: 1px solid black;
     width: 30%;
     padding-left: 20px;
-    
+    height:550px;
+
 }
 .leftPart input{
 
@@ -79,7 +80,7 @@
     float: right;
 }
 .picProfile{
-    
+
     width: 100%;
     height: 200px;
 }
@@ -94,7 +95,7 @@
     width: 100%;
     padding-bottom: 40px;
     padding-top: 50px;
-    
+
 }
 
 
@@ -104,16 +105,16 @@ li{
 }
 
 .rightPart{
-    
+
     display: flex;
     width: 70%;
     border-right: 1px solid black;
-    
+
 
 }
 
 .dashboard *{
-   
+
 }
 .dashboard div .divImgChat{
 
@@ -124,8 +125,8 @@ li{
     max-height: inherit;
 }
 .notifiche{
-    
-   
+
+
     padding: 0 20px 20px 0;
     align-self: flex-end;
     width: 100%;
@@ -135,7 +136,7 @@ li{
 
     padding: 20px;
     width: 100%;
-    height: 100%;
+    height: 500px;
     border-top-right-radius: 100px;
     border-bottom-right-radius: 100px;
     border-left: none;
@@ -150,10 +151,10 @@ li{
     width: 80%;
     height: 100%;
     padding: 0 20px 20px 20px;
-    
+
     overflow-y: auto;
     font-family: 'Montserrat', sans-serif;
-   
+
 }
 
 .singleChat{
@@ -169,7 +170,7 @@ li{
     width: 70%;
 }
 .buttonRow{
-    
+
     padding: 20px;
     width: 100%;
     display: flex;
@@ -177,11 +178,11 @@ li{
     align-self: flex-end;
 }
 .buttonColumn{
-    
+
     align-self: flex-end;
 }
 .rightPart button{
-    
+
     background-color: gray;
     color: #fff;
     font-size: 12px;
@@ -196,8 +197,8 @@ li{
 }
 
 .imgCard{
-   
-    
+
+
     width: 30%;
     height: 100%;
     overflow: hidden;
@@ -212,18 +213,18 @@ li{
 
 .titoloCard{
 
-    
+
     text-align: left;
     width: 100%;
     height: 50%;
     border-radius: 10px;
     padding-left: 10px;
     background-color: rgb(237, 233, 252);
-    
+
 }
 
 .titoloDesc{
-    
+
     width: 70%;
     display: flex;
     flex-direction: column;
@@ -234,10 +235,10 @@ li{
     font-size: auto;
     width: 100%;
     height: 50%;
-    
+
 }
 .cardAnnuncio{
-    
+
     width: 100%;
     color: black;
     background-color: rgb(213, 208, 233);
@@ -246,7 +247,7 @@ li{
     margin-bottom: 3px;
     border-radius: 5px;
     border: 1px solid black;
-    
+
 }
 
 
@@ -290,7 +291,7 @@ li{
         flex-direction: column;
     }
     .pannelloTotale{
-        
+
         width: 100%;
     }
 
