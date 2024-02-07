@@ -138,7 +138,7 @@ export class ChatTextComponent implements OnInit, OnChanges, OnDestroy, AfterCon
       annuncioRelativo: this.chat.annuncio,
       dataLavoro: propostaParametri.data,
       descrizione: propostaParametri.descrizione,
-      lavoratore: this.chat.lavoratore.username,
+      lavoratore: this.chat.lavoratore,
       prezzoLavoro: propostaParametri.prezzo,
       stato: "inCorso",
       statoLavoro: undefined,

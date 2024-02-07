@@ -1,6 +1,7 @@
 import { Annuncio } from "./Annuncio";
 import { Lavoratore } from "./Lavoratore";
 
+
 export interface Proposta{
 
     descrizione: string;
@@ -8,7 +9,7 @@ export interface Proposta{
     statoLavoro:  string | undefined;
     prezzoLavoro: number | null;
     annuncioRelativo: Annuncio;
-    lavoratore: Lavoratore["username"];
+    lavoratore: Lavoratore;
     dataLavoro: Date;
 
 

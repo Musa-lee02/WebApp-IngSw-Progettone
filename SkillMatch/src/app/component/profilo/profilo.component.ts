@@ -109,7 +109,7 @@ export class ProfiloComponent implements OnInit {
     console.log(annuncio.id)
     this.backEndService.getPropostaByAnnuncio(annuncio.id).subscribe( response =>
     {this.propostaAccettata = response
-    console.log(this.propostaAccettata)}, (error) => {
+      , (error) => {
       Swal.fire("Errore")
       })
 
