@@ -1,13 +1,14 @@
-
-
-
-
+<script src="/assets/JS/recuperoPassword.js"></script>
 <div class="alert alert-primary" role="alert">
-    RECUPERA LA TUA PASSWORD INSERISCI LA TUA EMAIL PER IL RECUPERO
-   </div>
+  RECUPERA LA TUA PASSWORD INSERISCI LA TUA EMAIL PER IL RECUPERO
+</div>
 
-    <div [formGroup]="inputValidators">EMAIL DI RECUPERO: <input type="input"
-     formControlName="input"></div>
 
-   <button type="button" class="btn btn-primary" *ngStyle="{'background-color': inputValidators.valid ? '#512da8':'grey'}">Invia</button>
+<form onSubmit="validate()" name="myForm">
+  <div>EMAIL DI RECUPERO: <input type="input" name="email"></div>
+  <button type="submit" class="btn btn-primary" style="background-color: #512da8">Invia</button>
+</form>
+
+
+<!--<button type="button" class="btn btn-primary" [ngStyle]="{'background-color': inputValidators.valid ? '#512da8':'grey'}">Invia</button>-->
 
