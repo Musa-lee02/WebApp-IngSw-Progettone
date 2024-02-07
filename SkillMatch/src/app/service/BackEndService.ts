@@ -91,10 +91,7 @@ export class BackEndService{
 
   }
 
-  public loginGoogle(utenteGoogle : any ){
 
-
-  }
   //Funziona
   public loginCliente(utente : UtenteCredenziali){
     this.http.post<LoginClienteDto>(this.url + "/retriveData/loginCliente",utente)
@@ -279,6 +276,12 @@ export class BackEndService{
 
     public getAmbiti(): Observable<Ambito[]>{
       return this.http.get<Ambito[]>(this.url+"/ambito/getAmbiti");
+    }
+
+    public getPropostaByAnnuncio(idAnnuncio : number) : Observable<Proposta> {
+
+    return this.http.get<Proposta>(this.url + "/proposta/accettata?annuncio=", {params : {idAnnuncio : idAnnuncio}})
+
     }
 
 

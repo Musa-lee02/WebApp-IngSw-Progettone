@@ -8,7 +8,7 @@ export interface Proposta{
     statoLavoro:  string | undefined;
     prezzoLavoro: number | null;
     annuncioRelativo: Annuncio;
-    lavoratore: Lavoratore;
+    lavoratore: Lavoratore["username"];
     dataLavoro: Date;
 
 

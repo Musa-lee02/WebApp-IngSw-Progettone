@@ -10,6 +10,7 @@ import {Utente} from "../../model/Utente";
 import {LavoratoreFieldService} from "../../service/LavoratoreFieldService";
 import { Annuncio } from '../../model/Annuncio';
 import {AnnuncioService} from "../../service/AnnuncioService";
+import Swal from "sweetalert2";
 
 
 
@@ -106,7 +107,11 @@ export class ProfiloComponent implements OnInit {
 
   vaiAlPagamento(annuncio : Annuncio) {
     console.log(annuncio.id)
-    console.log(annuncio.proposta.prezzoLavoro)
-    console.log("vai al pagamento")
+    this.backEndService.getPropostaByAnnuncio(annuncio.id).subscribe( response =>
+    {this.propostaAccettata = response
+    console.log(this.propostaAccettata)}, (error) => {
+      Swal.fire("Errore")
+      })
+
   }
 }

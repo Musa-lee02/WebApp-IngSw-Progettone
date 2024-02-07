@@ -12,6 +12,14 @@ import pattern.skillmatchbackend.persistenza.DBManager;
 @RequestMapping("/proposta")
 public class PropostaController {
 
+    @GetMapping("/accettata")
+    public Proposta getPropostaAccettataByAnnuncio(@RequestParam Long idAnnuncio){
+       Proposta proposta = DBManager.getInstance().getPropostaDao().findByAnnuncioFinalizzato(idAnnuncio);
+        System.out.println(proposta);
+        return proposta;
+
+    }
+
 
 
 }
