@@ -12,8 +12,6 @@ import java.util.List;
 @RequestMapping("/lavoratore")
 public class LavoratoreController {
 
-
-
     //TODO da testare
     @GetMapping("getLavoratorePunteggio")
     public int getLavoratorePunteggio(@RequestBody Lavoratore lavoratore){
@@ -29,6 +27,14 @@ public class LavoratoreController {
             System.out.println(lavoratore.getUsername());
         }
         return DBManager.getInstance().getLavoratoreDao().getLavoratori(id);
+    }
+
+    @GetMapping("/getLAVORATOREByIdAnnuncio")
+    public Lavoratore getLAVORATOREByIdAnnuncio(@RequestParam long id){
+        //System.out.println(id);
+        Lavoratore lav = DBManager.getInstance().getLavoratoreDao().getLavoratoreByIdAnnuncio(id);
+        //System.out.println(lav.getUsername());
+        return DBManager.getInstance().getLavoratoreDao().getLavoratoreByIdAnnuncio(id);
     }
 
 

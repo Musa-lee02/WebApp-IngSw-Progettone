@@ -4,9 +4,9 @@ public class PaymentStrategyFactory {
 
     public PaymentStrategy getPaymentStrategy(String paymentMethod){
         switch(paymentMethod){
-            case "stripe":
+            case "Carta di credito":
                 return new StripePaymentStrategy();
-            case "paypal":
+            case "PayPal":
                 //return new PaypalPaymentStrategy();
             default:
                 return null;

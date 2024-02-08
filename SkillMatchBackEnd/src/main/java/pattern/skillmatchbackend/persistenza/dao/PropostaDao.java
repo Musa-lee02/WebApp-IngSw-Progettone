@@ -19,6 +19,8 @@ public interface PropostaDao {
 
     public Proposta findByChat(Long idAnnuncio, String usernameCliente, String usernameLavoratore);
 
+    public Proposta findByAnnuncioFinalizzato(Long idAnnuncio);
+
 
 
 }

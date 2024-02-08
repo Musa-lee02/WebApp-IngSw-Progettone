@@ -49,9 +49,9 @@ export class ChatTextComponent implements OnInit, OnChanges, OnDestroy, AfterCon
 
   ngOnInit(): void {
 
-      this.interval = setInterval(() => {
-        this.getMessaggi();
-      }, 500);
+    this.interval = setInterval(() => {
+      this.getMessaggi();
+    }, 500);
 
 
     this.textForm = new FormGroup({
@@ -109,7 +109,7 @@ export class ChatTextComponent implements OnInit, OnChanges, OnDestroy, AfterCon
     console.log(messaggio.isLavoratore)
     this.chatService.inviaMessaggio(messaggio)
 
-}
+  }
   back(){
     this.tornaDietro.emit();
   }
@@ -147,13 +147,13 @@ export class ChatTextComponent implements OnInit, OnChanges, OnDestroy, AfterCon
     console.log(proposta)
     this.chatService.setProposta(proposta).subscribe(response =>{
 
-      if(response){
-        console.log("true")
+        if(response){
+          console.log("true")
 
-      }
-      else{
-        console.log("false")
-      }
+        }
+        else{
+          console.log("false")
+        }
       }
     )
 

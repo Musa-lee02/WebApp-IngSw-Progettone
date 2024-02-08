@@ -1,77 +1,73 @@
-
 <div class="header">
-    <ul>
-        <li><a routerLink="/Profilo">Profilo</a></li>
-        <li><a routerLink="/Chat">Chat</a></li>
-    </ul>
+  <ul>
+    <li><a routerLink="/Profilo">Profilo</a></li>
+    <li><a routerLink="/Chat">Chat</a></li>
+  </ul>
 </div>
 
 
-    <div class="dashboard" #rightPart >
-        <div class="leftPart">
-            <ng-container *ngIf="entita==='cliente'">
-            <div *ngFor="let annuncio of annunci; index as i">
+<div class="dashboard" #rightPart >
+  <div class="leftPart">
+    <ng-container *ngIf="entita==='cliente'">
+      <div *ngFor="let annuncio of annunci; index as i">
 
-                <div class="cardAnnuncio">
+        <div class="cardAnnuncio">
 
-                <input class="proposteBtn" id="proposteBtn{{i}}" type="checkbox">
-                <label for="proposteBtn{{i}}" class="cardAnnuncio">
+          <input class="proposteBtn" id="proposteBtn{{i}}" type="checkbox">
+          <label for="proposteBtn{{i}}" class="cardAnnuncio">
 
-                <div class="imgCard" ><img src="{{annuncio.image}}"></div>
-                <div class="titoloDesc">
-                    <div class="titoloCard">{{annuncio.titolo}}</div>
-                    <div class="descrizioneCard">{{annuncio.descrizione}}</div>
-
-
-                </div>
-
-                <div class="containerProposta">
-                    <div *ngFor="let lavoratore of lavoratori[annuncio.id] index as j">
-                       <div class="cardProposta"
-                         (click)="setChatByUsernameAndId(lavoratore, annuncio)" (click)="visualizzaChatResponsive()">
-                            <!--<input class="chatBtn" id="chatBtn{{j}}" type="checkbox">
-                            <label for="chatBtn{{j}}" class="cardProposta">-->
-                            <div class="imgCard"><img src="{{lavoratore.imgProfilo}}"></div>
-                            <div class="titoloDesc">
-                                <div class="titoloCard">{{lavoratore.username}}</div>
-                                <!--<div class="descrizioneCard">{{lavoratore.descrizione}}</div>-->
+            <div class="imgCard" ><img src="{{annuncio.image}}"></div>
+            <div class="titoloDesc">
+              <div class="titoloCard">{{annuncio.titolo}}</div>
+              <div class="descrizioneCard">{{annuncio.descrizione}}</div>
 
 
-                            </div><!--</label>-->
-                        </div>
-                    </div>
-                </div>
-            </label></div>
             </div>
-            </ng-container>
 
-        <ng-container *ngIf="entita==='lavoratore'">
+            <div class="containerProposta">
+              <div *ngFor="let lavoratore of lavoratori[annuncio.id] index as j">
+                <div class="cardProposta"
+                     (click)="setChatByUsernameAndId(lavoratore, annuncio)" (click)="visualizzaChatResponsive()">
+                  <!--<input class="chatBtn" id="chatBtn{{j}}" type="checkbox">
+                  <label for="chatBtn{{j}}" class="cardProposta">-->
+                  <div class="imgCard"><img src="{{lavoratore.imgProfilo}}"></div>
+                  <div class="titoloDesc">
+                    <div class="titoloCard">{{lavoratore.username}}</div>
+                    <!--<div class="descrizioneCard">{{lavoratore.descrizione}}</div>-->
 
-            <div *ngFor="let annuncio of annunci; index as i">
 
-                <div class="cardAnnuncio" (click)="setChatByUsernameAndId(annuncio.cliente, annuncio)" (click)="visualizzaChatResponsive()">
-
-                <input class="propostelavoratoreBtn" id="propostelavoratoreBtn{{i}}" type="checkbox">
-                <label for="propostelavoratoreBtn{{i}}" class="cardAnnuncio">
-
-                <div class="imgCard" ><img src="{{annuncio.image}}"></div>
-                <div class="titoloDesc">
-                    <div class="titoloCard">{{annuncio.titolo}}</div>
-                    <div class="descrizioneCard">{{annuncio.descrizione}}</div>
+                  </div><!--</label>-->
                 </div>
-                </label>
-                </div>
-                </div>
-        </ng-container>
+              </div>
+            </div>
+          </label></div>
+      </div>
+    </ng-container>
 
+    <ng-container *ngIf="entita==='lavoratore'">
 
+      <div *ngFor="let annuncio of annunci; index as i">
 
+        <div class="cardAnnuncio" (click)="setChatByUsernameAndId(annuncio.cliente, annuncio)" (click)="visualizzaChatResponsive()">
+
+          <input class="propostelavoratoreBtn" id="propostelavoratoreBtn{{i}}" type="checkbox">
+          <label for="propostelavoratoreBtn{{i}}" class="cardAnnuncio">
+
+            <div class="imgCard" ><img src="{{annuncio.image}}"></div>
+            <div class="titoloDesc">
+              <div class="titoloCard">{{annuncio.titolo}}</div>
+              <div class="descrizioneCard">{{annuncio.descrizione}}</div>
+            </div>
+          </label>
         </div>
-    <div class="rightPart">
-            <h1 *ngIf="!chat"> Clicca su una chat per visualizzare i messaggi e la proposta associata</h1>
-            <app-chat-text *ngIf="chat" [proposta]="proposta" [chat]="getChat()" (tornaDietro)="rimuoviChat()" ></app-chat-text>
-        </div>
-    </div>
+      </div>
+    </ng-container>
 
 
 
+  </div>
+  <div class="rightPart">
+    <h1 *ngIf="!chat"> Clicca su una chat per visualizzare i messaggi e la proposta associata</h1>
+    <app-chat-text *ngIf="chat" [proposta]="proposta" [chat]="getChat()" (tornaDietro)="rimuoviChat()" ></app-chat-text>
+  </div>
+</div>

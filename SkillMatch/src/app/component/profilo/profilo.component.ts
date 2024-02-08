@@ -10,6 +10,9 @@ import {Utente} from "../../model/Utente";
 import {LavoratoreFieldService} from "../../service/LavoratoreFieldService";
 import { Annuncio } from '../../model/Annuncio';
 import {AnnuncioService} from "../../service/AnnuncioService";
+import Swal from "sweetalert2";
+import {RichiestaPagamento} from "../../model/RichiestaPagamento";
+import {Proposta} from "../../model/Proposta";
 
 
 
@@ -25,7 +28,9 @@ export class ProfiloComponent implements OnInit {
   pencil=faPencil
   utente : Lavoratore | Cliente
   entita:string | null
-  propostaAccettata: any
+  propostaAccettata: Proposta
+
+  richiestapagamento : RichiestaPagamento
 
   url:string;
   constructor(private service: ServizioAnnunciService,
@@ -104,7 +109,30 @@ export class ProfiloComponent implements OnInit {
   }
 
 
-  vaiAlPagamento() {
-    console.log("vai al pagamento")
+  vaiAlPagamento(annuncio : Annuncio) {
+    console.log(annuncio.id)
+    this.backEndService.getPropostaByAnnuncio(annuncio.id).subscribe( response => {
+      this.propostaAccettata = response
+      this.richiestapagamento = {
+        customAmount: this.propostaAccettata.prezzoLavoro,
+        idDest: this.propostaAccettata.lavoratore.username
+
+      }
+      console.log("Custo amount: "  + this.richiestapagamento.customAmount)
+
+      if (this.propostaAccettata != null) {
+        Swal.fire("Pagamento verso: " + this.richiestapagamento.idDest + "\n" + "Importo: " + this.richiestapagamento.customAmount + " euro")
+
+        window.location.href = `http://localhost:8080/Pagamento?customAmount=${this.richiestapagamento.customAmount}
+      &idDest=${this.richiestapagamento.idDest}&idMitt=${this.utente.username}
+      &idAnnuncio=${this.propostaAccettata.annuncioRelativo.id.toString()}`
+
+      }
+
+
+    }, (error : any) => {
+      Swal.fire("Errore")
+    })
+
   }
 }

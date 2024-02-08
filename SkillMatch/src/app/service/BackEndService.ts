@@ -12,6 +12,7 @@ import { LoginLavoratoreDto } from '../model/LoginLavoratoreDto';
 import { LoginClienteDto } from '../model/LoginClienteDto';
 import { Proposta } from '../model/Proposta';
 import {Recensione} from "../model/Recensione";
+import {RichiestaPagamento} from "../model/RichiestaPagamento";
 
 
 declare var window: any;
@@ -91,10 +92,10 @@ export class BackEndService{
 
   }
 
-  public loginGoogle(utenteGoogle : any ){
-
+  public loginGoogle(utenteGoogle : any ) {
 
   }
+
   //Funziona
   public loginCliente(utente : UtenteCredenziali){
     this.http.post<LoginClienteDto>(this.url + "/retriveData/loginCliente",utente)
@@ -128,7 +129,7 @@ export class BackEndService{
 
   public getUtente(): Observable<Lavoratore>{
 
-    return this.http.get<Lavoratore>(this.url + "/lavoratore/getLavoratoreByUsername?token=" + this.getToken());
+        return this.http.get<Lavoratore>(this.url + "/lavoratore/getLavoratoreByUsername?token=" + this.getToken());
 
   }
 
@@ -280,6 +281,19 @@ export class BackEndService{
   public getAmbiti(): Observable<Ambito[]>{
     return this.http.get<Ambito[]>(this.url+"/ambito/getAmbiti");
   }
+
+    public getPropostaByAnnuncio(idAnnuncio : number) : Observable<Proposta> {
+
+    return this.http.get<Proposta>(this.url + "/proposta/accettata?annuncio=", {params : {idAnnuncio : idAnnuncio}})
+
+    }
+
+    public goToPayments(richiestaPagamento : RichiestaPagamento) {
+    //set allow origin header
+    return this.http.post(this.url + "/Pagamento", richiestaPagamento)
+
+    }
+
 
 
 }

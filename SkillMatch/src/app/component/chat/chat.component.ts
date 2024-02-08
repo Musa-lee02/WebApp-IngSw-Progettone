@@ -54,7 +54,7 @@ export class ChatComponent implements OnInit, AfterContentChecked{
   ngOnInit(): void {
 
 
-   this.entita= localStorage.getItem("scelta")!
+    this.entita= localStorage.getItem("scelta")!
 
     this.ambitoForm=new FormGroup({
       nomeAnnuncio: new FormControl(null,Validators.required),
@@ -66,43 +66,43 @@ export class ChatComponent implements OnInit, AfterContentChecked{
 
     if (this.entita==="cliente") {
       this.backEndService.getAnnunciWithChat().subscribe(
-          response => {
-            console.log(response)
-            this.annunci = response
-          }, (error) => {
-            console.log()
-          });
+        response => {
+          console.log(response)
+          this.annunci = response
+        }, (error) => {
+          console.log()
+        });
     }
     if (this.entita==="lavoratore") {
       this.backEndService.getAnnunciWithToken().subscribe(
-          response => {
-            console.log(response)
-            this.annunci = response
-          }, (error) => {
-            console.log()
-          });
+        response => {
+          console.log(response)
+          this.annunci = response
+        }, (error) => {
+          console.log()
+        });
     }
 
 
 
   }
 
-    ngAfterContentChecked(): void {
+  ngAfterContentChecked(): void {
 
 
-        if(this.annunci && !this.annunciCaricati) {
+    if(this.annunci && !this.annunciCaricati) {
 
-            for (let annuncio of this.annunci) {
+      for (let annuncio of this.annunci) {
 
-                this.getLavoratoriByIdAnnuncio(annuncio.id)
-            }
+        this.getLavoratoriByIdAnnuncio(annuncio.id)
+      }
 
-            this.annunciCaricati=true
-        }
+      this.annunciCaricati=true
     }
+  }
 
 
-    visualizzaChatResponsive(){
+  visualizzaChatResponsive(){
 
 
     this.dashboard.nativeElement.classList.add('visualizzaChat')
@@ -118,25 +118,25 @@ export class ChatComponent implements OnInit, AfterContentChecked{
   setChatByUsernameAndId(destinatario : Lavoratore | Cliente, annuncio : Annuncio){
 
     if(localStorage.getItem("scelta")==="cliente") {
-        this.chat = {
-            annuncio: annuncio,
-            cliente: JSON.parse(localStorage.getItem("utente")!),
-            lavoratore: <Lavoratore>destinatario
-
-        }
-    }else{
-        this.chat = {
-            annuncio: annuncio,
-            cliente: destinatario,
-            lavoratore : JSON.parse(localStorage.getItem("utente")!)
-
-        }
-
-
+      this.chat = {
+        annuncio: annuncio,
+        cliente: JSON.parse(localStorage.getItem("utente")!),
+        lavoratore: <Lavoratore>destinatario
 
       }
-    this.getProposta()
+    }else{
+      this.chat = {
+        annuncio: annuncio,
+        cliente: destinatario,
+        lavoratore : JSON.parse(localStorage.getItem("utente")!)
+
+      }
+
+
+
     }
+    this.getProposta()
+  }
 
 
 
@@ -150,7 +150,7 @@ export class ChatComponent implements OnInit, AfterContentChecked{
 
   }
 
-    getChat(){
+  getChat(){
     this.primoCaricamento=true
     return this.chat
   }
@@ -162,8 +162,8 @@ export class ChatComponent implements OnInit, AfterContentChecked{
 
     this.chatService.getLavoratoriByIdAnnuncio(id).subscribe(data =>{
 
-        this.lavoratori[id]=data
-        console.log(this.lavoratori[id])
+      this.lavoratori[id]=data
+      console.log(this.lavoratori[id])
 
     })
 

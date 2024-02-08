@@ -1,12 +1,12 @@
-
-*{font-family: 'Montserrat', sans-serif  !important}
+*{
+  font-family: 'Montserrat', sans-serif;
+}
 
 
 .content{
     display: flex;
     flex-direction: column;
     justify-content: center;
-
 }
 
 
@@ -302,11 +302,6 @@ li{
         width: 100%;
     }
 
-}
-
-
-/**{
-  font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -606,4 +601,4 @@ li{
         width: 100%;
     }
 
-}*/
+}

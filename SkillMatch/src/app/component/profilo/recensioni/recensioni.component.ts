@@ -47,8 +47,10 @@ export class RecensioniComponent implements OnInit {
 
     this.annunciService.getAnnunciFinalizzati().subscribe(data =>{
 
+
       this.annunci=data;
       console.log(this.annunci)
+      console.log(this.entita)
 
     })
     this.entita=localStorage.getItem("scelta")
@@ -126,17 +128,19 @@ export class RecensioniComponent implements OnInit {
     }
   }
 
+
   mediaRecensioni(){
     let somma = 0;
-    for (let i = 0; i < this.recensioniLavoratore.length; i++){
+    for (let i = 0; i < this.recensioniLavoratore.length; i++) {
       somma += this.recensioniLavoratore[i].punteggio;
     }
-    return  (somma / this.recensioniLavoratore.length).toFixed(1);
+    return (somma / this.recensioniLavoratore.length).toFixed(1);
 
   }
+
   getRange(punteggio: number): number[] {
     if (punteggio < 0) {
-      console.log( "Primo if: " +Array(5).fill(0))
+      console.log("Primo if: " + Array(5).fill(0))
       return Array(5).fill(0)
     }
     console.log(Array(punteggio).fill(0))
@@ -147,6 +151,8 @@ export class RecensioniComponent implements OnInit {
 
     return this.starsClicked
   }
+
+
 
 
   setStarsClicked(voto : number, annuncioSel : Annuncio | undefined){
@@ -176,6 +182,8 @@ export class RecensioniComponent implements OnInit {
     // Puoi fare qualcosa con il valore ottenuto, ad esempio assegnarlo a una variabile o elaborarlo in qualche modo
   }
   getEntita(){
+
+
     return this.entita
   }
 

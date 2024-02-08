@@ -62,7 +62,7 @@ import { RecensioniComponent } from './component/profilo/recensioni/recensioni.c
     HomeComponent,
 
     EsploraComponent,
-       //EffettuaAnnuncioComponent,
+    //EffettuaAnnuncioComponent,
     ProfiloComponent,
     SceltaUtenteComponent,
     ConfermaEmailComponent,
@@ -76,21 +76,21 @@ import { RecensioniComponent } from './component/profilo/recensioni/recensioni.c
     RecuperoComponent,
 
 
-       ProfiloComponent,
-       SceltaUtenteComponent,
-       ConfermaEmailComponent,
-       EffettuaAnnuncioComponent,
-       ChatComponent,
-       FormAnnuncioComponent,
-       NavBarComponent,
-       ChatTextComponent,
-       RiepilogoDatiComponent,
-       RinserisciPasswordComponent,
-       SearchBarComponent,
-       FooterComponent,
-       RecuperoComponent,
-       PropostaComponent,
-       RecensioniComponent
+    ProfiloComponent,
+    SceltaUtenteComponent,
+    ConfermaEmailComponent,
+    EffettuaAnnuncioComponent,
+    ChatComponent,
+    FormAnnuncioComponent,
+    NavBarComponent,
+    ChatTextComponent,
+    RiepilogoDatiComponent,
+    RinserisciPasswordComponent,
+    SearchBarComponent,
+    FooterComponent,
+    RecuperoComponent,
+    PropostaComponent,
+    RecensioniComponent
 
   ],
   imports: [

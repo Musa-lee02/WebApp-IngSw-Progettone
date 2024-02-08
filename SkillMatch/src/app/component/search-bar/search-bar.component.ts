@@ -75,8 +75,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     // Se trovi l'indice, sposta l'elemento corrispondente all'inizio dell'array
     if (index !== -1) {
       let provinciaRimossa = this.province.splice(index, 1)[0]; // Rimuovi l'elemento e ottienilo
-      provinciaRimossa.consigliato = true;
-      //console.log("Prov rimossa: " + provinciaRimossa.nome)
+      provinciaRimossa.consigliata = true;
+      console.log("Prov rimossa: " + provinciaRimossa.nome)
       this.province.unshift(provinciaRimossa); // Aggiungi l'elemento all'inizio dell'array
     }
   }

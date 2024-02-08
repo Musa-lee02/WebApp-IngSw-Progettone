@@ -10,7 +10,6 @@
     <link href="css/footer.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-npm start
 
 <div class="navBar">
     <img src="css/Skill.png" class="logoImg" alt="">
@@ -30,10 +29,12 @@ npm start
 
 <div class="Pagamento">
     <h2>Seleziona un Metodo di Pagamento</h2>
-    <form action="/processaPagamento" method="post">
+    <form action="/payment/process" method="post">
+        <input type="hidden" name="customAmount" th:value="${session.customAmount}"/>
+        <input type="hidden" name="idDest" th:value="${session.idDest}"/>
         <div th:each="metodo : ${session.metodiPagamento}">
             <label>
-                <input type="radio" th:name="metodoPagamento" th:value="${metodo}" />
+                <input type="radio" th:name="paymentMethod" th:value="${metodo}" />
                 <span th:text="${metodo}"></span>
             </label>
             <br />

@@ -14,21 +14,34 @@ import java.util.List;
 
 
 @WebServlet("/Pagamento")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PagamentoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(true);
 
-        //String tokenGenerato = TokenManager.verificaToken(token);
-        //System.out.println(tokenGenerato);
+        String customAmount = req.getParameter("customAmount");
+        System.out.println("Ca: " + customAmount);
+        String idDest = req.getParameter("idDest");
+        String idMitt = req.getParameter("idMitt");
 
-        //Nello switch qui sotto andrebbe "tokenGenerato", però, se qualcuno volesse testare il risultato può hard-codare la stringa, per ora
-        List<String> metodiPagamento = List.of("PayPal", "Carta di credito", "Bonifico bancario");
+
+        String idAnn = req.getParameter("idAnnuncio");
+
+        System.out.println("idDest: " + idDest);
+        System.out.println("idMitt: " + idMitt);
+        HttpSession session = req.getSession();
+        session.setAttribute("customAmount", customAmount);
+        session.setAttribute("idDest", idDest);
+        session.setAttribute("idMitt", idMitt);
+
+        session.setAttribute("idAnnuncio", idAnn);
+        //System.out.println("idAnnuncio:" + idAnn +"|");
+
+        List<String> metodiPagamento = List.of("Carta di credito", "PayPal");
         session.setAttribute("metodiPagamento", metodiPagamento);
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("views/pagamento.html");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/views/pagamento.html");
         dispatcher.forward(req, resp);
-
     }
 
 }

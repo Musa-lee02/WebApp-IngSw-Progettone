@@ -149,7 +149,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
-            System.out.println(st);
+            //System.out.println(st);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -174,11 +174,12 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
     @Override
     public List<Annuncio> getAnnunciFinalizzati(String username) {
         List<Annuncio> annunci = new LinkedList<>();
-        String query = "SELECT * FROM annuncio, proposta WHERE username_cliente = ? AND annuncio.id_annuncio = proposta.id_annuncio AND proposta.stato = 'accettata'";
+        String query = "SELECT * FROM annuncio, proposta WHERE username_cliente = ? " +
+                "AND annuncio.id_annuncio = proposta.id_annuncio AND proposta.stato = 'accettata'";
         try {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
-            System.out.println(st);
+            //System.out.println(st);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -389,7 +390,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
             st.setString(2, username);
-            System.out.println(st);
+            //System.out.println(st);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -433,7 +434,7 @@ public class AnnuncioDaoPostgres implements AnnuncioDao {
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
             st.setString(2, username);
-            System.out.println(st);
+            //System.out.println(st);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {

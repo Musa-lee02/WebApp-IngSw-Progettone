@@ -216,4 +216,35 @@ public class PropostaDaoPostgres implements PropostaDao {
 
     }
 
+    @Override
+    public Proposta findByAnnuncioFinalizzato(Long idAnnuncio){
+        Proposta proposta = null;
+        String query = "SELECT * FROM proposta WHERE proposta.id_annuncio = ? AND proposta.stato = 'accettata'";
+        try{
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setLong(1, idAnnuncio);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                proposta = new Proposta();
+                proposta.setAnnuncioRelativo(DBManager.getInstance().getAnnuncioDao().findByPrimaryKey(rs.getLong("id_annuncio")));
+                proposta.setLavoratore(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(rs.getString("username_lavoratore")));
+                proposta.setDataLavoro(rs.getDate("data_lavoro"));
+                proposta.setStato(rs.getString("stato"));
+                proposta.setStatoLavoro(rs.getString("stato_lavoro"));
+                proposta.setDescrizione(rs.getString("descrizione"));
+                proposta.setStato(rs.getString("stato"));
+                proposta.setPrezzoLavoro(rs.getFloat("prezzo_lavoro"));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return proposta;
+    }
+
+
 }
+
+

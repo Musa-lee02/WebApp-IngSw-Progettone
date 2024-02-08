@@ -1,7 +1,7 @@
 <!-- input type="text" placeholder="Cerca annuncio..." style="height: 40px;">
     <fa-icon [icon]="icon"></fa-icon -->
 <div class="main">
-  <div class="prova2">
+  <div class="prova">
     <mat-form-field class="searchForm">
       <!-- mat-select matAutocompleteOrigin="search" -->
       <mat-label>Ambito</mat-label>
@@ -24,7 +24,7 @@
     </mat-form-field>
   </div>
 
-  <div class="prova2">
+  <div class="prova">
     <mat-form-field class="searchForm">
       <mat-label>Zona di lavoro</mat-label>
       <input type="text"
@@ -38,7 +38,7 @@
         <ng-container *ngFor="let pv of province">
           <mat-option [value]="pv.nome">
             <!-- Utilizza l'operatore ternario per cambiare il nome dell'opzione in base alla condizione -->
-            {{ pv.consigliato ? pv.nome + ' (Consigliata)' : pv.nome }}
+            {{ pv.consigliata ? pv.nome + ' (Consigliata)' : pv.nome }}
           </mat-option>
         </ng-container>
       </mat-autocomplete>
