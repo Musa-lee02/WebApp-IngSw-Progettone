@@ -1,114 +1,113 @@
-*{
-  font-family: 'Montserrat', sans-serif;
-}
+*{font-family: 'Montserrat', sans-serif  !important}
 
 
 .content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
 }
 
 
 .proposteBtn{
-    display: none;
+  display: none;
 }
 .header ul{
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 .header ul li{
 
-    padding-right: 25px;
-    padding-left: 25px;
+  padding-right: 25px;
+  padding-left: 25px;
 }
 .header li a{
-    text-decoration: none;
-    display: block;
-    color: white;
-    padding: 0px 0px !important;
-    cursor:pointer;
+  text-decoration: none;
+  display: block;
+  color: white;
+  padding: 0px 0px !important;
+  cursor:pointer;
 }
 
 .header{
-    border-bottom-left-radius: 200px;
-    border-bottom-right-radius: 200px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding-top: 10px;
-    margin-left: 0px;
-    width: 100%;
-    background-color: black;
+  border-bottom-left-radius: 200px;
+  border-bottom-right-radius: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 10px;
+  margin-left: 0px;
+  width: 100%;
+  background-color: black;
 }
 .dashboard{
 
-    height: fit-content;
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  height: fit-content;
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 
-    padding: 0 70px 0 70px;
-    margin: 0 20px 20px 20px;
-    align-items: flex-start;
-    justify-content: flex-start;
+  padding: 0 70px 0 70px;
+  margin: 0 20px 20px 20px;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 .leftPart, .rightPart{
-    padding: 0 20px 20px 0;
-    height: 100%;
+  padding: 0 20px 20px 0;
+  height: 100%;
 }
 
 .leftPart, .rightPart>*{
 
-    padding-top: 20px;
+  padding-top: 20px;
 }
 .leftPart{
 
 
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    width: 30%;
-    padding-left: 20px;
-    height:550px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  width: 30%;
+  padding-left: 20px;
+  height:550px;
 
 }
 .leftPart input{
 
-    display: none;
+  display: none;
 }
 .leftPart label{
-    float: right;
+  float: right;
 }
 .picProfile{
 
-    width: 100%;
-    height: 200px;
+  width: 100%;
+  height: 200px;
 }
 .picProfile img{
 
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 .data{
-    height: auto;
-    width: 100%;
-    padding-bottom: 40px;
-    padding-top: 50px;
+  height: auto;
+  width: 100%;
+  padding-bottom: 40px;
+  padding-top: 50px;
 
 }
 
 
 
 li{
-    padding-bottom: 5px;
+  padding-bottom: 5px;
 }
 
 .rightPart{
 
-    display: flex;
-    width: 70%;
-    border-right: 1px solid black;
+  display: flex;
+  width: 70%;
+  border-right: 1px solid black;
 
 
 }
@@ -118,68 +117,68 @@ li{
 }
 .dashboard div .divImgChat{
 
-    border: none;
-    padding-right: 20px;
-    display: inline-block;
-    width: 30%;
-    max-height: inherit;
+  border: none;
+  padding-right: 20px;
+  display: inline-block;
+  width: 30%;
+  max-height: inherit;
 }
 .notifiche{
 
 
-    padding: 0 20px 20px 0;
-    align-self: flex-end;
-    width: 100%;
-    height: 100%;
+  padding: 0 20px 20px 0;
+  align-self: flex-end;
+  width: 100%;
+  height: 100%;
 }
 .inbox{
 
-    padding: 20px;
-    width: 100%;
-    height: 500px;
-    border-top-right-radius: 100px;
-    border-bottom-right-radius: 100px;
-    border-left: none;
-    border-top: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
+  padding: 20px;
+  width: 100%;
+  height: 500px;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  border-left: none;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
 }
 .cronoChat{
 
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    height: 100%;
-    padding: 0 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 100%;
+  padding: 0 20px 20px 20px;
 
-    overflow-y: auto;
-    font-family: 'Montserrat', sans-serif;
+  overflow-y: auto;
+  font-family: 'Montserrat', sans-serif;
 
 }
 
 .singleChat{
-    display: flex;
-    align-items: flex-start;
-    width: 100%;
-    max-height:100px;
-    height: 100px;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  max-height:100px;
+  height: 100px;
 }
 
 .divTextChat{
-    display: inline-block;
-    width: 70%;
+  display: inline-block;
+  width: 70%;
 }
 .buttonRow{
 
-    padding: 20px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-self: flex-end;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
 }
 .buttonColumn{
 
-    align-self: flex-end;
+  align-self: flex-end;
 }
 .mat-mdc-button:not(:disabled) {
   color: var(--mdc-text-button-label-text-color);
@@ -206,54 +205,54 @@ li{
 .imgCard{
 
 
-    width: 30%;
-    height: 100%;
-    overflow: hidden;
+  width: 30%;
+  height: 100%;
+  overflow: hidden;
 }
 .imgCard img{
 
-    object-fit: cover;
-    border-radius: 20px;
-    width: 90%;
-    height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  width: 90%;
+  height: 100%;
 }
 
 .titoloCard{
 
 
-    text-align: left;
-    width: 100%;
-    height: 50%;
-    border-radius: 10px;
-    padding-left: 10px;
-    background-color: rgb(237, 233, 252);
+  text-align: left;
+  width: 100%;
+  height: 50%;
+  border-radius: 10px;
+  padding-left: 10px;
+  background-color: rgb(237, 233, 252);
 
 }
 
 .titoloDesc{
 
-    width: 70%;
-    display: flex;
-    flex-direction: column;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
 }
 .descrizioneCard{
 
-    overflow: hidden;
-    font-size: auto;
-    width: 100%;
-    height: 50%;
+  overflow: hidden;
+  font-size: auto;
+  width: 100%;
+  height: 50%;
 
 }
 .cardAnnuncio{
 
-    width: 100%;
-    color: black;
-    background-color: rgb(213, 208, 233);
-    display: flex;
-    height: 100px;
-    margin-bottom: 3px;
-    border-radius: 5px;
-    border: 1px solid black;
+  width: 100%;
+  color: black;
+  background-color: rgb(213, 208, 233);
+  display: flex;
+  height: 100px;
+  margin-bottom: 3px;
+  border-radius: 5px;
+  border: 1px solid black;
 
 }
 
@@ -261,47 +260,52 @@ li{
 
 @media only screen and (max-width: 1024px){
 
-    .dashboard{
-        flex-direction: column;
-        align-items: center;
-        margin: 0;
-        padding: 0;
-        height: auto;
-    }
-    .leftPart
-    {
-        display: flex;
-        justify-content: center;
-    }
-    .dashboard .rightPart{
-        margin-right: 0px;
-    }
-    .dashboard .leftPart, .dashboard .rightPart{
+  .dashboard{
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    height: auto;
+  }
+  .leftPart
+  {
+    display: flex;
+    justify-content: center;
+  }
+  .dashboard .rightPart{
+    margin-right: 0px;
+  }
+  .dashboard .leftPart, .dashboard .rightPart{
 
-        width: 100%;
-    }
-    .picProfile{
-        width: 50%;
-    }
-    .notifiche{
-      align-self: flex-start;
-      height: 400px;
-    }
+    width: 100%;
+  }
+  .picProfile{
+    width: 50%;
+  }
+  .notifiche{
+    align-self: flex-start;
+    height: 400px;
+  }
 
 }
 
 @media only screen and (max-width: 800px){
 
-    .rightPart{
+  .rightPart{
 
-        display: flex;
-        flex-direction: column;
-    }
-    .pannelloTotale{
+    display: flex;
+    flex-direction: column;
+  }
+  .pannelloTotale{
 
-        width: 100%;
-    }
+    width: 100%;
+  }
 
+}
+
+
+/**{
+  font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -601,4 +605,4 @@ li{
         width: 100%;
     }
 
-}
+}*/
