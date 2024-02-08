@@ -41,8 +41,6 @@ public class PropostaDaoPostgres implements PropostaDao {
                 proposta.setStatoLavoro(rs.getString("stato_lavoro"));
                 proposta.setPrezzoLavoro(rs.getFloat("prezzo_lavoro"));
                 proposte.add(proposta);
-
-
             }
 
         } catch (SQLException e) {

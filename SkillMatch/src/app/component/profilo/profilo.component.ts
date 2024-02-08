@@ -62,6 +62,16 @@ export class ProfiloComponent implements OnInit {
     this.annunciService.getAnnunciFinalizzati().subscribe(
       response => {
         this.annunci = response
+        for (const annuncio of this.annunci){
+          this.backEndService.getPropostaByAnnuncio(annuncio.id).subscribe(
+            response => {
+              annuncio.proposta = response
+
+
+            }
+          )
+        }
+
       }, (error) => {
         console.log("errore.")
       });
@@ -89,6 +99,12 @@ export class ProfiloComponent implements OnInit {
       }
 
     }
+  }
+  sortAnnunciFinalizzati(proposte : Proposta[]){
+    for(const proposta of proposte){
+
+    }
+
   }
 
   getPicProfile(){
