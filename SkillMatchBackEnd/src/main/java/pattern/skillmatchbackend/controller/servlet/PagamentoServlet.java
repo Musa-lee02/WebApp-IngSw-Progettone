@@ -20,22 +20,19 @@ public class PagamentoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String customAmount = req.getParameter("customAmount");
-        System.out.println("Ca: " + customAmount);
+
         String idDest = req.getParameter("idDest");
         String idMitt = req.getParameter("idMitt");
-
+        idMitt = idMitt.replace(" ", "");
 
         String idAnn = req.getParameter("idAnnuncio");
 
-        System.out.println("idDest: " + idDest);
-        System.out.println("idMitt: " + idMitt);
         HttpSession session = req.getSession();
         session.setAttribute("customAmount", customAmount);
         session.setAttribute("idDest", idDest);
         session.setAttribute("idMitt", idMitt);
 
         session.setAttribute("idAnnuncio", idAnn);
-        //System.out.println("idAnnuncio:" + idAnn +"|");
 
         List<String> metodiPagamento = List.of("Carta di credito", "PayPal");
         session.setAttribute("metodiPagamento", metodiPagamento);

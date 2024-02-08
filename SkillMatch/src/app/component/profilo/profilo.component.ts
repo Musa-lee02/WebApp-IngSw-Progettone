@@ -67,7 +67,7 @@ export class ProfiloComponent implements OnInit {
       });
     /*this.annunci = this.service.getAnnunci();*/
     this.utente = this.getUtente();
-    console.log(this.annunci)
+    console.log("ut:" + this.utente.username +"|")
 
     this.entita=localStorage.getItem("scelta")
 
@@ -75,6 +75,7 @@ export class ProfiloComponent implements OnInit {
     this.getUtente()
     console.log("img:" + this.utente.imgProfilo);
     console.log("data di nascita: " + this.utente.dataNascita);
+
   }
 
 
