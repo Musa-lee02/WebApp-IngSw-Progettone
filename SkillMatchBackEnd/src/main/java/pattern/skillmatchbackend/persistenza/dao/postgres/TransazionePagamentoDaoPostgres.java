@@ -81,10 +81,13 @@ public class TransazionePagamentoDaoPostgres implements TransazionePagamentoDao 
         String query = "INSERT INTO transazione_pagamento VALUES (?, ?, ?, ?, ?, ?)";
 
 
-        if (findByPrimaryKey(transazione.getId()) != null)
+        try {
+            TransazionePagamento transazioneEsistente = findByPrimaryKey(transazione.getId());
+            if (transazioneEsistente != null)
             query = "UPDATE transazione_pagamento SET id_transazione = ? , importo = ?, data = ?, metodo_pagamento = ?, username_cliente = ?, username_lavoratore = ? WHERE id_transazione = ?";
-        else
+        } catch (NullPointerException e) {
             transazione.setId(IdBroker.getId(conn));
+        }
 
         try {
 

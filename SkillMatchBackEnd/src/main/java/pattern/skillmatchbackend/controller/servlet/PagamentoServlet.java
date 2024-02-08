@@ -29,6 +29,9 @@ public class PagamentoServlet extends HttpServlet {
         session.setAttribute("idDest", idDest);
         session.setAttribute("idMitt", idMitt);
 
+        List<String> metodiPagamento = List.of("Carta di credito", "PayPal");
+        session.setAttribute("metodiPagamento", metodiPagamento);
+
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/views/pagamento.html");
         dispatcher.forward(req, resp);

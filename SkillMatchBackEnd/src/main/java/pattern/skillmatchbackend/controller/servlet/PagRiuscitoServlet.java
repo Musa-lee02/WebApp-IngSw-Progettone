@@ -7,22 +7,38 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import pattern.skillmatchbackend.model.TokenManager;
+import pattern.skillmatchbackend.model.TransazionePagamento;
+import pattern.skillmatchbackend.persistenza.DBManager;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 
 @WebServlet("/PagamentoRiuscito")
 public class PagRiuscitoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        double importo = (double) req.getSession().getAttribute("customAmount");
-        Date data = new Date(System.currentTimeMillis());
-        String metodoDiPagamento = req.getSession().getAttribute("metodoDiPagamento").toString();
+
+        float importo = Float.parseFloat(req.getSession().getAttribute("customAmount").toString());
+        Timestamp data = new Timestamp(System.currentTimeMillis());
+        String metodoDiPagamento = req.getSession().getAttribute("MetodiPagamento").toString();
         String cliente = req.getSession().getAttribute("idMitt").toString();
         String lavoratore = req.getSession().getAttribute("idDest").toString();
+        TransazionePagamento transazione = new TransazionePagamento();
+        transazione.setDataTransazione(data);
+        transazione.setImporto(importo);
+        transazione.setMetodoPagamento(metodoDiPagamento);
+        transazione.setMittente(DBManager.getInstance().getClienteDao().findByPrimaryKey(cliente));
+        transazione.setDestinatario(DBManager.getInstance().getLavoratoreDao().findByPrimaryKey(lavoratore));
+
+
+
+
+        DBManager.getInstance().getTransazionePagamentoDao().saveOrUpdate(transazione);
 
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("views/pagamentoRiuscito.html");
