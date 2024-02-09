@@ -26,7 +26,8 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
   ambito: string;
   starImg: string = "../../assets/star.jpg";
   isHome:boolean=false;
-  annunciConsigliati: Annuncio[] = [];
+  //annunciConsigliati: Annuncio[] = [];
+  isLav : boolean = this.isLavoratore();
   constructor(private route : ActivatedRoute,
               private servizioAnnunci: ServizioAnnunciService,
               private annuncioService: AnnuncioService,
@@ -34,6 +35,13 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
               private router: Router
   ){}
 
+  isLavoratore(){
+    const utenteLogged = localStorage.getItem("utente");
+    const utenteL: Lavoratore | Cliente = JSON.parse(utenteLogged!);
+    return 'ambiti' in utenteL;
+  }
+
+  /*
   sortAnnunciConsigliati(){
     const utenteLogged = localStorage.getItem("utente");
     const utenteL: Lavoratore | Cliente = JSON.parse(utenteLogged!);
@@ -72,7 +80,7 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
         }
       }
     }
-  }
+  }*/
 
   ambitiDisponibili(ambiti : Ambito[], annunci : Annuncio[]){
     let ambitiDisponibili : Ambito[] = [];
@@ -100,7 +108,7 @@ export class CardsVetrinaComponent implements OnInit, AfterViewChecked, AfterCon
       this.isHome=true
       //this.sortAnnunciConsigliati()
     }
-    console.log("OnInit: " + this.annunci)
+    console.log(this.isLav)
   }
   getProvincia(provincia : Province | string){
 

@@ -187,6 +187,19 @@ li{
   margin-right: 7px;
   border-radius: 60px;
 }
+
+.mat-mdc-button:disabled{
+  /* Stili personalizzati per il bottone quando è disabilitato */
+  opacity: 0.6; /* Esempio: riduzione dell'opacità quando disabilitato */
+  cursor: not-allowed; /* Esempio: cambia il cursore quando disabilitato */
+  color: var(--mdc-text-button-label-text-color);
+  background-color: rgb(146, 111, 228);
+  margin-top: 2px;
+  margin-left: 7px;
+  margin-right: 7px;
+  border-radius: 30px;
+}
+
 .rightPart button{
 
   color: var(--mdc-text-button-label-text-color);

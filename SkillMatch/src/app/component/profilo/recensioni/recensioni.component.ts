@@ -116,11 +116,12 @@ export class RecensioniComponent implements OnInit {
 
   resetStarsRecensioni(ann : Annuncio | undefined){
     for (let i = 0; i < this.annunci.length; i++) {
-      this.annunci[i].starClicked = false;
+      if (ann == this.annunci[i]) {
+        ann.starClicked = !ann.starClicked;
+      }
+      else this.annunci[i].starClicked = false;
     }
-    if (ann) {
-      ann.starClicked = !ann.starClicked;
-    }
+
   }
 
   setPropostaAccettata(id :string){
