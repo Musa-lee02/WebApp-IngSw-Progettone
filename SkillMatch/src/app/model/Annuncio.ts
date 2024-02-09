@@ -15,5 +15,6 @@ export interface Annuncio{
     ambito: Ambito;
     proposta: Proposta;
     consigliato: boolean
+    starClicked: boolean
 
 }

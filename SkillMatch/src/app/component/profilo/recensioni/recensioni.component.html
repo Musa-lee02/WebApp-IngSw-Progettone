@@ -6,7 +6,7 @@
 
       <div class="rating">
         <img [src]="starImg" class="starImg">
-        <label for="recensioniBtn"style="float: right;"><fa-icon [icon]="ArrowDown" size="2x" style="margin-right: 30px;"></fa-icon></label>
+        <label for="recensioniBtn" style="float: right;"><fa-icon [icon]="ArrowDown" size="2x" style="margin-right: 30px;"></fa-icon></label>
       </div>
     </div>
     <div class="pannelloRecensioni">
@@ -16,7 +16,7 @@
           <div class="divImg"><img src="{{annuncio.image}}"></div>
           <div class="recensioniArea">
             <div class="divNome"><h1>Autore: {{annuncio.cliente.username}}</h1></div>
-            <div class="divRelativo"><h2>Relativo all'annuncio:{{annuncio.titolo}}</h2></div>
+            <div class="divRelativo"><h2>Relativo all'annuncio: {{annuncio.titolo}}</h2></div>
             <div class="divRecensione"><textarea (input)="insertDescrizione($event)"></textarea></div>
             <div class="divButton">
               <div class="divStelle">
@@ -26,39 +26,14 @@
                   <label for="votoBtn{{voto}}" class="starLabel" (click)="setStarsClicked(voto, annuncio)">
                     <img [src]="starImg" class="starImg">
                   </label>
-
-
                 </ng-container>
               </div>
 
-              <h2>Lascia una recensione</h2><button mat-button [disabled]="!isStarsClicked()"  (click)="inviaRecensione()">Invia</button></div>
+              <h2>Lascia una recensione</h2><button mat-button [disabled]="!annuncio.starClicked"  (click)="inviaRecensione()">Invia</button></div>
           </div>
         </div>
       </ng-container>
-      <ng-container *ngFor="let annuncio of annunci">
-        <div class="containerRecensioni">
-          <div class="divImg"><img src="{{annuncio.image}}"></div>
-          <div class="recensioniArea">
-            <div class="divNome"><h1>Autore: {{annuncio.cliente.username}}</h1></div>
-            <div class="divRelativo"><h2>Relativo all'annuncio:{{annuncio.titolo}}</h2></div>
-            <div class="divRecensione"><textarea (input)="insertDescrizione($event)"></textarea></div>
-            <div class="divButton">
-              <div class="divStelle">
-                <ng-container *ngFor="let voto of [5,4,3,2,1]">
 
-                  <input class="votoBtn" id="votoBtn{{voto}}" type="checkbox">
-                  <label for="votoBtn{{voto}}" class="starLabel" (click)="setStarsClicked(voto, annuncio)">
-                    <img [src]="starImg" class="starImg">
-                  </label>
-
-
-                </ng-container>
-              </div>
-
-              <h2>Lascia una recensione</h2><button mat-button [disabled]="!isStarsClicked()"  (click)="inviaRecensione()">Invia</button></div>
-          </div>
-        </div>
-      </ng-container>
     </div>
   </div>
   <div class="pannelloRecensioniConcluse" *ngIf="this.entita==='lavoratore'">

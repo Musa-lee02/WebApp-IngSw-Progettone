@@ -147,19 +147,23 @@ export class RecensioniComponent implements OnInit {
     return Array(punteggio).fill(0)
   }
 
+  /*
   isStarsClicked(){
 
     return this.starsClicked
   }
-
-
-
+*/
 
   setStarsClicked(voto : number, annuncioSel : Annuncio | undefined){
 
-
     console.log(voto);
-    this.starsClicked = !this.starsClicked;
+    if (annuncioSel && annuncioSel.starClicked === undefined) {
+      annuncioSel.starClicked = true;
+      // Resto del tuo codice...
+    }
+    else if(annuncioSel && annuncioSel.starClicked !== undefined) {
+      annuncioSel.starClicked = !annuncioSel.starClicked;
+    }
     this.recensioneT.punteggio = this.starsClicked ? voto : 0;
     this.recensioneT.cliente = annuncioSel?.cliente;
     this.annunciService.getLavoratoreAnnuncio(annuncioSel?.id!).subscribe(data => {
@@ -176,7 +180,7 @@ export class RecensioniComponent implements OnInit {
 
     const target = descrizione.target as HTMLTextAreaElement;
     const valoreTextArea = target.value;
-    this.recensioneT.titolo = valoreTextArea[0]; // titolo provvisorio
+    this.recensioneT.titolo = valoreTextArea.substring(0,10 % (valoreTextArea.length-1)); // titolo provvisorio
     this.recensioneT.descrizione = valoreTextArea;
     console.log("Descrizione rec: " + valoreTextArea); // Stampa il valore della textarea
     // Puoi fare qualcosa con il valore ottenuto, ad esempio assegnarlo a una variabile o elaborarlo in qualche modo
@@ -189,10 +193,7 @@ export class RecensioniComponent implements OnInit {
 
 
   inviaRecensione() {
-
-    if (this.starsClicked){
       console.log("entra")
-
       const  recensione: Recensione = {
         idRecensione: this.recensioneT.idRecensione,
         titolo: this.recensioneT.titolo,
@@ -201,13 +202,11 @@ export class RecensioniComponent implements OnInit {
         lavoratore: this.recensioneT.lavoratore!,
         cliente: this.recensioneT.cliente!
       }
-
       /*
 
       let usrLogged = localStorage.getItem("utente");
       const cliente =  JSON.parse(usrLogged!);
       recensione.cliente.username = cliente.username*/
-
 
       console.log("recensione è: " + recensione.descrizione)
       console.log("usr lavoratore: " + recensione.lavoratore.username)
@@ -221,39 +220,8 @@ export class RecensioniComponent implements OnInit {
           console.log("error è: " + error)
 
         });
-    }
+
 
   }
-  /*
-  inserisciAnnuncio(): void{
 
-    if(this.nuovoAnnuncioForm.valid){
-      const ambito: Ambito = {
-        id: this.nuovoAnnuncioForm.value.ambito.id,
-        nome: this.nuovoAnnuncioForm.value.ambito.nome
-      };
-      const annuncio: Annuncio = this.nuovoAnnuncioForm.value
-
-
-      annuncio.provinciaAnnuncio = (annuncio.provinciaAnnuncio as unknown as Province).nome;
-
-      annuncio.ambito = ambito
-
-      console.log("annuncio.provinciaAnnuncio"+annuncio.provinciaAnnuncio)
-
-
-      this.backEndService.insertAnnuncio(annuncio, this.image).subscribe(
-        (response) => {
-          console.log("response è: " + response)
-
-        },
-        (error) => {
-          console.log("error è: " + error)
-
-        });
-
-
-
-
-    }*/
 }
