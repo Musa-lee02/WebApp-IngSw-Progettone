@@ -67,43 +67,60 @@ export class RecensioniComponent implements OnInit {
       })
 
     }
-
-
-    this.recensioneT = {
-      idRecensione: -1,
-      titolo: "",
-      descrizione: "",
-      punteggio: 0,
-      lavoratore: {
-        provinciaLavoro: "",
-        ambiti: [],
-        notificaEmail: false,
+    else {
+      this.recensioneT = {
+        idRecensione: -1,
+        titolo: "",
+        descrizione: "",
         punteggio: 0,
-        username: '',
-        email: '',
-        password: '',
-        nome: '',
-        cognome: '',
-        dataNascita: new Date(),
-        provincia: '',
-        imgProfilo: undefined,
-        registrato: false,
-        dataRegistrazione: new Date()
-      },
-      cliente: {
-        username: "",
-        password: "",
-        email: "",
-        nome: "",
-        cognome: "",
-        provincia: "",
-        dataNascita: new Date(),
-        imgProfilo: undefined,
-        registrato: false,
-        dataRegistrazione: new Date()
+        lavoratore: {
+          provinciaLavoro: "",
+          ambiti: [],
+          notificaEmail: false,
+          punteggio: 0,
+          username: '',
+          email: '',
+          password: '',
+          nome: '',
+          cognome: '',
+          dataNascita: new Date(),
+          provincia: '',
+          imgProfilo: undefined,
+          registrato: false,
+          dataRegistrazione: new Date()
+        },
+        cliente: {
+          username: "",
+          password: "",
+          email: "",
+          nome: "",
+          cognome: "",
+          provincia: "",
+          dataNascita: new Date(),
+          imgProfilo: undefined,
+          registrato: false,
+          dataRegistrazione: new Date()
+        }
       }
+      this.initStarsRecensioni()
     }
 
+
+
+  }
+  initStarsRecensioni(){
+    for (let i = 0; i < this.annunci.length; i++) {
+      this.annunci[i].starClicked = false;
+    }
+  }
+
+  resetStarsRecensioni(ann : Annuncio | undefined){
+    for (let i = 0; i < this.annunci.length; i++) {
+      this.annunci[i].starClicked = false;
+    }
+    if (ann) {
+      ann.starClicked = !ann.starClicked;
+    }
   }
 
   setPropostaAccettata(id :string){
@@ -157,15 +174,10 @@ export class RecensioniComponent implements OnInit {
   setStarsClicked(voto : number, annuncioSel : Annuncio | undefined){
 
     console.log(voto);
-    if (annuncioSel && annuncioSel.starClicked === undefined) {
-      annuncioSel.starClicked = true;
-      // Resto del tuo codice...
-    }
-    else if(annuncioSel && annuncioSel.starClicked !== undefined) {
-      annuncioSel.starClicked = !annuncioSel.starClicked;
-    }
-    this.recensioneT.punteggio = this.starsClicked ? voto : 0;
+    this.resetStarsRecensioni(annuncioSel);
+    this.recensioneT.punteggio = annuncioSel?.starClicked ? voto : 0;
     this.recensioneT.cliente = annuncioSel?.cliente;
+
     this.annunciService.getLavoratoreAnnuncio(annuncioSel?.id!).subscribe(data => {
       this.recensioneT.lavoratore = data;
     })
@@ -176,11 +188,11 @@ export class RecensioniComponent implements OnInit {
     console.log("recensioneT.lavora: " + annuncioSel?.proposta.descrizione)
   }
 
-  insertDescrizione(descrizione: Event): void {
-
+  insertDescrizione(descrizione: Event, annuncioSel: Annuncio): void {
     const target = descrizione.target as HTMLTextAreaElement;
     const valoreTextArea = target.value;
-    this.recensioneT.titolo = valoreTextArea.substring(0,10 % (valoreTextArea.length-1)); // titolo provvisorio
+    console.log("Titolo: " + annuncioSel?.titolo);
+    this.recensioneT.titolo = annuncioSel?.titolo;
     this.recensioneT.descrizione = valoreTextArea;
     console.log("Descrizione rec: " + valoreTextArea); // Stampa il valore della textarea
     // Puoi fare qualcosa con il valore ottenuto, ad esempio assegnarlo a una variabile o elaborarlo in qualche modo
@@ -202,11 +214,7 @@ export class RecensioniComponent implements OnInit {
         lavoratore: this.recensioneT.lavoratore!,
         cliente: this.recensioneT.cliente!
       }
-      /*
-
-      let usrLogged = localStorage.getItem("utente");
-      const cliente =  JSON.parse(usrLogged!);
-      recensione.cliente.username = cliente.username*/
+      console.log("recensione è: " + recensione.titolo)
 
       console.log("recensione è: " + recensione.descrizione)
       console.log("usr lavoratore: " + recensione.lavoratore.username)

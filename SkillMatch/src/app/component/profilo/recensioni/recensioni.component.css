@@ -1,4 +1,4 @@
-*{font-family: 'Montserrat', sans-serif  !important}
+*{font-family: 'Montserrat', sans-serif}
 
 .content{
 
@@ -175,7 +175,6 @@ h1{
 }
 
 .divButton .votoBtn:checked ~ .starLabel .starImg{
-
   filter: brightness(100%);
 }
 

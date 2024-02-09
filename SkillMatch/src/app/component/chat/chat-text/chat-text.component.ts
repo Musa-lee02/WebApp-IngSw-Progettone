@@ -141,7 +141,7 @@ export class ChatTextComponent implements OnInit, OnChanges, OnDestroy, AfterCon
       lavoratore: this.chat.lavoratore,
       prezzoLavoro: propostaParametri.prezzo,
       stato: "inCorso",
-      statoLavoro: undefined,
+      statoLavoro: 'nonPagato',
 
     }
     console.log(proposta)

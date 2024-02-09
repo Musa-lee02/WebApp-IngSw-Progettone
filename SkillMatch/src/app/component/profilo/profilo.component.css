@@ -1,4 +1,4 @@
-*{font-family: 'Montserrat', sans-serif  !important}
+*{font-family: 'Montserrat', sans-serif}
 
 
 .content{
@@ -7,7 +7,6 @@
   justify-content: center;
 
 }
-
 
 .proposteBtn{
   display: none;
@@ -70,8 +69,6 @@
   width: 30%;
   padding-left: 20px;
   height:560px;
-
-
 }
 .leftPart input{
 
