@@ -1,5 +1,13 @@
 
+<div class = "vetrina">
+<h1 *ngIf="service.getAnnunciEsplora().length > 0, else elseB">Ecco i migliori risultati</h1>
+<ng-template #elseB>
+  <h1>La tua ricerca non ha prodotto risultati :( ...<br> Prova con altri criteri di ricerca</h1>
+</ng-template>
 
-<app-cards-vetrina [annunci]="service.getAnnunciEsplora()"></app-cards-vetrina>
+<div class ="vetrinaAnnunci">
 
+  <app-cards-vetrina [annunci]="service.getAnnunciEsplora()"></app-cards-vetrina>
 
+</div>
+</div>
