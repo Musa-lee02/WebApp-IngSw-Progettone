@@ -10,8 +10,15 @@ body {
     background-image: url('../assets/sfondo.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: white; 
+    background-color: white;
     height: 80%;
 }
- 
+
+@media only screen and (max-width: 800px) {
+    body{
+      height: 120%;
+    }
+
+}
+
 

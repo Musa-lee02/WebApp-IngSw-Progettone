@@ -73,6 +73,7 @@
     justify-content: center;
     flex-direction: column;
     gap: 16px;
+    height:fit-content;
   }
 
   .searchForm {
@@ -106,15 +107,5 @@
     }
 
     /*bottone ricerca */
-    .mdc-fab--extended {
-        padding-left: 20px;
-        padding-right: 20px;
-        margin-left: -7%;
-        margin-bottom: 16.8%;
-        height: 40px;
 
-        width: 80%;
-        max-width: 100%;
-        line-height: normal;
-    }
 }

@@ -207,7 +207,7 @@ li li a{
 }
 
 
-@media only screen and (max-width: 1300px){
+@media only screen and (max-width: 1480px){
 
   .navBar>ul{
 
@@ -229,7 +229,7 @@ li li a{
   .navBar ul  ul{
 
     width: 100%;
-    top: 80px;
+    top: 0;
     left: -100%;
     position: absolute;
     z-index: 10;

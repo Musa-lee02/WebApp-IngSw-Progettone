@@ -24,6 +24,10 @@
   float: left;
   margin-left: 20px;
   display: inline;
+
+}
+h1{
+  font-size: 20px;
 }
 .pannelloRecensioni{
   width: 100%;
@@ -196,11 +200,12 @@
 
   .pannelloTotale{
 
-    width: 100%;
+    margin-left: 5%;
+    width: 90%;
   }
   .content h1{
 
-    font-size: 20px;
+    font-size: 18px;
   }
 
 
@@ -211,7 +216,7 @@
 
   .pannelloTotale{
 
-    width: 100%;
+    width: 90%;
   }
   .content h1{
 
